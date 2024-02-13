@@ -4,7 +4,11 @@ a:hover {
     font-weight: normal;
 }
 
-h1 {
+@font-face {
     font-family: "Yellow Magician"
     src: url("/assets/fonts/YellowMagician.ttf") format('truetype');
+}
+
+h1 {
+    font-family: "Yellow Magician";
 }
