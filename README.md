@@ -2,6 +2,8 @@ I'm a focused Data Scientist and Machine Learning Engineer specializing in produ
 
 Interested in chatting? [My email can be found here](https://github.com/thedataleek/) or schedule some time!
 
+<img src="assets/img/zoefarmer_resume.png" style="height: 500px; width: auto;" />
+
 <!-- Google Calendar Appointment Scheduling begin -->
 <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
 <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
@@ -20,4 +22,5 @@ Interested in chatting? [My email can be found here](https://github.com/thedatal
 </script>
 <!-- end Google Calendar Appointment Scheduling -->
 
-<img src="assets/img/zoefarmer_resume.png" style="height: 500px; width: auto;" />
+[*Old blog posts can be found here*](/articles)
+
