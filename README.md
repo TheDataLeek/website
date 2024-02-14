@@ -22,5 +22,5 @@ Interested in chatting? [My email can be found here](https://github.com/thedatal
 </script>
 <!-- end Google Calendar Appointment Scheduling -->
 
-[*Old blog posts can be found here*](/articles)
+[*Old blog posts can be found here*](/website/articles)
 
