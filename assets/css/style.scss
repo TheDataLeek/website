@@ -15,6 +15,18 @@ h1 {
     color: black;
 }
 
+.resume {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: space-between;
+    justify-content: center;
+}
+
+.resume img {
+    flex: 1;
+    margin: 20px;
+}
+
 html {
   --s: 37px; /* control the size */
 
