@@ -28,17 +28,18 @@ h1 {
     justify-content: flex-start;
     align-items: flex-start;
 
-    header {
-        flex: 1;
-        margin-left: 10%;
-        min-width: 270px;
-    }
+}
 
-    section {
-        flex: 3;
-        max-width: 60%
-        min-width: 500px;
-    }
+.wrapper header {
+    flex: 1;
+    margin-left: 10%;
+    min-width: 270px;
+}
+
+.wrapper section {
+    flex: 3;
+    max-width: 60%;
+    min-width: 500px;
 }
 
 
