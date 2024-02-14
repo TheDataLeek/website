@@ -21,6 +21,27 @@ h1 {
     height: auto;
 }
 
+.wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    header {
+        flex: 1;
+        margin-left: 10%;
+        min-width: 270px;
+    }
+
+    section {
+        flex: 3;
+        max-width: 60%
+        min-width: 500px;
+    }
+}
+
+
 button {
     background-color: #4d4d4d;
 }
