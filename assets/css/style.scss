@@ -15,20 +15,14 @@ h1 {
     color: black;
 }
 
-.resume {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: space-between;
-    justify-content: center;
-}
-
-.resume img {
-    flex: 1;
-    margin: 20px;
+#resume {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
 }
 
 html {
-  --s: 37px; /* control the size */
+  --s: 15px; /* control the size */
 
   --c:#0000,#efefef .5deg 119.5deg,#0000 120deg;
   --g1:conic-gradient(from  60deg at 56.25% calc(425%/6),var(--c));
