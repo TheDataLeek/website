@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>  CSCI4446 - Chaotic Dynamics Homeworks - Problem Set 10
+ | The Data Leek</title>
+
+    <meta name="author" content="Zoë Farmer"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="./theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="./theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="./theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Feeds -->
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+          <a href="." class="avatar-container pull-left">
+            <div class="avatar  animate ">
+              <div class="side"><img src="./files/zoefarmer.jpg" class="img-responsive"/></div>
+                <div class="side back"><p class="text-center">Zoë Farmer</p></div>
+            </div>
+          </a>
+        <h1><a href=".">The Data Leek</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="." title="">The Data Leek</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="./pages/latex-notes.html">LaTeX Notes</a>
+                </li>
+<li >
+                  <a href="./pages/wallpapers.html">Wallpapers</a>
+                </li>
+<li >
+                  <a href="./category/data-science.html">Data Science</a>
+                </li>
+<li >
+                  <a href="./category/homework.html">Homework</a>
+                </li>
+<li >
+                  <a href="./category/machine-learning.html">Machine Learning</a>
+                </li>
+<li  class="active" >
+                  <a href="./category/notes.html">Notes <span class="sr-only">(current)</span></a>
+                </li>
+<li >
+                  <a href="./category/python.html">Python</a>
+                </li>
+          </ul>
+
+
+            <form class="navbar-form navbar-right" role="search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" name="q" id="tipue_search_input" class="form-control search-query" placeholder="Search" required />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="fa
+                        fa-search fa-fw"></i></button>
+                  </span>
+                </div>
+              </div>
+            </form>
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="./csci4446-chaotic-dynamics-homeworks-problem-set-10.html" rel="bookmark" title="Permalink to CSCI4446 - Chaotic Dynamics Homeworks - Problem Set 10">CSCI4446 - Chaotic Dynamics Homeworks - Problem Set 10</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">csv</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">os</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">%</span><span class="k">pylab</span> inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="code-line">Populating the interactive namespace from numpy and matplotlib</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>1. Implement the box-counting algorithm for computing capacity dimension from an experimental data set. You are welcome to use any of the version that appear in the assigned reading. Please also give an english description of methods used.</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="k">def</span> <span class="nf">count_boxes</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">"""</span></span>
+<span class="code-line"><span class="sd">    Count boxes in n-dimensional space</span></span>
+<span class="code-line"><span class="sd">    """</span></span>
+<span class="code-line">    <span class="c1"># First convert values to coordinates</span></span>
+<span class="code-line">    <span class="n">shifted_trajectory</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trajectory</span> <span class="o">/</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">sparse_array</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">shifted_trajectory</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">sparse_array</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coord</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparse_array</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="k">def</span> <span class="nf">box_counting</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">epsilon_values</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">"""</span></span>
+<span class="code-line"><span class="sd">    Find capacity dimension</span></span>
+<span class="code-line"><span class="sd">    """</span></span>
+<span class="code-line">    <span class="n">comp_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">count_boxes</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">[</span><span class="n">comp_func</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">epsilon_values</span><span class="p">]</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="k">def</span> <span class="nf">box_counting_parallel</span><span class="p">(</span><span class="n">trajectory_file</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">numcores</span><span class="p">):</span></span>
+<span class="code-line">    <span class="nb">open</span><span class="p">(</span><span class="s1">'outfile.csv'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">numcores</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'bins.csv'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">bf</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">bf</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">bins</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numcores</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">command</span> <span class="o">=</span> <span class="s1">'python3 ./run_counts.py -b bins.csv -i </span><span class="si">{}</span><span class="s1"> -t </span><span class="si">{}</span><span class="s1"> -d </span><span class="si">{}</span><span class="s1">&'</span>\</span>
+<span class="code-line">                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">trajectory_file</span><span class="p">,</span> <span class="n">dimension</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This algorithm takes advantage of the simple fact that we can convert the coordinates of the trajectory point into the coordinates for the hypercubes in our state space by dividing by the box width.</p>
+<p>We start by dividing by the box width and truncating.</p>
+<p>Then we simply need to figure out which boxes were entered. If we were to take a naive approach and create an $m^n$ sized state-space, we would need to mark each box as 1 and the figure out how many boxes were entered.</p>
+<p>The issues with this approach are many. First and foremost is the fact that this has a huge memory requirement.</p>
+<p>Instead we simply create a "sparse" matrix, where all entries are assumed to be zero by not initializing them, and all initialized coordinates are denoted by existing in the matrix. For each converted coordinate point in our trajectory, we add it to our sparse array and set the value to 1.</p>
+<p>(More specifically, we take advantage of the fact the python dictionaries are very fast, and that tuples are hashable. This lets us convert the point into a tuple and use it as the key for our dictionary. Dictionaries won't allow duplicate keys, so our "sparse" matrix maintains its integrity.)</p>
+<p>Finally, we simply count how many values have been entered in the array, which is allowed since each is set to 1.</p>
+<p>This is the sneaky way to get around memory restrictions.</p>
+<p>The parallel version on the other hand bins the domain into 8 different bins (how many cores my computer has) and runs each bin on a different core. This speeds it up significantly. I've attached the code from <code>run_counts.py</code> below in the appendix.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2. (a) Test your algorithm on the embedded Lorenz attractor that you created for problem 6(a) on PS9. Explain your results and turn in a plot of $\log N(\epsilon)$ versus $\log(1 / \epsilon )$.</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can run this on our data from problem set 9 with the embedded Lorenz Attractor. We first will create the embedded version with $\tau = 105$ and $m = 7$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="o">!</span>delay -m <span class="m">7</span> -d <span class="m">105</span> ../problemset9/p6_lorenz.csv -o p6_lorenz_embedded.csv</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="code-line"></span>
+<span class="code-line">TISEAN 3.0.1 (C) R. Hegger, H. Kantz, T. Schreiber (1998-2007)</span>
+<span class="code-line"></span>
+<span class="code-line">delay: Produces delay vectors</span>
+<span class="code-line"></span>
+<span class="code-line">Using ../problemset9/p6_lorenz.csv as datafile!</span>
+<span class="code-line">Using columns: 1 </span>
+<span class="code-line">get_multi_series: first data item(s) used:</span>
+<span class="code-line">28.000000 </span>
+<span class="code-line">Use 30001 lines.</span>
+<span class="code-line">Opened p6_lorenz_embedded.csv for writing</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we specify the domain for the $\epsilon$ values.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">)</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can run it with the embedded values.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [71]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">box_counting_parallel</span><span class="p">(</span><span class="s1">'./p6_lorenz_embedded.csv'</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can plot our result and take the slope of the straight line. We know the general form of this line, so we don't need to plot both tails.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [21]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'outfile1.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span></span>
+<span class="code-line">                       <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">arr</span><span class="p">:</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vals</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">get_midpoints</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="p">(</span></span>
+<span class="code-line">                    <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span></span>
+<span class="code-line">                        <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span></span>
+<span class="code-line">                            <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lower</span> <span class="o"><=</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span></span>
+<span class="code-line">                            <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o"><=</span> <span class="n">upper</span><span class="p">)))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_points</span> <span class="o">=</span> <span class="n">get_midpoints</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">straight_section</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">line_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">line_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="code-line"><span class="n">line_coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">line</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">line</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">lower</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">upper</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+QmCC
+" />
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[21]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre><span class="code-line">1.6596324049738598</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can clearly see that the straight period is maintained from $-2.5$ to $-0.3$. Fitting a line we see the slope is approximately equal to $1.65$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>(b) Now try your box-counting algorithm on the original trajectory. Compare and contrast your results.</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [86]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">box_counting_parallel</span><span class="p">(</span><span class="s1">'./p6_lorenz.csv'</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'outfile2.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span></span>
+<span class="code-line">                       <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">arr</span><span class="p">:</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vals</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_points</span> <span class="o">=</span> <span class="n">get_midpoints</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">straight_section</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">line_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">line_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="code-line"><span class="n">line_coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">line</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">line</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">lower</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">upper</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[22]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre><span class="code-line">1.837431503147416</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we've talked about in class, the embedded trajectory has approximately the same capacity dimension as the original trajectory. We're off by a little bit, but more steps would fix this problem.</p>
+<p>In terms of the algorithm, I've optimized the algorithm to the point that it would be harder to get better. Right now the parallelization is crude and clunky, using files as a means to transmit data. The next step would be to use python's <code>threading</code> module to do the parallelization.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>(c) Repeat part (b) of this problem with a longer version of the same trajectory. Do your results change? If so, which do you trust most? Why?</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using prior code we can create a trajectory that is 100000 steps long instead of only 30000. We can then run our code on this trajectory.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">box_counting_parallel</span><span class="p">(</span><span class="s1">'./p6_lorenz_100000.csv'</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [23]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'outfile3.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span></span>
+<span class="code-line">                       <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">arr</span><span class="p">:</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vals</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])]))</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_points</span> <span class="o">=</span> <span class="n">get_midpoints</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">straight_section</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">line_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">line_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="code-line"><span class="n">line_coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">straight_section</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">line</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">line_coeff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">line</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)))</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">lower</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">*</span> <span class="n">upper</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">line_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAk0AAAFwCAYAAACl9k+2AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAIABJREFUeJzt3XmYXFW5tvH7zURIICSAgEwyqIhMgoAgg4GAIDMoIKLI
+JCqIfB4PHNDvs1PCOQjihDiBgiACSpTxMAVJNDIJMsgMAiKKECBhzJy83x9VaBvSnU51Ve3dVffv
+uuqiq1Jd9Viu7jxZe++1IjORJElS7wYVHUCSJGkgsDRJkiT1gaVJkiSpDyxNkiRJfWBpkiRJ6gNL
+kyRJUh/0Wpoi4tyIeC4i7uv22Ncj4qGIuDcifh0RyzU/piRJUrEWN9N0HrDrQo/dAGyQmZsAjwIn
+NSOYJElSmfRamjJzCjB9occmZuaC2t3bgdWblE2SJKk0+ntO0+HANY0IIkmSVGZ1l6aI+DIwJzMv
+amAeSZKkUhpSzzdFxKHAbsC4Xp7jpnaSJGnAyMzo7c+XuDRFxK7A8cAHMnNWf95cjRUR4zNzfNE5
+Oomfeev5mbeen3nr+Zm3Xl8mexa35MDFwC3AehHxdEQcDnwXWAaYGBF3R8T3G5JWkiSpxHqdacrM
+gxbx8LlNyiJJklRargjeXiYXHaADTS46QAeaXHSADjS56AAdaHLRAfRmkdmc87UjIj2nSZIkDQR9
+6S3ONEmSJPWBpUmSJKkPLE2SJEl9YGmSJEnqA0uTJElSH1iaJEmS+sDSJEmS1Ad1bdgrSVIZRRDA
+cGAkMAJYqnZ/eLevF/XYUKp/J/Z06+nPB9Vug/v5dXS70cPXvf1Zf583KZOP9/jBCrA0SZJKolZ4
+lgFW7HZbHhi9iNsYYFmqxWgk/ypJI4A5wIzabSYwG5i1mP/Ord3mdbu98TrdH+v+nPm124LabVFf
+9/WxBbWPIWu3Vn89Cy2WK4JLkloiguHAOrXb2t1ubwNWolqS5gPPAy/UbtOAl7rdptf++zLwKvD6
+QrcZmcxv2f8otY2+9BZLkySpoSIYCbwLePdCt9WBp4AnF7o9BTwHvJDJjCIyS5YmSVJTRbAKsFXt
+thHVcrQy8Cjw4EK3xzOZW1BUqVeWJklSw9TOOXo7MLZ2ez+wHHBb7XYP1XL0pIfINNBYmiRJ/VI7
+1PZBYC9g59rDk4DfAr8HHs3850nM0oBlaZIkLbHaIbc9gb2B7YHbgSuA66geYmvOXxxSgSxNkqQ+
+iWBV4KPAAcB6VAvSlcC1mbxUZDapFSxNkqQeRTAM2A/4FLApcDlwCTA5kzlFZpNarS+9xcUtJanD
+RLAa8GmqZekh4AfAVZkucCj1xtIkSR2gduXbB4BjgHHARcC4TB4sNJg0gFiaJKmNRbAM8AmqZWkw
+cBZwRCavFBpMGoAsTZLUhiJ4F3A08HGqSwR8nuqmrF75JtXJ0iRJbaJ2CG4PqgVpI+DHwCaZPF1o
+MKlNWJokqQ1EMA44FRgGfB2YkMnsYlNJ7WVQ0QEkgIgYX3QGaSCOwwg2i+AG4EfAN4HNMvm5hUlq
+PNdpUik4XlQGA2kcRrAucArVPeC+CvzYzXCl+vXl59+ZJkkaQCJYOYLvUt3a5AHgHZn8wMIkNZ+l
+SZIGgAiWjWA88CAwH1g/k1Myea3YZFLn8ERwSSqx2hVx+wPfAm4CNs/kyWJTSZ3J0iRJJRXB24Ez
+gTWB/TO5peBIUkfz8JzKolJ0AImSjMMIRkTwVeA2YDLVK+IsTFLBvHpOkkqktt7S2cCdwBcz+VvB
+kaSO0Jfe4uE5SSqBCJYDzgB2AT6TyTUFR5K0EA/PSVLBItgduJ/qVXEbWpikcnKmSZIKEsHywHeA
+bYBPZnJTwZEk9cKZJkkqQAQ7AH8CpgEbWZik8rM0qRQG4p5faj+tGIcRDI6gC/g5cFgmx2XyerPf
+V1L/efWcSsHxojJo9jiMYBWqZWkQ8LFM/tGs95K0ZNx7TpJKoraUwF3AFGAnC5M08HgiuCQ1UQSD
+ga8AnwI+kclvCo4kqU6WJklqkgjeClxEdSmBzTJ5tuBIkvrBw3OS1AQRbEt1Ve9JwC4WJmngc6ZJ
+ZVGKPb/U8fo9DiMI4DPAeKprL13X39eUVA5ePSdJDRLBcOB7wJbAvpn8ueBIkvrIq+ckqUUiWB34
+HbAssLWFSWo/liZJ6qcItgP+APwKODCT1wqOJKkJei1NEXFuRDwXEfd1e2z5iJgYEY9GxA0RMbr5
+MSWpfCKICI4BJlBd3fu0TJpzzoOkwi1upuk8YNeFHjsRmJiZ7wR+U7svSR2ldv7SucCngfdncn3B
+kSQ1Wa+lKTOnANMXengv4Pza1+cD+zQhlzqMe8+pDPo6DmvnL00BRlA9f+nxZuaSVA6LvXouItYC
+rsrMjWr3p2fmmNrXAUx74/5C3+fVc+ozx4vKoC/jMIJNgKuB7wNf83Cc1B768vPfr3WaMjMjwl8Y
+kjpCBB8ELgSOzeQXReeR1Fr1lKbnImKVzHw2It4KTO3piQtNdU/OzMl1vJ8kFS6Cw4FTgQ9nMqXo
+PJL6JyLGAmOX6HvqODx3OvBiZp4WEScCozPzTSeDe7hFS8LxojJY1DisrfBdAQ4GdsvkkULCSWqq
+Ph2e7600RcTFwAeAFYHnqO7UfQXwS2BN4C/AAZn5Uj1vLr3B8aIyWHgcRjAM+DGwHrBnZs8z65IG
+tn6f05SZB/XwRzvVnUpaNPeeUxn8cxxGMJrqYpWvAjtkMqOwVJJKwb3nJGkhEawJXEN1Lbr/yGR+
+wZEkNZl7z0lSD6ISY6MSw970eLApcAvw40yOszBJeoOlSVLHiUrsClwCrPpvjwe7AtcDx2Xy7SKy
+SSqvfq3TJEkDTVTiPcAFwL7ZlX/55+PBh6kuWLlPJrcUFE9SiTnTJKljRCVWB64CjsmuvPmfjwef
+A84CdrEwSeqJpUml4N5zaraoxCjgf4EzsysvheoaTBF8FTga2AbCvTQl9cir51QKjhc1U1RiKNX9
+4h6nOsuUtUUr/wfYHdgpk6mOQ6lzNX3vOUkqu6hEAD8A5gGf71aYvg6MA3bM5IUiM0oaGCxNktrd
+l4DNgO2zK+fVCtN3gK2BcZlMKzSdpAHD0iSpbUUlDgaOArbOrnwtghHAmcAGVA/JvVxoQEkDiieC
+S2pLUYkPAN8Cds+ufCaCUcBNwCiqV8lZmCQtEUuTysK959QwUYn1qW4sflB25f0RLAtcC9wFHJjJ
+Kz18q+NQUo+8ek5SW4lKrAzcClSyK8+PYAXgSuBPwDGZLCg0oKRScu85SR0lKjGS6tICP6sVphWB
+31HdS87CJKlfLE2S2kJUYjDwc+BBYHwEy1HdR+7yTI63MEnqL6+ek9QuvgksCxzA+Fye6knfk4D/
+W2gqSW3DmSZJA15U4jhgJ+DDjM91gZuBicAXMmnOiZuSOo6lSaXg3nOqV1RiH+AEYDfG5xjgBqqr
+fR+/pIXJcSipN149p1JwvKgeUYktqZ74/SHG5z+AKcA3Mvl+Xa/nOJQ6llfPSWpbUYl1gMuBwxmf
+U4EbgXPqLUyStDiWJkkDTlRieeAa4BTG571Uz2E6N5OvFZtMUjuzNEkaUKISSwGXAVczPm8B7ga+
+lckZxSaT1O5cckDSgBGVGAScCzzP16adCfwW+FwmlxSbTFInsDSpLNzzS31xMrAOP775UGaN+R1w
+ZoMLk+NQUo+8ek7SgBCVOBI4kd/8995M+dIVwLczOavoXJLaQ196izNNkkovKrELcAqTxh/JlC9N
+AM6zMElqNWeaJJVaVGITYCJP7PgpLvjNWVQP0Z3jSt+SGqkvvcXSJKm0ohKrA7cy9d2n8P0HjgEu
+zuTUonNJaj+WJkkDVlRiFDCFmaN/xWnTPwz8GviqM0ySmsEVwTVguOeXuotKDAUuZcGgWzntxW2o
+bo/S9MLkOJTUG2eaVAqOF70hKhHA2SwYtDqnzIQFw4YBu2Qyr+nv7TiUOpYzTZIGopNI3svpz7/O
+gmEzgA+1ojBJ0uJYmiSVRlTiYySf5nsPPsSs5ccAn8hkTtG5JAksTZJKIiqxPcm3ufC63/DC+usA
++2Yyo+hckvQGF7eUVLioxLuAS/nf793A47tsAuyWyStF55Kk7ixNKgv3/OpQUYmVSa7h9mMncefR
+WwLbZPJ8QXEch5J65NVzkgoTlRgBTOL+A+cw4ZJlgX0y+UvBsSR1IPeek1RaUYnBwEU8895BTLho
+FaozTFOLziVJPbE0SSrKN3j1revyk5vHwKAdLUySys7SJKnlohLHMWvUfnz/vuHMX2rXTB4tOpMk
+LY6lSVJLRSX2Ye7w/8eP7oKZK3wok7uKziRJfeE6TSoF9/zqDFGJLZk37Kf8dNIgpq+7RyZ3FJ2p
+O8ehpN549ZxKwfHS/qIS6zBvqTuYcNFgHt5v90xuLjrTwhyHUufy6jlJpRCVWJ55wyZy49eGlbUw
+SdLiWJokNVVUYilmjbqBP31iRW77P8dn8ruiM0lSPSxNkpomKjGI+UMv4K/brsd13/rPTH5UdCZJ
+qpelSVLzvP6Wb/Hayh9kwsVX5/yhFiZJA1rdV89FxEkR8UBE3BcRF0XEUo0Mpo7jnl9tJr406rPM
+W+rTXHL5BOaMOqzoPH3kOJTUo7qunouItYCbgPUzc3ZE/AK4JjPP7/Ycr0KROlR0Dd6FOctcxgU3
+/o5nttg9k/lFZ5Kk3jTz6rlXgLnAiIiYD4wA/l7na0lqI/GVoRszb8Sv+eWlT/HMFgdamCS1i7oO
+z2XmNOAbwF+BZ4CXMvPGRgaTNPBEJVZn3tKTufbMl3jig9tm8nLRmSSpUeoqTRGxLvB/gLWAVYFl
+IuLgBuaSNMBEJUbx2kq38/sThnHPYbtl8mLRmSSpkeo9PLc5cEtmvggQEb8G3g/8vPuTFtqSYHJm
+Tq7z/SSVWFRiKNPWvZW/fGAMN//X2EzuLTqTJPUmIsYCY5foe+o8EXwTqgVpC2AW8FPgD5n5vW7P
+8URw9VlEjM/M8UXn0JKLSgSvrDaBqRvswWUXbJ6vrXxf0Znq5TiUOldfekvde89FxAnAJ4EFwF3A
+kZk5d0neXHqD42XgiqM3PgvySC66+th86W3nFJ2nPxyHUudqamlqxJtLb3C8DExxyAe/zIoPn8yl
+vzghn976jKLz9JfjUOpcbtgrqWnihLeM460LKtzwjbYoTJK0OHWvCC6pc8Wn3rcZg+ZfwzXfvYV7
+Dv1G0XkkqRWcaZK0ROK4dVdl1KxbuO3zt3L/x3bKpDnH+CWpZJxpUlm459cAEMevPALibh7e52/8
+dvyOmcwrOlODOQ4l9cgTwSX1Sbz9+hFsf8pjvL7SCK78yVo5c7SrfUtqG33pLc40Seqb9559B0Nn
+Ls1D+65tYZLUiSxNkhYrDjjgIla6/x38dZuN808ff6noPJJUBE8El9SrOHy7z7Dmnw9k0skfyT8e
++bei80hSUZxpktSjOPDD+/CWB7/HTaecln888rKi80hSkSxNKoWFNndWCcS2p32INX//K/5wzNl5
+1xFfKjpPKzgOJfXGq+dUCo6XcomdT1ybd//yYZ7e9or89QUHFJ2nVRyHUufy6jlJSyxWeOw9rHHz
+Yzy38f1cdsGBReeRpLKwNEn6p1jjluHs8h8TGTL7cRYM3cLVviXpXyxNkv5ly+/dzJgnhzJ36c3y
+l5cuKDqOJJWJpUkSEUTs9akLWeOWTXhqu/fmeb99vehMklQ2liaVhXt+Fem9P/oV77riIO46cr+8
++gePFx2nQI5DST3y6jmpw8V6V/6AvY/8DNPX2jPP+cPVReeRpCJ49ZykXsUGv9yH3Y85isd3/pqF
+SZJ650yT1KFi7Zu25EPH3cyMFS7In04+oug8klQkZ5okLVIs99cN2Pb025k74hbW/u2RReeRpIHA
+mSapw8SQWWuz51F/YvU/PM2Kj2ycXTmv6EySVDRnmjRguOdXa0SwEtue/ifW+c1rrPjI+yxM/85x
+KKk3zjSpFBwvzRfBIDb/wcPs+P/eSsx/V35t+t+LzlQ2jkOpc/Xl539Iq8JIKthW3/4625+8DpGb
+W5gkaclZmqQ2F8FQVnzwJQ49dQR/3/LQvPDae4rOJEkDkec0SW0sgmD5x77HwbsvzexR/5EXXnt+
+0ZkkaaDynCaVguOl8SIYzLBXruOTO40j5v8sf/THTxadqewch1Ln8pwmDSTu+dVog2cdwr6H7sSK
+D13KUq8dWnScAcJxKKlHzjRJbSiCpdnr8Cd5+/UvMuqZTbMr5xSdSZLKzHWapA4Uwcq878wZrPW7
+0Ux7xw4WJklqDEuT1EYi2ID1rniWsV2vk2yU502eWnQmSWoXHp6T2kQEo1jttmf4xC5DGfb6NlmZ
+d2fRmSRpoPBEcKmTrHb7GXz8Q4MY/sr+2ZUWJklqMA/PqRTc86t/Yvk/n8Q+h36KOSNPzq68sug8
+A5XjUFJvPDynUnC81C+WnnYUH933h4ycemme9dCBRecZyByHUufy8JzU5mLwnA3Z95jvM/qpWxn9
+1EFF55GkdubhOWmAimALxn71Pt425W+Mfmrn7MoFRWeSpHbmTJM0AEUQbHvqeWx2zqsMe23L7MoZ
+RWeSpHZnaZIGmAjWZd0b/szW31zAgqEb5X+/7lpMktQCHp5TWbjnVx9EMJhV75jERw6cy7ObHJBn
+PPNg0ZnajONQUo+8ek4aICIYzKinX+KI949kub8dlF35i6IzSVK7cO85qU1EEIx4/jI+sctQFgw5
+3cIkSa3nOU3SQDB41hXse8ieLPXypYx65qSi40hSJ7I0SSUXg+bvzx6f35NV77yFkS98LLuadExd
+ktQrS5NUUhEMAuaz7dfhnVc9w8gXds2unFd0LknqVJ7TpFJwz69FGseGF8PW35wB+b7syleLDtTu
+HIeSeuPVcyoFx8u/i2Al1pzyHIfs/ApDZm+bXXlf0Zk6geNQ6lxNvXouIkZHxISIeCgiHoyIrep9
+LUn/EsEerPDIcxy43zyGzP6IhUmSyqE/5zR9B7gmMz8SEUOAkQ3KJHWsCIKRU6/i4N1gwZAvZFdO
+LDqTJKmqrtIUEcsB22XmJwEycx7wciODSR1p2Kt/5KA9kzFPnJLj86yi40iS/qXew3NrA89HxHkR
+cVdEnBMRIxoZTOo0MXjuJez7yU0Z88RVBF1F55Ek/bt6D88NATYDPpeZd0TEt4ETga90f9JCV6JM
+zszJdb6f2l9H7/kVwW/Y5YQdWfWOhxn5wv6uxVSYjh6HUieJiLHA2CX6nnqunouIVYBbM3Pt2v1t
+gRMzc49uz/EqFKkPIjiP9515KB+o/IMR0zbIrpxedCZJ6jR96S11zTRl5rMR8XREvDMzHwV2Ah6o
+57WkThXBUOBl1rtiacad9BLDZrzfwiRJ5dWfq+eOBX4eEcOAx4HDGhNJ6hg/ZbU/LM1+H5/JsBk7
+Z1f+pehAkqSeubilVIAIbmX0k1vxufVfZMjsw7Irryo6kyR1sqYdnpNUvwhWYfj0rfj0Zs8wZPap
+FiZJGhjce06l0FF7fg2ZMYHDtn+OpV+6JLtci6lMOmocSlpiliaVRUesSxSD5p/AXkdtw3JP3wMc
+X3QevUlHjENJ9bE0SS0SwWfZoes01rj57wx/ed/sygVFZ5Ik9Z0ngqsU2n28RDCaTX8ynbGVOSz3
+9BrZlVOLzqQ3a/dxKKlnffn5d6ZJarIIxrLuDdPZ5YszWe7pjSxMkjQwWZqkJorgTFa+dxL7HzCH
+4S/vkl35aNGZJEn1sTSpLNpuz68IxrLs34/lkJ1nMn/oUdmVU4rOpMVqu3EoqXE8p0lqggiWYfhL
+9/HpzUYz5snTsiu/VnQmSVLPXNxSKkAEQxk091UO3Hcmo5/8GXBa0ZkkSf3n4TmpgSJYBRY8xu7H
+wNumTCE4JruaNJ0rSWopZ5qkBolgOPAPtj0dNrzkMQbN/0h25byic0mSGsOZJqkBIhgMzGTDS2C7
+/5nGUq+Oza58tehckqTGsTSpFNpgz697WHMK7Hfwi7XC9EzRgbTk2mAcSmoir55TKQzk8RLBGqzw
+yF/5zHteZuis/bMrJxadSfUZyONQUv+4IrjUCss99UMO3g2I4y1MktS+LE1SP8Qq97yH/Q/cjREv
+npGnzDin6DySpOaxNEl1ihUeW5Edum7n5TVnMvzlE4rOI0lqLpcckOoQwRp88Id/ZfjLMGTW0q7F
+JEntz5kmlcWA2fMrggPZ8qy/8o5rYMjMlfKc22YVnUkNM2DGoaTW8+o5qY9qazG9znpXLsXeh89m
+xoqb5HcffqToXJKk/nPvOalBIhgCzGXVO2CvI2D4S9vlaS9YmCSpg1iapMWIIIC5jH4Sjtx6KuRR
+WZl/R9G5JEmtZWmSFu8Jhk+H49Z9mMjvZ1deUXQgSVLrWZqkHkQwCNiPwbPX4lPve4rI67Irv1t0
+LklSMbx6TqVQ0j2/9oe8lL2OhBUeuwv4z6IDqblKOg4llYRXz6kUyjZeIhgOzGS3o59kix8+T+QO
+2ZUzis6l5irbOJTUOu49J9XvI2x6Lmz+oyByTwuTJMlzmqSFRPAU60xckw9+cTaDFuyaXTm16EyS
+pOI50yR1E8EOrHTfmnz4YHhyxyOyK12LSZIEeE6TSqIs4yXGPPkAh459N0NnHJqnP39+0XnUWmUZ
+h5Jaz3OaNJAUvudXrDvxPXx033czd+lvWZg6VuHjUFJ5OdMkAbHbscNY/s+zeWX15NXVBuek8c35
+wZAklZJ7z0l9EJUIRu3zKADXf3PfnL2shUmS9CYenlNHi2ALbjx1AWOefBvXf2PfnL2sW6RIkhbJ
+w3PqWBGswoaX/IOdT4CfTr4zp62zRdGZJEnF8ERwqTdvv2YiH/o8PDFuNwuTJGlxLE0qhVbu+RXB
+nrHiI8k+h2/IAweclJefd22r3lvl5t5zknrj4TmVQivHSywzNTlia3h4n6vz+m/s2Yr31MDg7y2p
+c3l4TlpIDH/5R3x0b5g96kILkyRpSTjTpFJoxXiJvY4awtIvzmXe0nD9GSPztVXchFf/xt9bUudy
+pknqbtDcJxjxIry6yrIWJknSknJxS7W1CLYCdmLLs05mi9vgJ7eQM8e8VnQuSdLA40yTyqLhe35F
+cARwK+tdeTLbnzyfyy44n1ljRjb6fdRW3HtOUo88p0ltK4Jk9dum8ckdhjJ01rjsyjuKziRJKif3
+nlPHiuAjjP4LHL7tXAbNP9zCJEnqr34dnouIwRFxd0Rc1ahAUn9EEBGcw/Dpl3Lwh5JB8/8nu9L9
+5CRJ/dbfc5qOAx4E3BVeZbERg2cfyYH7weA5F2dXnll0IElSe6i7NEXE6sBuwI8Bz11S4SJYDvJe
+DtrzKVa981qWf+KQojNJktpHf2aavgUcDyxoUBZ1sP7u+RVBAOPY4Suw9qTnWeq1j2RXzm9MOnUK
+956T1Ju6SlNE7AFMzcy7cZZJjdHVz++/kU3P/RXvOX8Og+ftnl3p4pWqR3/HoaQ2Vu/Vc+8H9oqI
+3YDhwKiIuCAz/+1wyEL/apucmZPrfD+pRxG8jXUm7shOJy7g4iuuzae3nlp0JklSuUXEWGDsEn1P
+f9dpiogPAP+ZmXsu9LjrNKnP+jNe4p1X/5D9DjmcpaePy66c0uhs6hz+3pI6VyvXafLqORUiThq9
+OnsucyT3HPLTvO7bFiZJUtO4IrhKoZ7xEpVYlpmj7+Hm/1qH35/4lkxeaFY+dQZ/b0mdqy8//+49
+p7JYoj2/ohJDgF/w512W5fcnnGNhUoO495ykHjnTpAEnKhHAD5mxwsac8exWLBiyWibPFJ1LkjRw
+ufec2tMD+1/Bqndsyw/uHc6CId+1MEmSWsHSpAEl9jn8m6xz255MuPi/mDPqvkyuLTqTJKkzeHhO
+A0ZUYjtef8vvuOBG8tmNHVuSpIbx8JzaRlRiPRYMvowrz36K5zY+r+g8kqTO49VzKoWe9vyKIGLF
+h89g9rK/4+ofrsAj+7wF+Hlr06lTuPecpN54eE6l0NN4ic3OXZn3nv0sT+wEN50CMCqTV1ufUJ3A
+31tS53KdJg1oUYlB7PjlS5i2LkyqHAWsYmGSJBXFc5pUXnNGfIe5I9fiynOuzQWDzyk6jiSpsznT
+pFKKrww9lhlvOYxzbgvmjbis6DySJDnTpNKJSuzJgqW/yk8njWTmittnclfRmSRJsjSpLCoAUYnN
+gZ9wyWV389LaD1iY1GLuPSepR149p9KISqzFgkG3cs13H+bOozcCPprJjUXnkiS1P6+e04ARlRhD
+cg1TTprGnUePBD4LTC44liRJ/+RMkwoXlRjGvKVu4qF9V+JXFy8LjM3kkaJzSZI6hzNNKr2oRJD8
+mKff/w5+/bMZwH4WJklSGXkiuIo2mL9vOZuLrl6JHLJbJn8sOpAkSYtiaVLLRbAtsE71XgKsAZ9+
+KPNHFiYVKiLGZ+b4onNIKifPaVLLRfAw8DDwSrdHP+F4UdH8vSV1rr78/Fua1HIRPAtsmsk//vWY
+40XFcxxKnasvP/8enlNLRBBUZ5dWAYYB04tNJEnSkrE0qakiWAo4C1gGWK12m5vJrEKDSZK0hFxy
+QE0TwRbAx4A9gP8F9s7k5UxmFJtMkqQl50yTmqJ2OO73VFf1PjuTCxfzLe75pTJwHErqkSeCq+Ei
+GE31nKXpmSxfdB5JkhbHE8HVchGMAQ6t3d21wCiSJDWU5zSp0Q4Ajql9fW+RQSRJaiRLkxomgu2A
+44FfZBKZzC46kyRJjWJpUkNEsAywA3AH8I2C40iS1HCWJvVbBNsDLwH/CdyYybQlf40Y3+hc0pJy
+HErqjVfPqd8iOAHYPJMD6n8Nx4uK5ziUOldffv6daVIjfBj4S9EhJElqJkuTGmE+cHnRISRJaiZL
+kxphOHilnCSpvVma1AirgBvwSpLam6VJ/VLbY+6twLP9fCn3/FIZOA4l9cir57TEIhgCDK7dHQ48
+l8nwAiNJktQv7j2nhotgKDANGNbt4ccKiiNJUstYmrSklgXmZbJs0UEkSWolS5P6JILhwOnACsCr
+BceRJKnlPBFcfbUmcCDwW+BTBWeRJKnlLE3qq5HAs5mcncn1jX5x9/xSGTgOJfXGq+fUqwg2BiYD
+SwG3ZLIIf+krAAAIR0lEQVRzc97H8aLiOQ6lzuXVc2qEVYB7gX2AmQVnkSSpMJYmLc4wYEYmLxcd
+RJKkInlOkxZnKDCn6BCSJBWtrtIUEWtExKSIeCAi7o+Izzc6mEpjGDC36BCSJBWt3sNzc4EvZOY9
+EbEM8MeImJiZDzUwm8phGK2ZaXLPL5WB41BSj+qaacrMZzPzntrXrwEPAas2MphKYx2gOZdYdpOZ
+45v9HtLiOA4l9abf5zRFxFrApsDt/X0tldIQ4IWiQ0iSVLR+labaobkJwHG1GSe1n+HAP4oOIUlS
+0epeciAihgK/Ai7MzMt7eM74bncnZ+bket9PhRmO6zNJktpMRIwFxi7R99SzInhEBHA+8GJmfqGH
+57iy7gAUwRHAOd0fAg7I5NKCIkmS1HR96S31Hp7bBvg4sENE3F277Vrna6lcVgVOpToLOQQY3IrC
+5J5fKgPHoaTeuPec/k0EJwNzMjm5te/reFHxHIdS52rmTJPa11LA7KJDSJJUNpYm/VMEawFfxNIk
+SdKbWJrU3frAVOBnRQeRJKlsLE3qbhjwh0ymFR1EkqSysTSpu1btM7co7vmlMnAcSuqRpUndFVaa
+3PNLZeA4lNSbulcEV/uIYCWq/8JeH3ii4DiSJJWSpUlQLUvjgDOAWwvOIklSKVmaBDAUeDqTs4sO
+IklSWXlOk6BamuYWHUKSpDKzNAlKUJrc80tl4DiU1BtLk6B6mHZewRm6Cn5/CRyHknrhOU0dJoIA
+9gdGdnt4Szw8J0lSryxNnWd5qtukXLTQ4xMKyCJJ0oBhaeo8g4BXMjms6CCSJA0kntPUeQYBC4oO
+IUnSQGNp6jwBZNEhFsE9v1QGjkNJPYrM5vz9GRGZmdGUF1fdIlgVuDOTVYvOIklSWfSltzjT1Hk8
+PCdJUh0sTZ2nrIfnJEkqNUtT53GmSZKkOliaOo+lSZKkOliaOs8gSnh4zj2/VAaOQ0m98eq5DhPB
+24HrMnl70Vm6c7yoDByHUufy6jktiofnJEmqg6Wp81iaJEmqg6Wp87jkgCRJdbA0dR5nmiRJqoOl
+qfOUtTS555fKwHEoqUdePddhItgYuDCTjYvOIklSWXj1nBalrDNNkiSV2pCiAwgiCGDpFr3dCCxN
+kiQtMUtTORwNfAeY06L3+02L3keSpLZhaSqH5YDTM/lS0UEkSdKieU5TOXT8eUbu+aUycBxK6o2l
+qRxccBK6ig4g4TiU1AtLUzl0/EyTJEllZ2kqB2eaJEkqOUtTOQzC0iRJUqlZmsoh8PCcJEmlZmkq
+B2ea3PNL5eA4lNQjS1M5dPxMU2aOLzqD5DiU1BtLUzk40yRJUslZmsqh42eaJEkqO0tTOTjTJElS
+yVmaysGZJkmSSs7SVA4dP9Pknl8qA8ehpN7UXZoiYteIeDgiHouI/2pkqA7kTJN7fqkcHIeSelRX
+aYqIwcBZwK7Au4GDImL9RgbrMA2ZaYqIsf2PoiXhZ956fuat52feen7m5VTvTNOWwJ8z8y+ZORe4
+BNi7cbE6TqNmmsY24DW0ZMYWHaADjS06QAcaW3SADjS26AB6s3pL02rA093u/632mOrT8ec0SZJU
+dkPq/D7/gl+MCI4C9uzj0zcCHmxiHEmS1E+RueT9JyK2AsZn5q61+ycBCzLztG7PsVhJkqQBIzOj
+tz+vtzQNAR4BxgHPAH8ADsrMh+oJKUmSVHZ1HZ7LzHkR8TngemAw8BMLkyRJamd1zTRJkiR1mqav
+CB4Rx0bEQxFxf0SctvjvUCNExBcjYkFELF90lnYXEV+vjfF7I+LXEbFc0ZnalYvqtlZErBERkyLi
+gdrv8M8XnakTRMTgiLg7Iq4qOkuniIjRETGh9rv8wdq522/S1NIUETsAewEbZ+aGwBnNfD9VRcQa
+wM7AU0Vn6RA3ABtk5ibAo8BJBedpSy6qW4i5wBcycwNgK+AYP/OWOI7qFdUeCmqd7wDXZOb6wMbA
+Ik85avZM02eBU2sLYJKZzzf5/VT1TeCEokN0isycmJlvLE56O7B6kXnamIvqtlhmPpuZ99S+fo3q
+XySrFpuqvUXE6sBuwI+pLnysJqsdHdguM8+F6nnbmfnyop7b7NL0DmD7iLgtIiZHxOZNfr+OFxF7
+A3/LzD8VnaVDHQ5cU3SINuWiugWKiLWATan+w0DN8y3geNyPtJXWBp6PiPMi4q6IOCciRizqifUu
+bvlPETERWGURf/Tl2uuPycytImIL4JfAOv19z063mM/8JOCD3Z/eklBtrpfP/EuZeVXtOV8G5mTm
+RS0N1zk8VFGQiFgGmAAcV5txUhNExB7A1My8273nWmoIsBnwucy8IyK+DZwIfGVRT+yXzNy5pz+L
+iM8Cv649747aickrZOaL/X3fTtbTZx4RG1JtzPdGBFQPE/0xIrbMzKktjNh2ehvnABFxKNUp9XEt
+CdSZ/g6s0e3+GlRnm9REETEU+BVwYWZeXnSeNvd+YK+I2A0YDoyKiAsy85CCc7W7v1E9QnNH7f4E
+qqXpTZp9eO5yYEeAiHgnMMzC1DyZeX9mrpyZa2fm2lQHwmYWpuaKiF2pTqfvnZmzis7Txu4E3hER
+a0XEMOBA4MqCM7W1qP7r6yfAg5n57aLztLvM/FJmrlH7/f1R4CYLU/Nl5rPA07WeArAT8MCintvv
+mabFOBc4NyLuA+YA/p/fWh7OaI3vAsOAibUZvlsz8+hiI7UfF9UtxDbAx4E/RcTdtcdOyszrCszU
+Sfwd3jrHAj+v/YPsceCwRT3JxS0lSZL6oOmLW0qSJLUDS5MkSVIfWJokSZL6wNIkSZLUB5YmSZKk
+PrA0SZIk9YGlSZIkqQ8sTZIkSX3w/wEOn5+uUsBB7QAAAABJRU5ErkJggg==
+" />
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[23]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre><span class="code-line">1.9168622269361926</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our results have changed from the previous attempts. It's much closer to $1.91$ now, and I trust this value much better. More results will mean the state-space has been more filled with the trajectory. By not filling this state-space (as was done with the initial two trajectories) we undercount how many hypercubes are crossed into because we don't have a full expression of the trajectory.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Appendix">Appendix<a class="anchor-link" href="#Appendix">¶</a></h1><h2 id="run_counts.py">run_counts.py<a class="anchor-link" href="#run_counts.py">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="ch">#!/usr/bin/env python3</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">csv</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">argparse</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">sys</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span></span>
+<span class="code-line">    <span class="n">args</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">()</span></span>
+<span class="code-line">    <span class="n">bins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">binfile</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bins</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">binnum</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">trajectory</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">trajectory</span><span class="p">,</span></span>
+<span class="code-line">                    <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:</span><span class="n">args</span><span class="o">.</span><span class="n">dimension</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">values</span> <span class="o">=</span> <span class="n">box_counting</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">)</span> <span class="k">as</span> <span class="n">of</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">of</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span></span>
+<span class="code-line">            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">domain</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">count_boxes</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">"""</span></span>
+<span class="code-line"><span class="sd">    Count boxes in n-dimensional space</span></span>
+<span class="code-line"><span class="sd">    """</span></span>
+<span class="code-line">    <span class="c1"># First convert values to coordinates</span></span>
+<span class="code-line">    <span class="n">shifted_trajectory</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trajectory</span> <span class="o">/</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">sparse_array</span> <span class="o">=</span> <span class="p">{}</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">shifted_trajectory</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">sparse_array</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coord</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparse_array</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">box_counting</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">epsilon_values</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">"""</span></span>
+<span class="code-line"><span class="sd">    Find capacity dimension</span></span>
+<span class="code-line"><span class="sd">    """</span></span>
+<span class="code-line">    <span class="n">comp_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">count_boxes</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">[</span><span class="n">comp_func</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">epsilon_values</span><span class="p">]</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">get_args</span><span class="p">():</span></span>
+<span class="code-line">    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">'Run box-counting for a range'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">'--binfile'</span><span class="p">,</span> <span class="s1">'-b'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="n">default</span><span class="o">=</span><span class="s1">'./bins.csv'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">'Which binfile to use'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">'--binnum'</span><span class="p">,</span> <span class="s1">'-i'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">'Which bin line to use'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">'--trajectory'</span><span class="p">,</span> <span class="s1">'-t'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="n">default</span><span class="o">=</span><span class="s1">'./trajectory.csv'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">'Which trajectory to use'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">'--outfile'</span><span class="p">,</span> <span class="s1">'-o'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="n">default</span><span class="o">=</span><span class="s1">'./outfile.csv'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">'Which outfile to use'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">'--dimension'</span><span class="p">,</span> <span class="s1">'-d'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span></span>
+<span class="code-line">                        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">'Dimension of the trajectory'</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">args</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span></span>
+<span class="code-line">    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Other-Implementations">Other Implementations<a class="anchor-link" href="#Other-Implementations">¶</a></h2><p>I also tried using Apache Spark. This method turned out to be worse. Spark is not intended for this.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="k">def</span> <span class="nf">spark_counting</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">trajectory_file</span><span class="p">,</span> <span class="n">dimension</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">shifted</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="n">trajectory_file</span><span class="p">)</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)][:</span><span class="n">dimension</span><span class="p">]))</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tup</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tup</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">domain</span><span class="p">])</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">agg</span><span class="p">,</span> <span class="n">nxt</span><span class="p">:</span> <span class="p">[[</span><span class="n">agg</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="n">nxt</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">agg</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span></span>
+<span class="code-line">                                          <span class="n">agg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">nxt</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">))])</span></span>
+<span class="code-line">    <span class="n">vals</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">shifted</span><span class="p">)</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">row</span><span class="p">)))</span>\</span>
+<span class="code-line">                <span class="o">.</span><span class="n">collect</span><span class="p">()</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">vals</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The optimized version creates an array for every $\epsilon$ value, and performs every operation at once. This implementation is much faster, although the principle remains the same. I don't use this optimized version, because as it turns out, it's not that much better than the non-optimized version, and if I optimize it further by using built-in <code>numpy</code> functions, I need more than 16GB of memory to contain the resulting float array.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="code-line"><span></span><span class="k">def</span> <span class="nf">box_counting_optimized</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">bits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">trajectory</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">),</span> <span class="n">dimension</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)):</span></span>
+<span class="code-line">        <span class="n">bits</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trajectory</span> <span class="o">/</span> <span class="n">domain</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">counts</span> <span class="o">=</span> <span class="p">[{}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">domain</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)):</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)):</span></span>
+<span class="code-line">            <span class="n">counts</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="nb">tuple</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))]</span> <span class="o">=</span> <span class="mi">1</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">))]</span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+  </div>
+
+
+    <div class="comments">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'selfbrainoutput';
+        var disqus_identifier = "csci4446-chaotic-dynamics-homeworks-problem-set-10.html";
+        var disqus_title = "CSCI4446 - Chaotic Dynamics Homeworks - Problem Set 10";
+        var disqus_url = "./csci4446-chaotic-dynamics-homeworks-problem-set-10.html";
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
+    </div>
+
+        </div>
+
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2015-05-10T00:00:00-06:00"><i class="fa fa-calendar"></i> Sun 10 May 2015</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="./author/zoe-farmer.html" rel="author">Zoë Farmer</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="./category/notes.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="14 articles in this category">Notes</a>
+            <a href="/tag/notes.html" data-toggle="tooltip"
+      class="label label-default"
+      title="14 articles with this tag">notes</a>
+            <a href="/tag/chaos.html" data-toggle="tooltip"
+      class="label label-default"
+      title="12 articles with this tag">chaos</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+<dl class="dl-horizontal">
+<dt><a href="http://www.dataleek.io/archive/category/notes.html" class="label label-info">Notes</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/data-science.html" class="label label-info">Data Science</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/python.html" class="label label-info">Python</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/machine-learning.html" class="label label-info">Machine Learning</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/homework.html" class="label label-info">Homework</a></dt>
+</dl>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="mailto:zoe@dataleek.io">
+      <i class="fa fa-envelope"></i>
+    Email
+  </a></li>
+                  <li>  <a href="https://www.github.com/thedataleek">
+      <img src="https://icons.better-idea.org/icon?url=www.github.com&size=16" width="16" height="16" class="icon" alt="www.github.com icon"/>
+    Github
+  </a></li>
+                  <li>  <a href="https://www.gitlab.com/thedataleek">
+      <img src="https://icons.better-idea.org/icon?url=www.gitlab.com&size=16" width="16" height="16" class="icon" alt="www.gitlab.com icon"/>
+    Gitlab
+  </a></li>
+                  <li>  <a href="https://www.twitter.com/TheDataLeek">
+      <img src="https://icons.better-idea.org/icon?url=www.twitter.com&size=16" width="16" height="16" class="icon" alt="www.twitter.com icon"/>
+    Twitter
+  </a></li>
+                  <li>  <a href="https://www.linkedin.com/in/zoefarmer">
+      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
+    LinkedIn
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="/archives.html">
+      <i class="fa fa-external-link"></i>
+    Archives
+  </a></li>
+                  <li>  <a href="/categories.html">
+      <i class="fa fa-external-link"></i>
+    Categories
+  </a></li>
+                  <li>  <a href="/tags.html">
+      <i class="fa fa-external-link"></i>
+    Tags
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2014-2016 Zoë Farmer.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="./theme/js/jquery.mglass.js"></script>
+    <script src="./theme/js/application.js"></script>
+
+  </body>
+</html>
