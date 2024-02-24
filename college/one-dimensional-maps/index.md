@@ -27,7 +27,7 @@ The logistic map expresses chaotic behavior for certain values of $$\mu$$. We ca
 We can find the parameter values at which the stable period $$2^1$$, $$2^2$$, and $$2^3$$ orbits are first created and label these $$\mu\_1$$, $$\mu\_2$$, $$\mu\_3$$. We'll use [Cython](http://cython.org/) for this process as we need to quickly evaluate a large amount of iterations.
 
 ```python
-`%%cython -a -c=-O3
+%%cython -a -c=-O3
 import numpy as np
 cimport numpy as np
 
