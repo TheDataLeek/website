@@ -2,6 +2,7 @@
 layout: page
 title: Older Blog Posts
 nav-menu: false
+image: assets/img/blogtile.png
 ---
 
 # Old Website Blog Posts
