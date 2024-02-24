@@ -7,8 +7,6 @@ logo: /assets/img/headshot.jpg
 remote_theme: andrewbanchich/forty-jekyll-theme
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
-author: thedataleek
-url: dataleek.io
 baseurl: "/website"
 tiles-source: pages
 tiles-count: 3
