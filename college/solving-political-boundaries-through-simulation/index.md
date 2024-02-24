@@ -1,13 +1,11 @@
 ---
 title: "Solving Political Boundaries Through Simulation"
 date: "2017-10-11"
-categories: 
-  - "python"
 ---
 
 # Presentation
 
-Adapted as a talk for the [Boulder Python Meetup](http://boulderpython.org), and [download archive here](https://github.com/TheDataLeek/politicalboundaries).
+Adapted as a talk for the [Boulder Python Meetup](http://boulderpython.org). [Download archive here](https://github.com/TheDataLeek/politicalboundaries).
 
 _Press the space-bar to proceed to the next slide. [See here for a brief tutorial](http://lab.hakim.se/reveal-js/)_
 
