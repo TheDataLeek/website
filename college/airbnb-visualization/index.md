@@ -15,9 +15,9 @@ tags:
 coverImage: "Screenshot-2018-1-17-http-localhost2.png"
 ---
 
-This is a followup visualization from [my post on analyzing Boston's AirBnB.](https://dataleek.io/index.php/2017/10/17/evolve-project-interview/)
+This is a followup visualization from [my post on analyzing Boston's AirBnB.](../evolve-project-interview/index.md)
 
-The below embedding is less than perfect, [so please check it out fullscreen.](https://dataleek.io/presentations/airbnb/index.html)
+The below embedding is less than perfect, [so please check it out fullscreen.](/presentations/airbnb/index.html)
 
 If it's not rendering well for you, this is what you should see.
 
@@ -54,7 +54,7 @@ with open('d3demo/airbnb.geojson', 'w') as fobj:
     }))
 ```
 
-<iframe src="https://dataleek.io/presentations/airbnb/index.html" style="
+<iframe src="/presentations/airbnb/index.html" style="
 width: 100%;
 height: 200em;
 overflow: hidden;"></iframe>
