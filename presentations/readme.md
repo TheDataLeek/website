@@ -1,3 +1,7 @@
+# [SIAM 2016](./siam2016/PACE.pdf)
+
+# [SIAM 2017](./siam2017/ouroboros.pdf)
+
 # [A Boulder Python presentation on python optimization](./speedsnakes/Speed%20Snakes.slides.html)
 
 # [A college project presentation on simulated annealing](./politicalboundaries/politicalboundaries.slides.html)

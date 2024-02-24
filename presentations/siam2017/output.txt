@@ -1,0 +1,16 @@
+sqlite> SELECT A.id, B.num
+     FROM simulations AS A
+     INNER JOIN (
+        SELECT simulationid, COUNT(*) AS num
+        FROM poissonness
+        GROUP BY simulationid) AS B
+    ON A.id = B.simulationid;
+
+1|34
+2|10
+3|27
+4|9
+5|5
+7|4
+9|1
+
