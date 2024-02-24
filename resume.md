@@ -2,7 +2,7 @@
 layout: page
 title: Resume
 description: DS / MLE
-image: assets/img/zoefarmer_resume.png
+image: assets/img/zoefarmer_resume_1.png
 nav-menu: true
 ---
 
