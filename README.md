@@ -1,8 +1,4 @@
-I'm a focused Data Scientist and Machine Learning Engineer specializing in production python & highly effective problem solving.
-
 Interested in chatting? [My email can be found here](https://github.com/thedataleek/) or schedule some time!
-
-<img src="assets/img/zoefarmer_resume.png" />
 
 <!-- Google Calendar Appointment Scheduling begin -->
 <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
@@ -23,10 +19,3 @@ Interested in chatting? [My email can be found here](https://github.com/thedatal
 <!-- end Google Calendar Appointment Scheduling -->
 
 ---
-
-[*Old content from college can be found here. Note that these are older articles/homework sets and will not
-reflect my current work!*](/college)
-
-[*Presentations I had put together from college or during my Boulder Python days can be found
-here!*](/presentations)
-

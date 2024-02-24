@@ -1,8 +1,13 @@
 title: Zoe Farmer
 description: Data Scientist / Machine Learning Engineer
+email: zoe@dataleek.io
 logo: /assets/img/headshot.jpg
 # remote_theme: pages-themes/minimal@v0.2.0
 remote_theme: andrewbanchich/forty-jekyll-theme
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 author: thedataleek
+tiles-source: pages
+tiles-count: 3
+socials:
+  GitHub: https://github.com/thedataleek

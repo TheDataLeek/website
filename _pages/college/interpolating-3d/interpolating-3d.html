@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>  Interpolating 3D
+ | The Data Leek</title>
+
+    <meta name="author" content="Zoë Farmer"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
+    <link rel="stylesheet" href="./theme/css/jquery.mglass.css"/>
+    <link rel="stylesheet" href="./theme/css/pygment-solarized-dark.css"/>
+    <link rel="stylesheet" href="./theme/css/style.css"/>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Feeds -->
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+          <a href="." class="avatar-container pull-left">
+            <div class="avatar  animate ">
+              <div class="side"><img src="./files/zoefarmer.jpg" class="img-responsive"/></div>
+                <div class="side back"><p class="text-center">Zoë Farmer</p></div>
+            </div>
+          </a>
+        <h1><a href=".">The Data Leek</a> <small></small></h1>
+      </div>
+
+      <nav class="navbar navbar-default">
+
+        <!-- Hamburger menu for mobile -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#plumage-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="." title="">The Data Leek</a>
+        </div>
+
+        <!-- Menus and search forms -->
+        <div class="collapse navbar-collapse" id="plumage-navbar-collapse-1">
+
+          <ul class="nav navbar-nav">
+<li >
+                  <a href="./pages/latex-notes.html">LaTeX Notes</a>
+                </li>
+<li >
+                  <a href="./pages/wallpapers.html">Wallpapers</a>
+                </li>
+<li >
+                  <a href="./category/data-science.html">Data Science</a>
+                </li>
+<li >
+                  <a href="./category/homework.html">Homework</a>
+                </li>
+<li >
+                  <a href="./category/machine-learning.html">Machine Learning</a>
+                </li>
+<li >
+                  <a href="./category/notes.html">Notes</a>
+                </li>
+<li  class="active" >
+                  <a href="./category/python.html">Python <span class="sr-only">(current)</span></a>
+                </li>
+          </ul>
+
+
+            <form class="navbar-form navbar-right" role="search" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" name="q" id="tipue_search_input" class="form-control search-query" placeholder="Search" required />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="fa
+                        fa-search fa-fw"></i></button>
+                  </span>
+                </div>
+              </div>
+            </form>
+
+        </div>
+
+      </nav>
+
+    </div>
+
+
+    <div class="container main">
+
+
+      <div class="row">
+        <div class=" col-md-9  ">
+  <h1>
+    <a href="./interpolating-3d.html" rel="bookmark" title="Permalink to Interpolating 3D">Interpolating 3D</a>
+  </h1>
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class=" col-md-9 " id="content" role="main">
+  
+
+  <div>
+    <p>Problems taken from Numerical Computation taught by Elizabeth Bradley.</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="kn">as</span> <span class="nn">animation</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span> <span class="k">as</span> <span class="n">gd</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">pykrige.ok</span> <span class="kn">import</span> <span class="n">OrdinaryKriging</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">%</span><span class="n">pylab</span> <span class="n">inline</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">Populating</span> <span class="n">the</span> <span class="n">interactive</span> <span class="n">namespace</span> <span class="kn">from</span> <span class="nn">numpy</span> <span class="nn">and</span> <span class="nn">matplotlib</span></span>
+</pre></div>
+
+
+<h2 id="problem-1">Problem 1</h2>
+<p><strong>Here are some <span class="math">\((x, y, z)\)</span> coordinates for <span class="math">\(22\)</span> points on the Worthington
+glacier near Valdez, Alaska - twelve on the top and ten on the bottom:</strong></p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">top</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">33.44</span><span class="p">,</span> <span class="mf">87.93</span><span class="p">,</span> <span class="mf">105.88</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">8.81</span><span class="p">,</span> <span class="mf">84.07</span><span class="p">,</span> <span class="mf">103.11</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">15.62</span><span class="p">,</span> <span class="mf">34.83</span><span class="p">,</span> <span class="mf">105.98</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">40.16</span><span class="p">,</span> <span class="mf">38.71</span><span class="p">,</span> <span class="mf">108.13</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">61.45</span><span class="p">,</span> <span class="mf">67.07</span><span class="p">,</span> <span class="mf">108.12</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">58.81</span><span class="p">,</span> <span class="mf">91.44</span><span class="p">,</span> <span class="mf">107.72</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">36.97</span><span class="p">,</span> <span class="mf">63.29</span><span class="p">,</span> <span class="mf">107.14</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">64.71</span><span class="p">,</span> <span class="mf">42.38</span><span class="p">,</span> <span class="mf">109.07</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">89.11</span><span class="p">,</span> <span class="mf">46.49</span><span class="p">,</span> <span class="mf">109.93</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">67.24</span><span class="p">,</span> <span class="mf">18.32</span><span class="p">,</span> <span class="mf">109.99</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">65.90</span><span class="p">,</span> <span class="mf">31.93</span><span class="p">,</span> <span class="mf">109.51</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">76.55</span><span class="p">,</span> <span class="mf">44.51</span><span class="p">,</span> <span class="mf">109.91</span><span class="p">]])</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">bot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">15.59</span><span class="p">,</span> <span class="mf">35.07</span><span class="p">,</span> <span class="mf">12.88</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">38.57</span><span class="p">,</span> <span class="mf">37.17</span><span class="p">,</span> <span class="mf">13.33</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">61.10</span><span class="p">,</span> <span class="mf">67.15</span><span class="p">,</span> <span class="mf">17.31</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">58.97</span><span class="p">,</span> <span class="mf">92.05</span><span class="p">,</span> <span class="mf">19.09</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">36.98</span><span class="p">,</span> <span class="mf">63.24</span><span class="p">,</span> <span class="mf">16.51</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">64.45</span><span class="p">,</span> <span class="mf">42.66</span><span class="p">,</span> <span class="mf">20.01</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">89.18</span><span class="p">,</span> <span class="mf">46.85</span><span class="p">,</span> <span class="mf">27.71</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">66.87</span><span class="p">,</span> <span class="mf">18.48</span><span class="p">,</span> <span class="mf">14.24</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">65.90</span><span class="p">,</span> <span class="mf">31.93</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">76.55</span><span class="p">,</span> <span class="mf">44.51</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">]])</span></span>
+</pre></div>
+
+
+<p><strong>Plot the points on the top surface using your favorite 3D plotting tool.
+Repeat for the bottom set. Notice how changing the perspective affects your
+ability to make any sense of the surface from the points. Try connecting the
+points in a wireframe plot.</strong></p>
+<p>First the top</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span></span>
+<span class="code-line"><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">top</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">top</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span></span>
+<span class="code-line"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top</span><span class="p">)):</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_5_0.png" /></p>
+<p>Now the bottom</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span></span>
+<span class="code-line"><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">bot</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bot</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bot</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span></span>
+<span class="code-line"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bot</span><span class="p">)):</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span></span>
+<span class="code-line">            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">bot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span></span>
+<span class="code-line"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_7_0.png" /></p>
+<h2 id="problems-2-3">Problems 2 &amp; 3</h2>
+<p><strong>Using whatever smooth surface interpolation function is available fit a
+surface to the top points. The surface may pass through the points, or not.</strong></p>
+<p><strong>Plot your interpolated surface in 3D, experimenting with shading, point size,
+and
+other plotting parameters - contour versus perspective plot, various shading or
+coloring schemes, etc. - until it looks as good as possible. Turn in a printout
+of
+this plot, together with a one-paragraph discussion of your results and
+observations,
+including at least a few sentences on how and why you added interpolated points
+between those in the data set</strong></p>
+<p>Using <code>python</code> we have access to <code>griddata</code> which is a simple interpolation
+algorithm designed to give a surface based off of a couple points. This method
+is great for connected points, however the results are generally not as detailed
+as we desire. We will be using this to connect interpolated points however. This
+has one parameter for us to tweak, and that is the interpolation method which
+can be <code>linear</code>, <code>cubic</code>, or <code>nearest</code>. For this analysis we will solely use
+<code>cubic</code>.</p>
+<p>The general method used in each interpolation method is to use some implemented
+interpolation method to estimate the values of many intermediate points and then
+tie everything together with <code>griddata</code>.</p>
+<h4 id="nearest-neighbor-weighted-interpolationn">Nearest Neighbor Weighted Interpolationn</h4>
+<p>The first method implemented and examined is Nearest Neighbor Weighted
+Interpolation, which produces the below images.</p>
+<p>This method uses each point in the dataset to determine where the interpolated
+point should be. Each point in the dataset is weighted based on proximity to the
+interpolated point and then factored in to its final value. This interpolation
+process can be expressed as the following equation for some <span class="math">\((x, y)\)</span> pair to be
+interpolated. (See http://paulbourke.net/miscellaneous/interpolation/ as
+reference)</p>
+<div class="math">$$
+z = \begin{cases}
+\frac{\sum_{i = 1}^{N - 1} \frac{z_i}{{\left[ {(x_i - x)}^2 + {(y_i - y)}^2
+\right]}^{p / 2}}}{\sum_{i = 1}^{N - 1} \frac{1}{{\left[ {(x_i - x)}^2 + {(y_i -
+y)}^2 \right]}^{p / 2}}} &amp; \quad x_i \neq x \text{ or } y_i \neq y\\
+z_i &amp; \quad x_i = x \text{ and } y_i = y
+\end{cases}
+$$</div>
+<p>There are two parameters that can be tweaked in this method in order to get a
+"more realistic" surface. The first is the <span class="math">\(p\)</span> value, which generally determines
+the relative importance of distant samples. The second is the interpolation
+interval. A larger interval means that fewer points are estimated, and then
+<code>griddata</code> can make the surface smooth. In these images values of <code>p = 2</code> and <code>i
+= 30</code> are used.</p>
+<p>This method actually has the "nicest" looking surfaces out of all the methods
+used. These surfaces are the smoothest, and have a nice feel to them. There are
+no spikes, no skips, nothing to suggest that the data was interpolated.</p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__top_nearest.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_11_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__bot_nearest.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_12_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__both_nearest.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_13_0.png" /></p>
+<h4 id="kriging">Kriging</h4>
+<p>The second method used is kriging. Kriging uses a probabilistic model to
+determine what the value of <span class="math">\(z\)</span> is at the specified point based on what is most
+likely. To be entirely honest, an implmentation of this was beyond the scope of
+the analysis, and I don't have the statistical skills necessary to explain the
+process well. For a better understanding please reference this paper:
+http://people.ku.edu/~gbohling/cpe940/Kriging.pdf. In the implementation I used
+the opensource code available here: https://github.com/bsmurphy/PyKrige.</p>
+<p>These surfaces are very "spiky" due to the krigin process, and as a result are
+limited in their usability. They look nice, and the end result is somewhat
+decent, however in general these surfaces do not look realistic and are not
+recommendable.</p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__top_kriging.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_15_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__bot_kriging.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_16_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__both_kriging.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_17_0.png" /></p>
+<h4 id="neural-net">Neural Net</h4>
+<p>The last method used is a neural net. Neural nets try to simulate the human
+brain on a much smaller scale through a series of nodes and weighted edges.
+Please reference this site:
+http://pages.cs.wisc.edu/~bolo/shipyard/neural/local.html for an introduction to
+neural networks.</p>
+<p>Instead of implementing my own neural net I used <code>PyBrain</code>, available from this
+repository: https://github.com/pybrain/pybrain. This library strives to make
+neural nets accessible and easy to use.</p>
+<p>In my implementation there are two tweakable parameters. The first is how many
+hidden layers in the network exist, and the second is how many times we train
+the network on the dataset. In the below images we are using 10 hidden layers
+and we train the network until the error converges.</p>
+<p>If you'll note these surfaces arguable are the worst from any implementation.
+This is due to the fact that neural networks generally work best when they have
+a large amount of data off of which to train, and our data sets only have a
+handful of points. This results in a bad approximation as there just isn't
+enough to go on.</p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__top_neural_net.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_19_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__bot_neural_net.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_20_0.png" /></p>
+<div class="highlight"><pre><span class="code-line"><span></span>Image(filename=&#39;snaps__both_neural_net.png&#39;)</span>
+</pre></div>
+
+
+<p><img alt="png" src="files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_21_0.png" /></p>
+<p><a href="files/interpolating3d/3dinterpolation.py">Full code available here</a></p>
+<h2 id="appendix-a-problem-2-3-complete-code">Appendix A: Problem 2 &amp; 3 Complete Code</h2>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="ch">#!/usr/bin/env python2</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">sys</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">pykrige.ok</span> <span class="kn">import</span> <span class="n">OrdinaryKriging</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="kn">as</span> <span class="nn">animation</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">axes3d</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span> <span class="k">as</span> <span class="n">gd</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">pybrain.datasets</span> <span class="kn">as</span> <span class="nn">pd</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">pybrain.tools.shortcuts</span> <span class="kn">import</span> <span class="n">buildNetwork</span></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">pybrain.supervised.trainers</span> <span class="kn">import</span> <span class="n">BackpropTrainer</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">top</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">33.44</span><span class="p">,</span> <span class="mf">87.93</span><span class="p">,</span> <span class="mf">105.88</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">8.81</span><span class="p">,</span> <span class="mf">84.07</span><span class="p">,</span> <span class="mf">103.11</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">15.62</span><span class="p">,</span> <span class="mf">34.83</span><span class="p">,</span> <span class="mf">105.98</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">40.16</span><span class="p">,</span> <span class="mf">38.71</span><span class="p">,</span> <span class="mf">108.13</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">61.45</span><span class="p">,</span> <span class="mf">67.07</span><span class="p">,</span> <span class="mf">108.12</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">58.81</span><span class="p">,</span> <span class="mf">91.44</span><span class="p">,</span> <span class="mf">107.72</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">36.97</span><span class="p">,</span> <span class="mf">63.29</span><span class="p">,</span> <span class="mf">107.14</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">64.71</span><span class="p">,</span> <span class="mf">42.38</span><span class="p">,</span> <span class="mf">109.07</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">89.11</span><span class="p">,</span> <span class="mf">46.49</span><span class="p">,</span> <span class="mf">109.93</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">67.24</span><span class="p">,</span> <span class="mf">18.32</span><span class="p">,</span> <span class="mf">109.99</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">65.90</span><span class="p">,</span> <span class="mf">31.93</span><span class="p">,</span> <span class="mf">109.51</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">76.55</span><span class="p">,</span> <span class="mf">44.51</span><span class="p">,</span> <span class="mf">109.91</span><span class="p">]])</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">bot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">15.59</span><span class="p">,</span> <span class="mf">35.07</span><span class="p">,</span> <span class="mf">12.88</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">38.57</span><span class="p">,</span> <span class="mf">37.17</span><span class="p">,</span> <span class="mf">13.33</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">61.10</span><span class="p">,</span> <span class="mf">67.15</span><span class="p">,</span> <span class="mf">17.31</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">58.97</span><span class="p">,</span> <span class="mf">92.05</span><span class="p">,</span> <span class="mf">19.09</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">36.98</span><span class="p">,</span> <span class="mf">63.24</span><span class="p">,</span> <span class="mf">16.51</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">64.45</span><span class="p">,</span> <span class="mf">42.66</span><span class="p">,</span> <span class="mf">20.01</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">89.18</span><span class="p">,</span> <span class="mf">46.85</span><span class="p">,</span> <span class="mf">27.71</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">66.87</span><span class="p">,</span> <span class="mf">18.48</span><span class="p">,</span> <span class="mf">14.24</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">65.90</span><span class="p">,</span> <span class="mf">31.93</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">],</span></span>
+<span class="code-line"><span class="p">[</span><span class="mf">76.55</span><span class="p">,</span> <span class="mf">44.51</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">]</span></span>
+<span class="code-line"><span class="p">])</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># &#39;nearest&#39;, &#39;linear&#39;, &#39;cubic&#39;</span></span>
+<span class="code-line"><span class="n">interpolationmethod</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span></span>
+<span class="code-line"><span class="n">p</span> <span class="o">=</span> <span class="mi">2</span></span>
+<span class="code-line"><span class="n">extrapolation_interval</span> <span class="o">=</span> <span class="mi">30</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span></span>
+<span class="code-line">    <span class="n">extrapolation_spots</span> <span class="o">=</span> <span class="n">get_plane</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">extrapolation_interval</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">nearest_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">kriging_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">neural_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">neural_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">top_extra</span> <span class="o">=</span> <span class="n">neural_net</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">top_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_top_neural_net&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">bot_extra</span> <span class="o">=</span> <span class="n">neural_net</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">bot</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">bot_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_bot_neural_net&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">top</span><span class="p">,</span> <span class="n">bot</span><span class="p">)),</span> <span class="p">[</span><span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridz_top</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_both_neural_net&#39;</span><span class="p">,</span> <span class="n">both</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">neural_net</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">net</span> <span class="o">=</span> <span class="n">buildNetwork</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">SupervisedDataSet</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">top</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">ds</span><span class="o">.</span><span class="n">addSample</span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],))</span></span>
+<span class="code-line">    <span class="n">trainer</span> <span class="o">=</span> <span class="n">BackpropTrainer</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">ds</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">trainer</span><span class="o">.</span><span class="n">trainUntilConvergence</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">new_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span></span>
+<span class="code-line">    <span class="n">new_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">extrapolation_spots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">new_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">extrapolation_spots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">)):</span></span>
+<span class="code-line">        <span class="n">new_points</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span></span>
+<span class="code-line">    <span class="n">combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">new_points</span><span class="p">))</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">combined</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">nearest_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">top_extra</span> <span class="o">=</span> <span class="n">extrapolation</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">bot_extra</span> <span class="o">=</span> <span class="n">extrapolation</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">top_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_top_nearest&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">bot_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_bot_nearest&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">top</span><span class="p">,</span> <span class="n">bot</span><span class="p">)),</span> <span class="p">[</span><span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridz_top</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_both_nearest&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">both</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">kriging_analysis</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">top_extra</span> <span class="o">=</span> <span class="n">extrapolation</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;kriging&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">bot_extra</span> <span class="o">=</span> <span class="n">extrapolation</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;kriging&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">top_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridz_top</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_top_kriging&#39;</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span><span class="n">bot_extra</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_bot_kriging&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">top</span><span class="p">,</span> <span class="n">bot</span><span class="p">)),</span> <span class="p">[</span><span class="n">gridx_top</span><span class="p">,</span> <span class="n">gridx_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridy_top</span><span class="p">,</span> <span class="n">gridy_bot</span><span class="p">],</span></span>
+<span class="code-line">              <span class="p">[</span><span class="n">gridz_top</span><span class="p">,</span> <span class="n">gridz_bot</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;snaps&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;_both_kriging&#39;</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">both</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">nearest_neighbor_interpolation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">&quot;&quot;&quot;</span></span>
+<span class="code-line"><span class="sd">    Nearest Neighbor Weighted Interpolation</span></span>
+<span class="code-line"><span class="sd">    http://paulbourke.net/miscellaneous/interpolation/</span></span>
+<span class="code-line"><span class="sd">    http://en.wikipedia.org/wiki/Inverse_distance_weighting</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="sd">    :param data: numpy.ndarray</span></span>
+<span class="code-line"><span class="sd">        [[float, float, float], ...]</span></span>
+<span class="code-line"><span class="sd">    :param p: float=0.5</span></span>
+<span class="code-line"><span class="sd">        importance of distant samples</span></span>
+<span class="code-line"><span class="sd">    :return: interpolated data</span></span>
+<span class="code-line"><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="code-line">    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">distance</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">distance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">))</span><span class="o">**</span><span class="n">p</span></span>
+<span class="code-line">        <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>          <span class="o">/</span> <span class="p">(</span><span class="n">distance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">))</span><span class="o">**</span><span class="n">p</span></span>
+<span class="code-line">    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">z</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">get_plane</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">xu</span><span class="p">,</span> <span class="n">yl</span><span class="p">,</span> <span class="n">yu</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">xu</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">yl</span><span class="p">,</span> <span class="n">yu</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">extrapolation_spots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">yy</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span></span>
+<span class="code-line">    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="code-line">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xx</span><span class="p">:</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">yy</span><span class="p">:</span></span>
+<span class="code-line">            <span class="n">extrapolation_spots</span><span class="p">[</span><span class="n">count</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span></span>
+<span class="code-line">            <span class="n">extrapolation_spots</span><span class="p">[</span><span class="n">count</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span></span>
+<span class="code-line">            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">extrapolation_spots</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">kriging</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">):</span></span>
+<span class="code-line">    <span class="sd">&quot;&quot;&quot;</span></span>
+<span class="code-line"><span class="sd">    https://github.com/bsmurphy/PyKrige</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="sd">    NOTE: THIS IS NOT MY CODE</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="sd">    Implementing a kriging algorithm is out of the scope of this homework</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="sd">    Using a library. See attached paper for kriging explanation.</span></span>
+<span class="code-line"><span class="sd">    &quot;&quot;&quot;</span></span>
+<span class="code-line">    <span class="n">gridx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">gridy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span></span>
+<span class="code-line">    <span class="c1"># Create the ordinary kriging object. Required inputs are the X-coordinates of</span></span>
+<span class="code-line">    <span class="c1"># the data points, the Y-coordinates of the data points, and the Z-values of the</span></span>
+<span class="code-line">    <span class="c1"># data points. If no variogram model is specified, defaults to a linear variogram</span></span>
+<span class="code-line">    <span class="c1"># model. If no variogram model parameters are specified, then the code automatically</span></span>
+<span class="code-line">    <span class="c1"># calculates the parameters by fitting the variogram model to the binned</span></span>
+<span class="code-line">    <span class="c1"># experimental semivariogram. The verbose kwarg controls code talk-back, and</span></span>
+<span class="code-line">    <span class="c1"># the enable_plotting kwarg controls the display of the semivariogram.</span></span>
+<span class="code-line">    <span class="n">OK</span> <span class="o">=</span> <span class="n">OrdinaryKriging</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">variogram_model</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">,</span></span>
+<span class="code-line">                                 <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">nlags</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="c1"># Creates the kriged grid and the variance grid. Allows for kriging on a rectangular</span></span>
+<span class="code-line">    <span class="c1"># grid of points, on a masked rectangular grid of points, or with arbitrary points.</span></span>
+<span class="code-line">    <span class="c1"># (See OrdinaryKriging.__doc__ for more information.)</span></span>
+<span class="code-line">    <span class="n">z</span><span class="p">,</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">OK</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">ss</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">extrapolation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;kriging&#39;</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">kriging</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">extrapolation_spots</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">new_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">zz</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span></span>
+<span class="code-line">        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)):</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">yy</span><span class="p">)):</span></span>
+<span class="code-line">                <span class="n">new_points</span><span class="p">[</span><span class="n">count</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></span>
+<span class="code-line">                <span class="n">new_points</span><span class="p">[</span><span class="n">count</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">yy</span><span class="p">[</span><span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">                <span class="n">new_points</span><span class="p">[</span><span class="n">count</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">zz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span></span>
+<span class="code-line">                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></span>
+<span class="code-line">        <span class="n">combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">new_points</span><span class="p">))</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">combined</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;nearest&#39;</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">new_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span></span>
+<span class="code-line">        <span class="n">new_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">extrapolation_spots</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span></span>
+<span class="code-line">        <span class="n">new_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">extrapolation_spots</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">extrapolation_spots</span><span class="p">)):</span></span>
+<span class="code-line">            <span class="n">new_points</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest_neighbor_interpolation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span></span>
+<span class="code-line">                                    <span class="n">extrapolation_spots</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span></span>
+<span class="code-line">                                    <span class="n">extrapolation_spots</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">new_points</span><span class="p">))</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">combined</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span></span>
+<span class="code-line">    <span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">150</span><span class="p">:</span><span class="mi">50j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">150</span><span class="p">:</span><span class="mi">50j</span><span class="p">]</span></span>
+<span class="code-line">    <span class="n">gridz</span> <span class="o">=</span> <span class="n">gd</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">),</span></span>
+<span class="code-line">                <span class="n">method</span><span class="o">=</span><span class="n">interpolationmethod</span><span class="p">)</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;rotate&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">both</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></span>
+<span class="code-line">    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">i</span><span class="p">):</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="n">i</span><span class="p">)</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">ax</span><span class="p">,</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;rotate&#39;</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span></span>
+<span class="code-line">        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">360</span> <span class="o">*</span> <span class="mi">5</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">method</span><span class="o">==</span> <span class="s1">&#39;snaps&#39;</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span></span>
+<span class="code-line">        <span class="n">angles</span> <span class="o">=</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">310</span><span class="p">]</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">if</span> <span class="n">both</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span></span>
+<span class="code-line">                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">gridx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gridy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gridz</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">gridx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gridy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gridz</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="n">angles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></span>
+<span class="code-line">        <span class="k">else</span><span class="p">:</span></span>
+<span class="code-line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span></span>
+<span class="code-line">                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></span>
+<span class="code-line">                <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="n">angles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;snaps_{}.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">title</span><span class="p">))</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;contour&#39;</span><span class="p">:</span></span>
+<span class="code-line">        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span></span>
+<span class="code-line">        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">gridx</span><span class="p">,</span> <span class="n">gridy</span><span class="p">,</span> <span class="n">gridz</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span></span>
+<span class="code-line">        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></span>
+<span class="code-line"></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span></span>
+<span class="code-line">    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span></span>
+</pre></div>
+
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div>
+
+
+    <div class="comments">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'selfbrainoutput';
+        var disqus_identifier = "interpolating-3d.html";
+        var disqus_title = "Interpolating 3D";
+        var disqus_url = "./interpolating-3d.html";
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
+    </div>
+
+        </div>
+
+          <div class="col-md-3">
+  <div class="well">
+
+    <p><abbr title="2015-03-12T00:00:00-06:00"><i class="fa fa-calendar"></i> Thu 12 March 2015</abbr></p>
+
+      <p><address>
+        <i class="fa fa-user"></i> By
+          <a href="./author/zoe-farmer.html" rel="author">Zoë Farmer</a>
+      </address></p>
+
+    <hr/>
+
+      <p>
+              <a href="./category/python.html" rel="tag"
+                  data-toggle="tooltip" class="label label-info"
+                  title="3 articles in this category">Python</a>
+            <a href="/tag/python.html" data-toggle="tooltip"
+      class="label label-default"
+      title="9 articles with this tag">python</a>
+            <a href="/tag/interpolating.html" data-toggle="tooltip"
+      class="label label-default"
+      title="1 article with this tag">interpolating</a>
+            <a href="/tag/3d.html" data-toggle="tooltip"
+      class="label label-default"
+      title="1 article with this tag">3D</a>
+      </p>
+      <hr/>
+
+
+
+  </div>
+            
+<dl class="dl-horizontal">
+<dt><a href="http://www.dataleek.io/archive/category/notes.html" class="label label-info">Notes</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/data-science.html" class="label label-info">Data Science</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/python.html" class="label label-info">Python</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/machine-learning.html" class="label label-info">Machine Learning</a></dt>
+<dt><a href="http://www.dataleek.io/archive/category/homework.html" class="label label-info">Homework</a></dt>
+</dl>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- TODO: make footer sticky -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                <h5>Social</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="mailto:zoe@dataleek.io">
+      <i class="fa fa-envelope"></i>
+    Email
+  </a></li>
+                  <li>  <a href="https://www.github.com/thedataleek">
+      <img src="https://icons.better-idea.org/icon?url=www.github.com&size=16" width="16" height="16" class="icon" alt="www.github.com icon"/>
+    Github
+  </a></li>
+                  <li>  <a href="https://www.gitlab.com/thedataleek">
+      <img src="https://icons.better-idea.org/icon?url=www.gitlab.com&size=16" width="16" height="16" class="icon" alt="www.gitlab.com icon"/>
+    Gitlab
+  </a></li>
+                  <li>  <a href="https://www.twitter.com/TheDataLeek">
+      <img src="https://icons.better-idea.org/icon?url=www.twitter.com&size=16" width="16" height="16" class="icon" alt="www.twitter.com icon"/>
+    Twitter
+  </a></li>
+                  <li>  <a href="https://www.linkedin.com/in/zoefarmer">
+      <img src="https://icons.better-idea.org/icon?url=www.linkedin.com&size=16" width="16" height="16" class="icon" alt="www.linkedin.com icon"/>
+    LinkedIn
+  </a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li>  <a href="/archives.html">
+      <i class="fa fa-external-link"></i>
+    Archives
+  </a></li>
+                  <li>  <a href="/categories.html">
+      <i class="fa fa-external-link"></i>
+    Categories
+  </a></li>
+                  <li>  <a href="/tags.html">
+      <i class="fa fa-external-link"></i>
+    Tags
+  </a></li>
+                </ul>
+            </div>
+
+          <div class="col-md-2">
+            <h5>Browse content by</h5>
+            <ul class="list-unstyled">
+            </ul>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Copyright notice</h5>
+            <p>© Copyright 2014-2016 Zoë Farmer.</p>
+          </div>
+
+          <div class="col-md-2 text-muted">
+            <h5>Disclaimer</h5>
+              <p>All opinions expressed in this site are my own personal opinions and are not endorsed by, nor do they represent the opinions of my previous, current and future employers or any of its affiliates, partners or customers.</p>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+        </div>
+      </div>
+
+      <h5 class="text-right"><a href="#"><i class="fa fa-arrow-up"></i> Back to top</a></h5>
+
+      <div class="container">
+        <div class="row col-md-12 text-muted text-center">
+          Site generated by <a href="https://getpelican.com"> Pelican</a>.<br/>
+          <a href="https://github.com/kdeldycke/plumage"> Plumage</a> theme by <a href="https://kevin.deldycke.com">Kevin Deldycke</a>.
+        </div>
+      </div>
+
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+    <script src="./theme/js/jquery.mglass.js"></script>
+    <script src="./theme/js/application.js"></script>
+
+  </body>
+</html>
