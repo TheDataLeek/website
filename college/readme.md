@@ -3,6 +3,7 @@ layout: page
 title: Older Blog Posts
 nav-menu: false
 image: assets/images/blogtile.png
+description: College Homeworks, Articles, and Reports
 ---
 
 # Old Website Blog Posts

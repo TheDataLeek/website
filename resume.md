@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Resume
-description: DS / MLE
+description: Interested in working with me?
 image: assets/images/zoefarmer_resume_1.png
 nav-menu: true
 ---
