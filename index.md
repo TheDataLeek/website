@@ -29,3 +29,8 @@ Interested in chatting? [My email can be found here](https://github.com/thedatal
 <!-- end Google Calendar Appointment Scheduling -->
 
 ---
+[*Presentations I had put together from college or during my Boulder Python days can be found
+here!*](/presentations)
+
+[*Old content from college can be found here. Note that these are older articles/homework sets and will not
+reflect my current work!*](/college)

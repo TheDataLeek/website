@@ -1,3 +1,11 @@
+---
+layout: page
+title: Presentations
+description: Talks I've Given
+image: assets/img/headshot.jpg
+nav-menu: true
+---
+
 # Presentations
 
 ## [SIAM 2016](./siam2016/PACE.pdf)
