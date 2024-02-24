@@ -27,14 +27,14 @@ The goal of this gradual typing initiative is to add type hinting to codebases t
 
 The syntax is very straightforward. In Python 3.5 you can optionally include these type hints on function declarations. The general form is for function variables to use the colon to indicate its type, `foo: str`. For function returns you use an arrow to indicate the function's return type. `def foo() -> str:`. An example follows.
 
-```
+```python
 def some_function(foo: str, bar: int, bazz: float) -> None:
     return None
 ```
 
 In Python 3.6+ you can also type variables declared in the code itself, and not just in function calls.
 
-```
+```python
 def some_function() -> str:
     foo: str = 'test string'
     bar: int = 5
@@ -52,7 +52,7 @@ The second is that they can be used by other programs (or libraries) to check th
 
 If you're using these type hints, you might want your code to check that it's being called correctly with the correct type of variables. By default this functionality is not supported. This is where [a realtime type-checker like enforce](https://github.com/RussBaz/enforce) comes in. Simply put, it just checks that your input variables and function output match the function's declaration. It's easy to enable on any function just by simply using a decorator.
 
-```
+```python-repl
 >>> import enforce
 >>>
 >>> @enforce.runtime_validation
@@ -83,7 +83,7 @@ MyPy is a different style of approaching the typing problem, and has much more p
 
 Let's say you have some code that looks like the following. From a typing perspective, this is completely wrong even though it's valid python.
 
-```
+```python
 def some_func(x: str) -> None:
     return x
 
@@ -92,7 +92,7 @@ some_func(5)
 
 If we run mypy against this code, it will let us know that there's an incompatibility between the typing and the expected result.
 
-```
+```bash
 [11:47:53] zoe@phoenix /home/zoe/projects/typing_docs (0) 
 > mypy --ignore-missing ./examples.py 
 examples.py:18: error: No return value expected

@@ -29,6 +29,7 @@ The goal of this extension is to allow for more use and reuse of these charts.
 
 There's a lot of code here that at first glance doesn't seem that related to D3, but skim through and I'll explain below.
 
+```javascript
 class Chart {
     constructor(selector, params={}) {
         // selector is just the selection string
@@ -65,6 +66,7 @@ class Chart {
         }
     }
 }
+```
 
 In short this attempts to provide a universal superclass for all charts created with D3. This allows us to solve universal problems (or even common problems) only once, include the solution in this superclass, and never have to solve the same problem again. For instance, this initial superclass adds the following features to _any_ plot initialized with it
 
@@ -77,6 +79,7 @@ Using this framework we can plot a simple resizing rectangle.
 
 With corresponding code,
 
+```javascript
 class EmptyRectangle extends Chart {
     constructor(selector, params={}) {
         super(selector, params);
@@ -95,6 +98,7 @@ class EmptyRectangle extends Chart {
 }
 
 const rect = new EmptyRectangle('.resizable-rectangle');
+```
 
 # Something more complicated
 
@@ -102,6 +106,7 @@ Showing more power of this approach, we can create a simple margin demonstration
 
 With corresponding code,
 
+```javascript
 class MarginDemonstration extends Chart {
     constructor(selector, params={}) {
         super(selector, params);
@@ -188,15 +193,16 @@ const margins = new MarginDemonstration(
         },
     }
 )
+```
 
 # So what?
 
 If you're creating a ton of D3 plots, I highly recommend tinkering with plot creation using an approach like this. It's saved me a ton of time, and helped improve _every_ part of working with D3.
 
-Feel free to download and play with the code at [https://www.dataleek.io/js/ex.js](https://www.dataleek.io/js/ex.js)
+[Feel free to download and play with the code!](/assets/js/ex.js)
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
-<script src="https://www.dataleek.io/js/ex.js"></script>
+<script src="/assets/js/ex.js"></script>

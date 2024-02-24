@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: College Writeups
 nav-menu: false
 image: assets/images/blogtile.png

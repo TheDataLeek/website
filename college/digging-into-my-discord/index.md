@@ -10,7 +10,7 @@ tags:
   - "data"
   - "discord"
   - "python"
-image: "/college/digging-into-my-discord/images/logmessagecount.png"
+image: "college/digging-into-my-discord/images/logmessagecount.png"
 ---
 
 I run a Discord server for my friends. We've essentially given up texting and now use Discord for virtually all communication. This server has been running since about January 2016, and we now have around 75 users and collectively we've sent almost 200,000 messages.

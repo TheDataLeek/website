@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Presentations
 description: Talks I've Given
 image: assets/images/headshot.jpg

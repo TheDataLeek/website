@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Resume
 description: Interested in working with me?
 image: assets/images/zoefarmer_resume_1.png

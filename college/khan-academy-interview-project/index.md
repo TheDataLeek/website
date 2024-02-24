@@ -15,8 +15,6 @@ tags:
 
 # Khan Academy Virus Propagation
 
-[![Github](images/github-cat.png)](https://github.com/thedataleek/khan-interview) [![Coverage Status](https://coveralls.io/repos/github/willzfarmer/khan-interview/badge.svg?branch=master)](https://coveralls.io/github/willzfarmer/khan-interview?branch=master)
-
 Part of the interview process at Khan Academy is to complete their interview project. This project deals with virus propagation through a directed network. We will be using the terms "graph" and "network" interchangeably, [but I'm referring to the same thing for both](https://en.wikipedia.org/wiki/Graph_theory).
 
 From a high level, Khan Academy would like to know the best method for choosing a small portion of their users to be affected by UI changes (along with others), without affecting every user at the same time. They define their network of users by _Teacher -> Student_ relationships. I assume that teachers can also be students, leading to a [many-to-many](https://en.wikipedia.org/wiki/Many-to-many_%28data_model%29) network, or a [multigraph](https://en.wikipedia.org/wiki/Multigraph).
@@ -47,7 +45,7 @@ In terms of language, `python3.5` is used for this analysis and it has not been 
 
 We will be using [`pytest`](http://pytest.org/latest/), [`numpy`](http://www.numpy.org/), [`matplotlib`](http://matplotlib.org/), and [`networkx`](https://networkx.github.io/) as external libraries for this analysis. We will be using the following common abreviations:
 
-```
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -55,7 +53,7 @@ import networkx as nx
 
 The test framework used was [PyTest](http://pytest.org/latest/). To run these tests, run
 
-```
+```python
 py.test
 ```
 
@@ -71,13 +69,13 @@ The first part of this is to figure out where exactly to kick off our infection.
 
 The easiest way is to just pick a node at random. Using [`numpy`'s choice function](http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.random.choice.html) and [`networkx`'s `nodes()` function](https://networkx.github.io/documentation/latest/reference/generated/networkx.Graph.nodes.html) we can easily select a single starting node.
 
-```
+```python
 np.random.choice(graph.nodes())
 ```
 
 The one possible issue with this approach is that if we have [independent subgraphs](https://en.wikipedia.org/wiki/Connectivity_%28graph_theory%29) we need to examine each separately, and pick a random node for every subgraph.
 
-```
+```python
 self.choice = []
 for graph in nx.weakly_connected_component_subgraphs(self.nxgraph):
     self.choice.append(np.random.choice(graph.nodes()))
@@ -87,7 +85,7 @@ for graph in nx.weakly_connected_component_subgraphs(self.nxgraph):
 
 In graph theory there's a concept of [centrality](https://en.wikipedia.org/wiki/Centrality). In essence, centrality is the concept of how "important" each node in the graph is. There are a ton of different ways to define this concept of "importance", from the number of edges of each node, to examining the [leading eigenvalue](https://en.wikipedia.org/wiki/Centrality#Eigenvector_centrality). Using this approach we can find the "most important" node and infect it first.
 
-```
+```python
 centrality_scores = [(a, b) for a, b in nx.eigenvector_centrality(self.nxgraph).items()]
 central_node = max(centrality_scores, key=lambda tup: tup[1])[0]
 ```
@@ -118,7 +116,7 @@ The solution to this part is very straightforward. We need to first select a nod
 
 The code for this is also fairly straightforward, especially as `networkx` has graph traversal algorithms built in.
 
-```
+```python
 subgraphs = list(nx.weakly_connected_component_subgraphs(self.nxgraph))
 for i, graph in enumerate(subgraphs):
     choice = self.choice[i]
@@ -129,7 +127,7 @@ for i, graph in enumerate(subgraphs):
 
 To run this code yourself, run
 
-```
+```bash
 python3.5 ./infection.py -a
 ```
 
@@ -163,7 +161,7 @@ The really interesting part about this is that every time we jump to a new node,
 
 To run this yourself, use
 
-```
+```bash
 python3.5 ./infection.py -l -a
 ```
 
