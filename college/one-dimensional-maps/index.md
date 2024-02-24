@@ -27,7 +27,7 @@ The logistic map expresses chaotic behavior for certain values of $$\\mu$$. We c
 We can find the parameter values at which the stable period $$2^1$$, $$2^2$$, and $$2^3$$ orbits are first created and label these $$\\mu\_1$$, $$\\mu\_2$$, $$\\mu\_3$$. We'll use [Cython](http://cython.org/) for this process as we need to quickly evaluate a large amount of iterations.
 
 ```python
-%%cython -a -c=-O3
+`%%cython -a -c=-O3
 import numpy as np
 cimport numpy as np
 
@@ -52,7 +52,7 @@ def cobweb(f, int n=100, int start=0, float initial=0.5):
             web[i, 1] = web[i - 1, 1]
         state ^= 1
     return web[start:]
-```
+````
 
 Now we can use this function to find our cobwebs and plot.
 
