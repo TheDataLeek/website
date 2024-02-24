@@ -4,7 +4,7 @@ nav-menu: false
 show_tile: false
 title: "One Dimensional Maps"
 date: "2017-11-05"
-image: "./images/logistic_N_cobweb.png"
+image: "/college/one-dimensional-maps/images/logistic_N_cobweb.png"
 katex: true
 ---
 
