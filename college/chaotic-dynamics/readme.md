@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: CSCI 4446 - Chaotic Dynamics
 ---
 

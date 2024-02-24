@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "Python Type Hinting"
 date: "2017-10-30"
 categories: 

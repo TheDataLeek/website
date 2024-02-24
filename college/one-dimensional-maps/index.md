@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "One Dimensional Maps"
 date: "2017-11-05"
 categories: 

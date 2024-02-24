@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "Integrating SMS with Twilio"
 date: "2017-11-27"
 categories: 

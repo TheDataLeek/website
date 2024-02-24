@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "An Introduction to Plotting in Python"
 date: "2017-11-01"
 categories: 

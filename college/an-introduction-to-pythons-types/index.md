@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "An Introduction to Python's Types"
 date: "2017-10-25"
 categories: 

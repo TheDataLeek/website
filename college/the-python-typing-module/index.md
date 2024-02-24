@@ -1,4 +1,7 @@
 ---
+layout: post
+nav-menu: false
+show_tile: false
 title: "The Python Typing Module"
 date: "2017-10-31"
 categories: 

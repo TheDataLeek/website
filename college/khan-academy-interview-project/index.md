@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "Virus Propagation and Markov"
 date: "2017-11-28"
 categories: 

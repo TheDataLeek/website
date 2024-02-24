@@ -1,5 +1,7 @@
 ---
 layout: post
+nav-menu: false
+show_tile: false
 title: "Twitter Civil Unrest Analysis with Apache Spark"
 date: "2015-04-29"
 categories: 
@@ -7,7 +9,6 @@ categories:
 tags: 
   - "python"
   - "spark"
-nav-menu: false
 ---
 
 # Introduction

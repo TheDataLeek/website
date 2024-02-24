@@ -1,6 +1,7 @@
 ---
 title: "The Good, the Bad, and the Ugly of Tuple Unpacking"
 layout: post
+show_tile: false
 nav-menu: false
 date: "2017-10-28"
 categories: 

@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "Speed Snakes - Leveraging Parallelism with Python"
 date: "2018-05-09"
 categories: 

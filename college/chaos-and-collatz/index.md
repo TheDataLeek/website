@@ -1,6 +1,7 @@
 ---
 layout: post
 nav-menu: false
+show_tile: false
 title: "Chaos and Collatz"
 date: "2017-11-17"
 categories: 
