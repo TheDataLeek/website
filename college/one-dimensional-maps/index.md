@@ -11,7 +11,8 @@ tags:
   - "math"
   - "numerics"
   - "python"
-coverImage: "logistic_N_cobweb.png"
+image: "./images/logistic_N_cobweb.png"
+katex: true
 ---
 
 Creating one-dimensional maps is a very easy and straightforward process that can be used to explore chaotic behavior.

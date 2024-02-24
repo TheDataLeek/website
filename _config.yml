@@ -12,3 +12,5 @@ tiles-count: 3
 socials:
   GitHub: https://github.com/thedataleek
   LinkedIn: https://www.linkedin.com/in/zoefarmer
+kramdown:
+  math_engine: katex
