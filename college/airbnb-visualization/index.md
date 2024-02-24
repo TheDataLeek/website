@@ -27,7 +27,7 @@ The Python to convert the raw data to `geojson` is super straightforward. (As an
 
 We don't save all the data, as that gives us a 16MB page download, so instead we only save the columns we need.
 
-```
+```python
 json_obj = []
 column_keys = {key: i for i, key in enumerate(combined_data.columns)}
 for row in combined_data.values:
