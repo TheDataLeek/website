@@ -19,13 +19,13 @@ After having some Applied Math friends rant to me at how awful plotting was in P
 
 This assumes a basic familiarity with `numpy`, although I'll go over the basics really quickly just in case. The syntax/API is very similar to MATLAB, so any familiarity with MATLAB will help.
 
-```
+```python
 import numpy as np
 ```
 
 We can initialize an array from a normal list using `array()`, create ranges using `arange()`, or create evenly distributed numbers using `linspace()`.
 
-```
+```python
 np.array(range(3))  #=> array([0, 1, 2])
 np.arange(3)  #=> array([0, 1, 2])
 np.linspace(0, 1, 3)  #=> array([0, 0.5, 1])
@@ -35,7 +35,7 @@ Operations can be applied to these arrays on an element-wise basis.
 
 Indexing can be done on any axis (up to the max number of axes the array has). Given some n-dimensional array, the first index corresponds to the first row, the second index corresponds to the first column, etc.
 
-```
+```python
 >>> a = np.zeros((5, 2))
 >>> a
 array([[ 0.,  0.],
@@ -64,20 +64,20 @@ We'll go over both, especially since they can be used in tandem and both provide
 
 The `pyplot` module provides this state-machine interface, where the global state of all figures is maintained without the user directly specifying which figure they're editing.
 
-```
+```python
 import matplotlib.pyplot as plt
 ```
 
 Let's assume we have some generic dataset. I'll create a random one just for an example that uses \[latex\]f(x) = x^2\[/latex\].
 
-```
+```python
 x = np.linspace(0, 10, 100)
 y = x**2
 ```
 
 So let's plot it.
 
-```
+```python
 plt.figure()  # Creates a new figure
 plt.plot(x, y)  # Plots a line with our data
 plt.savefig('out.png')  # saves it to a file (in current directory)
@@ -90,7 +90,7 @@ plt.savefig('out.png')  # saves it to a file (in current directory)
 
 We can use `pyplot` for the initial figure creation, or we can be more verbose and use the object oriented approach (which is very similar).
 
-```
+```python
 fig = plt.figure()  # Creates a new figure (same syntax as above)
 ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])  # Adds axes to the (initially blank) figure
 ax.plot(x, y)  # Plots the line on our axes
@@ -119,7 +119,7 @@ Given the basic structure above, we can tweak settings and change things around.
 
 We can also use `pandas`, which is built on `matplotlib` for its plotting. `pandas` is very powerful and can create amazing plots in very few lines of code.
 
-```
+```python
 import pandas as pd
 data = pd.DataFrame({'x': x, 'y': y})  # create a new DataFrame from our dataset
 data.plot(

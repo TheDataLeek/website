@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Older Blog Posts
+title: College Writeups
 nav-menu: false
 image: assets/images/blogtile.png
 description: College Homeworks, Articles, and Reports
 ---
 
-# Old Website Blog Posts
+# College Writeups
 
 The articles here are from 2018 and before, as I haven't had as much time or interest in technical writing in my free time these days!
 
@@ -14,7 +14,6 @@ The articles here are from 2018 and before, as I haven't had as much time or int
 * [airbnb visualization](/college/airbnb-visualization)
 * [an introduction to plotting in python](/college/an-introduction-to-plotting-in-python)
 * [an introduction to pythons types](/college/an-introduction-to-pythons-types)
-* [chaos and collatz](/college/chaos-and-collatz)
 * [digging into my discord](/college/digging-into-my-discord)
 * [evolve project interview](/college/evolve-project-interview)
 * [integrating sms with twilio](/college/integrating-sms-with-twilio)

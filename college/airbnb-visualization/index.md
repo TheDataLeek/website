@@ -12,7 +12,7 @@ tags:
   - "javascript"
   - "math"
   - "python"
-coverImage: "Screenshot-2018-1-17-http-localhost2.png"
+image: "/college/airbnb-visualization/images/Screenshot-2018-1-17-http-localhost2.png"
 ---
 
 This is a followup visualization from [my post on analyzing Boston's AirBnB.](../evolve-project-interview/index.md)

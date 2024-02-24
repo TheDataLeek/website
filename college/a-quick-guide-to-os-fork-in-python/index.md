@@ -4,12 +4,6 @@ nav-menu: false
 show_tile: false
 title: "A quick guide to os.fork in Python"
 date: "2017-10-24"
-categories: 
-  - "python"
-tags: 
-  - "fork"
-  - "parallel"
-  - "python"
 ---
 
 Paralellization usually is pretty tricky in python, however there's a super easy way to implement pretty straightforward parallelization using the built-in `os.fork()` functionality.
@@ -20,7 +14,7 @@ This lack of internal communication means that this is best suited for having a 
 
 When `os.fork()` is called, it returns back a different number depending on whether or not it's the child or parent process. For the child, the result of `os.fork()` is the number `0`. For the parent the result is the `pid` of the child process.
 
-```
+```python
 import os, signal
 
 pid = os.fork()
@@ -33,7 +27,7 @@ else:
 
 I use this for spinning up a webserver and then running integration tests against it in the same codebase without having to shell out. A good example is the [Boulder Python Meetup](http://www.boulderpython.org) website. This code [is available on github](https://github.com/boulder-python/boulderpython.org) but here's the relevant code snippet:
 
-```
+```python
 def main(args: argparse.Namespace) -> int:
     configure(os.getenv('FLASK_CONFIG') or 'default')
 

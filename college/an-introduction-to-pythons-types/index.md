@@ -55,7 +55,7 @@ Whew, that's a ton. Let's focus on the more important ones for now.
 
 Truth values, these can take on one of two values - `True` or `False`.
 
-```
+```python
 In [1]: type(True)
 Out[1]: bool
 
@@ -73,7 +73,7 @@ Out[4]: bool
 
 Basic numeric type, these are whole numbers.
 
-```
+```python
 In [5]: type(5)
 Out[5]: int
 
@@ -88,7 +88,7 @@ Out[7]: int
 
 Another numeric type, these are decimal numbers.
 
-```
+```python
 In [8]: type(0.0)
 Out[8]: float
 
@@ -103,7 +103,7 @@ Out[10]: float
 
 An ordered collection of items. These items don't have to be the same type, and there's no limit on the length of the list. Lists are _mutable_, which we'll talk about later.
 
-```
+```python
 In [11]: type([1, 2, 3])
 Out[11]: list
 
@@ -115,7 +115,7 @@ Out[12]: list
 
 Another ordered collection of items, which also don't have to be the same type, and there's also no limit on the length. However, the big difference between lists and tuples is that tuples are _not mutable_.
 
-```
+```python
 In [13]: type((1, 2, 3))
 Out[13]: tuple
 
@@ -127,7 +127,7 @@ Out[14]: tuple
 
 Ranges are ordered sequences of numbers created with the `range` keyword.
 
-```
+```python
 In [15]: list(range(0, 11, 2))
 Out[15]: [0, 2, 4, 6, 8, 10]
 
@@ -142,7 +142,7 @@ Out[17]: range
 
 Strings are an ordered collection of "characters".
 
-```
+```python
 In [18]: type('a')
 Out[18]: str
 
@@ -154,7 +154,7 @@ Out[19]: str
 
 Sets are an unordered collection of items. These are similar to lists, but are _not mutable_ and _not ordered_.
 
-```
+```python
 In [20]: type({1, 2, 3})
 Out[20]: set
 ```
@@ -163,7 +163,7 @@ Out[20]: set
 
 Dictionaries are mappings of Key to Value pairings. The keys can be any _immutable_ thing, and the values can be anything.
 
-```
+```python
 In [21]: foo = {'a': 5, 'b': 10}
 
 In [22]: foo['a']
@@ -185,7 +185,7 @@ TypeError: unhashable type: 'list'
 
 The Null type, the type for something that doesn't exist is called None.
 
-```
+```python
 In [25]: type(None)
 Out[25]: NoneType
 ```
@@ -194,7 +194,7 @@ Out[25]: NoneType
 
 We mentioned mutability a lot, but didn't nail down what that means. It's a essentially just whether or not a variable is "changeable". For instance, with a mutable object (like a list) we can change the values in place.
 
-```
+```python
 In [1]: foo = [1, 2, 3]
 
 In [2]: foo
@@ -208,7 +208,7 @@ Out[4]: [-5, 2, 3]
 
 However an immutable object cannot be changed.
 
-```
+```python
 In [5]: foo = (1, 2, 3)
 
 In [6]: foo

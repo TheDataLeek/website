@@ -39,7 +39,7 @@ Now with our Account SID and Auth Token for Twilio in hand we can hook it up to 
 
 We're using the [twilio-python](https://github.com/twilio/twilio-python) library to make things easy for us.
 
-```
+```python
 import twilio
 from twilio.rest import Client
 ```
@@ -48,13 +48,13 @@ While you can provice your account and auth to the `Client` instance manually, i
 
 Instantiate your client.
 
-```
+```python
 client = Client()
 ```
 
 Now use `.messages.create()`, specifying the destination phone number, the message body, and the phone number that you purchased from Twilio.
 
-```
+```python
 client.messages.create(
     to='1111111111',
     body='Hello World!',

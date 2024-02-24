@@ -16,6 +16,10 @@ A talk on data quality in lab environments! Presented at SIAM 2016 on using mach
 
 Another SIAM presentation on running a massively parallel simulation on soliton gasses. 
 
+## [Chaos and Collatz](/presentations/chaos-and-collatz.pdf)
+
+A college presentation on the Collatz Conjecture and Chaos Theory.
+
 ## [Python Optimization](./speedsnakes/Speed%20Snakes.slides.html)
 
 A brief talk on optimizing python given to Boulder Python.

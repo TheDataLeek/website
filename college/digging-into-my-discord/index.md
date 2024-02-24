@@ -10,7 +10,7 @@ tags:
   - "data"
   - "discord"
   - "python"
-coverImage: "logmessagecount.png"
+image: "/college/digging-into-my-discord/images/logmessagecount.png"
 ---
 
 I run a Discord server for my friends. We've essentially given up texting and now use Discord for virtually all communication. This server has been running since about January 2016, and we now have around 75 users and collectively we've sent almost 200,000 messages.
@@ -25,7 +25,7 @@ The cog that scrapes is [activitylog](https://github.com/calebj/calebj-cogs).
 
 This results in a file per channel with lines that all look like this:
 
-```
+```python
 2016-03-16 21:10:32 #general @SpatulaFish#8544: test
 ```
 
@@ -44,7 +44,7 @@ The following code performs the following steps:
 3. Create a pandas DataFrame from the matches.
 4. Parse datetimes and add extra helper fields.
 
-```
+```python
 num = '[0-9]'
 channel = '#[a-zA-Z\-]+'
 user = f'@.+#{num}{{4}}'
@@ -72,7 +72,7 @@ df['day_of_week'] = df.timestamp.apply(lambda x: x.dayofweek)
 
 For our first real analysis we can dig into how many posts in our dataset each user has. This is just a simple groupby and count.
 
-```
+```python
 user_counts = df[['user', 'channel']].groupby('user').count()
 user_counts = user_counts.reset_index()
 user_counts.columns = ['username', 'messagecount']
@@ -93,7 +93,7 @@ This matches a very intuitive understanding of how any chatroom would look: you 
 
 We can also plot our top users over time, and see if they have any patterns in their post history. This is again a simple groupby, except this time we need to use a pandas grouper to roll things up by week.
 
-```
+```python
 overtime = df[['user', 'timestamp', 'channel']]\
         .groupby([pd.Grouper(key='timestamp', freq='1W'), 'user'])\
         .count()
@@ -118,7 +118,7 @@ Finally, we can dig into the hours of the day and the days of the week that a us
 
 For time of day it's another groupby.
 
-```
+```python
 tod = df[['user', 'time_of_day', 'channel']]\
         .groupby(['user', pd.Grouper(key='time_of_day', freq='30T')])\
         .count()
@@ -131,7 +131,7 @@ tod = tod[tod.user == name].sort_values('tod')
 
 Same with time of week.
 
-```
+```python
 tod = df[['user', 'time_of_day', 'day_of_week', 'channel']]\
         .groupby(['user', 'day_of_week', pd.Grouper(key='time_of_day', freq='30T')])\
         .count()
@@ -152,5 +152,7 @@ Definitely do statistical analysis on your friends. It's fascinating to dig into
 
 Source code is available below.
 
-Expand Code
-<script src="https://gist.github.com/TheDataLeek/c5aff9ca5ee2a8db61fe8dbc5fca95c9.js"></script>
+<details>
+    <summary style="border: 1px solid #eee; padding: 3px">Expand Code</summary>
+    <script src="https://gist.github.com/TheDataLeek/c5aff9ca5ee2a8db61fe8dbc5fca95c9.js"></script>
+</details>
