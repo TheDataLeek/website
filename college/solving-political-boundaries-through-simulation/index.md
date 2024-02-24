@@ -5,6 +5,19 @@ categories:
   - "python"
 ---
 
+# Presentation
+
+Adapted as a talk for the [Boulder Python Meetup](http://boulderpython.org), and [download archive here](https://github.com/TheDataLeek/politicalboundaries).
+
+_Press the space-bar to proceed to the next slide. [See here for a brief tutorial](http://lab.hakim.se/reveal-js/)_
+
+<iframe src="/presentations/politicalboundaries/politicalboundaries.slides.html" style="width: 100%; height: 50em;"></iframe>
+
+Expand Code
+<script src="https://gist.github.com/TheDataLeek/e1d8af7ad976398bc8a5afcb5cf68c78.js"></script>
+
+# Writeup
+
 In this writeup we'll discuss two algorithms, simulated annealing and genetic algorithms, and show how they can be applied to the problem of drawing political boundaries while avoiding gerrymandering.
 
 This writeup is [available on GitHub](https://gitlab.com/thedataleek/politicalboundaries), or [my personal website](http://www.dataleek.io).

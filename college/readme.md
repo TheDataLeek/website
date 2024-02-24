@@ -29,5 +29,4 @@ time these days!
 * [Chaotic Dynamics](/college/chaotic-dynamics)
 * [interpolating 3d](/college/interpolating-3d)
 * [solving political boundaries through simulation](/college/solving-political-boundaries-through-simulation)
-* [political boundaries and simulations](/college/political-boundaries-and-simulations)
 * [one dimensional maps](/college/one-dimensional-maps)

@@ -1,14 +1,32 @@
-# [SIAM 2016](./siam2016/PACE.pdf)
+# Presentations
 
-# [SIAM 2017](./siam2017/ouroboros.pdf)
+## [SIAM 2016](./siam2016/PACE.pdf)
 
-# [A Boulder Python presentation on python optimization](./speedsnakes/Speed%20Snakes.slides.html)
+A talk on data quality in lab environments! Presented at SIAM 2016 on using machine learning models to identify poor quality photograph data at scale.
 
-# [A college project presentation on simulated annealing](./politicalboundaries/politicalboundaries.slides.html)
+## [SIAM 2017](./siam2017/ouroboros.pdf)
 
-# [A Boulder D3 meetup presentation on reusable D3 charting](./d3reuse/D3Reuse.slides.html)
+Another SIAM presentation on running a massively parallel simulation on soliton gasses. 
 
-# [An interview project presentation using AirB&B data](./evolve/evolve_interview.slides.html)
+## [Python Optimization](./speedsnakes/Speed%20Snakes.slides.html)
 
-# [Visualizing the AirB&B data](./airbnb/index.html)
+A brief talk on optimizing python given to Boulder Python.
+
+## [Simulated Annealing](./politicalboundaries/politicalboundaries.slides.html)
+
+A college project turned into presentation for Boulder Python.
+
+## [Reusable D3 Charting](./d3reuse/D3Reuse.slides.html)
+
+A presentation given to the Boulder D3 Meetup on a simple but effective reusable D3 framework.
+
+## [AirB&B Data Analysis](./evolve/evolve_interview.slides.html)
+
+An interview project turned presentation.
+
+## [AirB&B Data Visualization](./airbnb/index.html)
+
+A D3 dashboard visualizing the above data.
+
+
 

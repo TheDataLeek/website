@@ -1,0 +1,3 @@
+[submodule "college/solving-political-boundaries-through-simulation/politicalboundaries"]
+	path = college/solving-political-boundaries-through-simulation/politicalboundaries
+	url = https://github.com/TheDataLeek/politicalboundaries
