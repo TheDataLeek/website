@@ -2,7 +2,7 @@ title: Zoe Farmer
 description: Data Scientist / Machine Learning Engineer
 logo: /assets/img/headshot.jpg
 # remote_theme: pages-themes/minimal@v0.2.0
-remote_theme: Phlow/feeling-responsive
+remote_theme: andrewbanchich/forty-jekyll-theme
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 author: thedataleek
