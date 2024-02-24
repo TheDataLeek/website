@@ -12,19 +12,19 @@ Creating one-dimensional maps is a very easy and straightforward process that ca
 
 Given some function $$f(x)$$ we take an initial value $$x\_0$$ and use the iterative process
 
-$$ x\_{n+1} = f\\left(x\_n\\right) $$
+$$ x\_{n+1} = f\left(x\_n\right) $$
 
 One popular map to explore is the [Logistic Map](https://en.wikipedia.org/wiki/Logistic_map), defined as
 
-$$ x\_{n+1} = \\mu x\_n (1 - x\_n) $$
+$$ x\_{n+1} = \mu x\_n (1 - x\_n) $$
 
 # Cobweb Diagrams
 
 We can construct [Cobweb Diagrams](https://en.wikipedia.org/wiki/Cobweb_plot) using our logistic map and the diagonal $$y=x$$. These diagrams are made by "bouncing" around between our map and the diagonal to construct "cobwebs".
 
-The logistic map expresses chaotic behavior for certain values of $$\\mu$$. We can examine "orbits" of this system by looking at what values the map bounces around to. A cobweb diagram is a good way to see these "orbits".
+The logistic map expresses chaotic behavior for certain values of $$\mu$$. We can examine "orbits" of this system by looking at what values the map bounces around to. A cobweb diagram is a good way to see these "orbits".
 
-We can find the parameter values at which the stable period $$2^1$$, $$2^2$$, and $$2^3$$ orbits are first created and label these $$\\mu\_1$$, $$\\mu\_2$$, $$\\mu\_3$$. We'll use [Cython](http://cython.org/) for this process as we need to quickly evaluate a large amount of iterations.
+We can find the parameter values at which the stable period $$2^1$$, $$2^2$$, and $$2^3$$ orbits are first created and label these $$\mu\_1$$, $$\mu\_2$$, $$\mu\_3$$. We'll use [Cython](http://cython.org/) for this process as we need to quickly evaluate a large amount of iterations.
 
 ```python
 `%%cython -a -c=-O3
@@ -99,7 +99,7 @@ plt.savefig('logistic_orbits.png')
 
 # Bifurcation Diagrams
 
-We've already noted that the accuracy of finding these bifurcation points was low, let's instead examine a bifurcation diagram. A bifurcation diagram is essentially a probabilistic view of our map for different values of $$\\mu$$. For the following plots, the $$x$$-axis is differing values of $$\\mu$$, and the $$y$$-axis is a large number of plotted values after the transient.
+We've already noted that the accuracy of finding these bifurcation points was low, let's instead examine a bifurcation diagram. A bifurcation diagram is essentially a probabilistic view of our map for different values of $$\mu$$. For the following plots, the $$x$$-axis is differing values of $$\mu$$, and the $$y$$-axis is a large number of plotted values after the transient.
 
 ```python
 %%cython -a -c=-O3
@@ -231,7 +231,7 @@ plt.savefig('logistic_bifurcation_cobwebs.png')
 
 ![](images/logistic_bifurcation_cobwebs.png)
 
-We could keep recording these values if we wanted, as this will keep going infinitely, and appears to be approaching $$\\mu\_\\infty \\approx 3.57$$.
+We could keep recording these values if we wanted, as this will keep going infinitely, and appears to be approaching $$\mu\_\infty \approx 3.57$$.
 
 # Period 3 and 5 Orbits
 
@@ -294,7 +294,7 @@ plt.savefig('logistic_bifurcations_odd.png')
 
 ![](images/logistic_bifurcations_odd.png)
 
-We can see that at each level of odd-numbered orbits, there's an additional bifurcation series made up of $$n \\cdot 2 m$$, where $$n$$ is the number of the initial bifurcation $$(3, 5, 7, 9, \\ldots)$$, and $$m$$ is the next number in the series. This is especially clear for $$n=3$$. In other words, each odd numbered bifurcation follows the same pattern that the base-$$2$$ orbits do, they increase exponentially, while converging to a number, and the devolve into chaos as soon as you're outside their fixed orbit values.
+We can see that at each level of odd-numbered orbits, there's an additional bifurcation series made up of $$n \cdot 2 m$$, where $$n$$ is the number of the initial bifurcation $$(3, 5, 7, 9, \ldots)$$, and $$m$$ is the next number in the series. This is especially clear for $$n=3$$. In other words, each odd numbered bifurcation follows the same pattern that the base-$$2$$ orbits do, they increase exponentially, while converging to a number, and the devolve into chaos as soon as you're outside their fixed orbit values.
 
 This means that for any $$n$$, there are an infinite number of corresponding bifurcations.
 
@@ -386,7 +386,7 @@ def plot(mu=3.74, n=3):
 
 ![](images/logistic_N_cobweb.png)
 
-Here are our $$\\mu$$ values with $$f(x)$$.
+Here are our $$\mu$$ values with $$f(x)$$.
 
 ```python
 x = np.linspace(0, 1, 5000)
@@ -411,7 +411,7 @@ plt.savefig('logistic_N_odd_cycles_cobweb.png')
 
 ![](images/logistic_N_odd_cycles_cobweb.png)
 
-We can clearly see that we have period $$\\{3, 5, 7, 9\\}$$ cycles here, but if we plot with $$n=3$$ we obtain something else entirely.
+We can clearly see that we have period $$\{3, 5, 7, 9\}$$ cycles here, but if we plot with $$n=3$$ we obtain something else entirely.
 
 ```python
 x = np.linspace(0, 1, 5000)
