@@ -4,13 +4,6 @@ nav-menu: false
 show_tile: false
 title: "One Dimensional Maps"
 date: "2017-11-05"
-categories: 
-  - "math"
-tags: 
-  - "chaos"
-  - "math"
-  - "numerics"
-  - "python"
 image: "./images/logistic_N_cobweb.png"
 katex: true
 ---
@@ -63,7 +56,7 @@ def cobweb(f, int n=100, int start=0, float initial=0.5):
 
 Now we can use this function to find our cobwebs and plot.
 
-```
+```python
 x = np.linspace(0, 1, 100)
 button = ipywidgets.Button(description='Save as File')
 @ipywidgets.interact(mu=(1, 4, 0.01))
@@ -84,7 +77,7 @@ def plot(mu=3):
 
 And here they are.
 
-```
+```python
 x = np.linspace(0, 1, 100)
 web1 = cobweb(lambda x: 3.069946 * x * (1 - x), n=1000, start=100)
 web2 = cobweb(lambda x: 3.449945 * x * (1 - x), n=1000, start=500)
@@ -108,7 +101,7 @@ plt.savefig('logistic_orbits.png')
 
 We've already noted that the accuracy of finding these bifurcation points was low, let's instead examine a bifurcation diagram. A bifurcation diagram is essentially a probabilistic view of our map for different values of $\\mu$. For the following plots, the $x$-axis is differing values of $\\mu$, and the $y$-axis is a large number of plotted values after the transient.
 
-```
+```python
 %%cython -a -c=-O3
 
 import numpy as np
@@ -144,7 +137,7 @@ def bifurcation(np.int64_t precision=1000,
 
 The full bifurcation diagram for the logistic map follows.
 
-```
+```python
 points = bifurcation(xmin=1, xmax=4)
 plt.figure(figsize=(12, 4))
 plt.plot(points[:, 0], points[:, 1], ',', color='k', alpha=0.8)
@@ -156,7 +149,7 @@ plt.savefig('logistic_bifurcation.png')
 
 Now that we can plot the bifurcation diagram, let's examine the first several bifurcations.
 
-```
+```python
 mu_vals = np.array([3,
                     3.45,
                     3.544,
@@ -203,7 +196,7 @@ plt.savefig('logistic_bifurcation_points.png')
 
 So what are these values that we've found? Let's record them.
 
-```
+```python
 points = bifurcation(xmin=1, xmax=4, precision=3000,
                      num_compute=20000, keep=100)
 plt.figure(figsize=(12, 4))
@@ -220,7 +213,7 @@ plt.savefig('logistic_bifurcation_fullpoints.png')
 
 We can plot our cobweb diagrams with these more accurate values.
 
-```
+```python
 x = np.linspace(0, 1, 100)
 fig, axarr = plt.subplots(3, 3, figsize=(12, 12))
 for i in range(9):
@@ -244,7 +237,7 @@ We could keep recording these values if we wanted, as this will keep going infin
 
 We found all powers of $2^n$, but we haven't found any odd-numbered orbits. Let's track these down.
 
-```
+```python
 %%cython -a -c=-O3
 
 import numpy as np
@@ -277,7 +270,7 @@ def bifurcation(np.int64_t precision=1000, np.int64_t keep=500, np.int64_t num_c
 
 Now we can perform the same process to find the odd-numbered orbits. I'm not doing 9 different levels of this, because they're hard to find, and it's tedious work.
 
-```
+```python
 mu_vals = np.array([3.84, 3.74, 3.702, 3.68725])
 
 def plot_bifurcation(fig, axarr, index, x, y, xmin, xmax, ymin, ymax, precision, keep, num):
@@ -305,7 +298,7 @@ We can see that at each level of odd-numbered orbits, there's an additional bifu
 
 This means that for any $n$, there are an infinite number of corresponding bifurcations.
 
-```
+```python
 points = bifurcation(xmin=3.825, xmax=3.859)
 plt.figure(figsize=(12, 4))
 plt.plot(points[:, 0], points[:, 1], ',', color='k', alpha=0.8)
@@ -318,7 +311,7 @@ plt.savefig('logistic_bifurcation_odd_zoomed.png')
 
 To show where these values actually occur in the entire bifurcation plot, we can plot our red lines.
 
-```
+```python
 points = bifurcation(xmin=1, xmax=4, precision=3000, num_compute=20000, keep=100)
 plt.figure(figsize=(12, 4))
 plt.plot(points[:, 0], points[:, 1], ',', color='k', alpha=0.8)
@@ -334,7 +327,7 @@ It seems that these odd-numbered orbits approach the supercritical point at arou
 
 Let's look at the implications of these orbits on our cobweb diagram. We need to rewrite our cobweb function slightly, as it's not precise enough.
 
-```
+```python
 %%cython -a -c=-O3
 import numpy as np
 cimport numpy as np
@@ -369,7 +362,7 @@ def cobweb(np.float64_t mu, int n=1, int num=100, int keep=100, np.float64_t ini
 
 Here's an interactive version to play with.
 
-```
+```python
 x = np.linspace(0, 1, 5000)
 
 def f(x, mu, n):
@@ -395,7 +388,7 @@ def plot(mu=3.74, n=3):
 
 Here are our $\\mu$ values with $f(x)$.
 
-```
+```python
 x = np.linspace(0, 1, 5000)
 n = 1
 
@@ -420,7 +413,7 @@ plt.savefig('logistic_N_odd_cycles_cobweb.png')
 
 We can clearly see that we have period $\\{3, 5, 7, 9\\}$ cycles here, but if we plot with $n=3$ we obtain something else entirely.
 
-```
+```python
 x = np.linspace(0, 1, 5000)
 n = 3
 
