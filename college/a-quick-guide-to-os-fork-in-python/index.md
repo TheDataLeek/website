@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "A quick guide to os.fork in Python"
 date: "2017-10-24"
 categories: 

@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "Solving Political Boundaries Through Simulation"
 date: "2017-10-11"
 ---

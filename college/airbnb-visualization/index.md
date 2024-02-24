@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "AirBnB Visualization"
 date: "2018-01-17"
 categories: 

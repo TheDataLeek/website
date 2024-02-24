@@ -1,3 +1,9 @@
+---
+layout: post
+nav-menu: false
+title: CSCI 4446 - Chaotic Dynamics
+---
+
 # CSCI 4446 - Chaotic Dynamics
 
 * [Homework #2](2.md)

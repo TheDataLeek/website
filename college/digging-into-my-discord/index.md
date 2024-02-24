@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "Digging into my Discord"
 date: "2017-12-12"
 categories: 

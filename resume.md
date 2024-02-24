@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Resume
 description: DS / MLE
 image: assets/img/zoefarmer_resume.png

@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "Reusable Charting with D3"
 date: "2018-04-29"
 categories: 

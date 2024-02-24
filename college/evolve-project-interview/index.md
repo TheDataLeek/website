@@ -1,4 +1,6 @@
 ---
+layout: post
+nav-menu: false
 title: "A Year in Boston with AirBnB"
 date: "2017-10-17"
 categories: 

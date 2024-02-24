@@ -1,7 +1,12 @@
+---
+layout: page
+title: Older Blog Posts
+nav-menu: false
+---
+
 # Old Website Blog Posts
 
-The articles here are from 2018 and before, as I haven't had as much time or interest in technical writing in my free
-time these days!
+The articles here are from 2018 and before, as I haven't had as much time or interest in technical writing in my free time these days!
 
 * [a quick guide to os fork in python](/college/a-quick-guide-to-os-fork-in-python)
 * [airbnb visualization](/college/airbnb-visualization)
