@@ -72,14 +72,14 @@
             display: block;
             height: 100%;
             left: 0;
-            opacity: 0.85;
+            opacity: 0.65;
             position: absolute;
             width: 100%;
             z-index: 2;
         }
 
         &:after {
-            background-color: transparentize(_palette(bg), 0.50);
+            background-color: transparentize(_palette(bg), 0.75);
             content: '';
             display: block;
             height: 100%;
