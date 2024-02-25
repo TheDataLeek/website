@@ -48,7 +48,7 @@ $$
 
 Just sum up each place that has a one digit. (For example, the above number is 166)
 
-##Floating Point
+## Floating Point
 
 The value of a number is computed as
 
@@ -60,7 +60,7 @@ $$
 
 # Solving Equations
 
-##Bisection Method
+## Bisection Method
 
 
 ```python
@@ -83,7 +83,7 @@ def bisectionmethod(f, a, b, steps, precision=1e-4):
     return (m[-1, 0] + m[-1, 1]) / 2, m
 ```
 
-##Fixed Point Iteration
+## Fixed Point Iteration
 
 A number, $x^*$, is called a fixed point if $g(x^*) = x^*$. If we're lucky, some functions converge to a certain point.
 
@@ -99,7 +99,7 @@ def fixedpointmethod(f, x0, steps):
     return m[-1], m
 ```
 
-##Newton's Method
+## Newton's Method
 
 
 ```python
@@ -113,7 +113,7 @@ def newtonsmethod(f, x0, steps, precision=1e-4):
     return m[i], len(np.nonzero(m)[0])
 ```
 
-##Secant Method
+## Secant Method
 
 
 ```python
@@ -135,7 +135,7 @@ def secantmethod(f, x0, x1, steps):
 
 # Systems of Equations
 
-##Properties and Definitions
+## Properties and Definitions
 
 A system of equations can be defined by a matrix, usually denoted $Ax = b$.
 
@@ -155,7 +155,7 @@ $$
 
 A matrix is said to be ill-conditioned if the value $\lVert A \rVert \lVert A^{-1} \rVert$ is large.
 
-##Gaussian Elimination
+## Gaussian Elimination
 
 We have three elementary operations that we can use to solve systems of equations in matrix form with Naive Gaussian Elimination. (See http://www.dataleek.io/archive/files/MatrixMethodsNotes.pdf for more matrix stuff)
 
@@ -163,14 +163,14 @@ We have three elementary operations that we can use to solve systems of equation
 * Add or subtract a multiple of one equation from another
 * Multiply an equation by a nonzero constant
 
-##LU Factorization
+## LU Factorization
 
 Any system of equations with coefficient matrix $A$ and solution vector $b$ can be written in the form $Ax = b$. $LU$ Factorization strives to reduce this coefficient matrix into two matrices, a lower and upper triangular matrix (hence the $LU$).
 
-####No Pivoting
+#### No Pivoting
 We use our elementary operations here, and each constant we use is "saved" in an identity matrix which becomes our lower triangular matrix at the end.
 
-####Partial Pivoting
+#### Partial Pivoting
 
 In this method we compare numbers before carrying out an elimination step. In the case of the first pivot, the largest entry of the first column is located and swapped for the first row. For the next pivot, the highest second column row is used for the second pivot.
 
@@ -196,7 +196,7 @@ plt.show()
     
 
 
-##Linear Interpolation
+## Linear Interpolation
 
 Between two points is simply defined as:
 
@@ -238,7 +238,7 @@ plt.show()
     
 
 
-##Lagrangian Interpolation
+## Lagrangian Interpolation
 
 Given a set of $k + 1$ points, $(x_0, y_0), \cdots, (x_k, y_k)$, with distinct $x_i$, the lagrangian polynomial is the linear combination
 
@@ -296,7 +296,7 @@ plt.show()
     
 
 
-##Newton's Divided Differences
+## Newton's Divided Differences
 
 For the same set of points, the Newton Interpolating Polynomial is
 
@@ -373,7 +373,7 @@ plt.show()
 
 If you'll note, both Lagrangian interpolation and Newton's divided differences result in the same polynomial.
 
-##Splines
+## Splines
 
 In short, for the natural cubic spline, let us define $\delta_i = x_{i + 1} - x_i$ and $\Delta_i = y_{i + 1} - y_i$.
 
@@ -466,7 +466,7 @@ plt.show()
     
 
 
-##Bezier Curves
+## Bezier Curves
 
 Cubic Bezier curves can be explicitly defined as
 
@@ -520,7 +520,7 @@ plt.show()
     
 
 
-##3D Interpolation
+## 3D Interpolation
 
 With gridded data we can simply interpolate between the points. For non gridded data things get harder.
 
@@ -596,7 +596,7 @@ plt.show()
     
 
 
-##QR Factorization
+## QR Factorization
 
 We can do something better than the normal equations for least squares. The Gram-Schmidt process orthagonalizes a set of vectors by using the vector's length to get a unit vector.
 
@@ -663,17 +663,17 @@ print(np.dot(q, r))
      [ 2.  2.]]
 
 
-###Full QR Factorization
+### Full QR Factorization
 
 Full factorization is defined as $A = QR$ where $Q$ is an orthogonal square matrix and $R$ is an upper triangular matrix the same size as $A$. Therefore, if $A$ is not square, a third arbitrary column that is linearly independent of the first two columns may be used.
 
-###Least Squares by QR Factorization
+### Least Squares by QR Factorization
 
 Given some $m \times m$ inconsistent system $Ax = b$, find the full $QR$ factorization and set $\hat{R} = $ upper $n \times n$ submatrix of $R$ and $\hat{d} =$ upper $n$ entries of $d = Q^T b$.
 
 Solve $\hat{R} \bar{x} = \hat{d}$ for the least squares solution $\bar{x}$.
 
-###Gram-Schmidt Process
+### Gram-Schmidt Process
 
 A unit vector is defined as 
 
@@ -701,7 +701,7 @@ Image('350px-Gram–Schmidt_process.svg.png') # From wikipedia
 
 
 
-##Householder Reflectors
+## Householder Reflectors
 
 A better way to find the $QR$ factorization is using householder reflectors.
 
@@ -769,7 +769,7 @@ print(np.dot(q, r))
 
 # Numerical Differentiation and Integration
 
-##Numerical Differentiation
+## Numerical Differentiation
 
 Recall, the definition of a derivative:
 
@@ -806,7 +806,7 @@ three_point_formula_point(lambda x: 1 / x, 0.1, 2)
 
 
 
-###Trapezoid Rule
+### Trapezoid Rule
 
 $$
 \int_{x_0}^{x_1} f(x) \, dx = \frac{h}{2} (y_0 + y_1) - \frac{h^3}{12}f^{\prime\prime} (c)
@@ -841,7 +841,7 @@ def trapezoid_integration(data, lower, upper, step):
     return (h / 2) * np.sum([points[0, 1]] + list((2 * points[1:-1, 1])) + [points[-1, 1]])
 ```
 
-###Simpson's Rule
+### Simpson's Rule
 
 $$
 \int_{x_0}^{x^2} f(x) \, dx = \frac{h}{3} (y_0 + 4y_1 + y_2) - \frac{h^5}{90}f^{(iv)}(c)
@@ -877,7 +877,7 @@ def simpsons_third(data, lower, upper, step):
                 4 * np.sum(points[2:-2:2, 1]) + points[-1, 1])
 ```
 
-###Romberg Integration
+### Romberg Integration
 
 For some function $f$, using the trapezoidal rule we can define integration to be
 
@@ -937,7 +937,7 @@ def romberg_integration(intfunc, data, lower, upper, step, size):
     return romberg, hvals
 ```
 
-###Gaussian Quadrature
+### Gaussian Quadrature
 
 $$
 \int_{-1}^1 f(x) \, dx \approx \sum_{i=1}^n c_i f(x_i)
@@ -979,9 +979,9 @@ def gaussian_quadrature(func, a, b):
     return np.sum([legendre_3_coeff[i] * new_func(legendre_3_roots[i]) for i in range(3)])
 ```
 
-#Ordinary Differential Equations
+# Ordinary Differential Equations
 
-##Euler's Method
+## Euler's Method
 
 We can solve ODEs using a variety of methods. First is Euler's Method.
 
@@ -1065,7 +1065,7 @@ def trapezoid_method(f, t0, y0, dt, n):
     return traj
 ```
 
-##Higher Order ODEs
+## Higher Order ODEs
 
 Some higher order ODE
 
@@ -1096,7 +1096,7 @@ y_n^\prime &=& f(t, y_1, \ldots, y_n)
 \end{aligned}
 $$
 
-##Runge-Kutta
+## Runge-Kutta
 
 This is defined as
 
