@@ -1,0 +1,407 @@
+\section{Matrices and Systems of Linear Equations}
+Up until this point we've been solving systems of linear equations through fiddling with them (solving for different variables, etc.) until we get an answer. Using matrices we can solve them a lot more effectively. Not only that, but any process we use will turn the matrix into an equivalent system of equations, i.e., one that has the same solutions.
+
+We can have systems of linear equations represented in matrices, and if all equations are equal to zero, the system is homogeneous. The solution is defined as the point in $\mathbb{R}^n$ whose coordinates solve the system of equations.
+
+We have a couple of methods to solve systems of linear equations when they are in matrix form, but first we need to define a couple different terms and operations.
+
+    \subsection{Augmented Matrix}
+    An augmented matrix is where two different matrices are combined to form a new matrix.
+
+    \begin{equation}\label{eq:augmented_matrix}
+    \begin{aligned}
+        \mathbf{[A|b]}=
+        \left[\begin{array}{cccc|c}
+        A_{11} & A_{12} & \cdots & A_{1m} & b_1\\
+        A_{21} & A_{22} & \cdots & A_{2m} & b_2\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        A_{n1} & A_{n2} & \cdots & A_{nm} & b_n\\
+        \end{array}\right]\\
+    \end{aligned}
+    \end{equation}\myequations{Augmented Matrix}
+
+    This is usually used to show the coefficients of the variables in a system of equations as well as the constants they are equal to.
+
+    \subsection{Elementary Row Operations}
+    We have a couple of different options to manipulate augmented matrices, which are as follows.
+
+    \begin{itemize}
+        \item Interchange row $i$ and $i$
+            \[ R^*_i = R_j, R^*_j = R_i \]
+        \item Multiply row $i$ by a constant.
+            \[ R^*_i = cR_i \]
+        \item Leaving $j$ untouched, add to $i$ a constant times $j$.
+            \[ R^*_i = R_i + cR_j \]
+    \end{itemize}
+
+    These are handy when dealing with matrices and trying to obtain Reduced Row Echelon Form \eqref{sec:RREF}.
+
+    \subsection{Gaussian Elimination}\label{sec:gaussianelimination}
+    Our first method for solving matrices is to use Gaussian Elimination.
+
+    Our end goal with this strategy is to get to an triangular matrix or triangular form, which is easy to solve through back substitution.
+
+    \[ \left(\begin{array}{ccc|c}
+            1 & 2 & 1 & 2\\
+            0 & 2 & -1 & 3\\
+            0 & 0 & \frac{5}{2} & 3
+        \end{array}\right) \]
+
+    The corresponding linear system has vector form
+
+    \[ U\vec{x}=\vec{c} \]
+
+    The coefficient matrix $U$ is upper triangular.
+
+    The method of using solely Elementary Row Operation 1 is called regular Gaussian Elimination. A square matrix $A$ is called regular if the algorithm successfully reduces it to upper triangular form $U$ with all non-zero pivots.
+
+    \subsection{Pivoting and Permutations}
+    Besides the above Elementary Row Operations, we also have pivoting at our disposal (which if you'll notice, is the same as Elementary Row Operation 1).
+
+        \subsubsection{Pivoting}
+        \begin{definition}
+            A square matrix is called nonsingular if it can be reduced to upper triangular form with all non-zero elements on the diagonal, the pivots, by elementary row operations.
+
+            A singular square matrix cannot be reduced by such operations.
+        \end{definition}
+
+        \begin{thm}
+            A linear system $A\vec{x} = \vec{b}$ has a unique solution for every choice of right hand side $\vec{b}$ if and only if its coefficient matrix $A$ is square and nonsingular.
+        \end{thm}
+
+        \subsubsection{Permutations}
+        \begin{definition}
+            A Permutation Matrix is a matrix obtained from the identity matrix by any combination of row interchanges.
+        \end{definition}
+
+        Essentially just a method to change matrices.
+
+        There are six different $3\times3$ permutation matrices:
+
+        \begin{equation}\label{eq:perm_matrices}
+            \begin{aligned}
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 1 & 0\\
+                    0 & 0 & 1\\
+                \end{pmatrix}
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    0 & 0 & 1\\
+                    1 & 0 & 0\\
+                \end{pmatrix}
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    1 & 0 & 0\\
+                    0 & 1 & 0\\
+                \end{pmatrix}\\
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    1 & 0 & 0\\
+                    0 & 0 & 1\\
+                \end{pmatrix}
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    0 & 1 & 0\\
+                    1 & 0 & 0\\
+                \end{pmatrix}
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 0 & 1\\
+                    0 & 1 & 0\\
+                \end{pmatrix}
+            \end{aligned}
+        \end{equation}
+
+        \subsubsection{Permuted LU Factorization}
+        Because we are also allowed pivoting in Gaussian Elimination, we can get the permuted LU Factorization formula:
+        \[
+            PA = LU
+        \]
+
+        \begin{thm}
+            Let $A$ be an $n \times n$ matrix. Then the following conditions are equivalent:
+            \NewList
+            \begin{easylist}
+                & $A$ is non-singular.
+                & $A$ has $n$ non-zero pivots.
+                & $A$ admits a permuted $LU$ factorization: $PA = LU$.
+            \end{easylist}
+        \end{thm}
+
+        \subsubsection{Factorization of Symmetric Matrices}
+        \begin{definition}
+            A square matrix is called symmetric if it equals its own transpose. $A = A^T$.
+            Any symmetric matrix $A$ is regular if and only if it can be factored as
+            \[
+                A = LDL^T
+            \]
+        \end{definition}
+
+        \subsubsection{Pivoting Strategies}
+        There are a couple strategies we can use to ensure that both our solutions are good, and that our relative error is minimal.
+
+        Partial Pivoting says that at each stage we should use the largest (in absolute value) element as the pivot, even if the diagonal element is nonzero. This helps suppress round-off errors.
+
+        Full Pivoting lets us also exchange columns so that the greatest values are closes to the upper left.
+
+    \subsection{Elementary Matrices}
+
+    \begin{definition}
+        The elementary matrix $E$ associated with an elementary row operation for $m$ rowed matrices is the matrix obtained by applying the row operation to the $m\times m$ identity matrix $I_m$.
+    \end{definition}
+
+    In other words, if we were to (for example), take our Identity Matrix $I$, add two times the first row to the second, and then multiply it by our original matrix, it's the same as the elementary row operation by itself.
+
+    These are very important for $LU$ decomposition.
+
+        \subsubsection{LU Decomposition}
+        \begin{thm}
+            A Matrix A is regular if and only if it can be factored
+            \[ A = LU \]
+            Where $L$ is a special lower triangular, having all ones on the diagonal, and $U$ is an upper triangular matrix with nonzero diagonal entries.
+        \end{thm}
+
+        In general to find the LU decomposition, apply the regular Gaussian Elimination to reduce $A$ to its upper triangular form, and fill in the identity matrix with values used (elementary matrix). These two matrices are the Upper and Lower matrices.
+
+        \subsubsection{Forward and Back Substitution}
+        Once we have LU decomposition, we can solve the system.
+
+        \NewList
+        \begin{easylist}[enumerate]
+            & Solve the Lower system:
+                \[ L \vec{c} = \vec{b} \]
+                with Forward Substitution.
+            & Solve the resulting Upper system:
+                \[ U \vec{x} = \vec{c} \]
+                with Back Substitution.
+        \end{easylist}
+
+
+    \subsection{Reduced Row Echelon Form}\label{sec:RREF}
+    When dealing with systems of linear equations in augmented matrix form we need to get it to a solution, which can be found with Reduced Row Echelon Form (RREF). This form looks similar to the following.
+
+    \begin{equation}\label{eq:rref}
+    \begin{aligned}
+        \mathbf{[A|b]}=
+        \left[\begin{array}{ccc|c}
+        1 & 0 & 0 & b_1\\
+        0 & 1 & 0 & b_2\\
+        0 & 0 & 1 & b_3\\
+        \end{array}\right]\\
+    \end{aligned}
+    \end{equation}\myequations{Reduced Row Echelon Form}
+
+    This can be characterized by the following:
+
+    \begin{itemize}
+        \item $0$ rows are at the bottom.
+        \item Leftmost non-zero entry is $1$, also called the pivot (or leading 1).
+        \item Each pivot is further to the right than the one above.
+        \item Each pivot is the only non-zero entry in its column.
+    \end{itemize}
+
+    A less complete process gives us row echelon form, which allows for nonzero entries are allowed above the pivot.
+
+    \subsection{Gauss Jordan Reduction}
+    This procedure will let us solve any given matrix/linear system. The steps are as follows.
+
+    \begin{enumerate}
+        \item Given a system $A\vec{x} = \vec{b}$
+        \item Form augmented matrix $[A|b]$
+        \item Transform to RREF \eqref{sec:RREF} using elementary row operations.
+        \item The linear matrix formed by this process has the same solutions as the initial system, however it is much easier to solve.
+    \end{enumerate}
+
+        \subsubsection{LDV Factorization}
+        This sophisticated version of Gauss-Jordan elimination leads us to a more detailed version of the $LU$ factorization. Let $D$ be the diagonal matrix having the same diagonal entries as $U$. Let $V$ be the special upper triangular matrix obtained from $U$ by dividing each row by its pivot.
+
+        \begin{thm}
+            A matrix $A$ is regular if and only if it admits a factorization
+            \[
+                A = LDV
+            \]
+        \end{thm}
+
+        \begin{thm}
+            A matrix $A$ is nonsingular if and only if there is a permutation matrix $P$ such that
+            \[
+                PA = LDV
+            \]
+            where the matrices $L, D,$ and $V$ are the same as defined above.
+        \end{thm}
+
+    \subsection{Existence and Uniqueness}
+    If the RREF has a row that looks like:
+    \[
+        [0, 0, 0, \cdots, 0 | k]
+    \]
+    where $k$ is a non-zero constant, then the system has no solutions. We call this inconsistent.
+
+    If the system has one or more solutions, we call it consistent.
+
+    In order to be unique, the system needs to be consistent.
+        \begin{itemize}
+            \item If every column is a pivot, the there is only one solution (unique solution).
+            \item Else If most columns are pivots, there are multiple solutions (possibly infinite).
+            \item Else the system is inconsistent.
+        \end{itemize}
+
+    \subsection{Superposition, Nonhomogeneous Principle, and RREF}
+    For any nonhomogeneous linear system $\mathbf{A}\vec{x} = \vec{b}$, we can write the solutions as:
+    \[
+        \vec{x} = \vec{x}_h + \vec{x}_p
+    \]
+    Where $\vec{x}_h$ represents vectors in the set of homogeneous solutions, and $\vec{x}_p$ is a particular solution to the original equation.
+
+    We can use RREF to find $\vec{x}_p$, and then, using the same RREF with $\vec{b}$ replaced by $\vec{0}$, find $\vec{x}_h$.
+
+    The rank of a matrix $r$ equals the number of pivot columns in the RREF. If $r$ equals the number of variables, there is a unique solution. Otherwise if there is less, then it is not unique.
+
+    \begin{definition}
+        A square matrix of size $n \times n$ is nonsingular if and only if its rank is equal to $n$.
+    \end{definition}
+
+    \begin{thm}
+        A homogeneous linear system $A \vec{x} = \vec{0}$ of $m$ equations in $n$ unknowns has a non-trivial solution $\vec{x} \neq \vec{0}$ if and only if the rank of $A$ is $r < n$. If $m < n$ the system always has a nontrivial solution. If $m = n$ the system has a nontrivial solution if and only if $A$ is singular.
+    \end{thm}
+
+    \subsection{Inverse of a Matrix}
+    When given a system of equations like:
+    \[
+        \begin{cases}
+            x + y = 1\\
+            4x + 5y = 6
+        \end{cases}
+    \]
+    we can rewrite it in the form:
+    \[
+        \left[\begin{array}{cc}
+        1 & 1\\
+        4 & 5
+        \end{array}\right]
+        \left[\begin{array}{c}
+            x\\
+            y
+        \end{array}\right] =
+        \left[\begin{array}{c}
+            1\\
+            6
+        \end{array}\right]
+    \]
+    For this sort of matrix, we can find the inverse which is defined as the matrix that, when multiplied with the original, equals an Identity Matrix. In other words:
+    \[ A^{-1}A = AA^{-1} = I \]
+
+        \subsubsection{Properties}
+        \begin{itemize}
+        \item ${( A^{-1})}^{-1} = A$
+        \item $A$ and $B$ are invertible matrices of the same order if $\left(AB\right) = A^{-1}B^{-1}$
+        \item If $A$ is invertible, then so is $A^T$ and $\left(A^{-1}\right)^T = \left(A^T\right)^{-1}$
+        \end{itemize}
+
+        \subsubsection{Inverse Matrix by RREF}
+        For an $n\times n$ matrix $A$, the following procedure either produces $A^{-1}$, or proves that it's impossible.
+
+        \begin{enumerate}
+        \item Form the $n \times 2n$ matrix $M=\left[A|I\right]$
+        \item Transform $M$ into its RREF, $R$.
+        \item If the first $n$ columns produce an Identity Matrix, then the last $n$ are its inverse. Otherwise $A$ is not invertible.
+        \end{enumerate}
+
+    \subsection{Invertibility and Solutions}
+    The matrix vector equation $A\mathbf{x} = b$ where $A$ is an $n \times n$ matrix has:
+        \begin{itemize}
+        \item A unique solution $x=A^{-1} b$ if and only if $A$ is invertible.
+        \item Either no solutions or infinitely many solutions if $A$ is not invertible.
+        \end{itemize}
+
+    For the homogeneous equation $A \mathbf{x} = 0$, there is always one solution, $x=0$ called the trivial solution.
+
+    Let $\ma$ be an $n \times n$ matrix. The following statements apply.
+    \begin{itemize}
+        \item $\ma$ is an invertible matrix.
+        \item $\ma^T$ is an invertible matrix.
+        \item $\ma$ is row equivalent to $I_n$.
+        \item $\ma$ has $n$ pivot columns.
+        \item The equation $\ma \vec{x} = \vec{0}$ has only the trivial solution, $\vec{x}=\vec{0}$.
+        \item The equation $\ma \vec{x} = \vec{0}$ has a unique solution for every $\vec{b}$ in $\mathbb{R}^n$.
+    \end{itemize}
+
+    \subsection{Determinants and Cramer's Rule}
+    The determinant of a square matrix is a scalar number associated with that matrix. These are very important.
+
+        \subsubsection{$2 \times 2$ Matrix}\label{subsubsec:22mat}
+        To find the determinant of a $2 \times 2$ matrix, the determinant is the diagonal products subtracted. This process is demonstrated below.
+
+        \begin{equation}\label{eq:22det}
+        \begin{aligned}
+            A =
+            \left[\begin{array}{cc}
+                a_{11} & a_{12}\\
+                a_{21} & a_{22}
+            \end{array}\right]\\
+            \left| A \right| = a_{22} \cdot a_{11} - a_{12} \cdot a_{21}
+        \end{aligned}
+        \end{equation}\myequations{Determinant of a $2 \times 2$ Matrix}
+
+        \subsubsection{Definitions}
+        Every element of a $n \times n$ matrix has an associated minor and cofactor.
+
+        \begin{itemize}
+        \item Minor $\to$ A $(n - 1) \times (n - 1)$ matrix obtained by deleting the $i$th row and $j$th column of $A$.
+        \item Cofactor $\to$ The scalar $C_{ij} = (C - 1)^{i+j} \left| M_{ij} \right|$
+        \end{itemize}
+
+        \subsubsection{Recursive Method of an $n \times n$ matrix $A$}
+        We can now determine a recursive method for any $n \times n$ matrix.
+
+        Using the definitions declared above, we use the recursive method that follows.
+
+        \begin{equation}\label{eq:detrec}
+        \left| A \right| = \sum_{j=1}^n a_{ij} C_{ij}
+        \end{equation}\myequations{Recursive Method for Obtaining the Determinant of an $n \times n$ Matrix}
+
+        Find $j$ and then finish with the rules for the $2 \times 2$ matrix defined above in \eqref{subsubsec:22mat}.
+
+        \subsubsection{Row Operations and Determinants}
+        Let $A$ be square.
+
+        \begin{itemize}
+        \item If two rows of $A$ are exchanged to get $B$, then $|B| = -|A|$.
+        \item If one row of $A$ is multiplied by a constant $c$, and then added to another row to get $B$, then $|A| = |B|$.
+        \item If one row of $A$ is multiplied by a constant $c$, then $|B| = c|A|$.
+        \item If $|A| = 0$, $A$ is called singular.
+        \end{itemize}
+
+        For an $n \times n$ $A$ and $B$, the determinant $|AB|$ is given by $|A||B|$.
+
+        \subsubsection{Properties of Determinants}
+        \begin{itemize}
+        \item If two rows of $\ma$ are interchanged to equal $\mb$, then
+            \[ | \mb | = - | \ma | \]
+        \item If one row of $\ma$ is multiplied by a constant $k$, and then added to another row to produce matrix $\mb$, then
+            \[ | \mb | = | \ma | \]
+        \item If one row of $\ma$ is multiplied by $k$ to produce matrix $\mb$, then
+            \[ | \mb | = k | \ma | \]
+        \item If $|AB| = 0$, then either $|A|$ or $|B|$ must be zero.
+        \item $|A^T| = A$
+        \item If $| \ma | \neq 0$, then $| \ma^{-1} | = \frac{1}{|\ma |}$.
+        \item If $A$ is an upper or lower triangle matrix\footnote{A triangle matrix is one where either the lower or upper half is zero, e.g. $\left[\begin{array}{cccc}1 & 0 & 0 & 0\\1 & 1 & 0 & 0\\1 & 1 & 1 & 0\\1 & 1 & 1 & 1\end{array}\right]$.}, then the determinant is the product of the diagonals.
+        \item If one row or column consists of only zeros, then $|A| = 0$.
+        \item If two rows or columns are equal, then $|A|=0$.
+        \item $A$ is invertible.
+        \item $A^T$ is also invertible.
+        \item $A$ has $n$ pivot columns.
+        \item $|A| \neq 0$
+        \item If $|A| = 0$ it is called singular, otherwise it is nonsingular.
+        \end{itemize}
+
+        \subsubsection{Cramer's Rule}
+        For the $n \times n$ matrix $A$ with $|A| \neq 0$, denote by $A_i$ the matrix obtained from $A$ by replacing its $i$th column with the column vector $\mathbf{b}$. Then the $i$th component of the solution of the system is given by:
+
+        \begin{equation}\label{eq:cramer}
+            x_i = \frac{|A_i|}{|A|}
+        \end{equation}\myequations{Cramer's Rule}
+
+
+

@@ -1,0 +1,202 @@
+\section{Algorithms and Integers}
+    \subsection{Complexity}
+    \begin{thm}
+        Definitions:
+        \NewList
+        \begin{easylist}[enumerate]
+            & Let $f$ be a function $f:[0, \infty) \to \mathbb{R}$ and $g:[-, \infty ) \to \mathbb{R}$, we write $f = O(g)$ and say ``f is of order g at most''. If there exists constants $c > 0$ and $k \ge 0$ such that
+                \[ \abs{f(x)} \le c \abs{g(x)} \text{ for all } x > k \]
+            & We write $f = \Theta(g)$, ``f and g are of the same order'' if $f = O(g)$ and if $g = O(f)$. This is equivalent to saying $\exists c_1, c_2, k (0 < c_1 < c_2 \wedge k \ge 0)$ such that $c_1 \abs{f(x)} \le \abs{g(x)} \le c_2 \abs{f(x)}, x > k$.
+        \end{easylist}
+    \end{thm}
+
+    \begin{table}
+        \centering
+        \begin{tabular}{l|l}
+            Big O Form& Complexity\\
+            \hline
+            $O(1)$ & constant\\
+            $O(log(n))$ & logarithmic\\
+            $O(n)$ & linear\\
+            $O(n log(n))$ & $n log(n)$\\
+            $O(n^2)$ & quadratic\\
+            $O(n^3)$ & cubic\\
+            $O(n^m)$ & polynomial\\
+            $O(2^n)$ & exponential\\
+            $O(n!)$ & factorial\\
+        \end{tabular}
+        \caption{Big O Forms}
+        \label{table:bigo}
+    \end{table}
+
+    \begin{thm}
+        If $f_1(x) = O(g_1(x))$ and $f_2(x) = O(g_2(x))$, then
+            \NewList
+            \begin{easylist}[enumerate]
+                & $(f_1 + f_2)(x) = O(max(\abs{g_1(x)}, \abs{g_2(x)}))$
+                & $(f_1 f_2)(x) = O(g_1(x) - g_2(x))$
+            \end{easylist}
+    \end{thm}
+
+    \begin{thm}
+        Definitions:
+        \NewList
+        \begin{easylist}[enumerate]
+            & Time Complexity of an algorithm relates to the time required to give output.
+            & Space Complexity relates to the computer memory required by the algorithm.
+            & Worst-Case Complexity is the maximum number the algorithm for input of size $n$.
+            & Average Case Complexity is the average number of operations used to solve a problem over all inputs of a given size.
+        \end{easylist}
+    \end{thm}
+
+    \begin{thm}
+        Let $P: \mathbb{R} \to \mathbb{R}$ and $q:\mathbb{R} \to \mathbb{R}$ be polynomials, then
+            \NewList
+            \begin{easylist}[enumerate]
+                & $p = O(q) \Leftrightarrow degree(p) \le degree(q)$
+                & $p = \Theta(q) \Leftrightarrow degree(p) = degree(q)$
+            \end{easylist}
+    \end{thm}
+
+    \subsection{Greedy Algorithms}
+    A greedy algorithm is an algorithm that makes the ``best'' choice at each step.
+
+        \subsubsection{Change Problem}
+        \textit{Consider the problem of making change for $n$ checnts using quarters, dimes, nickels, and pennies using the fewest total number of coins.}
+
+        The strategy for this problem is defined as the following. At each step, choose the coin of largest denomination possible without exceeding the total.
+
+        \begin{minted}[mathescape,
+                        linenos,
+                        gobble=8,
+                        frame=single]{python}
+            def change(c1, c2, ..., c3, n):
+                c = [0, 0, 0, ..., 0]   # Number of coins we have
+                for i in range(0, c):
+                    while n >= c_i:
+                        c[i] = c[i] + 1
+                        n = n - c_i
+                return c
+        \end{minted}
+
+        \textit{Lemma:} If $n \in \mathbb{Z}, n \ge 0$, then $n$ cents in change $(q, d, n, p)$, using the fewest coins possible, has at most $2d, 1n, 4p$ and cannot have $2d + n$. The amount of change in $dnp$ cannot exceed 24.
+
+
+    \subsection{Mergesort}
+    The algorithm is as follows:
+
+    Step One is to split the given list into two equal sublists until each list contains a single element.
+
+    Step Two is to merge the sublists until they are sorted.
+
+    Lemma: Let $L_1, L_2$ be the two sorted lists of ascending numbers, where $L_i$ contains $n_i$ elements. $L_1$ and $L_2$ can be merged into a single list, $L$, using at most $n_1 + n_2 - 1$ comparisons.
+
+    The worst-case complexity of mergesort is $O(n \cdot \ln(n))$
+
+
+    \subsection{Division Algorithm}
+    For any integers $a, b \in \mathbb{Z} | a \neq 0$, $a$ divides $b$, $a | b$ if $\exists c \in \mathbb{Z}$ such that $b = ac$.
+
+    Let $a,b$ be positive integers, then there are unique integers $q,r$, $0 \le < b$ such that $a = bq + r$.
+
+    If we consider a fixed $b > 1$ then $\exists k \ge 0$ and $\exists \left((a_0, a_1, \cdots, a_k) \in \{ 0, 1, \cdots, b-1 \}\right)$
+        $\left[ \left(a_k \neq 0\right) \wedge \left( n=a_kb^k + a_{k-1}b^{k-1} + \cdots + a_0 = \sum^k_{i=0} a_ib^i \right) \right]$
+
+        \subsubsection{Uniqueness}
+        The representation of any number $n \in \mathbb{Z}^+ \cup \{ 0 \}$ is unique for each fixed base $b \ge 1$
+
+    \subsection{Base $b$ Expansion}
+    The following algorithm finds the base $b$ representation of any integer $n \ge 0$.
+
+    \begin{minted}[mathescape,
+                    linenos,
+                    gobble=8,
+                    frame=single]{python}
+        def base_b_expansion(n,b):
+            q = n
+            k = 0
+            while q != 0:
+                a_k = q % b
+                q = q / b
+                k += 1
+    \end{minted}
+
+    The complexity of the above algorithm is $\Theta(log_b(n))$
+
+    \subsection{Prime Numbers}
+    A prime number can be defined as a positive integer $p > 1$ if the only positive factors of $p$ are 1 and $p$.
+
+    If a number is not prime, it is composite.
+
+    Every integer can be written as a product of primes uniquely up to the order of the primes.
+
+    There are infinitely many primes.
+
+    If $n$ is a composite integer then $n$ has a prime divisor $\le \sqrt{n}$, and contrapositively, if $n$ doesn't have a prime divisor $\le \sqrt{n}$, then $n$ is prime.
+
+        \subsubsection{GCD}
+        For integers $a,b \in \mathbb{Z}$, a positive integer $c$ is called the greatest common divisor of $a$ and $b$ if
+        \NewList
+        \begin{easylist}
+            & $(c \vert a) \wedge (c \vert b)$
+            & $(d \vert a) \wedge (d \vert b) \Rightarrow (d \vert c) \Rightarrow (d \le c)$
+        \end{easylist}
+
+        Two numbers are relatively prime if their GCD is one.
+
+        If $a, b, q, r$ are non-negative integers such that $a = bq + r$, then the $gcd(a,b) = gcd(b,r)$.
+
+        If $a,b \in \mathbb{Z}$ and $gcd(a,b)=1$ then
+        $\left( \exists \alpha, \beta \in \mathbb{Z} \right)\left[ 1 = \alpha a + \beta b \right]$
+
+        The corollary of the above equation is that if $a,b \in \mathbb{Z}$, then $\left( \exists \alpha, \beta \in \mathbb{Z} \right) \left[ gcd(a,b) = \alpha a + \beta b \right]$
+
+    \subsection{Modular Arithmetic}
+    Fix $m \ge 2 (m \in \mathbb{Z})$ and if $a,b \in \mathbb{Z}$, then $a$ is congruent to $b \mod m, a \equiv b (\mod m)$, if and only if $m \vert (a - b)$ and $\exists k \in \mathbb{Z}$ such that $a - b = mk \Rightarrow a = b+mk$.
+
+        \NewList
+        \begin{easylist}
+            & If $a \equiv b (\mod m) \Rightarrow (a = q_1 m + r) \wedge (b = q_2 m + r)$. In other words, $a$ and $b$ have the same remainder after dividing by $m$.
+            & If $a = b \Rightarrow a \equiv b (\mod m)$
+            & If $ a \equiv b (\mod m)$ and $a,b \in \{0, 1, 2, \cdots, m\} \Rightarrow a = b$.
+            & $a \equiv a (\mod m)$
+            & $a \equiv b (\mod m) \Rightarrow b \equiv a (\mod m)$
+            & $ a \equiv b (\mod m) \wedge b \equiv c (\mod m) \Rightarrow a \equiv c (\mod m)$
+            & $ a \equiv b (\mod m) \Rightarrow (a + c) \equiv (b + c) (\mod m) \wedge (ac) \equiv (bc) (\mod m)$
+            & $ ac \equiv bc (\mod m) \wedge gcd(c,m)=1 \Rightarrow a \equiv b (\mod m)$
+            & $gcd(a,m) = 1 \Rightarrow (\exists x \in \mathbb{Z} ) [ ax \equiv 1 (\mod m) ]$, and $x$ is called a multiplicative inverse of $a \mod m$.
+        \end{easylist}
+
+        \subsubsection{The Space $\mathbb{Z}_m$}
+        Let $m = 11, \mathbb{Z}_{11} = \left\{ x (\mod 11) \vert x \in \mathbb{Z} \right\}$ which is equivalent to $\left\{ [0], [1], [2], \cdots, [10] \right\}$. Each box is $[x] = \left\{ k \in \mathbb{Z} \vert k \equiv x (\mod m) \right\}$. These are called equivalence rings.
+
+
+    \subsection{Dirichlet's Approximation Theorem}
+    For every irrational number $\alpha$, there are infinitely many rational numbers $\frac{p}{q}$ such that $\abs{\alpha - \frac{p}{q}} < \frac{1}{q^2}$.
+
+    Lemma: For any integer $n \ge 1$ there is a rational number $\frac{p}{q}$ such that $\abs{\alpha - \frac{p}{q}} < \frac{1}{nq}$ where $1 \le q \le n$.
+
+\section{Graph Theory}
+A graph can be defined by letting $V$ be a finite, non-empty set of nodes and $E$ be a set of edges. The pair of sets forms a graph.
+
+In directed graphs we care about the direction of the nodes, and the order of the pairs in $E$ matter.
+
+In undirected graphs order does not matter.
+
+Multigraphs are graphs that allow several edges between the same two nodes.
+
+A simple graph is defined as an undirected graph with no loops and no multiple edges.
+
+If a graph is undirected, then the total degree of the vertices is equal to twice the edges, therefore there must be an even sum of degrees.
+
+We also have out degree and in degrees.
+
+A graph is called bipartite if it can be written as $V = V_1 \cup V_2$ where $V_1\cap V_2 = \varnothing$, and every edge is of the form $\{a,b\} \in G \wedge a \in V_1 \wedge b \in V_2$.
+
+A complete bipartite graph has every node in $V_1$ adjacent to every node in $V_2$.
+
+If we have a graph, then a proper coloring of the graph allows that each adjacent node be a different color.
+
+The minimum number of colors to properly color a graph is called its chromatic number. A graph is bipartite if its chromatic number is 2.
+
+We can express graphs as adjacency matrices.

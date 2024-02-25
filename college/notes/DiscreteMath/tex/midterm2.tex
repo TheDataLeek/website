@@ -1,0 +1,119 @@
+\section{Logic and Proofs}
+    \subsection{Propositional Logic}
+    Before we begin we have to define the syntax of these expressions. Let the letters $p, q, r, s, \cdots$ denote the various propositions, while $T$ and $F$ denote the truth value of the statement.
+
+    First we define the negation of $p$, denoted $\neg p$. This is expressed as the statement, ``It is not the case that $p$.''
+
+    Next we define the conjunction of $p$ and $q$, denoted $p \land q$. This statement is true when both $p$ and $q$ are true, but false otherwise.
+
+    The disjunction of $p$ and $q$ is true when either $p$ or $q$ is true, and false otherwise.
+
+    The exclusive or of $p$ and $q$ is true when exactly one is true, and false otherwise.
+
+    The conditional statement is defined by the expression ``If $p$; then $q$.''
+
+    The biconditional statement is similar, except it is defined by the expression ``$p$ if and only if $q$.''
+
+        \begin{table}[ht]
+            \centering
+            \begin{tabular}{| c | c || c | c | c | c | c |}
+                \hline
+                $p$ & $q$ & $p \land q$ & $p \lor q$ & $q \oplus q$ & $p \to q$ & $p \iff q$\\
+                \hline
+                T & T & T & T & F & T & T\\
+                T & F & F & T & T & F & F\\
+                F & T & F & T & T & T & F\\
+                F & F & F & F & F & T & T\\
+                \hline
+            \end{tabular}
+            \label{table:and}
+            \caption{Truth Table for Various Statements}
+        \end{table}
+
+    \subsection{Propositional Equivalences}
+    A statement that is always true is called a tautology, while a statement that is always false is called a contradiction, and a statement that is neither is a contingency.
+
+    Two statements are logically equivalent if $p \iff q$ is a tautology.
+
+    \subsection{Methods of Proof}
+        \subsubsection{Direct Proof}
+        This style of proof directly proves the statement through application of properties, definitions, or theorems. It is the most common type of proof.
+
+        \subsubsection{Proof by Contraposition}
+        $p \Rightarrow q \equiv q \vee ( \neg p ) \equiv \neg p \vee \neg (\neg q)$. Therefore $\neg q \Rightarrow \neg p$.
+
+        \subsubsection{Proof by Contradiction}
+        Suppose we wish to prove statement $p$, then assume $\neg p$, and then prove $\neg p$ implies a contradiction.
+
+        \subsubsection{Existence Proofs}
+        To prove existence we can either choose a constructive approach, or a non-constructive approach. A constructive proof constructs an example satisfying the conditions, and if it's not constructive, then it has to be non-constructive.
+
+        \subsubsection{Uniqueness Proofs}
+        First prove $(\exists x)[P(x) \Rightarrow T]$
+
+        Then prove that if $P(y) \Rightarrow T$ for any $y$, then show $y=x$. Else if $y \neq x$, show $P(y)$ is false.
+
+    \subsection{Induction}
+        \begin{thm}[The Well-Ordering Principle]
+            Every non-empty subset of $\mathbb{Z}^+$ contains a smallest element. $\mathbb{Z}^+$ itself is well-ordered. Note, $\mathbb{Z}^+$ contains no open sets or intervals.
+        \end{thm}
+
+        \begin{thm}[The Principle of Mathematical Induction]
+            Let $P(n)$ be a propositional function.
+
+            Suppose $P(1) \Rightarrow T$ and $\forall k \in \mathbb{Z}^+$ if wherever $P(k) \Rightarrow P(k + 1)$, then $P(n) \Rightarrow T$ for all $n \in \mathbb{Z}^+$.
+
+            Note, induction requires two steps, the first of which being to prove $P(1)$, and the second to prove $P(k) \Rightarrow P(k+1)$.
+        \end{thm}
+
+
+\section{Set Theory}
+\begin{thm}
+    Definitions:
+    \NewList
+    \begin{easylist}[enumerate]
+        & A set is a list of elements where repetition and order doesn't matter.
+        & If $p(x)$ is a propositional function with domain of speech $u$ (the universe) then $A = \{x \in u | p(x) \}$, so $x \in A \Leftrightarrow p(x)$ is true. By definition, the negation of $x \in A$ is $x \not\in A$.
+        & Two sets are equal if they have exactly the same elements.
+        & By definition, the only set with no elements is the Empty Set, or null set, denoted $\{ \}$ or $\varnothing$. Note, $\{ 0 \}$ is \textit{not} the empty set.
+        & $A$ is a subset of $B$ if $\forall x [ x \in A \Rightarrow x \in B ]$ is true. We write $A \subseteq B$, and $A \subseteq A$. Note, $A = B$ if and only if $A \subseteq B$ and $B \subseteq A$.
+        & $A$ is a proper subset of $B$ if $A$ is a subset of $B$, and $A \neq B$. So $\exists x [ x \in B \wedge x \not\in A ]$. $A \subset B$.
+    \end{easylist}
+\end{thm}
+
+    \subsection{Operations Between Sets}
+    \NewList
+    \begin{easylist}[enumerate]
+        & \textbf{Union:} For $A, B \subseteq u$ we define $A \cup B = \{ x \in u | (x \in A) \vee (x \in B) \}$.
+            \[ \bigcup_{i \in I} A_i = \left\{ x \in u \vert (\exists i \in I)[x \in A_i]\right\} \]
+        & \textbf{Intersection:} For $A, B \subseteq u, A \cap B = \{ x \in u | (x \in A) \wedge (x \in B) \}$.
+            \[ \bigcap_{i \in I} A_i = \left\{ x \in u \vert (\forall i \in I)[x \subset A_i]\right\} \]
+        & \textbf{Set Complementation:} ``The complement of $A$'' is $A^c = \{ x \in u | x \not\in A \}$. $u^c = \varnothing$. $\varnothing^c = u$.
+    \end{easylist}
+
+    We can apply DeMorgan's Laws.
+
+    \NewList
+    \begin{easylist}[enumerate]
+        & \[ {\left( \bigcup_{i \in I} A_i \right)}^c = \bigcap_{i \in I} A^c_i \]
+        & \[ {\left( \bigcap_{i \in I} A_i \right)}^c = \bigcup_{i \in I} A^c_i \]
+    \end{easylist}
+
+    \subsection{Set Properties and Functions}
+    \begin{thm}
+        Definitions:
+        \NewList
+        \begin{easylist}[enumerate]
+            & For sets $A$, $B$, we define the cartesian product of $A \times B = \{ (a, b) | (a \in A) \wedge (b \in B) \}$
+            & The difference between $A$ and $B$ is $A - B = \{ x \in u | (x \in A) \wedge ( x \not\in B ) \}$.
+            & A function from $A$ to $B$ is a rule that associates a unique element in $B$ to each element of $A$, i.e.\ $f:A \to B$ is a function from $A$ to $B$ if $(\forall a, b \in A)[a = b \Rightarrow f(a) = f(b) ]$.
+            & If $f: A \to B$ is a function, then $A$ is called the domain of $f$, $B$ is called the codomain, and the range of $f$ is $f(a) = \{ y \in B | (\exists a \in A)[y = f(a)] \}$. Note, by definition, the range is contained in the codomain $f(a) \subseteq B$.
+            & $f: A \to B$ is injective, $(1 - 1)$, or one-to-one, if for any $y \in B$ there is at most one a in $A$ such that $f(a) = y$.
+            & $f: A \to B$ is surjective, or onto if for any $y \in B, \exists a \in A$ such that $f(a) = y$.
+            & If $f$ is both one-to-one and surjective, then it is called bijective.
+            & A set $A$ is said to be countable if there exists a bijection $f: \mathbb{N} \to A$.
+            & If $f: A \to B$ is a bijection, then it is invertible.
+            & A set that is not finite nor countable is said to be uncountable.
+        \end{easylist}
+    \end{thm}
+

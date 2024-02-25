@@ -1,0 +1,98 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Imports
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}                                                   % Math fonts
+\usepackage{amsmath}                                                    % Math formatting
+\usepackage{amssymb}                                                    % Math formatting
+\usepackage{amsthm}                                                     % Math Theorems
+\usepackage{arydshln}                                                   % Dashed hlines
+\usepackage{attachfile}                                                 % AttachFiles
+\usepackage{cancel}                                                     % Cancelled math
+\usepackage{caption}                                                    % Figure captioning
+\usepackage{color}                                                      % Nice Colors
+\input{./lib/dragon.inp}                                                % Tikz dragon curve
+\usepackage[ampersand]{easylist}                                        % Easy lists
+\usepackage{fancyhdr}                                                   % Fancy Header
+\usepackage[T1]{fontenc}                                                % Specific font-encoding
+%\usepackage[margin=1in, marginparwidth=2cm, marginparsep=2cm]{geometry} % Margins
+\usepackage{graphicx}                                                   % Include images
+\usepackage{hyperref}                                                   % Referencing
+\usepackage[none]{hyphenat}                                             % Don't allow hyphenation
+\usepackage{lipsum}                                                     % Lorem Ipsum Dummy Text
+\usepackage{listings}                                                   % Code display
+\usepackage{marginnote}                                                 % Notes in the margin
+\usepackage{microtype}                                                  % Niceness
+\usepackage{lib/minted}                                                 % Code display
+\usepackage{./lib/mlptikz}                                              % Tikz mlp
+\usepackage{multirow}                                                   % Multirow tables
+\usepackage{pdfpages}                                                   % Include pdfs
+\usepackage{pgfplots}                                                   % Create Pictures
+\usepackage{rotating}                                                   % Figure rotation
+\usepackage{setspace}                                                   % Allow double spacing
+\usepackage{subcaption}                                                 % Figure captioning
+\usepackage{tikz}                                                       % Create Pictures
+\usepackage{tocloft}                                                    % List of Equations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package Setup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{%                                                           % Setup linking
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+}
+\RequirePackage[l2tabu, orthodox]{nag}                                  % Nag about bad syntax
+\renewcommand*\thesection{\arabic{section}}                             % Reset numbering
+\renewcommand{\theFancyVerbLine}{{\arabic{FancyVerbLine}}}              % Needed for code display
+\renewcommand{\footrulewidth}{0.4pt}                                    % Footer hline
+\setcounter{secnumdepth}{3}                                             % Include subsubsections in numbering
+\setcounter{tocdepth}{3}                                                % Include subsubsections in toc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nvec}[1]{\left\langle #1 \right\rangle}                    %  Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A}}                                         %  Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B}}                                         %  Easy to use vector
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}                       %  Easy to use abs
+\newcommand{\pren}[1]{\left( #1 \right)}                                %  Big parens
+\let\oldvec\vec
+\renewcommand{\vec}[1]{\oldvec{\mathbf{#1}}}                            %  Vector Styling
+\newtheorem{thm}{Theorem}                                               %  Define the theorem name
+\newtheorem{definition}{Definition}                                     %  Define the definition name
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\newcommand{\java}[4]{\vspace{10pt}\inputminted[firstline=#2,
+                                 lastline=#3,
+                                 firstnumber=#2,
+                                 gobble=#4,
+                                 frame=single,
+                                 label=#1,
+                                 bgcolor=bg,
+                                 linenos]{java}{#1}}
+\newcommand{\python}[4]{\vspace{10pt}\inputminted[firstline=#2,
+                                 lastline=#3,
+                                 firstnumber=#2,
+                                 gobble=#4,
+                                 frame=single,
+                                 label=#1,
+                                 bgcolor=bg,
+                                 linenos]{python}{#1}}
+\newcommand{\js}[4]{\vspace{10pt}\inputminted[firstline=#2,
+                                 lastline=#3,
+                                 firstnumber=#2,
+                                 gobble=#4,
+                                 frame=single,
+                                 label=#1,
+                                 bgcolor=bg,
+                                 linenos]{js}{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Computer Systems Notes}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{CSCI 2400}
+\rfoot{Han}
+\title{Computer Systems Notes}
+\author{Zoe Farmer}

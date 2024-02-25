@@ -1,0 +1,297 @@
+\section{Overview}
+Right off the bat we need to discuss the difference between discrete and continuous. A Discrete unit is indivisible, and we count discrete things. This gives us number such as the set of Natural numbers, $\mathbb{N} = \{0, 1, 2, 3, 4, \cdots\}$.
+
+On the flipside, we measure with continuous units. This gives us fractions and non-negative real numbers.
+
+We also have discrete structures which include sets, sequences, networks, matrices, permutations, and real-world data.
+
+These structures are what the class will focus on.
+
+\begin{thm}[Naive Set Theory]
+    A set is an unordered collection of objects.
+
+    Let $S$ be a set. If there are exactly $n$ distinct objects in $S$ (where $n$ is a non-negative integer), then we say the cardinality of $S$ is $n$, i.e.\ $\abs{S} = n$.\footnote{Cardinality is the number of elements in $S$. Ordinality is for ordering infinities.}
+
+    If $x$ is an element of $S$, we say $x \in S$.
+
+    Let $A$ and $B$ be sets, the Cartesian product of $A$ and $B$, $A \times B$, is the set of all ordered pairs $(a, b)$ where $a \in A$ and $b \in B$, i.e.\ $A \times B = \left\{ (a, b) | a \in A, b \in B \right\}$.
+\end{thm}
+
+\section{Principles of Counting}
+\begin{thm}[Multiplicative Principle of Counting\footnote{Product Rule}]
+    If task 1 can be done in $n_1$ ways, and task 2 can be done in $n_2$ ways, then the total number of ways to do one task \textbf{and} then the other is $n_1 \cdot n_2$.
+\end{thm}
+
+\begin{thm}[Additive Principle of Counting]
+    If task 1 can be done in $n_1$ ways, and task 2 can be done in $n_2$ ways, then the total number of ways to do one task \textbf{or} then the other is $n_1 + n_2$.
+\end{thm}
+
+    \subsection{Pigeon-Hole Principle}
+    \begin{thm}[The Pigeon-Hole Principle]
+        If $n$ pigeons fly into $k$ pigeon holes, and $k < n$, then some pigeon hole \textit{must} contain at least 2 pigeons.
+
+        If $f$ is a function from a finite set $x$ to a finite set $y$, and if $\abs{x} > \abs{y}$, then $f(x_1) = f(x_2)$ for some $x_1, x_2 \in x$ such that $x_1 \neq x_2$
+    \end{thm}
+
+    \begin{thm}[The Extended Pigeon-Hole Principle]
+        If $N$ pigeons are assigned to $K < N$ pigeon holes, then one of the pigeon holes must contain at least $\left \lfloor{\frac{N-1}{K}}\right \rfloor + 1$ or $\left \lceil{\frac{N}{K}}\right \rceil $ pigeons.
+    \end{thm}
+
+    \subsection{Permutations and Combinations}
+
+    \begin{thm}[Permutations]
+        A permutation is any linear arrangement of \textit{distinct} objects in which order matters.
+
+        Any ordered arrangement of $r$ objects is called an $r$-permutation.
+
+        The number of ordered arrangements (permutations) of $r$ objects from $n$ objects $(0 \le r \le n)$ is
+            \[
+                P(n, r) = \frac{n!}{(n - r)!} = P^n_r
+            \]
+
+        In general, if there are $n$ objects, with $n_1$ of type 1, $n_2$ of type 2, \ldots, to type $r$, then there are $\frac{n!}{n_1! n_2! \cdots n_r!}$ total permutations of the $n$ objects.
+    \end{thm}
+
+    \begin{thm}
+        A combinations is a sequence of objects where order does not matter. The size of a combination is the number of different elements that compose it.
+
+        The number of combinations of size $r$ using $n$ different objects is expressed as
+            \[
+                C(n, r) = \begin{pmatrix}n\\r\end{pmatrix} = C^n_r = \frac{n!}{r!(n - r)!} = \frac{P(n, r)}{r!}
+            \]
+    \end{thm}
+
+    \begin{ex}
+        How many different committees can be formed consisting of one chair, one vice-chair, and one treasurer from a pool of 100 people?
+
+        $\hookrightarrow$ The answer is \textbf{not} $C(100, 5)$, but rather $\frac{100!}{97!}$
+    \end{ex}
+
+    \begin{ex}
+        Same question as before, but suppose we have one chair, one vice-chair, and two treasurers.
+
+        $\hookrightarrow$ $100 \cdot 99 \cdot \begin{pmatrix}98\\2\end{pmatrix}$
+    \end{ex}
+
+    \begin{ex}
+        How many ways are there to arrange the letters in ``TALLAHASSEE'' without having adjacent ``A'''s?
+
+        $\hookrightarrow$ First off, disregard all of the ``A'''s, we'll insert those later.
+
+            \[
+                \text{TLLHSSEE} \to \frac{8!}{2!2!2!}
+            \]
+
+        Next, determine the possible slots for the ``A'''s to go, which are in between each of the letters, as well as at the beginning and end. This leads to a total of
+        \[
+            \left( \frac{8!}{2!2!2!} \right) \cdot \begin{pmatrix}9\\3\end{pmatrix}
+        \]
+    \end{ex}
+
+    \subsection{Binomial Coefficients}
+    \begin{thm}[The Binomial Theorem]
+        Let $x$ and $y$ be variables, and let $n$ be a non-negative integer, then
+            \[
+                {(x + y)}^n = \sum^\infty_{j=0} \begin{pmatrix}n\\j\end{pmatrix} x^{n - j} y^j
+            \]
+    \end{thm}
+
+    \subsection{Powersets}
+    The powerset of a set is the set of all its possible subsets.
+
+    \begin{ex}
+        How many subsets does the set $\left\{ 1, 2, 3, 4, \cdots, n \right\}$ have?
+
+        $\hookrightarrow$ Let's count sets of size
+        \begin{easylist}[itemize]
+            & $0 \Rightarrow \comb{n}{0}$
+            & $1 \Rightarrow \comb{n}{1}$
+            & $n \Rightarrow \comb{n}{n}$
+        \end{easylist}
+        So we have a total of
+            \[
+                \comb{n}{0} + \comb{n}{1} + \comb{n}{2} + \cdots + \comb{n}{n} = {(1 + 1)}^n = 2^n (\text{Binomial Theorem})
+            \]
+    \end{ex}
+
+    \subsection{Counting Integer Solutions}
+    The number of different, non-negative integer solutions $\left( y_1, y_2, \cdots, y_k \right)$ of the equation:
+        \[ y_1 + y_2 + \cdots + y_k = m \]
+    is
+        \[ \begin{pmatrix}
+                m + k - 1\\
+                k - 1
+            \end{pmatrix} \]
+
+    Think of this as counting the number of ways to distribute $m$ objects to $k$ baskets.
+
+
+    \subsection{Linear Recursion}
+    \begin{thm}
+        A linear recursion with constant coefficients is a recurrence relation of the form
+            \[ a_n = c_1a+{n-1} + c_2a_{n-2} + \cdots + c_k a_{n-k} + F(n) \]
+        where $n \ge k$, $F(n)$ is a function of $n$ only, $c_i \in \mathbb{R}, i = 1, 2, \cdots, k$, and $c_k \neq 0$.
+
+        If $F(n) = 0$ we call this a homogeneous linear recursion of degree $k$ with constant coefficients.
+    \end{thm}
+
+    \begin{thm}
+        Assume a sequence $\{a_n\}$ satisfies some degree $k$ linear recursion.\footnote{This uses a degree 2 equation}
+            \[
+                a_n = c_1 a_{n-1} + c_2 a_{n-2}, n \ge 2
+            \]
+        Let $r_1$ and $_2$ be the roots of the characteristic equation
+            \[
+                r^2 = c_1 r + c_2
+            \]
+            $\boxed{1}$ If $r_1 = r_2$, then $\exists \{\alpha_1, \alpha_2 \in \mathbb{R} | a_n = (\alpha_1 + \alpha_2 n) r_1^n\}$\\
+            $\boxed{2}$ If $r_1 \neq r_2$ then $\exists \{ \alpha_1, \alpha_2 \in \mathbb{R} | a_n = \alpha_1 r_1^n + \alpha_2 r^n_2 \}$
+    \end{thm}
+
+    \begin{ex}
+        Solve $a_n + a_{n-1} - 6a_{n-2} = 0, n \ge 2$\\
+        $\hookrightarrow$ Assume $a_n = cr^n$. This comes from looking at the simplest possible case: $a_n = r a_{n-1}, n \ge 1, a_0 = c \to a_n = cr^n$\\
+        \[ \begin{aligned}
+                \hookrightarrow cr^n + cr^{n-1} -6cr^{n-2} = 0 \to 1 + r^{-1} -6r^{-2} = 0\\
+                \hookrightarrow r^2 +r -6=0 \to r_{1,2} = 2, -3
+        \end{aligned} \]
+        So $a_n = c_1 2^n$ and $b_n = c_2 {(-3)}^n$ are solutions. In fact, since they are linearly independent solutions, the general solution is\footnote{since the recursion is linear}
+            \[ a_n = c_1 2^n + c_2 {(-3)}^n \]
+        We can also determine these coefficients with $a_0 = 1, a_1 = 2$ giving our final answer of
+            \[ a_n = 2^n, n \ge 0_\blacksquare \]
+    \end{ex}
+
+        \subsubsection{Non-Homogeneous Linear Recursion}
+        \begin{thm}
+            Recall a non homogeneous linear recursion with constant coefficients has the form
+                \[ a_n = c_1a+{n-1} + c_2a_{n-2} + \cdots + c_k a_{n-k} + F(n) \]
+            with the associated homogeneous form
+                \[ a_n = c_1a+{n-1} + c_2a_{n-2} + \cdots + c_k a_{n-k} \]
+            Any solution to the non-homogeneous linear recursion has the form $a_n + b_n$ where $a_n$ is a particular solution of the non-homogeneous form, and $b_n$ is any solution of the homogeneous form, i.e.\ the same equation from differential equations with
+                \[ Solution = homogeneous + non-homogeneous \]
+            Suppose $\{ a_n \}$ satisfies the non-homogeneous linear recursion where $F(n)$ has the form:
+                \[ F(n) = (polynomial) \cdot (exponential) = P(n) \cdot S^n \]
+            \begin{easylist}[enumerate]
+                & When $S$ is NOT a root of the characteristic equation of the second form. Then the form is
+                    \[ a_n = q(n) \cdot S^n \]
+                Where $q(n)$ is again a polynomial with degree $q \le \deg(P)$ is $n$.
+                & When $S$ IS a root of the characteristic equation, then the form is
+                    \[ a_n = n^m \cdot q(n) \cdot S^n \]
+                Where $m$ is the multiplicity of $S$ as a root of the characteristic equation and $q(n)$ is the same.
+            \end{easylist}
+        \end{thm}
+
+        \begin{ex}
+            Find the general solution of
+                \[ a_n = 3 a_{n-1} + 2^n, n \ge 1, a_0 = 1 \]
+            $\hookrightarrow$ Note that the homogeneous linear recursion form gives us the roots
+                \[ a_n = 3 a_{n-1} \to r=3-a_n = \alpha 3^n, \alpha \in \mathbb{R}\]
+            To find the particular solution, we note that $F(n) = 2^n$, which gives us that the particular solution has the form
+                \[ b_n = c 2^n \]
+            Now
+        \end{ex}
+
+    \subsection{Divide and Conquer Algorithms}
+    The divide and conquer strategy in general is to solve a given problem of size $n$ by breaking the general problem into $a \ge 1$ sub-problems of size $\frac{n}{b}$ for $b \ge 1$.
+
+    We assume $f(n)$ satisfies $f(n) = a \cdot f\left(\frac{n}{b}\right) + y(n)$.
+
+    Let $f$ be an increasing function that satisfies $f(n) = a \cdot f\left(\frac{n}{b}\right) + c$ where $a,b,c \in \mathbb{Z}^+$ and $b \ge 2$. If $n \vert b \Rightarrow \boxed{1} f(a)$ will be $O(n^{log_b(a)}) $ if $a > 1$ $\boxed{2}$ our time has growth on the order of $O(log(n))$.
+
+    Furthermore, when $a > 1$, and $n=b^k, k = 1, 2, \cdots$ then the time complexity $f(n) = c_1 \cdot n^{log_b(a)} + c_2$ where $c_1 = f(1) + \frac{c}{a-1}$ and $c_2 = -\frac{c}{a-1}$.
+
+        \subsubsection{Master Theorem Corollary}
+        Let $f$ be an increasing function that satisfies $f(n) = a f(\frac{n}{b}) + cn^d$ where $a,c \in \mathbb{Z}^+, b>1 \wedge c,d \in \mathbb{R}, c > 0, d \ge 0$. If $n = b^k, k \in \mathbb{Z}^+$ then
+            \NewList
+            \begin{easylist}
+                & $f(n)$ is $O(n^{d}) \Leftrightarrow a < b^d$
+                & $f(n)$ is $O(n^{d} \cdot log(n)) \Leftrightarrow a = b^d$
+                & $f(n)$ is $O(n^{log_b(a)}) \Leftrightarrow a > b^d$
+            \end{easylist}
+
+    \subsection{Generating Functions}
+    \begin{thm}
+        The generating function for the sequence $\left\{ a_n \right\}_{n \ge 0}$ is the series
+        \[
+            A(z) = \sum^\infty_{n=0} a_n z^n
+        \]
+        Think of the $z$s as placeholders. We don't actually care about their value.
+
+        \textit{Notation:}
+            \[
+                \left[ z^n \right] A(z)
+            \]
+        Is the coefficient of the $z^{n\text{th}}$ term in the series $A(z)$.
+    \end{thm}
+
+    \begin{ex}
+        If $a_n = 1$ for all $n \ge 0$, then the generating function is $A(z) = 1 + z + z^2 + z^3 + \cdots + z^n = \frac{1}{1-z} = \sum^\infty_{n=0} z^n$
+    \end{ex}
+
+    \begin{ex}
+        Show that the generating function for $a = n, n \ge 0$ is $A(z)=\frac{z}{{(1 - z)}^2}$
+
+        $\hookrightarrow$ Note $\frac{d}{dz} \left( \frac{1}{1-z} \right) = \frac{1}{{(1 - z)}^2}$
+
+        But $\frac{d}{dz} = \left( \frac{1}{1-z} \right) = \frac{d}{dz} \left( \sum^\infty_{n=0} z^n \right) = \sum^\infty_{n=0} n - z^{n - 1}$
+
+        So
+            \[
+                z \cdot \frac{1}{{(1 - z)}^2} = z \cdot \sum^\infty_{n=0} nz^{-1} = \sum^\infty_{n = 0} nz^n = \sum^\infty_{n=0} a_n z^n \to a_n = n
+            \]
+
+        Therefore the generating function is $A(z) = \frac{z}{{(1 - z)}^2}$.
+    \end{ex}
+
+    \begin{thm}
+        If $A(z)$ is the generating function for the sequence associated to $\{a_n\}_{n \ge 0}$ and if $B(z)$ is the generating function associated to $\{b_n\}_{n \ge 0}$, then
+        \begin{easylist}[enumerate]
+            & $\alpha A(z) + \beta B(z)$ is the generating function associated to $\{\alpha a_n + \beta b_n\}_{n \ge 0}$ where $\alpha, \beta \in \mathbb{R}$.
+            & $A(z) \cdot B(z)$ is the generating function associated to
+                \[ \{c_n\}_{n \ge 0} = \sum^a_{k=0} a_k b_{n-k} \]
+        \end{easylist}
+    \end{thm}
+
+    \begin{ex}
+        In how many ways can change be given for 30 cents using pennies, nickels, dimes, and quarters?
+
+        $\hookrightarrow$ Let's look at the generating functions for each currency:
+        Pennies: $(1 + z + z^2 + z^3 + \cdots)$
+        Nickels: $(1 + z^5 + z^{10} + z^{15} + \cdots)$
+        Dimes: $(1 + z^{10} + z^{20} + z^{30} + \cdots)$
+        Quarters: $(1 + z^{25} + z^{50} + z^{75} + \cdots)$
+
+        The product of these polynomials is the total number of ways to make change.
+        \[ A(z)B(z)C(z)D(z) = 1 + z + z^2 + z^3 + z^4 + 2z^5 + \cdots + 18z^{30} \]
+
+        Therefore, there are 18 ways to make change for 30 cents.
+    \end{ex}
+
+    \subsection{The Inclusion/Exclusion Principle}
+    This applies to cardinality, area, mass, volume, etc.\ldots
+
+    How many elements are there in $A \cup B$ where $A$ and $B$ are finite sets?
+        \[ \abs{A \cup B} = \abs{A} + \abs{B} - \abs{A \cap B} \]
+
+    Now consider three finite sets:
+        \[ \abs{A \cup B \cup C} = \abs{A} + \abs{B} + \abs{C} - \abs{A \cap B} - \abs{A \cap C} - \abs{B \cap C} + \abs{A \cap B \cap C} \]
+
+    Notation for three finite sets:
+        \[ \abs{A_1 \cup A_2 \cup A_3} = \sum_{1 \le j \le 3} \abs{A_i} - \sum_{1 \le i < j \le 3} \abs{A_i \cap A_j} + \abs{A_1 \cap A_2 \cap A_3} \]
+
+    \begin{thm}[Inclusion/Exclusion]
+        Let $A_1, A_2, \cdots, A_n$ be finite sets, then
+            \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{1 \le i \le n} \abs{A_i} - \sum_{1 \le i < j \le n} \abs{A_i \cap A_j} + \cdots + {\left( -1 \right)}^{n+1} \abs{\bigcap^n_{i=1} a_i} \]
+        or
+            \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{I \subset \{1, 2, 3, 4, \ldots, n \}} {(-1)}^{\abs{I} + 1} \abs{\bigcap_{i \in I} A_i} \]
+        or
+            \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{I \in p(\{1, 2, 3, 4, \ldots, n \})} {(-1)}^{\abs{I} + 1} \abs{\bigcap_{i \in I} A_i} \]
+
+    \end{thm}
+
+        \subsubsection{Derangements}
+        A derangement of $(1, 2, 3, \cdots, n)$ is any permutation of these numbers that leaves no number in its original position.
+
+        For a given set, $(1, 2, 3, \cdots, n)$, there are approximately $\frac{n!}{e}$ derangements, or more accurately
+            \[ n! \cdot \left( \sum^n_{i=0} \frac{{\left( -1 \right)}^i}{i!} \right) \]
+

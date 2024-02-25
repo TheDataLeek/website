@@ -1,0 +1,81 @@
+\section{Eigenvalues and Eigenvectors}
+
+Let $A$ be an $n \times n$ matrix. A scalar, $\lambda$ is called an eigenvalue of $A$ if there is a non-zero vector $\vec{v} \neq \vec{0}$, called an eigenvector, such that
+
+    \[ A \vec{v} = \lambda \vec{v} \]
+
+In other words, the matrix $A$ stretches the vector $\vec{v}$ by a certain value, $\lambda$.
+
+To find these values and vectors, we construct the equation:
+
+    \[ (A - \lambda \vec{I}) = \vec{0} \]
+
+Note, the scalar $\lambda$ is an eigenvalue of the matrix $A$ iff $A - \lambda \vec{I}$ is singular $(rank < n)$. The corresponding eigenvectors are the nonzero solutions to the eigenvalue question.
+
+Also, a scalar $\lambda$ is an eigenvalue of the matrix $A$ iff $\lambda$ is a solution to the characteristic equation
+
+    \[ \det(A - \lambda \vec{I}) = 0 \]
+
+If $A$ is a real matrix with a complex eigenvalue and corresponding complex eigenvector, then the complex conjugate is also an eigenvalue.
+
+    \subsection{Basic Properties of Eigenvalues}
+    If $A$ is an $n \times n$ matrix, then its characteristic polynomial is
+        \[ p_A(\lambda) = \det(A - \lambda \vec{I}) = c_n \lambda^n + c_{n-1}\lambda^{n-1} + \cdots + c_1 \lambda + c_0 \]
+
+    An $n \times n$ matrix $A$ has at least one, and at most $n$ distinct complex eigenvalues.
+
+    The sum of the eigenvalues of a matrix equals its trace, while the product equals its determinant.
+
+    \subsection{Eigenvector Bases}
+    If $\lambda_1, \cdots, \lambda_k$ are distinct eigenvalues of the same matrix $A$, then the corresponding eigenvectors $\vec{v}_1, \cdots, \vec{v}_k$ are linearly independent.
+
+    And if the $n \times n$ real matrix $A$ has $n$ distinct real eigenvalues $\lambda_1, \cdots, \lambda_n$, then the corresponding real eigenvectors form a basis of $\mathbb{R}^n$. If $A$ (which may now be either a real or a complex matrix) has $n$ distinct complex eigenvalues, then the corresponding eigenvectors form a basis of $\mathbb{C}^n$.
+
+    An eigenvalue $\lambda$ of a matrix $A$ is called complete if the corresponding eigenspace $V_\lambda = ker(A - \lambda \vec{I})$ has the same dimension as its multiplicity. The matrix $A$ is complete if all its eigenvalues are.
+
+    An $n \times n$ real or complex matrix $A$ is complete iff its eigenvectors span $\mathbb{C}^n$. In particular, any $n \times n$ matrix that has $n$ distinct eigenvalues is complete.
+
+    \subsection{Diagonalization}
+    A square matrix is called diagonalizable if there exists a nonsingular matrix $S$ and a diagonal matrix $\Lambda = diag(\lambda_1, \cdots, \lambda_n)$ such that
+
+        \[ S^{-1} A S = \Lambda \text{ or } A = S \Lambda S^{-1} \]
+
+    A matrix is complex diagonalizable iff it is complete. A matrix is real diagonalizable iff it is complete and has all real eigenvalues.
+
+    \subsection{Eigenvalues of Symmetric Matrices}
+    Let $A = A^T$ be a real symmetric $n \times n$ matrix. Then
+        \NewList
+        \begin{easylist}[enumerate]
+            & All the eigenvalues of $A$ are real.
+            & Eigenvectors corresponding to distinct eigenvalues are orthogonal.
+            & There is an orthonomral basis of $\mathbb{R}^n$ consisting on $n$ eigenvectors of $A$.
+        \end{easylist}
+    In particular, all symmetric matrices are complete.
+
+    A symmetric matrix $K = K^T$ is positive definite iff all of its eigenvalues are strictly positive.
+
+    Let $A = A^T$ be an $n \times n$ symmetric matrix. Let $\vec{v}_1, \cdots, \vec{v}_n$ be an orthogonal eigenvector basis such that $\vec{v}_1, \cdots, \vec{v}_r$ correspond to nonzero eigenvalues, while $\vec{v}_{r+1}, \cdots, \vec{v}_n$ are null eigenvectors corresponding to the zero eigenvalue (if any). Then $r = rank(A)$, the non-null eigenvectors form an orthogonal basis for $rng(A) = corng(A)$, while the null eigenvectors form an orthogonal basis for $ker(A) = coker(A)$.
+
+    \subsection{The Spectral Theorem}
+    Let $A$ be a real, symmetric matrix. Then there exists an orthogonal matrix $Q$ such that
+        \[ A = Q \Lambda Q^{-1} = Q \Lambda Q^T \]
+
+\section{Singular Values}
+The singular values of an $m \times n$ matrix $A$ are the positive square roots $\sigma_i = \sqrt{\lambda_i} > 0$, of the nonzero eigenvalues of the associated Gram matrix $K = A^T $. The corresponding eigenvectors of $K$ are known as the singular vectors of $A$.
+
+Any nonzero, real $m \times n$ matrix $A$ of rank $r > 0$ can be factored $ A = P \Sigma Q^T $ into the product of an $m \times r$ matrix $P$ with orthonormal columns, so $P^T P = I$, the $r \times r$ diagonal matrix $\Sigma = diag(\sigma_1, \cdots, \sigma_r)$ that has the singular values of $A$ as its diagonal entries, and an $r \times n$ matrix $Q^T$ with orthonormal rows, so $Q^T Q = I$.
+
+Given the singular value decomposition $A = P \Sigma Q^T$, the columns of $Q$ form an orthonormal basis for for $corng(A)$, while the columns of $P$ form an orthonormal basis for $rng(A)$.
+
+The condition number of a matrix is the ratio between its largest and smallest singular values: $K(A) = \sigma_1 / \sigma_2$.
+
+The pseudoinverse of a nonzero $m \times n$ matrix with singular value decomposition $A = P \Sigma Q^T$ is the $n \times m$ matrix $A^+ = Q \Sigma^{-1} P^T$.
+
+Let $A$ be an $m \times n$ matrix of rank $n$. Then $A^+ = {(A^T A)}^{-1}A^T$
+
+Consider the linear system $A \vec{x} = \vec{b}$. Let $\vec{x}^* = A^+ \vec{b}$, where $A^+$ is the pseudoinverse of $A$. If ker $A = \{ \vec{0} \}$, then $\vec{x}^*$ is the Euclidean least squares solution to the linear system. If, more generally, ker $A \neq \{ \vec{0} \}$ then $\vec{x}^* \in corng(A)$ is the least squares solution of minimal Euclidean norm among all vectors that minimize least squares error $\Vert A \vec{x} - \vec{b} \Vert$.
+
+\section{Incomplete Matrices}
+A Complex, square matrix $U$ is called unitary if is satisfies $U^\dagger U = I$ where $U^\dagger = \overline{U^T}$ denotes the Hermitian transpose where one first transposes and then takes the complex conjugate of all the entries.
+
+If two matrices are unitary, then so is their product.

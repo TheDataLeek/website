@@ -1,0 +1,27 @@
+\documentclass[12pt, landscape, twocolumn]{article}
+
+\usepackage{genmpage}
+\usepackage{pgfpages}
+
+\usepackage[margin=0.25in]{geometry}
+
+\input{./tex/header.tex}
+
+\input{./tex/pgfpage9.tex}
+
+\newcommand{\listequationsname}{\Large{List of Equations}}          % Funky code to include LOE
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+
+\begin{document}
+
+\input{./tex/matrices.tex}
+
+\input{./tex/vectorspaces.tex}
+
+\input{./tex/midterm2.tex}
+
+\input{./tex/midterm3.tex}
+
+\end{document}

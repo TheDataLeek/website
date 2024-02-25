@@ -1,0 +1,400 @@
+\section{Vector Spaces and Subspaces}
+A vector space $\mathcal{V}$ is a non-empty collection of elements that we call vectors, for which we can define the operation of vector addition and scalar multiplication:
+    \begin{enumerate}
+    \item Addition: $\vec{x} + \vec{y}$
+    \item Scalars: $c \vec{x}$ where $c$ is a constant.
+    \end{enumerate}
+that satisfy the following properties:
+    \begin{enumerate}
+    \item $\vec{x} + \vec{y} \in \mathcal{V}$
+    \item $c \vec{x} \in \mathcal{V}$
+    \end{enumerate}
+
+which can be condensed into a single equation:
+\[
+    c\vec{x} + d\vec{y} \in \mathcal{V}
+\]
+which is called closure under linear combinations.
+
+    \subsection{Properties}
+    We have the properties from before, as well as new ones.
+
+    \begin{enumerate}
+    \item $\vec{x} + \vec{y} \in \mathcal{V} \leftarrow $ Addition
+    \item $c \vec{x} \in \mathcal{V} \leftarrow $ Scalar Multiplication
+    \item $\vec{x} + \vec{0} = \vec{x} \leftarrow $ Zero Element
+    \item $\vec{x} + (-\vec{x}) = (-\vec{x}) + \vec{x} = \vec{0} \leftarrow $ Additive Inverse
+    \item $(\vec{x} + \vec{y}) + \vec{z} = \vec{x} + (\vec{y} + \vec{z}) \leftarrow$ Associative Property
+    \item $\vec{x} + \vec{y} = \vec{y} + \vec{x} \leftarrow $ Commutativity
+    \item $1 \cdot \vec{x} = \vec{x} \leftarrow$ Identity
+    \item $c (\vec{x} + \vec{y}) = c\vec{x} + c\vec{y} \leftarrow $ Distributive Property
+    \item $(c + d) \vec{x} = c\vec{x} + d\vec{x} \leftarrow $ Distributive Property
+    \item $c(d\vec{x}) = (cd)\vec{x} \leftarrow $ Associativity
+    \end{enumerate}
+
+    \subsection{Vector Function Space}
+    A vector function space is just a unique vector space where the elements of the space are functions.
+
+    Note, the solutions to linear and homogeneous differential equations form vector spaces.
+
+        \subsubsection{Closure under Linear Combination}
+        \begin{equation}\label{eq:funcspace_closure}
+            c \vec{x} + d \vec{y} \in \mathbb{V} \text{ whenever } \vec{x}, \vec{y} \in \mathbb{V} \text{ and } c, d \in \mathbb{R}
+        \end{equation}\myequations{Vector Function Space Closure Under Linear Combinations}
+
+        \subsubsection{Prominent Vector Function Spaces}
+        \begin{itemize}
+            \item $\mathbb{R}^2 \to$ The space of all ordered pairs.
+            \item $\mathbb{R}^3 \to$ The space of all ordered triples.
+            \item $\mathbb{R}^n \to$ The space of all ordered $n$-tuples.
+            \item $\mathbb{P} \to$ The space of all polynomials.
+            \item $\mathbb{P}_n \to$ The space of all polynomials with degree $\le n$.
+            \item $\mathbb{M}_{mn} \to$ The space of all $m \times n$ matrices.
+            \item $\mathbb{C}(I) \to$ The space of all continuous functions on the interval $I$ (open, closed, finite, and infinite).
+            \item $\mathbb{C}^n(I) \to$ Same as above, except with $n$ continuous derivatives.
+            \item $\mathbb{C}^n \to$ The space of all ordered $n$-tuples of complex numbers.
+        \end{itemize}
+
+    \subsection{Vector Subspaces}
+    \textbf{Theorem:} A non-empty subset $\mathbb{W}$ of a vector space $\mathbb{V}$ is a subspace of $\mathbb{V}$ if it is closed under addition and scalar multiplication:
+    \begin{itemize}
+        \item If $\vec{u}, \vec{v} \in \mathbb{W}$, than $\vec{u} + \vec{V} \in \mathbb{W}$.
+        \item If $\vec{u} \in \mathbb{W}$ and $c \in \mathbb{R}$, than $c\vec{u} \in \mathbb{W}$.
+    \end{itemize}
+
+    We can rewrite this to be more efficient:
+
+    \begin{equation}\label{eq:subspace_closure}
+        \text{If } \vec{u}, \vec{v} \in \mathbb{W} \text{ and } a, b \in \mathbb{R}, \text{ than } a\vec{u} + b\vec{v} \in \mathbb{W}.
+    \end{equation}\myequations{Vector Subspace Closure}
+
+    Note, vector space does not imply subspace. All subspaces are vector spaces, but not all vector spaces are subspaces.
+
+    To determine if it is a subspace, we check for closure with the above theorem.
+
+    There are only a couple subspaces for $\mathbb{R}^2$:
+    \begin{itemize}
+        \item The zero subspace $\left\{ (0, 0) \right\}$.
+        \item Lines passing through the origin.
+        \item $\mathbb{R}^2$ itself.
+    \end{itemize}
+
+    We can call the zero and the set $\mathbb{V}$ themselves trivial subspaces, calling the subspace of lines passing through the origin the only non-trivial subspace in $\mathbb{R}^2$.
+
+    We can classify $\mathbb{R}^3$ similarly:
+    \begin{itemize}
+    \item Trivial:
+        \begin{itemize}
+        \item Zero subspace
+        \item $\mathbb{R}^3$
+        \end{itemize}
+    Non-Trivial
+        \begin{itemize}
+        \item Lines that contain the origin.
+        \item Places that contain the origin.
+        \end{itemize}
+    \end{itemize}
+
+        \subsubsection{Examples}
+        \begin{itemize}
+        \item The set of all even functions.
+        \item The set of all solutions to $y\prime\prime\prime - y\prime\prime t + y = 0$.
+        \item $\{P \in \mathbb{P}; P(2) = P(3)\}$
+        \end{itemize}
+
+\section{Span, Basis and Dimension}
+Given one or more vectors in a vector space, we can create more vectors through addition and scalar multiplication. These vectors that result from this process are called linear combinations.
+
+    \subsection{Span}
+    The span of a set $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ of vectors in a vector space $\mathbb{V}$, denoted by Span$\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ is the set of all linear combinations of the vectors.
+
+        \subsubsection{Example}
+    \[
+        \begin{aligned}
+            \text{For example, If } \vec{u} = \left[ \begin{array}{c} 3\\2\\0 \end{array} \right] \text{ and } \vec{v} = \left[ \begin{array}{c} 0\\2\\2 \end{array} \right]\\
+            \text{Then we can write their span as }\\
+            a\vec{u} + b\vec{v} = a\left[ \begin{array}{c} 3\\2\\0 \end{array} \right] + b\left[ \begin{array}{c} 0\\2\\2 \end{array} \right] = \left[ \begin{array}{c} 3a\\2a+2b\\2b \end{array} \right]
+        \end{aligned}
+    \]
+
+    \subsection{Spanning Sets in $\mathbb{R}^n$}
+    A vector $\vec{b}$ in $\mathbb{R}^n$ is in Span$\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ where $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ are vectors in $\mathbb{R}^n$, provided that there is at least one solution of the matrix-vector equation $A\vec{x} = \vec{b}$, where $A$ is the matrix whose column vectors are $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$.
+
+    \subsection{Span Theorem}
+    For a set of vectors $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ in vector space $\mathbb{V}$, Span$\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ is subspace of $\mathbb{V}$.
+
+    \subsection{Column Space}
+    For any $m \times n$ matrix $A$, the column space, denoted Col $A$, is the span of the column vectors of $A$, and is a subspace of $\mathbb{R}^n$.
+
+    \subsection{Linear Independence}
+    A set $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ of vectors in vector space $\mathbb{V}$ is linearly independent if no vector of the set can be written as a linear combination of the others. Otherwise it is linearly dependent.
+
+    This notion of linear independence also carries over to function spaces. A set of vector functions $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ in a vector space $\mathbb{V}$ is linearly independent on an interval $I$ if for all $t$ in $I$ the only solution of
+    \[
+    c_1 \vec{v}_1 + c_2 \vec{v}_2 + \cdots + c_n \vec{v}_n = \vec{0}
+    \]
+    for $(c_1, c_2, \ldots, c_n \in \mathbb{R})$ is $c_i = 0$ for all $i$.
+
+    If for any value $t_0$ of $t$ there is any solution with $c_i \neq \vec{0}$, the vector functions are linearly dependent.
+
+    \begin{ex}
+        The vectors
+            \[  \vec{v}_1 = \begin{pmatrix}1\\2\\-1\end{pmatrix}, 
+                \vec{v}_2 = \begin{pmatrix}0\\3\\1\end{pmatrix}, 
+                \vec{v}_3 = \begin{pmatrix}-1\\4\\3\end{pmatrix} \]
+        are linearly dependent because
+            \[ \vec{v}_1 - 2\vec{v}_2 + \vec{v}_3 = \vec{0} \]
+        however the first two vectors are linearly independent because the only solution to
+            \[ c_1 \vec{v}_1 + c_2 \vec{v}_2 = \vec{0} \]
+        is $c_1 = c_2 = 0$.
+    \end{ex}
+
+        \subsubsection{Testing for Linear Independence}
+        \begin{enumerate}
+        \item \begin{enumerate}
+            \item Put the system in matrix-vector form:
+                \[
+                \left[ \begin{array}{cccc}
+                    \uparrow & \uparrow & \cdots & \uparrow\\
+                    \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_n\\
+                    \downarrow & \downarrow & \cdots & \downarrow\\
+                \end{array} \right] \left[ \begin{array}{c}
+                    c_1\\
+                    c_2\\
+                    \vdots\\
+                    c_n
+                \end{array}\right] = \vec{0}
+                \]
+            \item Analyze Matrix:\\
+                The column vectors of $A$ are linearly independent if and only if the solution $\vec{x} = \vec{0}$ is unique, which means $c_i = 0$ for all $i$.\\
+                Any of the following also satisfy this condition for a unique solution:
+                    \begin{itemize}
+                        \item $A$ is invertible.
+                        \item $A$ has $n$ pivot columns.
+                        \item $|A| \neq 0$
+                    \end{itemize}
+            \end{enumerate}
+        \item Suppose we have a set of vectors $\vec{v}$.
+            \[
+                \left\{ \vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n \right\} \in \mathbb{R}^n, \dim(\vec{v})=m
+            \]
+            Then the set $\vec{v}$ is linearly dependent if $n>m$ where $n$ is the number of elements in $\vec{v}$. \textit{Note, this cannot prove the opposite. It only goes one way.}
+            \[
+                \left\{
+                \left(\begin{array}{c}
+                    1\\
+                    2\\
+                    3
+                \end{array}\right),
+                \left(\begin{array}{c}
+                    4\\
+                    5\\
+                    6
+                \end{array}\right),
+                \left(\begin{array}{c}
+                    0\\
+                    1\\
+                    0
+                \end{array}\right),
+                \left(\begin{array}{c}
+                    1\\
+                    -3\\
+                    7
+                \end{array}\right)
+                \right\} \text{Is dependent}
+            \]
+        \item Columns of $A$ are linearly independent if and only if $\mathbf{A}\vec{x} = \vec{0}$ has only the trivial solutions of $n$.
+        \end{enumerate}
+
+        \subsubsection{Linear Independence of Functions}
+        One way to check a set of functions is to consider them as a one dimensional vector.
+        \[
+            \vec{v}_i (t) = f_n(t)
+        \]
+        Another method is the Wronskian:
+        \begin{equation}\label{eq:wronskian}
+        \begin{aligned}
+            \text{To find the Wronskian of functions } f_1, f_2, \ldots, f_n \text{ on } I:\\
+            W[f_1, f_2, \ldots, f_n] = \left[ \begin{array}{cccc}
+                    f_1 & f_2 & \cdots & r_n\\
+                    f^{'}_1 & f^{'}_2 & \cdots & r^{'}_n\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    f^{n-1}_1 & f^{n-1}_2 & \cdots & r^{n-1}_n\\
+            \end{array} \right]
+        \end{aligned}
+        \end{equation}
+        If $W \neq 0$ for all $t$ on the interval $I$, where $f_1, f_2, \ldots, f_n$ are defined, then the function space is a linearly independent set of functions on $I$.
+
+    \subsection{Basis of a Vector Space}
+    The set $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ is a basis for vector space $\mathbb{V}$ provided that
+
+    \begin{itemize}
+        \item $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ is linearly independent.
+        \item Span$\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\} = \mathbb{V}$
+    \end{itemize}
+
+    \begin{thm}
+        Every basis of $\mathbb{R}^n$ consists of exactly $n$ vectors. Furthermore, a set of $n$ vectors $\{\vec{v}_1, \cdots, \vec{v}_n \in \mathbb{R}^n\}$ is a basis iff the $n \times n$ matrix $A = (\vec{v}_1 \cdots \vec{v}_n$ is nonsingular: rank $A = n$
+
+        Suppose the vector space $V$ has a basis $\vec{v}_1, \cdots, \vec{v}_n$. Then every other basis of $V$ has the same number of elements in it. This number is called the dimension of $V$, and is written $\dim V = n$.
+
+        Suppose $V$ is an $n$-dimensional vector space, then
+            \begin{easylist}
+                & Every set of more than $n$ elements of $V$ is linearly dependent.
+                & No set of less than $n$ elements spans $V$.
+                & A set of $n$ elements forms a basis iff it spans $V$.
+                & A set of $n$ elements forms a basis iff it is linearly independent.
+            \end{easylist}
+    \end{thm}
+
+        \subsubsection{Standard Basis for $\mathbb{R}^n$}
+        \begin{equation}\label{eq:basis_for_rn}
+        \begin{aligned}
+            \{\vec{e}_1, \vec{e}_2, \ldots, \vec{e}_n\}\\
+            \text{where}\\
+            \vec{e}_1 = \left[ \begin{array}{c}
+                1\\
+                0\\
+                0\\
+                \vdots\\
+                0
+            \end{array}\right],
+            \vec{e}_2 = \left[ \begin{array}{c}
+                0\\
+                1\\
+                0\\
+                \vdots\\
+                0
+            \end{array}\right], \ldots,
+            \vec{e}_n = \left[ \begin{array}{c}
+                0\\
+                0\\
+                0\\
+                \vdots\\
+                1
+            \end{array}\right]
+        \end{aligned}
+        \end{equation}\myequations{Standard Basis for $\mathbb{R}^n$}
+        are the column vectors of the identity matrix $I_n$.
+
+        \subsubsection{Example}
+        A vector space can have different bases.
+
+        The standard basis for $\mathbb{R}^n$ is:
+        \[
+        \{\vec{e}_1, \vec{e}_2\} \text{ for } \vec{e}_1 =
+        \left[ \begin{array}{c}
+        1\\
+        0
+        \end{array}\right] \text{ and } \vec{e}_2
+        \left[ \begin{array}{c}
+        0\\
+        1
+        \end{array}\right] \text{ giving }
+        \left\{ \left[ \begin{array}{c}
+        1\\
+        0
+        \end{array}\right],
+        \left[ \begin{array}{c}
+        0\\
+        1
+        \end{array}\right]\right\}
+        \]
+
+        But another basis for $\mathbb{R}^2$ is given by:
+
+        \[
+        \left\{ \left[ \begin{array}{c}
+        2\\
+        1
+        \end{array}\right],
+        \left[ \begin{array}{c}
+        1\\
+        2
+        \end{array}\right]\right\}
+        \]
+    \subsection{Dimension of the Column Space of a Matrix}
+    Essentially, the number of vectors in a basis.
+
+        \subsubsection{Properties}
+        \begin{itemize}
+            \item The pivot columns of a matrix $A$ form a basis for Column $A$.
+            \item The dimension of the column space, called the rank of $A$, is the number of pivot columns in $A$.
+                \[
+                    \text{rank } A = \dim(\text{Col}(A))
+                \]
+        \end{itemize}
+
+        \subsubsection{Invertible Matrix Characterizations}
+        Let $A$ be an $n \times n$ matrix. The following are true.
+        \begin{itemize}
+            \item $A$ is invertible.
+            \item The column vector of $A$ is linearly independent.
+            \item Every column of $A$ is a pivot column.
+            \item The column vectors of $A$ form a basis for Col$(A)$.
+            \item Rank $A = n$
+        \end{itemize}
+
+    \subsection{The Fundamental Matrix Subspaces}
+        \subsubsection{Kernel and Range}
+        The range of an $m \times n$ matrix $A$ is the subspace $rng \subset \mathbb{R}^m$ spanned by its columns. The kernel of $A$ is the subspace $ker A \subset \mathbb{R}^n$ consisting of all vectors which are annihilated by $A$, so
+            \[ ker A = \{ \vec{z} \in \mathbb{R}^n | A \vec{z} = \vec{0} \} \subset \mathbb{R}^n \]
+
+        The range is also known as the column space or image of the matrix, while the kernel is also called the null space.
+
+        At its core, the null space, or kernel is the set of solutions $\vec{z}$ to the homogeneous system $A \vec{z} = \vec{0}$.
+
+        If $\vec{z}_1, \cdots, \vec{z}_k$ are individual solutions to the same homogeneous linear system, then so is any linear combination of $c_1 \vec{z}_1 + \cdots + c_k \vec{z}_k$.
+
+        As we've seen before, for inhomogeneous systems, once we know the homogeneous solution, we can generalize with the inhomogeneous solution.
+
+            \[ \vec{x} = \vec{x}^* + \vec{z} \]
+
+        This gives us a couple different properties that are equivalent.
+
+        \begin{thm}
+            If $A$ is an $m \times n$ matrix, then the following conditions are equivalent:
+            \begin{easylist}[enumerate]
+                    & $ker A = \{ \vec{0} \}$, i.e.\ the homogeneous system $A\vec{x} = \vec{0}$ has the unique solution $\vec{x} = \vec{0}$.
+                    & $rank A = n$
+                    & The linear system $A \vec{x} = \vec{b}$ has no free variables.
+                    & The system $A \vec{x} = \vec{b}$ has a unique solution for each $\vec{b} \in rng A$.
+            \end{easylist}
+
+            If $A$ is a square, $n \times n$ matrix, then the following conditions are equivalent:
+
+            \begin{easylist}[enumerate]
+                & $A$ is nonsingular
+                & $rank A = n$
+                & $ker A = \{ \vec{0} \}$
+                & $rng A = \mathbb{R}^n$
+            \end{easylist}
+        \end{thm}
+
+        \subsubsection{The Superposition Principle}
+        The Superposition Principle is the key to linearity. When we have homogeneous solutions, we can generate new solutions by combining new solutions. For inhomogeneous systems, the superposition principle allows us to combine solutions corresponding to different inhomogeneities.
+
+        If we know the particular solutions of two inhomogeneous linear systems
+            \[ A \vec{x} = \vec{b}_1, A \vec{x} = \vec{b}_2 \]
+        that have the same coefficient matrix $A$, then we can combine the two systems
+            \[ A \vec{x} = c_1 \vec{b}_1 + c_2 \vec{b}_2 \]
+        which gives us the particular solution
+        \[ \vec{x}^* = c_1 \vec{x}^*_1 + c_2 \vec{x}^*_2 \]
+
+        \subsubsection{Adjoint Systems, Cokernel, and Corange}
+        The adjoint to a linear system $A \vec{x} = \vec{b}$ of $m$ equations in $n$ unknowns is the linear system
+            \[ A^T \vec{y} = \vec{f} \]
+        consisting of $n$ equations in $m$ unkonwns $\vec{y} \in \mathbb{R}^m$ with $\vec{f} \in \mathbb{R}^n$.
+
+        The corange of an $m \times n$ matrix $A$ is the range of its transpose.
+        \[ corng A = rng A^T = \{ A^T \vec{y} | \vec{y} \in \mathbb{R}^m \} \subset \mathbb{R}^n \]
+
+        The cokernel, or left null space of $A$ is the kernel of its transpose.
+        \[ coker A = ker A^T = \{ \vec{w} \in \mathbb{R}^m | A^T \vec{w} = \vec{0} \} \subset \mathbb{R}^m \]
+
+        \subsubsection{The Fundamental Theorem of Linear Algebra}
+        \[ \begin{aligned}
+                dim corng A = dim rng A = rank A = rank A^T = r\\
+                dim ker A = n - r\\
+                dim coker A = m - r
+        \end{aligned} \]

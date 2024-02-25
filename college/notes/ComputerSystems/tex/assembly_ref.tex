@@ -1,0 +1,45 @@
+\begin{table}
+    \centering
+    \begin{tabular}{| p{0.2\textwidth} | l | l | p{0.4\textwidth} |}
+        \hline
+        Command & Generic Syntax & Example & Description\\
+        \hline
+        $M[Imm + R[E_b] + R[E_i] \cdot s]$ & $Imm(E_b, E_i, s)$ & {\ttfamily 0xFC(\%eax,\%edx,4)} & Reference memory location based off of preset values.\\
+        \hline
+        {\ttfamily mov}             & {\ttfamily mov src,dst}    & {\ttfamily mov (\%esp),\%edx}             & Copy the data from the source location to the destination.\\
+        {\ttfamily push}            & {\ttfamily push item}      & {\ttfamily push \$0xFF}                   & Push an item onto the stack.\\
+        {\ttfamily pop}             & {\ttfamily pop item}       & {\ttfamily pop \$0xFF}                    & Pop an item from the stack.\\
+        {\ttfamily leal}            & {\ttfamily leal src,dst}   & {\ttfamily leal 6(\%eax),\%edx}           & Load Effective Address takes whatever {\ttfamily src} points to, and loads it into {\ttfamily dst}.\\
+        \hline
+        {\ttfamily inc}             & {\ttfamily inc dst}        &                                           & $ dst = dst + 1 $\\
+        {\ttfamily dec}             & {\ttfamily dec dst}        &                                           & $ dst = dst - 1 $\\
+        {\ttfamily neg}             & {\ttfamily neg dst}        &                                           & $ -dst $\\
+        {\ttfamily not}             & {\ttfamily not dst}        &                                           & $ \sim dst $\\
+        {\ttfamily add}             & {\ttfamily add src,dst}    &                                           & $ dst = dst + src $\\
+        {\ttfamily sub}             & {\ttfamily sub src,dst}    &                                           & $ dst = dst - src $\\
+        {\ttfamily imul}            & {\ttfamily imul src,dst}   &                                           & $ dst = dst * src $\\
+        {\ttfamily xor}             & {\ttfamily xor src,dst}    &                                           & $ dst = dst \wedge src $\\
+        {\ttfamily or}              & {\ttfamily or src,dst}     &                                           & $ dst = dst | src $\\
+        {\ttfamily and}             & {\ttfamily and src,dst}    &                                           & $ dst = dst \& src $\\
+        {\ttfamily sal}             & {\ttfamily sal k,dst}      &                                           & $ dst = dst << k $\\
+        {\ttfamily shl}             & {\ttfamily shl k,dst}      &                                           & $ dst = dst << k$\\
+        {\ttfamily sar}             & {\ttfamily sar k,dst}      &                                           & $ dst = dst {>>}_A k $\\
+        {\ttfamily shr}             & {\ttfamily shr k,dst}      &                                           & $ dst = dst {>>}_L k $\\
+        \hline
+        {\ttfamily cmp}             & {\ttfamily cmp src2,src1}  & {\ttfamily cmp \%eax,\%edx}               & Sets flags on {\ttfamily src1 - src2}.\\
+        {\ttfamily test}            & {\ttfamily test src2,src1} & {\ttfamily test \%eax,\%edx}              & Sets flags on {\ttfamily src1 \& src2}.\\
+        \hline
+        {\ttfamily jmp}             & {\ttfamily jmp dst}        &                                           & Direct Jump\\
+        {\ttfamily je/jne}          & {\ttfamily jmp dst}        &                                           & Jump equal/not equal\\
+        {\ttfamily js/jns}          & {\ttfamily jmp dst}        &                                           & Jump negative/not negative\\
+        {\ttfamily jg/jge/jl/jle}   & {\ttfamily jmp dst}        &                                           & Jump greater/less\\
+        {\ttfamily ja/jae/jb/jbe}   & {\ttfamily jmp dst}        &                                           & Jump above/below\\
+        \hline
+        {\ttfamily call}            & {\ttfamily call label}     & {\ttfamily call 8049908}                  & Call procedure for execution\\
+        {\ttfamily leave}           & {\ttfamily leave}          &                                           & Prepare stack for return. This sets the stack pointer to the beginning of the frame and restores the saved {\ttfamily \%ebp}.\\
+        {\ttfamily ret}             & {\ttfamily ret}            &                                           & Return from call\\
+        \hline
+    \end{tabular}
+    \label{table:assembly}
+    \caption{Assembly Reference}
+\end{table}

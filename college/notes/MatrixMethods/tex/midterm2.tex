@@ -1,0 +1,394 @@
+\section{Inner Products and Norms}
+The most basic example of an inner product is the familiar dot product
+
+    \[ \langle \vec{v} , \vec{w} \rangle = \vec{v} \cdot \vec{w} = v_1w_1 + v_2w_2 + \cdots + v_nw_n \]
+
+It's important to note here that this dot product is equal to the matrix product of $\vec{v}^T$ and $\vec{w}$.
+
+Any vector, when dotted with itself yields the sum of the squares of its entries, which leads us to the Euclidean Norm, or the length of the vector, which is the square root.
+
+    \[ \Vert \vec{v} \Vert = \sqrt{\vec{v} \cdot \vec{v}} \]
+
+\begin{thm}
+    An inner product on the real vector spave $V$ is a pairing that takes two vectors $\vec{v}, \vec{w} \in V$ and produces a real number $\langle \vec{v}, \vec{w} \rangle \in \mathbb{R} $. The inner product is required to satisfy the following three axioms for all $\vec{u}, \vec{v}, \vec{w} \in V$ and scalars $c, d \in \mathbb{R} $
+
+    \begin{easylist}[itemize]
+        & \textbf{Bilinearity}
+            \[ \begin{aligned}
+                \langle c \vec{u} + d \vec{v}, \vec{w} \rangle = c \langle \vec{u}, \vec{w} \rangle + d \langle \vec{v}, \vec{w} \rangle\\
+                \langle \vec{u}, c \vec{v} + d \vec{w} \rangle = c \langle \vec{u}, \vec{v} \rangle + d \langle \vec{u}, \vec{w} \rangle
+            \end{aligned} \]
+        & \textbf{Symmetry}
+            \[
+                \langle \vec{v}, \vec{w} \rangle = \langle \vec{w}, \vec{v} \rangle
+            \]
+        & \textbf{Positivity}
+            \[
+                \langle \vec{v}, \vec{v} \rangle > 0 \text{ whenever } \vec{v} \neq \vec{0} \text{ while } \langle \vec{0}, \vec{0} \rangle = 0
+            \]
+    \end{easylist}
+
+    Given an inner product, the associated norm of a vector $\vec{v} \in V$ is defined as the positive square root of the inner product of the vector with itself.
+\end{thm}
+
+    \subsection{Inequalities}
+        \subsubsection{The Cauchy-Schwarz Inequality}
+        Any Euclidean dot product between two vectors can be expressed geometrically as
+            \[ \vec{v} \cdot \vec{w} = \Vert \vec{v} \Vert \Vert \vec{w} \Vert \cos \theta \]
+
+        Therefore, the absolute value of the dot product is bounded by the product of the lengths of the vectors
+
+            \[ \vert \vec{v} \cdot \vec{w} \vert \leq \Vert \vec{v} \Vert \Vert \vec{w} \Vert \]
+
+        Every inner product satisfies the Cauchy-Schwarz inequality.
+
+        Two elements $\vec{v}, \vec{w} \in v$ of an inner product space $V$ are called orthogonal if their inner product vanishes: $\langle \vec{v}, \vec{w} \rangle = 0$
+
+        \subsubsection{The Triangle Inequality}
+        The norm associated with an inner product satisfies the triangle inequality
+
+            \[ \Vert \vec{v} + \vec{w} \Vert \leq \Vert \vec{v} \Vert + \Vert \vec{w} \Vert \text{ for all } \vec{v}, \vec{w} \in V \]
+
+        Equality holds iff $\vec{v}, \vec{w}$ are parallel.
+
+    \subsection{Norms}
+    \begin{thm}
+    A norm on the vector space $V$ assigns a real number $\Vert \vec{v} \Vert$ to each vector $\vec{v} \in V$ subject to the following axioms for every $\vec{v}, \vec{w} \in V$ and $c \in \mathbb{R}$.
+
+    \begin{easylist}[itemize]
+        & \textbf{Positivity}
+            \[ \Vert \vec{v} \Vert \geq 0, (\Vert \vec{v} \Vert = 0 \Leftrightarrow \vec{v} = \vec{0}) \]
+        & \textbf{Homogeneity}
+            \[ \Vert c \vec{v} \Vert = \vert c \vert \Vert \vec{v} \Vert \]
+        & \textbf{Triangle Inequality}
+            \[ \Vert \vec{v} + \vec{w} \Vert \leq \Vert \vec{v} \Vert + \Vert \vec{w} \Vert \]
+    \end{easylist}
+    \end{thm}
+
+        \subsubsection{Unit Vectors}
+        In any vector space $V$, the elements $\vec{u} \in V$ where $\Vert \vec{u} \Vert = 1$ are very important and are referred to as unit vectors.
+
+        If $\vec{v} \neq \vec{0}$ is any nonzero vector, then the vector $\vec{u} = \vec{v} / \Vert \vec{v} \Vert$ obtained by dividing $\vec{v}$ by its norm is a unit vector parallel to $\vec{v}$.
+
+        \subsubsection{Equivalence of Norms}
+        Even though there are many different types of norms, in a finite dimensional vector space they are all more or less equivalent.
+
+        Let $\Vert \cdot \Vert_1$ and $\Vert \cdot \Vert_2$ be any two norms on $\mathbb{R}^n$. Then there exist positive constants $c^*, C^* > 0$ such that
+
+            \[ c^* \Vert \vec{v} \Vert_1 \leq \Vert \vec{v} \Vert_2 \leq C^* \Vert \vec{v} \Vert_1, \forall \vec{v} \in \mathbb{R}^n \]
+
+    \subsection{Positive Definite Matrices}
+    An $n \times n$ matrix $K$ is called positive definite if it is symmetric, $K^T = K$ and satisfies the positivity condition
+        \[ \vec{x}^T K \vec{x} > 0 \text{ for all } \vec{0} \neq \vec{x} \in \mathbb{R}^n \]
+    This is sometimes denoted as $K > 0$. Any positive definite matrix is nonsingular.
+
+    Every inner product on $\mathbb{R}^n$ is given by
+        \[ \langle \vec{x}, \vec{y} \rangle = \vec{x}^T K \vec{y} \text{ for } \vec{x}, \vec{y} \in \mathbb{R}^n \]
+    Where $K$ is a positive definite matrix as is defined above.
+
+    Given any symmetric matrix $K$, the homogeneous quadratic polynomial
+        \[ q(\vec{x}) = \vec{x}^T K \vec{x} = \sum^n_{i, j = 1}k_{ij}x_ix_j \]
+    is known as a quadratic form on $\mathbb{R}^n$. The quadratic form is called the positive definite if
+        \[ q(\vec{x}) > 0 \text{ for all } 0 \neq \vec{x} \in \mathbb{R}^n \]
+    thus a quadratic form is positive definite iff its coefficient matrix is.
+
+        \subsubsection{Gram Matrices}
+        Let $V$ be an inner product space, and let $\vec{v}_1, \cdots, \vec{v}_n \in V$. The associated Gram matrix
+            \[ K = \begin{pmatrix}
+                    \langle \vec{v}_1, \vec{v}_1 \rangle & \langle \vec{v}_1, \vec{v}_2 \rangle & \cdots & \langle \vec{v}_1, \vec{v}_n \rangle\\
+                    \langle \vec{v}_2, \vec{v}_1 \rangle & \langle \vec{v}_2, \vec{v}_2 \rangle & \cdots & \langle \vec{v}_2, \vec{v}_n \rangle\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    \langle \vec{v}_n, \vec{v}_1 \rangle & \langle \vec{v}_n, \vec{v}_2 \rangle & \cdots & \langle \vec{v}_n, \vec{v}_n \rangle\\
+                    \end{pmatrix} \]
+        is the $n \times n$ matrix whose entries are the inner products between the selected vector space elements.
+
+        Symmetry of the inner product implies symmetry of the Gram matrix:
+            \[ k_ij = \langle \vec{v}_i, \vec{v}_j \rangle = \langle \vec{v}_j, \vec{v}_i \rangle = k_ji \]
+        and hence $K^T = K$.
+
+        All Gram matrices are positive semi-definite. The Gram matrix is positive definite iff $\vec{v}_1, \cdots, \vec{v}_n$ are linearly independent. This leads us to more details about a given $m \times n$ matrix $A$.
+
+            \begin{easylist}[enumerate]
+                & The $n \times n$ Gram matrix $K = A^T A$ is positive definite.
+                & $A$ has linearly independent columns.
+                & $rank A = n \leq m$
+                & $ker A = \{ 0 \}$
+            \end{easylist}
+
+        Suppose $A$ is an $m \times n$ matrix with linearly independent columns. Suppose $C$ is any positive definite $m \times m$ matrix. Then the matrix $K = A^T C A$ is a positive definite $n \times n$ matrix.
+
+            \subsubsection{Completing the Square}
+            Gram matrices give us a virtually unlimited supply of positive definite matrices, however we still need to determine how to figure out how to determine whether or not a given matrix is positive definite.
+
+            A symmetric matrix is positive definite iff it is regular and has all positive pivots.
+
+            In other words, a square matrix $K$ is positive definite iff it can be factored $K = LDL^T$ where $L$ is a special lower triangular and $D$ is diagonal with all positive definite entries.
+
+            \subsubsection{The Cholesky Factorization}
+            We know how to write any regular quadratic form as a linear combination of squares. We can push this slightly further and deduce the Cholesky Factorization
+                \[ K = LDL^T = LSS^TL^T = MM^T | M = LS \]
+
+    \subsection{Complex Vector Spaces}
+    Remember that complex numbers are expressed in the form $z = x + iy$ where $x, y \in \mathbb{R}$ and $i^2 = -1$.
+
+    For this we also need the complex conjugate. The complex conjugate of $z = x + iy$ is $\bar{z} = x - iy$.
+
+    We can also define complex vector spaces and inner products, the only difference is that the scalar entries are now complex scalars.
+
+    An Inner Product on the complex vector space $V$ is a pairing that takes two vectors, $\vec{v}, \vec{w} \in V$ and produces a complex number $\langle \vec{v}, \vec{w} \rangle \in \mathbb{C}$ subject to the following requirements for $\vec{u}, \vec{v}, \vec{w} \in V$ and $c, d \in \mathbb{C}$:
+        \begin{easylist}[enumerate]
+            & Sesquilinearity:
+                \[ \begin{aligned}
+                    \nvec{c \vec{u} + d \vec{v}, \vec{w}} = c \inprod{u}{w} + d \inprod{v}{w}\\
+                    \nvec{\vec{u}, c \vec{v} + d\vec{w}} = c \inprod{u}{v} + d \inprod{u}{w}
+                \end{aligned} \]
+            & Conjugate Symmetry:
+                \[ \inprod{v}{w} = \overline{\inprod{w}{v}} \]
+            & Positivity:
+                \[ \norm{v}^2 = \inprod{v}{v} \geq 0 \wedge \inprod{v}{v} = 0 \Leftrightarrow \vec{v} = \vec{0} \]
+        \end{easylist}
+
+    The Cauchy-Schwarz inequality is also valid on any complex inner product space.
+
+\section{Orthogonality}
+
+    \subsection{Orthogonal Bases}
+    Remember two elements are orthogonal if their inner product vanishes. In the case of Euclidean space, this means that the two vectors are at right angles.
+
+    \begin{thm}
+    A basis $\vec{u}_1, \cdots, \vec{u}_n$ of $V$ is called orthogonal if $\inprod{u_i}{u_j} = 0$ for all $i \neq j$. The basis is called orthonormal if, in addition, each vector has unit length: $\norm{u_i} = 1$ for all $i=1, \cdots, n$.
+    \end{thm}
+
+    Also, if $\vec{u}_1, \cdots, \vec{u}_n$ is an orthogonal basis of a vector space $V$, then the normalized vectors $\vec{u}_i = \vec{v}_i / \norm{v_i}, i = 1, \cdots, n$, form an orthonormal basis.
+
+    Associated with this theorem, if $\vec{v}_1, \cdots, \vec{v}_k \in V$ are nonzero, mutually orthogonal elements, so $\vec{v}_i \neq \vec{0}$ and $\inprod{v_i}{v_j} = 0$ for all $i \neq j$, then they are linearly independent.
+
+    \begin{thm}
+        Suppose $\vec{v}_1, \cdots, \vec{v}_n \in V$ are nonzero, mutually orthogonal elements of an inner product space $V$. Then $\vec{v}_1, \cdots, \vec{v}_n$ form an orthogonal basis for their span $W = span\{\vec{v}_1, \cdots, \vec{v}_n\} \subset V$, which is therefore a subspace of dimension $n = dim W$. In particular, if $dim V = n$, then $\vec{v}_1, \cdots, \vec{v}_n$ form a orthogonal basis for $V$.
+    \end{thm}
+
+        \subsubsection{Computations in Orthogonal Bases}
+        The advantage of an orthogonal or orthonormal base is that we can express other elements as linear combinations of the base elements, in other words, find their coordinates.
+        \begin{thm}
+            Let $\vec{u}_1, \cdots, \vec{u}_n$ be an orthonormal basis for an inner product space $V$. Then one can write any element $\vec{v} \in V$ as a linear combination in which its coordinates
+                \[ c_i = \inprod{v}{u_i}, i=1, \cdots, n \]
+            are explicitly given as inner products. Moreover, its norm is the square root of the sum of the squares of its orthonormal basis coordinates.
+
+            We also can say that if $\vec{v}_1, \cdots, \vec{v}_n$ form an orthogonal basis, then the corresponding coordinates of a vector are given by
+                \[ a_i = \frac{\inprod{v}{v_i}}{\norm{v_i}^2} \]
+        \end{thm}
+
+    \subsection{The Gram-Schmidt Process}
+    Now we know that orthogonal and orthonormal bases are useful, we need to determine how to construct them.
+
+    Let $V$ be a finite-dimensional inner product space. We will construct the basis elements one by one, and since there are no conditions on the first element we can choose the first element of $V$, $\vec{v}_1 = \vec{w}_1$.
+
+    The second basis vector must be orthogonal to the first, which we attempt to ensure by setting $\vec{v}_2 = \vec{w}_2 - c \vec{v}_1$ where $c$ is a scalar to be determined. We can expand $\inprod{v_1}{v_2}$ and determine that $c = \inprod{w_2}{v_1} / \norm{v_1}^2$.
+
+    We can extrapolate this process to all vectors in the space, giving us the general Gram-Schmidt formula
+
+        \[ \vec{v}_k = \vec{w}_k - \sum^{k - 1}_{j = 1} \frac{\inprod{w_k}{v_j}}{\norm{v_j}^2} \vec{v}_j, k = 1, \cdots, n \]
+
+    We also can say that every non-zero finite-dimensional inner product space has an orthonormal basis. In fact, if the dimension is greater that 1, there are infinitely many.
+
+        \subsubsection{Modifications of the Gram-Schmidt Process}
+        We can modify the Gram-Schmidt process a little to gain additional benefit.
+
+        First step is to replace each orthogonal basis vector with its normalized version: $\vec{u}_j = \vec{v}_j / \norm{v_j}$. This allows us to compute
+
+            \[ r_{ij} = \inprod{w_j}{u_i}, i = 1, \cdots, j - 1 \]
+
+        we obtain the next orthonormal basis vector with
+
+            \[ \begin{aligned}
+                    r_{ij} = \sqrt{\norm{w_j}^2 - r^2_{1j} - \cdots - r^2_{j-1,j}}\\
+                    \vec{u}_j = \frac{\vec{w}_j - r_{1j}\vec{u}_1 - \cdots - r_{j-1, j}\vec{u}_{j-1}}{r_{jj}}
+                \end{aligned} \]
+
+    \subsection{Orthogonal Matrices}
+    A square matrix $Q$ is called an orthogonal matrix if it satisfies
+        \[ Q^T Q = 1 \]
+    This also implies that
+        \[ Q^{-1} = Q^T \]
+    A matrix is orthogonal iff its columns form an orthonormal basis with respect to the Euclidean dot product on $\mathbb{R}^n$.
+
+    An orthogonal matrix has determinant det$Q = \pm 1$ and the product of two orthogonal matrices is also orthogonal.
+
+        \subsubsection{The QR Factorization}
+        Any nonsingular matrix $A$ can be factored, $A = QR$, into the product of an orthogonal matrix $Q$ and an upper triangular matrix $R$. The factorization is unique if all the diagonal entries of $R$ are assumed to be positive.
+
+        This strategy can be employed as an alternative to traditional Gaussian elimination
+
+        \[ A\vec{x} = \vec{b} \equiv QR\vec{x} = \vec{b} \equiv R\vec{x} = Q^T \vec{b} \]
+
+        We also can say that if we let $\vec{v}, \vec{w} \in \mathbb{R}^n$ with $\norm{v} = \norm{w}$. Set $\vec{u} = (\vec{v} - \vec{w}) / \Vert \vec{v} - \vec{w} \Vert$ and let $H = 1 - 2\vec{u}\vec{u}^T$ be the corresponding elementary reflection matrix. Then $H\vec{v} = \vec{w}$ and $H \vec{w} = \vec{v}$.
+
+        In other words, what we're doing is applying the Gram-Schmidt process to each column vector of the original matrix, and then creating the upper triangle matrix as an upper triangular Gram matrix.
+
+            \[
+                A = [\vec{a}_1, \cdots, \vec{a}_n]
+                Q = [\vec{e}_1, \cdots, \vec{e}_n]
+                R = \begin{pmatrix}
+                        \langle \vec{e}_1, \vec{a}_1 \rangle & \langle \vec{e}_1, \vec{a}_2 \rangle & \cdots & \langle \vec{e}_1, \vec{a}_n \rangle\\
+                        0 & \langle \vec{e}_2, \vec{a}_2 \rangle & \cdots & \langle \vec{e}_2, \vec{a}_n \rangle\\
+                        0 & 0 & \cdots & \langle \vec{e}_3, \vec{a}_n \rangle\\
+                        \vdots & \vdots & \ddots & \vdots\\
+                    \end{pmatrix}
+            \]
+
+    \subsection{Orthogonal Polynomials}
+    Orthogonal Polynomials can be very useful in functions spaces. We'll start by discussing the Legendre Polynomials.
+
+    To construct the Legendre Polynomials, we start by constructing an orthonormal basis for vector space$P^{(n)}$ of polynomials of degree $\le n$. This construction will be based on the $L^2$ inner product
+        \[ \inprod{p}{q} = \int^1_{-1}p(t)q(t) \, dt \]
+
+    We then apply the Gram-Schmidt orthogonalization process to the elementary, but non-orthogonal monomial basis $1, t, t^2, \cdots, t^n$, and compute the next orthogonal polynomials through recursive application of the Gram-Schmidt Process.
+
+    The resulting polynomials are known as the monic\footnote{Leading coefficient is equal to 1} Legendre Polynomials. However there is also a way to explicitly solve for the classical Legendre Polynomials.\footnote{Classical Legendre Polynomials are those that are certain scalar multiples, namely \[ P_k(t) = \frac{(2k)!}{2^k (k!)^2} q_k(t), k = 0, 1, 2, \cdots \] and so also define a system of orthogonal polynomials. The multiple is fixed by the requirement that \[ P_k(1) = 1 \]}
+
+    The Rodrigues formula for the classical Legendre Polynomials is
+
+        \[ P_k(t) = \frac{1}{2^k k!} \frac{d^k}{dt^k} {(t^2 - 1)}^k, \norm{P_k} = \sqrt{\frac{2}{2k + 1}}, k = 0, 1, 2, \cdots \]
+
+    If $j \le k$, then the polynomial $R_{j,k}(t)$ is orthogonal to all polynomials of degree $\le j - 1$.
+
+    The transformed Legendre Polynomials \[ \widetilde{P}_k(t) = P_k \left( \frac{2t - b - a}{b - a} \right), \norm{\widetilde{P}_k} = \sqrt{\frac{b-a}{2k + 1}}, k=0, 1, 2, \cdots \] form an orthogonal system of polynomials with respect to the $L^2$ inner product on the interval $[a, b]$.
+
+    \subsection{Orthogonal Projections and Least Squares}
+    An Orthogonal Projection of a point onto a subspace is finding the nearest distance between that point and the subspace.
+
+    A vector $\vec{z} \in V$ is said to be orthogonal to the subspace $W \subset V$ if it is orthogonal to every vector in $W$, so $\inprod{z}{w} = 0$ for all $\vec{w} in W$.
+
+    The orthogonal projection of $\vec{v}$ onto the subspace $W$ is the element $\vec{w} \in W$ that makes the difference $\vec{z} = \vec{v} - \vec{w}$ orthogonal to $W$.
+
+    Let $\vec{u}_1, \cdots, \vec{u}_n$ be an orthonormal basis for the subspace $W \subset V$. Then the orthogonal projection of a vector $\vec{v} \in V$ onto $W$ is
+
+        \[ \vec{w} = c_1 \vec{u}_1 + \cdots + c_n \vec{u}_n \text{ where } c_i = \frac{\inprod{v}{u_i}}{\norm{u_i}^2}, i = 1, \cdots, n \]
+
+        \subsubsection{Orthogonal Least Squares}
+        The orthogonal projection of a vector onto a subspace is also the least squares vector, the closest point in the subspace.
+
+        Let $W \subset V$ be a finite-dimensional subspace of an inner product space. Given a vector $\vec{v} \in W$, the closest point or least squares minimizer $\vec{w} \in W$ is the same as the orthogonal projection of $\vec{v}$ onto $W$.
+
+        \subsubsection{Orthogonal Polynomials and Least Squares}
+        The orthogonality of Legendre polynomials and their relatives helps us construct least squares approximates.
+
+        We can write the least squares approximate as a linear combination of Legendre Polynomials
+            \[ p(t) = a_0 P_0(t) + a_1P_1(t) + \cdots + a_n P_n(t) = a_0 + a_1 t + a_2(\frac{3}{2} t^2 - \frac{1}{2}) + \cdots \]
+
+        The least squares coefficients can also be computed by the inner product formula, giving us the Rodrigues formula:
+            \[ a_k = \frac{\inprod{e^t}{P_k}}{\norm{P_k}^2} = \frac{2k + 1}{2} \int^1_{-1} e^t P_k(t) \, dt \]
+
+    \subsection{Orthogonal Subspaces}
+    We can extend the notion of orthogonailty from elements to subspaces.
+
+    Two subspaces $W,Z \subset V$ are called orthogonal if every vector in $W$ is orthogonal to every vector in $Z$.
+
+    If $\vec{w}_1, \cdots, \vec{w}_k$ span $W$ and $\vec{z}_1, \cdots, \vec{z}_l$ span $Z$, then $W$ and $Z$ are orthogonal subspaces if and only if $\inprod{w_i}{z_j} = 0$ for all $i = 1, \cdots, k$ and $j = 1, \cdots, l$.
+
+    The orthogonal complement to a subspace $W \subset V$, denoted $W^\bot = \{ \vec{v} \in V | \inprod{v}{w} = 0 \text{ for all } \vec{w} \in W \}$.
+
+    Suppose that $W \subset V$ is a finite-dimensional subspace of an inner product space. Then every vector $\vec{v} \in V$ can be uniquely decomposed into $\vec{v} = \vec{w} + \vec{z}$ where $\vec{w} \in W$ and $\vec{z} \in W^\bot$.
+
+    If dim $W = m$ and dim $V = n$, then dim $W^\bot = n - m$.
+
+    If $W$ is a finite-dimensional subspace of an inner product space, then ${(W^\bot)}^\bot = W$.
+
+        \subsubsection{Orthogonality of the Fundamental Matrix Subspaces and the Fredholm Alternative}
+        Let $A$ be a real $m \times n$ matrix. Then its kernel and corange are orthogonal complements as subspaces of $\mathbb{R}^n$ under the dot product, while its cokernel and range are orthogonal complements in $\mathbb{R}^m$, also under the dot product:
+
+            \[ ker A = (corng A)^\bot \subset \mathbb{R}^n, coker A = (rng A)^\bot \subset \mathbb{R}^m \]
+
+        The linear system $A\vec{x} = \vec{b}$ has a solution if and only if $\vec{b}$ is orthogonal to the cokernel of $A$.
+
+        In other words, $A\vec{x} = \vec{b}$ has a solution $(\vec{b} \in Im(A))$ if and only if for any $\vec{y}$ such that $A^T\vec{y} = \vec{0}, \vec{y}^T\vec{b}=\vec{0}(\vec{b} \in ker(A^T)^\perp$.\footnote{This is the specific Fredholm Alternative}
+
+        Multiplication by an $m \times n$ matrix $A$ of rank $r$ defines a one-to-one correspondence between the $r$-dimensional subspaces corng $A \subset \mathbb{R}^n$ and rng $A \subset \mathbb{R}^m$. Moreover, if $\vec{v}_1, \cdots, \vec{v}_r$ forms a basis of corng $A$ then their images $A \vec{v}_1, \cdots A \vec{v}_r$ form a basis for rng $A$.
+
+        A compatible linear system $A \vec{x} = \vec{b}$ with $\vec{b} \in rng A = (coker A)^\bot$ has a unique solution $\vec{w} \in corng A$ satisfying $A \vec{w} = \vec{b}$. The general solution is $\vec{x} = \vec{w} + \vec{z}$ where $\vec{z} \in ker A$. The particular solution $\vec{w}$ is distinguished by the fact that it has the smallest Euclidean norm of all possible solutions: $\norm{w} \le \norm{x}$ whenever $A \vec{x} = \vec{b}$.
+
+\section{Least Squares}
+Using Least Squares we can find the element in a subspace that is closest to a given point.
+
+When trying to solve this problem, it's important to note that the goal is to minimize the squared distance
+
+    \[ {\Vert \vec{v} - \vec{b} \Vert}^2 = \langle \vec{v} - \vec{b}, \vec{v} - \vec{b} \rangle = {\Vert \vec{v} \Vert}^2 - 2 \langle \vec{v}, \vec{b} \rangle + \norm{b}^2 \]
+
+over all possible $\vec{v} \in V$.
+
+In other words, Let $\vec{v}_1, \cdots, \vec{v}_n$ form a basis for the subspace $V \subset \mathbb{R}^m$. Given $\vec{b} \in \mathbb{R}^m$, the closest point $\vec{v*} = x*_1 \vec{v}_1 + \cdots + x*_n \vec{v}_n \in V$ is prescribed by the solution $\vec{x*} = K^{-1}\vec{f}$ to the linear system $K \vec{x} = \vec{f}$, where $K$ and $\vec{f}$ are given by
+
+\begin{easylist}[enumerate]
+    & $K$ is a symmetric $n \times n$ Gram matrix formed by
+        \[ k_{ij} = \langle \vec{v}_i, \vec{v}_j \rangle \]
+    & $\vec{f} \in \mathbb{R}^n$ formed by
+        \[ f_i = \langle \vec{v}_i, \vec{b} \rangle \]
+\end{easylist}
+
+The distance between the point and the subspace is
+
+\[ d* = \Vert \vec{v*} - \vec{b} \Vert = \sqrt{\norm{b}^2 - \vec{f}^T \vec{x*}} \]
+
+    \subsection{Least Squares}
+    A least squares solution to a linear system of equations $A \vec{x} = \vec{b}$ is a vector $\vec{x*} \in \mathbb{R}^n$ that minimizes the Euclidean norm $\Vert A \vec{x} - \vec{b} \Vert$.
+
+    If the system has a solution, then it is automatically the least squares solution, therefore the concept of a least squares solution is only new when the system doesn't have a solution.
+
+    The least squares solution is unique if $ker A = \{\vec{0}\}$, or if the columns of $A$ are linearly independent ($rank A = n$).
+
+    Assume $ker A = \{ \vec{0} \}$. Set $K = A^T A$ and $\vec{f} = A^T \vec{b}$. Then the least squares solution to the linear system $A \vec{x} = \vec{b}$ is the unique solution $\vec{x*}$ to the so called normal equations
+
+    \[ K \vec{x} = \vec{f} \equiv (A^T A) \vec{x} = A^T \vec{b} \]
+
+    namely
+
+    \[ \vec{x*} = (A^T A)^{-1} A^T \vec{b} \]
+
+    and the least squares error is
+
+    \[ {\Vert A \vec{x*} - \vec{b} \Vert}^2 = {\Vert \vec{b} \Vert}^2 - \vec{f}^T \vec{x*} = {\Vert \vec{b} \Vert}^2 - \vec{b}^T A (A^T A)^{-1} A^T \vec{b} \]
+
+\section{Linear Functions}
+Let $V$ and $W$ be real vector spaces. A function $L: V \to W$ is called linear if it obeys two basic rules:
+
+\begin{easylist}[enumerate]
+    & $L[\vec{v} + \vec{w}] = L[\vec{v}] + L[\vec{w}]$
+    & $L[c \vec{v}] = c L[\vec{v}]$
+\end{easylist}
+
+for all $\vec{v}, \vec{w} \in V$ and all scalars $c$.
+
+Every linear function $L: \mathbb{R}^n \to \mathbb{R}^m$ is given by matrix multiplication $L[\vec{v}] = A \vec{v}$ where $A$ is an $m \times n$ matrix.
+
+    \subsection{The Space of Linear Functions}
+    Given the vector spaces $V, W$, we use $\mathcal{L}(V,W)$ to denote the set of all linear functions: $L:V \to W$.
+
+    The dual space to a vector space $V$ is defined as the vector space $V* = \mathcal{L}(V, \mathbb{R})$ consisting of all real-valued linear functions $L: V \to \mathbb{R}$.
+
+    Let $V$ be a finite dimensional real inner product space. Then every linear function $L:V \to \mathbb{R}$ is given by an inner product with a fixed vector $\vec{a} \in V$:
+    \[ L[\vec{v}] = \langle \vec{a}, \vec{v} \rangle \]
+
+    \subsection{Composition}
+    Besides adding and multiplying by scalars, one can also compose linear functions.
+
+    Let $V, W, Z$ be vector spaces. If $L:V \to W$ and $M:W \to Z$ are linear functions, then the composite function $M \circ L:V \to Z$, defined by $(M \circ L)[\vec{v}] = M[L[\vec{v}]]$ is linear.
+
+    \subsection{Inverses}
+    Let $L:V \to W$ be a linear function. If $M: W \to V$ is a function such that both compositions
+        \[ L \circ M = I_W, M \circ L = I_V \]
+    are equal to the identity function, then we call $M$ the inverse of $L$ and write $M = L^{-1}$.
+
+    If it exists, the inverse of a linear function is also a linear function.
+
+\section{Linear Transformations}
+If we consider a linear function that maps $n$ dimensional space to itself, we can also consider that the function maps a point $\vec{x} \in \mathbb{R}^n$ to its image point $L[\vec{x}] = A \vec{x}$, where $A$ is its $n \times n$ representative. This can be referred to as a linear transformation.
+
+Most of the important classes of linear transformations already appear in the two dimensional case. Every linear function $L: \mathbb{R}^2 \to \mathbb{R}^2$ has the form
+
+\[ L \begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}ax + by\\cx + dy\end{pmatrix}, \text{ where } A = \begin{pmatrix}a & b\\c & d\end{pmatrix} \]
+
+is an arbitrary $2 \times 2$ matrix.
+
+    \subsection{Change of Basis}
+    Let $L:V \to W$ be a linear function. Suppose $V$ has basis $\vec{v}_1, \cdots, \vec{v}_n$ and $W$ has basis $\vec{w}_1, \cdots, \vec{w}_m$. We can write
+        \[ \vec{v} = x_1 \vec{v}_1 + \cdots + x_n \vec{v}_n \in V, \vec{w} = y_1 \vec{w}_1 + \cdots + y_m \vec{w}_m \in W \]
