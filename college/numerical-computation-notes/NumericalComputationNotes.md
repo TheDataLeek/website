@@ -386,7 +386,7 @@ $$
 \delta_1 & 2 \delta_1 + 2\delta_2 & \delta_2 & \ddots & & & 3 \left( \frac{\Delta_2}{\delta_2} - \frac{\Delta_1}{\delta_1} \right)\\
 0 & \delta_2 & 2 \delta_2 + 2 \delta_3 & \delta_3 & & & \\
 & \ddots & \ddots & \ddots & \ddots & & \vdots \\
-& & & \delta_{n - 2} & 2 \delta_{n - 2} + 2 \delta_{n - 1} & \delta_{n - 1} & 3 \left( \frac{\Delta_{n - 1}}{\delta_{n - 1}} - \frac{\Delta_{n - 2}}{\delta_{n - 2}} \right)\\
+& & & \delta_{n - 2} & 2 \delta_{n - 2} + 2 \delta_{n - 1} & \delta_{n - 1} & 3 \left( \frac{\Delta_{n - 1} }{\delta_{n - 1} } - \frac{\Delta_{n - 2} }{\delta_{n - 2} } \right)\\
 & & & 0 & 0 & 1 & 0\\
 \end{array}
 \right]
@@ -527,7 +527,7 @@ With gridded data we can simply interpolate between the points. For non gridded 
 A great strategy is nearest neighbor interpolation:
 
 $$
-z = \begin{cases} \frac{\sum_{i = 1}^{N - 1} \frac{z_i}{{\left[ {(x_i - x)}^2 + {(y_i - y)}^2 \right]}^{p / 2}}}{\sum_{i = 1}^{N - 1} \frac{1}{{\left[ {(x_i - x)}^2 + {(y_i - y)}^2 \right]}^{p / 2}}} & \quad x_i \neq x \text{ or } y_i \neq y\\ z_i & \quad x_i = x \text{ and } y_i = y \end{cases}
+z = \begin{cases} \frac{\sum_{i = 1}^{N - 1} \frac{z_i}{ {\left[ {(x_i - x)}^2 + {(y_i - y)}^2 \right]}^{p / 2} }}{\sum_{i = 1}^{N - 1} \frac{1}{ {\left[ {(x_i - x)}^2 + {(y_i - y)}^2 \right]}^{p / 2} }} & \quad x_i \neq x \text{ or } y_i \neq y\\ z_i & \quad x_i = x \text{ and } y_i = y \end{cases}
 $$
 
 For examples, see http://www.dataleek.io/archive/interpolating-3d.html
@@ -547,7 +547,7 @@ Solving this minimizes the residual $r = b - AX$.
 We can measure our error, where the root mean squared error is defined as
 
 $$
-RSME = \sqrt{\frac{SE}{m}} = \sqrt{\frac{r_1^2 + \cdots + r^2_m}{m}}
+RSME = \sqrt{\frac{SE}{m} } = \sqrt{\frac{r_1^2 + \cdots + r^2_m}{m} }
 $$
 
 We can apply this concept and fit models to data.
@@ -622,7 +622,7 @@ $$
 Where $q_j$ is some vector defined as
 
 $$
-q_j = \frac{y_j}{{\lVert y_j \rVert}_2}
+q_j = \frac{y_j}{ {\lVert y_j \rVert}_2}
 $$
 
 and $r_{ij}$ is some constant defined as
@@ -684,7 +684,7 @@ $$
 The projection of vector $\vec{v}$ onto vector $\vec{u}$ is defined as
 
 $$
-proj_{\vec{u}} (\vec{v}) = \frac{\langle \vec{v}, \vec{u} \rangle}{\langle \vec{u}, \vec{u} \rangle}\vec{u}
+proj_{\vec{u} } (\vec{v}) = \frac{\langle \vec{v}, \vec{u} \rangle}{\langle \vec{u}, \vec{u} \rangle}\vec{u}
 $$
 
 
@@ -892,7 +892,7 @@ $$
 h_1 &=& b - a\\
 h_2 &=& \frac{1}{2} (b - a)\\
 &\vdots&\\
-h_j &=& \frac{1}{2^{j - 1}}(b - a)
+h_j &=& \frac{1}{2^{j - 1} }(b - a)
 \end{aligned}
 $$
 
@@ -913,7 +913,7 @@ $$
 Where the second column is defined as extrapolations of the first column. Generally,
 
 $$
-R_{jk} = \frac{4^{k - 1} R_{j,k-1} - R_{j-1,k-1}}{4^{k - 1} - 1}
+R_{jk} = \frac{4^{k - 1} R_{j,k-1} - R_{j-1,k-1} }{4^{k - 1} - 1}
 $$
 
 This tableau is infinite, and the best approximation is $R_{jj}$.
