@@ -6,8 +6,6 @@ image: assets/images/blogtile.png
 description: College Homeworks, Articles, and Reports
 ---
 
-# College Writeups
-
 The articles here are from 2018 and before, as I haven't had as much time or interest in technical writing in my free time these days!
 
 * [a quick guide to os fork in python](/college/a-quick-guide-to-os-fork-in-python)
