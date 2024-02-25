@@ -15,20 +15,18 @@ The articles here are from 2018 and before, as I haven't had as much time or int
 * [an introduction to plotting in python](/college/an-introduction-to-plotting-in-python)
 * [an introduction to pythons types](/college/an-introduction-to-pythons-types)
 * [digging into my discord](/college/digging-into-my-discord)
-* [evolve project interview](/college/evolve-project-interview)
 * [integrating sms with twilio](/college/integrating-sms-with-twilio)
 * [khan academy interview project](/college/khan-academy-interview-project)
-* [numerical computation notes](/college/numerical-computation-notes)
 * [python type hinting](/college/python-type-hinting)
 * [reusable charting with d3](/college/reusable-charting-with-d3)
-* [speed snakes leveraging parallelism with python](/college/speed-snakes-leveraging-parallelism-with-python)
 * [the good the bad and the ugly of tuple unpacking](/college/the-good-the-bad-and-the-ugly-of-tuple-unpacking)
 * [the python typing module](/college/the-python-typing-module)
 * [twitter civil unrest analysis with apache spark](/college/twitter-civil-unrest-analysis-with-apache-spark)
 
 # Class Notes
 
-[All can be found here](./notes)
+* [All Latex Notes can be found here](college/notes)
+* [numerical computation notes](/college/numerical-computation-notes)
 
 # Old Homework Sets
 
