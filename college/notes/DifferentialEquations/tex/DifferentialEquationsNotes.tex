@@ -1,0 +1,99 @@
+\documentclass[10pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Includes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}    % Math formatting
+\usepackage{amsthm}     % Math Theorems
+\usepackage{amsfonts}   % Math formatting
+\usepackage{amssymb}    % Math formatting
+%\usepackage[margin=1in]{geometry}
+\usepackage{setspace}   % Allow double spacing
+\usepackage{graphicx}   % Include images
+\usepackage{pdfpages}   % Include pdfs
+\usepackage{tikz}       % Create Pictures
+\usepackage{pgfplots}   % Create Pictures
+\usepackage{caption}    % Figure captioning
+\usepackage{subcaption} % Figure captioning
+\usepackage{movie15}    % include animated .gifs
+\usepackage{attachfile} % AttachFiles
+\usepackage{tocloft}    % List of Equations
+\usepackage{fancyhdr}   % Fancy Header
+\usepackage{microtype}  % Niceness
+\usepackage{hyperref}   % movie dependence
+\usepackage{multirow}   % Multirow tables
+\usepackage{./lib/mlptikz}
+\input{./lib/dragon.inp}
+\hypersetup{hidelinks}
+
+\RequirePackage[l2tabu, orthodox]{nag} % Nag about bad syntax
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nvec}[1]{\left\langle #1 \right\rangle}        % Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A}}        % Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B}}        % Easy to use vector
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}           % Easy to use abs
+\newcommand{\pren}[1]{\left( #1 \right)}                    % Big parens
+\let\oldvec\vec
+\renewcommand{\vec}[1]{\oldvec{\mathbf{ #1 }}}                    % Big parens
+\newtheorem{thm}{Theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead[LE,LO]{APPM 2360 - Differential Equations}   % Adds header to left
+\fancyhead[RE,RO]{Notes}                                % Adds header to right
+\cfoot{\mlptikz[size=0.25in,text=on,textposx=0,textposy=0,textvalue=\thepage,textscale=0.75in]{applejack}}
+
+\title{Differential Equations Notes}   % Attachs .tex file to pdf
+\author{Zoe Farmer}
+\maketitle
+
+\tableofcontents    % Table of contents
+\listoffigures      % List of Figures
+
+\newcommand{\listequationsname}{\Large{List of Equations}}          % Funky code to include LOE
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\listofmyequations
+
+\begin{figure}[h]       % Display nice fancy break
+    \centering
+    \includegraphics[scale=0.25]{./img/break.png}
+%    \includegraphics[scale=0.25]{./img/dragon.eps}
+\end{figure}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First Midterm Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./tex/midterm1.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Second Midterm Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./tex/midterm2.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Third Midterm Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./tex/midterm3.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Final Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./tex/final.tex}
+
+\newpage
+
+\appendix
+
+\section{Attachments}
+\attachfile{./tex/attachments.tar.gz}{\LaTeX Source Code}
+
+\end{document}

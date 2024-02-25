@@ -1,0 +1,286 @@
+\section{Linear Systems of Differential Equations}
+To define the linear first order differential equations system:
+
+An $n$-dimensional first order differential equations system on an open interval $I$ is one that can be written as a matrix vector equation.
+
+    \begin{equation}\label{eq:desystem_vector_form}
+        \vec{x} \prime (t) = A(t) \vec{x}(t) + \vec{f}(t)
+    \end{equation}\myequations{Differential Equation Systems Vector Equation Form}
+
+    \begin{itemize}
+        \item $A(t)$ is an $n \times n$ matrix of continuous functions on $I$.
+        \item $f(t)$ is an $n \times 1$ vector of continuous functions on $I$.
+        \item $\vec{x}(t)$ is an $n \times 1$ solution vector.
+        \item If $f(t) \equiv 0$, the system is homogeneous.
+    \end{itemize}
+
+    \subsection{Graphical Methods}
+    We use the phase plane from before to accurately represent these systems.
+
+        \subsubsection{Nullclines}
+        The $v$ nullcline is the set of all points with vertical slope which occur on the curve obtained by solving
+            \[
+                x\prime = f(x, y) = 0
+            \]
+        The $h$ nullcline is the same except with horizontal slope and is found with
+            \[
+                y\prime = f(x, y) = 0
+            \]
+        At the intersection we get a fixed equilibrium point.
+
+        \subsubsection{Eigenvalues}
+        Eigenvalues play a large role in phase planes as well. For an autonomous and homogeneous system of differential linear system of equations:
+
+            \begin{itemize}
+                \item Trajectories are toward or away based on the sign of the eigenvalue.
+                \item Along each eigenvector is the separatria that seperates different curves.
+                \item Equilibrium arrives at origin (Symmetric)
+                \item Speed is determined by magnitude of the eigenvalues.
+            \end{itemize}
+
+    \subsection{Linear Systems with Real Eigenvalues}
+    To solve a system in the form
+
+        \[
+            \vec{x} = A \vec{x}
+        \]
+
+        \begin{enumerate}
+            \item Find eigenvalues of $A$.
+            \item Find associated eigenvectors.
+            \item Solution is in the form (for a $2\times 2$ matrix at least) our solution is in the form:
+                \[
+                    \vec{x}(t) = c_1 e^{\lambda_1 t} \vec{v}_1 + c_2 e^{\lambda_2 t} \vec{v}_2
+                \]
+        \end{enumerate}
+
+    If there are insufficient eigenvalues (repeated eigenvalues), follow the method below.
+
+        \begin{enumerate}
+            \item Find the one eigenvalue.
+            \item Find its eigenvector.
+            \item Find $\vec{v}$ such that $(A - \lambda I) \vec{u} = \vec{v}$.
+            \item Solution: $\vec{x}(t) = c_1 e^{\lambda t} \vec{v} + c_2 e^{\lambda t} (t \vec{v} + \vec{u})$.
+        \end{enumerate}
+
+    \subsection{Non-Real Eigenvalues}
+    If we have a matrix $A$ with non-real eigenvalues $\lambda_1, \lambda_2 = \alpha \pm i \beta$, the corresponding eigenvectors are also complex conjugate pairs in the form:
+
+        \[
+            \vec{v}_1, \vec{v}_2 = \vec{p} \pm i \vec{q}
+        \]
+
+    To solve:
+
+        \begin{enumerate}
+            \item For the first eigenvalue, find its eigenvector. The second eigenvector is a pair of the first.
+            \item Construct the real and non-real parts:
+                \[
+                    \begin{cases}
+                        \vec{x}_r = e^{\alpha t} ( \cos(\beta t) \vec{p} - \sin(\beta t)\vec{q})\\
+                        \vec{x}_i = e^{\alpha t} ( \sin(\beta t) \vec{p} + \cos(\beta t)\vec{q})
+                    \end{cases}
+                \]
+            \item The general solution is defined as
+                \[
+                    \vec{x}(t) = c_1 \vec{x}_r(t) + c_2 \vec{x}_i(t)
+                \]
+        \end{enumerate}
+
+        \subsubsection{Interpreting Non-Real Eigenvalues}
+        \[
+            \left[ \begin{array}{c}
+                \vec{x}_r\\
+                \vec{x}_i
+            \end{array} \right] = e^{\alpha t}
+            \left[ \begin{array}{c}
+                \cos(\beta t) - \sin(\beta t)\\
+                \sin(\beta t) + \cos(\beta t)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                \vec{p}\\
+                \vec{q}
+            \end{array} \right]
+        \]
+
+        \begin{itemize}
+            \item The first variable defines the expansion.
+                \begin{itemize}
+                    \item If $\alpha > 0 \to$ Growth without bound.
+                    \item If $\alpha < 0 \to$ Decay to $0$.
+                    \item If $\alpha = 0 \to$ Period solutions.
+                \end{itemize}
+            \item The second defines rotation.
+                \begin{itemize}
+                    \item Counterclockwise for $\beta > 0$
+                    \item Clockwise for $\beta < 0$
+                \end{itemize}
+            \item The third defines tilt and shape.
+        \end{itemize}
+
+    \subsection{Stability and Linear Classification}
+    A constant solution $\vec{x} \equiv \vec{c}$ is called an equilibrium solution. An equilibrium solution in the phase plane is a fixed point.
+
+        \begin{itemize}
+            \item If solutions remain close and tend to $\vec{c}$ as $t \to \infty$ we call this asymptotically stable.
+            \item If solutions are neither attracted nor repelled, we call this neutrally stable.
+            \item If other, it is unstable.
+        \end{itemize}
+
+    \subsection{Parameter Plane}
+    % Insert this image
+
+    \subsection{Possibilities in the Parameter Plane}
+    We have to consider a couple different possibilities.
+
+    \begin{enumerate}
+        \item \textbf{Real Distinct Eigenvalues ($\Delta > 0$)}
+
+            When $\Delta = {({\rm Tr}(A))}^2 - 4|A| > 0$ we have real eigenvalues $\lambda_1 \neq \lambda_2$ with corresponding linearly independent eigenvectors $\vec{v}_1$ and $\vec{v}_2$ with general solution
+
+            \[ \vec{x} = c_1 e^{\lambda_1 t} \vec{v}_1 + c_2 e^{\lambda_2 t} \vec{v}_2 \]
+
+            The signs of the eigenvalues direct the trajectory behavior in the phase portrait.
+
+            We can label the eigendirections fast or slow based on the magnitude of the eigenvalues. Whichever it is, the trajectories are parallel to fast and perpendicular to slow.
+
+            Three possibilities
+
+                \begin{itemize}
+                    \item Attracting Node ($\lambda_1 < \lambda_2 < 0$)
+                    \item Repelling Node ($0 < \lambda_1 < \lambda_2$)
+                    \item Saddle Point ($\lambda_1 < 0 < \lambda_2$)
+                \end{itemize}
+
+            \item \textbf{Complex Conjugate Eigenvalues ($\Delta < 0$)}
+
+                When $\Delta = {({\rm Tr}(A))}^2 - 4|A| < 0$ we get non-real eigenvalues.
+
+                \[ \lambda_{1,2} = \alpha \pm \beta i \]
+
+                where $\alpha = \frac{{\rm Tr}(A)}{2}$ and $\beta = \sqrt{-\Delta}$. $\alpha$ and $\beta$ are real. The real solutions are given by:
+
+                \[ \begin{cases}
+                        \vec{x}_r = e^{\alpha t} ( \cos(\beta t) \vec{p} - \sin(\beta t)\vec{q})\\
+                        \vec{x}_i = e^{\alpha t} ( \sin(\beta t) \vec{p} + \cos(\beta t)\vec{q})
+                    \end{cases} \]
+
+                For complex eigenvalues stability behavior depends on the sign of $\alpha$.
+
+                \begin{itemize}
+                    \item Attracting Spiral ($\alpha < 0$)
+                    \item Repelling Spiral ($\alpha > 0$)
+                    \item Center ($\alpha = 0$)
+                \end{itemize}
+
+            \item \textbf{Borderline Case: Zero Eigenvalues ($|A| = 0$)}
+                If one eigenvalue is zero we get a row of non-isolated fixed points in the eigendirection associated with the eigenvalues, and the phase plane trajectories are all straight lines in direction of other eigenvector.
+
+                If two eigenvalues are zero, there is only one eigenvector, along which we have a row of non-isolated fixed points. Trajectories from any other point in the phase plane must be parallel to the one eigenvector in the direction specified by the system.
+
+            \item \textbf{Borderline Case: Real Repeated Eigenvalues ($\Delta = 0$)}
+
+                In this situation we have two cases to contend with.
+
+                \begin{enumerate}
+                    \item \textit{Degenerate Node:} If $\lambda$ has one linearly independent eigenvector we call it degenerate. The sign of $\lambda$ gives its stability.
+                    \item \textit{Star Node:} If $\lambda$ has two linearly independent eigenvectors we call it an attracting or repelling star node. The sign of $\lambda$ gives its stability.
+                \end{enumerate}
+
+                In both cases, the sign of $\lambda$ gives its stability.
+
+                    \begin{itemize}
+                        \item If $\lambda > 0$, trajectories go to infinity, parallel to $\vec{v}$.
+                        \item If $\lambda < 0$, trajectories approach the origin parallel to $\vec{v}$.
+                        \item If $\lambda = 0$, there exists a line of fixed points at the eigenvector.
+                    \end{itemize}
+    \end{enumerate}
+
+\section{Non-Linear Systems}
+We will be looking at autonomous $2 \times 2$ systems. Note, there is no matrix without linearity.
+
+    \subsection{Properties of Phase Plane Trajectories in Non-Linear $2 \times 2$ Systems}
+    \begin{enumerate}
+        \item When uniqueness holds, phase plane trajectories cannot cross.
+        \item When the given functions $f$ and $g$ are continuous, trajectories are continuous and smooth.
+    \end{enumerate}
+
+    \subsection{Equilibria}
+    Phase Portraits can have more than one, or none at all. To find a system's equilibria, solve $x\prime$ and $y\prime$ simultaneously.
+
+    \subsection{Nullclines}
+    Nullclines in this case are the same as before.
+
+    \subsection{Limit Cycle}
+    A limit cycle is a closed curve (representing a periodic solution) to which other solutions tend by winding around more and more closely from either inside or outside.
+
+\section{Linearization}
+Just as we've done with calculus, we can linearize the system to understand the behavior at a certain point as well as nearby.
+
+    \[
+        \begin{cases}
+            x\prime = f(x, y)\\
+            y\prime = g(x, y)
+        \end{cases}
+        \text{ Inserting Equilibrium Point } e \text{ we get }
+        \begin{cases}
+            f(x_e, y_e)\\
+            g(x_e, y_e)
+        \end{cases}
+    \]
+
+    \begin{thm}[Jacobian]
+        For a given system of equations:
+
+            \[
+                \begin{cases}
+                    x\prime = f(x, y)\\
+                    y\prime = g(x, y)
+                \end{cases}
+            \]
+
+        where $f$ and $g$ are twice differentiable, the linearized system at an equilibrium point $(x_e, y_e)$ translated by $u = x - x_e$ and $v = y - y_e$ is
+
+            \begin{equation}\label{eq:jacobian}
+                \left[ \begin{array}{c}
+                    u\\
+                    v
+                \end{array} \right] \prime = J(x_e, y_e) \text{ where } J(x_e, y_e) = 
+                \left[ \begin{array}{cc}
+                    f_x(x_e, y_e) & f_y(x_e, y_e)\\
+                    g_x(x_e, y_e) & g_y(x_e, y_e)
+                \end{array} \right]
+            \end{equation}
+
+        which is the Jacobian Matrix. If $J$ is non-singular, the linearized point has a unique equilibrium point at $(u, v) = (0,0)$, and the techniques from before can be used to classify behavior.
+
+        For the non-linear system and Jacobian given above, $\lambda_1$ and $\lambda_2$ be real or non-real.\footnote{Where $\lambda$ is the set of eigenvalues of the Jacobian Matrix}
+    \end{thm}
+
+    Using the Jacobian Matrix we can determine behavior of a system of differential equations using Table \eqref{table:jacob_values}.
+
+    \begin{table}
+        \scalebox{0.8}{
+            \begin{tabular}{| p{0.10\textwidth} | p{0.16\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} |}
+                \hline
+                Type & Eigenvalues & \multicolumn{2}{c|}{Linearized System} & \multicolumn{2}{c|}{Nonlinear System}\\
+                & & Geometry & Stability & Geometry & Stability\\
+                \hline
+                \multirow{3}{0.10\textwidth}{Real Distinct Roots} & $\lambda_1 < \lambda_2 < 0$ & Attracting Node & Asymptotically Stable & Attracting Node & Asymptotically Stable\\
+                & $0 < \lambda_2 < \lambda_1$ & Repelling Node & Unstable & Repelling Node & Unstable\\
+                & $\lambda_1 < 0 < \lambda_2$ & Saddle & Unstable & Saddle & Unstable\\
+                \hline
+                \hline
+                \multirow{2}{0.10\textwidth}{Real Repeated Roots} & $\lambda_1 = \lambda_2 < 0$ & Attracting Star of Degenerate Node & Asymptotically Stable & Attracting Node or Spiral & Asymptotically Stable\\
+                & $\lambda_1 = \lambda_2 > 0$ & Repelling Star or Degenerate Node & Unstable & Repelling Node or Spiral & Unstable\\
+                \hline
+                \hline
+                \multirow{3}{0.10\textwidth}{Complex Conjugate Roots} & $\alpha > 0$ & Repelling Spiral & Unstable & Repelling Spiral & Unstable\\
+                & $\alpha < 0$ & Attracting Spiral & Asymptotically Stable & Attracting Spiral & Asymptotically Stable\\
+                & $\alpha = 0$ & Center & Stable & Center or Spiral & Uncertain\\
+                \hline
+            \end{tabular}
+        }
+        \caption{Table of Behavior Based on the System's Jacobian Matrix Eigenvalues}
+        \label{table:jacob_values}
+    \end{table}
