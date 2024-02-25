@@ -85,7 +85,7 @@ def bisectionmethod(f, a, b, steps, precision=1e-4):
 
 ## Fixed Point Iteration
 
-A number, $x^*$, is called a fixed point if $g(x^*) = x^*$. If we're lucky, some functions converge to a certain point.
+A number, $$x^*$$, is called a fixed point if $$g(x^*) = x^*$$. If we're lucky, some functions converge to a certain point.
 
 
 ```python
@@ -137,23 +137,23 @@ def secantmethod(f, x0, x1, steps):
 
 ## Properties and Definitions
 
-A system of equations can be defined by a matrix, usually denoted $Ax = b$.
+A system of equations can be defined by a matrix, usually denoted $$Ax = b$$.
 
-A singular matrix is one where no solution exists. For $A$ which a unique solution exists the following statements are equivalent.
+A singular matrix is one where no solution exists. For $$A$$ which a unique solution exists the following statements are equivalent.
 
-* $A$ is non-singular
-* $A^{-1}$ exists
-* $|A| \neq 0$
-* $rank (A) = n$
-* $\forall \vec{v} \neq 0, A \vec{v} \neq 0$.
+* $$A$$ is non-singular
+* $$A^{-1}$$ exists
+* $$|A| \neq 0$$
+* $$rank (A) = n$$
+* $$\forall \vec{v} \neq 0, A \vec{v} \neq 0$$.
 
-Eigenvalues of some matrix $A$ are defined as the roots of the characteristic polynomial:
+Eigenvalues of some matrix $$A$$ are defined as the roots of the characteristic polynomial:
 
 $$
 | A - I \lambda | = 0
 $$
 
-A matrix is said to be ill-conditioned if the value $\lVert A \rVert \lVert A^{-1} \rVert$ is large.
+A matrix is said to be ill-conditioned if the value $$\lVert A \rVert \lVert A^{-1} \rVert$$ is large.
 
 ## Gaussian Elimination
 
@@ -165,7 +165,7 @@ We have three elementary operations that we can use to solve systems of equation
 
 ## LU Factorization
 
-Any system of equations with coefficient matrix $A$ and solution vector $b$ can be written in the form $Ax = b$. $LU$ Factorization strives to reduce this coefficient matrix into two matrices, a lower and upper triangular matrix (hence the $LU$).
+Any system of equations with coefficient matrix $$A$$ and solution vector $$b$$ can be written in the form $$Ax = b$$. $$LU$$ Factorization strives to reduce this coefficient matrix into two matrices, a lower and upper triangular matrix (hence the $$LU$$).
 
 #### No Pivoting
 We use our elementary operations here, and each constant we use is "saved" in an identity matrix which becomes our lower triangular matrix at the end.
@@ -174,7 +174,7 @@ We use our elementary operations here, and each constant we use is "saved" in an
 
 In this method we compare numbers before carrying out an elimination step. In the case of the first pivot, the largest entry of the first column is located and swapped for the first row. For the next pivot, the highest second column row is used for the second pivot.
 
-We can use this to get the decomposition $PA=LU$, where $P$ is some permutation matrix that defines the row swapping that occurs.
+We can use this to get the decomposition $$PA=LU$$, where $$P$$ is some permutation matrix that defines the row swapping that occurs.
 
 We use the same system here, save that we can keep the multipliers in the reduced matrix and then split at the end.
 
@@ -240,7 +240,7 @@ plt.show()
 
 ## Lagrangian Interpolation
 
-Given a set of $k + 1$ points, $(x_0, y_0), \cdots, (x_k, y_k)$, with distinct $x_i$, the lagrangian polynomial is the linear combination
+Given a set of $$k + 1$$ points, $$(x_0, y_0), \cdots, (x_k, y_k)$$, with distinct $$x_i$$, the lagrangian polynomial is the linear combination
 
 $$
 L(x) = \sum_{j=0}^k y_j l_j(x)
@@ -375,7 +375,7 @@ If you'll note, both Lagrangian interpolation and Newton's divided differences r
 
 ## Splines
 
-In short, for the natural cubic spline, let us define $\delta_i = x_{i + 1} - x_i$ and $\Delta_i = y_{i + 1} - y_i$.
+In short, for the natural cubic spline, let us define $$\delta_i = x_{i + 1} - x_i$$ and $$\Delta_i = y_{i + 1} - y_i$$.
 
 We now create the following system of equations.
 
@@ -398,7 +398,7 @@ $$
 S_i(x) = a_i + b_i(x - x_i) + c_i (x - x_i)^2 + d_i (x - x_i)^3
 $$
 
-On $[x_i, x_{i + 1}]$, for $i = 1, \ldots, n - 1$ where
+On $$[x_i, x_{i + 1}]$$, for $$i = 1, \ldots, n - 1$$ where
 
 $$
 \begin{aligned}
@@ -474,7 +474,7 @@ $$
 B(t) = (1 - t)^3 P_0 + 3 (1 - t)^2 t P_1 + 3(1 - t) t^2 P_2 + t^3 P_3
 $$
 
-For $t \in [0, 1]$, for each set of four points, $P_0, \ldots, P_3$.
+For $$t \in [0, 1]$$, for each set of four points, $$P_0, \ldots, P_3$$.
 
 See http://en.wikipedia.org/wiki/B%C3%A9zier_curve
 
@@ -542,7 +542,7 @@ $$
 A^T A \bar{x} = A^T b
 $$
 
-Solving this minimizes the residual $r = b - AX$.
+Solving this minimizes the residual $$r = b - AX$$.
 
 We can measure our error, where the root mean squared error is defined as
 
@@ -552,11 +552,11 @@ $$
 
 We can apply this concept and fit models to data.
 
-**Given a set of $m$ points:**
+**Given a set of $$m$$ points:**
 
 1. Choose a parameterized model.
 2. Force the model to fit the data.
-3. Solve the normal equations: $A^TAx = A^Tb$. The values, $c_i$, that correspond with the solution are the coefficients for the chosen model.
+3. Solve the normal equations: $$A^TAx = A^Tb$$. The values, $$c_i$$, that correspond with the solution are the coefficients for the chosen model.
 
 We can choose any model, just so long as it can be linearized. For example,
 
@@ -613,25 +613,25 @@ r_{11} & r_{12} & \cdots & r_{1n}\\
 \end{array}\right]
 $$
 
-Defining $y_j$ as
+Defining $$y_j$$ as
 
 $$
 y_j = A_j - q_1 (q_1^T A_j) - q_2(q_2^T A_j) - \cdots - q_{j - 1} ( q_{j - 1}^TA_j)
 $$
 
-Where $q_j$ is some vector defined as
+Where $$q_j$$ is some vector defined as
 
 $$
 q_j = \frac{y_j}{ {\lVert y_j \rVert}_2}
 $$
 
-and $r_{ij}$ is some constant defined as
+and $$r_{ij}$$ is some constant defined as
 
 $$
 r_{jj} = {\lVert y_j \rVert}_2 \qquad r_{ij} = q_i^T A_j
 $$
 
-Note, a square matrix $Q$ is orthogonal if $Q^T = Q^{-1}$.
+Note, a square matrix $$Q$$ is orthogonal if $$Q^T = Q^{-1}$$.
 
 
 ```python
@@ -665,13 +665,13 @@ print(np.dot(q, r))
 
 ### Full QR Factorization
 
-Full factorization is defined as $A = QR$ where $Q$ is an orthogonal square matrix and $R$ is an upper triangular matrix the same size as $A$. Therefore, if $A$ is not square, a third arbitrary column that is linearly independent of the first two columns may be used.
+Full factorization is defined as $$A = QR$$ where $$Q$$ is an orthogonal square matrix and $$R$$ is an upper triangular matrix the same size as $$A$$. Therefore, if $$A$$ is not square, a third arbitrary column that is linearly independent of the first two columns may be used.
 
 ### Least Squares by QR Factorization
 
-Given some $m \times m$ inconsistent system $Ax = b$, find the full $QR$ factorization and set $\hat{R} = $ upper $n \times n$ submatrix of $R$ and $\hat{d} =$ upper $n$ entries of $d = Q^T b$.
+Given some $$m \times m$$ inconsistent system $$Ax = b$$, find the full $$QR$$ factorization and set $$\hat{R} = $$ upper $$n \times n$$ submatrix of $$R$$ and $$\hat{d} =$$ upper $$n$$ entries of $$d = Q^T b$$.
 
-Solve $\hat{R} \bar{x} = \hat{d}$ for the least squares solution $\bar{x}$.
+Solve $$\hat{R} \bar{x} = \hat{d}$$ for the least squares solution $$\bar{x}$$.
 
 ### Gram-Schmidt Process
 
@@ -681,7 +681,7 @@ $$
 \frac{A}{\lVert A \rVert}
 $$
 
-The projection of vector $\vec{v}$ onto vector $\vec{u}$ is defined as
+The projection of vector $$\vec{v}$$ onto vector $$\vec{u}$$ is defined as
 
 $$
 proj_{\vec{u} } (\vec{v}) = \frac{\langle \vec{v}, \vec{u} \rangle}{\langle \vec{u}, \vec{u} \rangle}\vec{u}
@@ -703,16 +703,16 @@ Image('350px-Gram–Schmidt_process.svg.png') # From wikipedia
 
 ## Householder Reflectors
 
-A better way to find the $QR$ factorization is using householder reflectors.
+A better way to find the $$QR$$ factorization is using householder reflectors.
 
-**Householder Reflectors:** Let $x$ and $w$ be vectors with $\lVert x \rVert_2 = \lVert w \rVert_2$ and define $v = w - x$. Then $H = I - \frac{2vv^T}{v^Tv}$ is a symmetric orthogonal matrix and $Hx=w$.
+**Householder Reflectors:** Let $$x$$ and $$w$$ be vectors with $$\lVert x \rVert_2 = \lVert w \rVert_2$$ and define $$v = w - x$$. Then $$H = I - \frac{2vv^T}{v^Tv}$$ is a symmetric orthogonal matrix and $$Hx=w$$.
 
-We can use these to find the $QR$ decomposition.
+We can use these to find the $$QR$$ decomposition.
 
-1. Let $x_1$ be the first column of $A$.
-2. Let $w_1 = \pm (\lVert x_1 \rVert_2, 0, \ldots, 0)$ (Choose sign opposite of the first component of $x$).
-3. Create $H_1 = I - \frac{2 (w_1 - x_1)(w_1 - x_1)^T}{(w_1 - x_1)^T(w_1 - x_1)}$.
-4. Create $x_2$ consisting of the $m - 1$ lower entries from column two of $H_1 A$ and $w_2$ in the same way save with the leading entry of $x_2$. Now define this to be $\hat{H}$, and set $H_2$ to be the $m \times m$ matrix formed by putting $\hat{H}_2$ in the lower part of the identity matrix.
+1. Let $$x_1$$ be the first column of $$A$$.
+2. Let $$w_1 = \pm (\lVert x_1 \rVert_2, 0, \ldots, 0)$$ (Choose sign opposite of the first component of $$x$$).
+3. Create $$H_1 = I - \frac{2 (w_1 - x_1)(w_1 - x_1)^T}{(w_1 - x_1)^T(w_1 - x_1)}$$.
+4. Create $$x_2$$ consisting of the $$m - 1$$ lower entries from column two of $$H_1 A$$ and $$w_2$$ in the same way save with the leading entry of $$x_2$$. Now define this to be $$\hat{H}$$, and set $$H_2$$ to be the $$m \times m$$ matrix formed by putting $$\hat{H}_2$$ in the lower part of the identity matrix.
 5. Repeat step 4 as needed.
 
 
@@ -783,7 +783,7 @@ $$
 f^\prime(x) = \frac{f(x + h) - f(x)}{h} - \frac{h}{2} f^{\prime\prime}(c)
 $$
 
-Where $x \le c \le x + h$. Extending forward, we get the three point formula:
+Where $$x \le c \le x + h$$. Extending forward, we get the three point formula:
 
 $$
 \begin{cases}
@@ -812,7 +812,7 @@ $$
 \int_{x_0}^{x_1} f(x) \, dx = \frac{h}{2} (y_0 + y_1) - \frac{h^3}{12}f^{\prime\prime} (c)
 $$
 
-Where $h = x_1 - x_0$ and $x_0 \le c \le x_1$.
+Where $$h = x_1 - x_0$$ and $$x_0 \le c \le x_1$$.
 
 
 ```python
@@ -847,7 +847,7 @@ $$
 \int_{x_0}^{x^2} f(x) \, dx = \frac{h}{3} (y_0 + 4y_1 + y_2) - \frac{h^5}{90}f^{(iv)}(c)
 $$
 
-Where $h = x_2 - x_1 = x_1 - x_0$ and $x_0 \le c \le x_2$.
+Where $$h = x_2 - x_1 = x_1 - x_0$$ and $$x_0 \le c \le x_2$$.
 
 
 ```python
@@ -879,7 +879,7 @@ def simpsons_third(data, lower, upper, step):
 
 ### Romberg Integration
 
-For some function $f$, using the trapezoidal rule we can define integration to be
+For some function $$f$$, using the trapezoidal rule we can define integration to be
 
 $$
 \int_a^b f(x) \, dx = \frac{h}{2} \left( y_0 + y_m + 2 \sum_{i = 1}^{m - 1} y_i \right) + c_2 h^2 + c_4 h^4 + c_6h^6 + \cdots
@@ -896,7 +896,7 @@ h_j &=& \frac{1}{2^{j - 1} }(b - a)
 \end{aligned}
 $$
 
-We wish to approximate $M = \int_a^b f(x) dx$. Define the approximation formulas $R_{j1}$ to be the composite Trapezoid Rule using $h_j$.
+We wish to approximate $$M = \int_a^b f(x) dx$$. Define the approximation formulas $$R_{j1}$$ to be the composite Trapezoid Rule using $$h_j$$.
 
 We can form the tableau
 
@@ -916,7 +916,7 @@ $$
 R_{jk} = \frac{4^{k - 1} R_{j,k-1} - R_{j-1,k-1} }{4^{k - 1} - 1}
 $$
 
-This tableau is infinite, and the best approximation is $R_{jj}$.
+This tableau is infinite, and the best approximation is $$R_{jj}$$.
 
 
 ```python
