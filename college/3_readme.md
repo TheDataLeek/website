@@ -1,6 +1,6 @@
 ---
 layout: post
-title: College Writeups
+title: All Writeups
 nav-menu: false
 image: assets/images/blogtile.png
 description: College Homeworks, Articles, and Reports
