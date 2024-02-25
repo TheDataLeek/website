@@ -1,0 +1,307 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                 %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Problem Set 4}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer, Jeremy Granger, Ryan Roden}     %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{CSCI 3104}
+\rfoot{Clauset}
+\title{Problem Set Four}
+\author{Zoe Farmer\\Jeremy Granger\\Ryan Roden}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ Recall that Huffman codes are constructed in a greedy fashion.
+    @@ What is an optimal Huffman code for the following set of frequencies, based on the first 8 Fibonacci numbers?
+
+        \[
+            \left[
+            \text{
+            \ttfamily
+            a:1,
+            b:1,
+            c:2,
+            d:3,
+            e:5,
+            f:8,
+            g:13,
+            h:21}
+            \right]
+        \]
+
+    @@@ 
+        \begin{figure}[!ht]
+            \centering
+            \scalebox{0.8}{%
+            \begin{tikzpicture}
+            \node[circle,draw](A){\ttfamily abcdefgh:54}
+              child{%
+                node[circle,draw](C)[below left=0.3cm and 0.5cm of A]{\ttfamily abcdefg:33}
+                  child{%
+                    node[circle,draw](E)[below left=0.3cm and 0.5cm of C]{\ttfamily abcdef:20}
+                      child{%
+                        node[circle,draw](G)[below left=0.3cm and 0.5cm of E]{\ttfamily abcde:12}
+                          child{%
+                            node[circle,draw](I)[below left=0.3cm and 0.5cm of G]{\ttfamily abcd:7}
+                              child{%
+                                node[circle,draw](K)[below left=0.3cm and 0.5cm of I]{\ttfamily abc:4}
+                                  child{%
+                                    node[circle,draw](M)[below left=0.3cm and 0.5cm of K]{\ttfamily ab:2}
+                                      child{%
+                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111111}}](O)[below left=0.8cm and 0.8cm of M]{\ttfamily a:1}
+                                          child[missing]
+                                          child[missing]
+                                      }
+                                      child{%
+                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111110}}](N)[below=0.5cm of M]{\ttfamily b:1}
+                                          child[missing]
+                                          child[missing]
+                                      }
+                                  }
+                                  child{%
+                                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 111110}}](L)[right=0.55cm of N]{\ttfamily c:2}
+                                      child[missing]
+                                      child[missing]
+                                  }
+                              }
+                              child{%
+                                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 11110}}](J)[right=0.65cm of L]{\ttfamily d:3}
+                                  child[missing]
+                                  child[missing]
+                              }
+                          }
+                          child{%
+                            node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1110}}](H)[right=0.75cm of J]{\ttfamily e:5}
+                              child[missing]
+                              child[missing]
+                          }
+                      }
+                      child{%
+                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 110}}](F)[right=0.85cm of H]{\ttfamily f:8}
+                          child[missing]
+                          child[missing]
+                      }
+                  }
+                  child{%
+                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 10}}](D)[right=0.95cm of F]{\ttfamily g:13}
+                    child[missing]
+                    child[missing]
+                  }
+                }
+              child{%
+                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 0}}](B)[right=1.05cm of D]{\ttfamily h:21}
+                child[missing]
+                child[missing]
+              };
+            \end{tikzpicture}
+        }
+        \end{figure}
+
+    @@ How many optimal Huffman codes are there for this set of frequencies? Justify your answer.
+    @@@ There are three different cases to produce a unique Huffman code. One, if the symbols {\ttfamily a} \&
+    {\ttfamily b} are switched in the tree. Two, if the parent symbol {\ttfamily ab} and symbol {\ttfamily c} are
+    switched in the tree. Or three, if the symmetry is flipped, i.e.\ the tree goes up and left instead of up and right,
+    switching the positions of all 0's with 1's and vice versa.\newline
+
+    Each case creates 2 different outcomes and none are dependent on any others, so the Huffman code outcomes are represented by:
+
+        \[ \begin{aligned}
+            1,2,3\\
+            1,2,\neg 3\\
+            1,\neg 2,3\\
+            1,\neg 2,\neg 3\\
+            \neg1,2,3\\
+            \neg 1,2,\neg 3\\
+            \neg 1,\neg 2, 3\\
+            \neg 1,\neg 2,\neg 3\\
+        \end{aligned} \]
+
+    Therefore this set of symbols and frequencies has 8 different but equally optimal Huffman Codes
+
+    @@ Generalize your answer to find an optimal code when the frequencies are the first $n$ Fibonacci numbers.
+    @@@ We can generalize our answer as is shown in Table~\ref{table:codesymbols}
+
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|}
+             \hline
+             \textit{Symbol} & \textit{Code}\\
+             \hline
+             $a$             & $1^{n-2} \cdot 0$\\
+             $b$             & $1^{n-2} \cdot 1$ or $1^{n-1}$\\
+             $c$             & $1^{n-3} \cdot 0$\\
+             \vdots          & \vdots\\
+             $nth$           & $1^{n-n} \cdot 0$ or $0$\\
+             \hline
+        \end{tabular}
+        \caption{Generalize Fibonacci Huffman Codes}
+        \label{table:codesymbols}
+    \end{table}
+
+    @ Professor Hagrid is struggling with the problem of making change for $n$ cents using the smallest number of coins.
+    Let the coin values be $v_1 > v_2 > \cdots > v_r$ for $r$ coins types, and let each coin's value $v_i$ be a positive
+    integer. The output will be a set of counts $\{d_i\}$, one for each coin type, such that $\sum^n_{i=1} d_i = n$ and
+    where $k$ is minimized. (Note: $v_ 1$ is the most valuable coin.)
+    @@ Give a greedy algorithm, that takes $O(n)$ time, to make change consisting of quarters (worth 25 cents), dimes
+    (10 cents), nickels (5 cents) and pennies (1 cent). Prove that your algorithm yields an optimal solution.
+    @@@ The strategy for this problem is defined as the following. At each step, choose the coin of largest denomination
+    possible without exceeding the total.
+
+        \begin{pythoncode*}{gobble=12, xleftmargin=1in}
+            # Input: array with coin values (vals)
+            #        change value (n)
+            # Output: Array of coin counts
+            def change(vals=[c1, c2, ..., cn], n):
+                c = [0 for item in vals]   # Number of coins we have
+                for i in range(0, len(c)): # Check each denomination
+                    if n - vals[i] > 0: # If we can subtract
+                        c[i] += 1  # Add to count
+                        return [x + y for x,y in zip(c, # Recurse
+                                change(n - vals[i], vals))] # combine
+                    elif n - vals[i] == 0: # Base case when we get to 0
+                        c[i] += 1 # Add to denomination count
+                        return c # return count up the tree
+        \end{pythoncode*}
+
+        This algorithm runs in $O(n)$ time. The {\ttfamily for}-loop runs in constant time, which is the number of coins
+        we have, {\ttfamily len(c)}. The function is then called as many times as it takes until $n$ goes to zero, which
+        by nature is dependent on $n$. Therefore the total runtime can be found with the recurrence relation
+
+        \[ T(n) = T(n - vals[i]) + O(1) \Rightarrow O(n) \]
+
+        The reason this algorithm provides the optimal solution is demonstrated as follows. For any coin denomination,
+        there is at least one way to equivalently equal that single coin with several smaller coins, but \textit{no}
+        ways to equate a smaller coin with a larger one. To demonstrate,
+
+            \[ \begin{aligned}
+                25 \cents =& \underbrace{10 \cents + 10 \cents + 5 \cents}_{\text{3 Coins}}\\
+                10 \cents =& \underbrace{5 \cents + 5 \cents}_{\text{2 Coins}}\\
+                5 \cents  =& \underbrace{1 \cents + 1 \cents + 1 \cents + 1 \cents + 1 \cents}_{\text{5 Coins}}\\
+            \end{aligned} \]
+
+        Given the above statement, we can state several facts about our algorithm. One, any solution will have less than
+        3 dimes. One quarter is better than 3 dimes, therefore we will always have 2 or less. Two, any solution will
+        have less than 2 nickels. One dime is better than 2 nickels, therefore the most nickels we can have is 1. Three,
+        any solution will have less than 5 pennies. One nickel is better than 5 pennies, therefore the most pennies we
+        can have is 4. The facts hold true about any optimal solution.
+
+    @@ Suppose that the available coins are in the denominations that are powers of $c$, i.e., denominations of $c^0,
+    c^1, \ldots, c^l$ for some integers $c > 1$ and $l \ge 1$. Prove that the greedy algorithm always yields an optimal
+    solution in this case.
+    @@@ To start, we know that every value of $c$ has $c^0$ (the ``penny'') so every positive integer $n$ has a solution with
+        the greedy algorithm.\newline
+
+        Similarly to above every denomination can be created with some combination of lower denominations. An
+        illustrative example is when $c=2$ and we'll let $l=3$.
+
+            \[ \begin{aligned}
+                c^3 = 8 \cents =& \underbrace{4 \cents + 4 \cents}_{\text{2 Coins}}\\
+                c^2 = 4 \cents =& \underbrace{2 \cents + 2 \cents}_{\text{2 Coins}}\\
+                c^1 = 2 \cents =& \underbrace{1 \cents + 1 \cents}_{\text{2 Coins}}\\
+            \end{aligned} \]
+
+        Using similar logic we can state several facts about our algorithm. Any solution will have at most one $4
+        \cents$ coin, and at most one $2 \cents$ coin, because any two $4 \cents$ coins could be replaced with one $8
+        \cents$ coin, and two $2 \cents$ coins could be replaced with one $4 \cents$ coin.
+        the optimal solution in this case.\newline
+
+        Using a more extensible approach, we refer to our algorithm above. If we take the largest $i^{th}$ denomination,
+        such that $n - c^i \ge  0$ we now know that every coin $c^i$ where $i > 0$ (our base case) can be comprised of
+        no fewer than $c$ coins of value $c^{(i-1)}$. Therefore one $c^i$ coin will always yield a smaller coin count
+        than $c$ of $c^(i-1)$ for any value of $n$.
+
+
+    @@ Give a set of coin denominations for which the greedy algorithm does not yield an optimal solution, and explain
+    why. The set should include a penny so that there is a solution for every value of $n$.
+    @@@ One such situation is when we simply exclude the nickel. For this set of coin denominations, we can look at when
+    $n=30$, and our algorithm will yield
+
+        \[ \begin{aligned}
+            30 \cents &=& 25 \cents + 1 \cents + 1 \cents + 1 \cents + 1 \cents + 1 \cents &\Rightarrow \text{ Algorithm Solution}\\
+            30 \cents &=& 10 \cents + 10 \cents + 10 \cents &\Rightarrow \text{ Optimal Solution}\\
+        \end{aligned} \]
+
+        In this case our algorithm cannot provide the optimal solution, and is stuck with an unoptimal solution. This
+        occurs because the algorithm is stuck choosing what it believes to be the ``best'' option at each step of the
+        process. In this case it starts with a quarter, and then the \textit{only} remaining denomination that can fit
+        (since we've removed the nickel) is the penny, of which we need 5. Now if we had removed the quarter as well our
+        algorithm would see that the dime would fit at the first, second, and third steps, yielding three dimes
+        optimally instead of our unoptimal solution with a quarter.\newline
+
+        To be fair, our algorithm is still pretty good. This case does not fail every scenario, and still works for
+        many, including the case where $n=36$. This yields one quarter, one dime, and one penny; which is in other words
+        the optimal solution.
+
+    @ Let $A$ and $B$ be arrays of integers. Each array contains $n$ elements, and each array is in sorted order
+    (ascending). $A$ and $B$ do not share any elements in common. Give a $O(\lg(n))$-time algorithm which finds the
+    median of $A \cup B$ and prove that it is correct. This algorithm will thus find the median of the $2n$ elements
+    that would result from putting $A$ and $B$ together into one array.
+    @@ Let's start out by supposing that the (lower) median is in $X$. Let's call this median value $m$, and let's
+    suppose that it is in $X[k]$. Then $k$ elements of $X$ are less than or equal to $m$ and $n - k$ elements of $X$ are
+    greater than or equal to $m$. We know that in the two arrays combined there must be $n$ elements less than or equal
+    to $m$ and $n$ elements greater than or equal to $m$. So there must be $n - k$ elements of $Y$ that are less than or
+    equal to $m$ and $n - (n - k) = k$ elements of $Y$ that are greater than or equal to $n$.\newline
+
+    Thus, we can check that $X[k]$ is the lower median by checking $Y[n - k] \le X[k] \le Y[n - k + 1]$. A boundary case
+    occurs for $k = n$. Then $n - k = 0$ and there is no array entry $Y[0]$, so we only need to check $X[n] \le Y[1]$.
+    Now if the median is in $X$, but is not in $X[k]$, then the above condition will not hold. If the median is in
+    $X[k\prime]$ where $k\prime < k$, then $X[k]$ is above the median and $Y[n - k + 1] < X[k]$. Conversely, if the
+    median is in $X[k\prime\prime]$ where $k\prime\prime > k$ then $X[k]$ is below the median and $X[k] < Y[n -
+    k]$.\newline
+
+    Thus we can use a binary search tree to determine whether there is an $X[k]$ such that either $k < n$ and $Y[n - k]
+    \le X[k] \le Y[n - k + 1]$ or $k = n$ and $X[k] \le Y[n - k + 1]$. If we find such an $X[k]$, then it is the median.
+    Otherwise we know that the median is in $Y$, and we use a binary search to find $Y[k]$ such that either $k < n$ and
+    $X[n-k] \le Y[k] \le X[n - k + 1]$ or $k = n$ and $Y[k] \le X[n - k + 1]$. Such $Y[k]$ is the median.
+
+    \begin{pythoncode*}{gobble=8}
+        n = len(X) # $|X|=|Y|$
+        def findk(X, Y, k):
+            if k == n:  # If we've reached the end of the set
+                if X[n] <= Y[1]: # If the end of X is less than the first of Y
+                    return k  # We've found our median
+            else:
+                if ((Y[n - k] <= X[k]) and  # If we've correctly identified k
+                    (X[k] <= Y[n - k + 1])):
+                    return k
+                else:
+                    X1 = X[1:k - 1]  # Endpoints inclusive
+                    X2 = X[k + 1: n] # Endpoints inclusive
+                    if X1 != [] and X2 != []: # If $X_{1|2} \neq \emptyset$, search both
+                        return findk(X1, Y, n / 4) or findk(X2, Y, (3 * n) / 4)
+                    elif X1 != []: # Otherwise search the non-empty sets
+                        return findk(X1, Y, n / 4)
+                    elif X2 != []:
+                        return findk(X2, Y, (3 * n) / 4)
+                    else: # $X1=X2=\emptyset$
+                        return None   # Otherwise if both are empty we failed.
+        flag = False        # Did we guess correctly?
+        k = n / 2           # Initial Guess
+        k = findk(X, Y, k)  # Attempt to find $k$, the index of the lower median
+        if k is None:
+            flag = True     # Picked the wrong starting set
+            k = findk(Y, X, n/2)  # Use the other one
+        if flag:  # If we resorted to Y
+            if k == n: # if lower median is at upper bound
+                median = (Y[k] + X[1]) / 2 # take k and X[1]
+            else: # Otherwise k and k + 1
+                median = (Y[k] + Y[k + 1]) / 2
+        else:  # If X worked
+            if k == n: # As above, if at end take k and start of other
+                median = (X[k] + Y[1]) / 2
+            else: # Otherwise take k and k+1
+                median = (X[k] + X[k + 1]) / 2
+    \end{pythoncode*}
+
+\end{easylist}
+
+\end{document}

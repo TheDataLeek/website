@@ -1,0 +1,348 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 9}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 3570}
+\rfoot{Kleiber}
+\title{Homework 9}
+\date{Kleiber}
+\author{Zoe Farmer - 101446930}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+<<globals, echo=F, message=F, tidy=F>>=
+    library('ggplot2')
+@
+
+\maketitle
+
+\begin{table}[!ht]
+    \centering
+    \scalebox{1.5}{%
+    \begin{tabular}{|l|l|l|l||l|}
+        \hline
+        1 & 2 & 3 & 4 & T\\
+        \hline
+        & & & &\\
+        \hline
+    \end{tabular}
+    }
+\end{table}
+
+\begin{easylist}[enumerate]
+    \ListProperties(Hide1=50, Space1=1cm)
+    @ \textit{Chapter 5, \#31 --} A fire station is to be located along a road of length $A$, $A < \infty$. If fires
+    occur at points uniformly chosen on $(0, A)$, where should the station be located so as to minimize the expected
+    distance from the fire? That is, choose $a$ so as to minimize $\left(E\left[\abs{X - a}\right]\right)$ when $X$ is
+    uniformly distributed over $(0, A)$.\newline
+    @@ By definition, a uniform distribution has equal probability at any given point. This means that wherever the fire
+    station is located, there is an equal chance of any given point containing a fire. Therefore, the best location for
+    the fire station to be location is the exact center of the range, or $\boxed{\infty / 2}$.
+
+    @ Now suppose that the road is of infinite length -- stretching from point 0 outward to $\infty$.  If the distance of
+    a fire from point 0 is exponentially distributed with rate $\lambda$, where should the fire station now be located?
+    That is, we want to minimize $E[\abs{X − a}]$, where $X$ is now exponential with rate $\lambda$.
+    @@ The exponential distribution also has a predefined definition which can be used to determine the best location
+    for the fire station. By definition, $\lambda$ is equal to the rate of decay, meaning the mean is equal to
+    $\frac{1}{\lambda}$. Therefore the best location for the fire station is equal to $\boxed{1 / \lambda}$.
+
+    @ \textit{Chapter 5, \#35 --} The lung cancer hazard rate $\lambda(t)$ of a $t$-year-old male smoker is such that
+
+    <<hazard_rate_chunk, echo=F, tidy=F>>=
+        hazard_rate <- function(t) {0.0270 + 0.00025 * (t - 40)^2}
+    @
+
+    \[
+        \lambda(t) = 0.027 + 0.00025{\left( t - 40 \right)}^2 \qquad t \ge 40
+    \]
+
+    Assuming that a 40-year-old male smoker survives all other hazards, what is the probability that he survives to (a)
+    age 50 and (b) age 60 without contracting lung cancer?
+    @@ We can graph this distribution.
+
+    <<hazard_rate_plot, fig.width=5, fig.height=2, fig.align='center', tidy=F, echo=F>>=
+        ggplot(data.frame(x=c(40,101)), aes(x)) +
+                stat_function(fun=function(x) hazard_rate(x), geom='line')
+    @
+
+    We can see that the smoker's probability of death is increasing each year that passes, and we can accordingly
+    calculate his chance of survival. We are interested in how likely it is that the individual survives until
+    $t=\{50,60\}$ given that he's already survived until he is 40, which we can calculate be expressing $\lambda(t)$ as
+    the cumulative hazard function, $\Lambda$.
+
+    \[
+        \begin{aligned}
+            \Lambda(t) = \int^t_{40} \lambda(u) \, du \qquad S(t) = \exp(-\Lambda(t))\\
+            S(50) = \exp\left({-\int_{40}^{50} 0.027 + 0.00025{\left( t - 40 \right)}^2 \, dt}\right) =
+                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 50)$value)}}\\
+            S(60) = \exp\left({-\int_{40}^{60} 0.027 + 0.00025{\left( t - 40 \right)}^2 \, dt}\right) =
+                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 60)$value)}}
+        \end{aligned}
+    \]
+
+    @ \textit{Chapter 5, \#36 --} Suppose that the life distribution of an item has the hazard rate function $\lambda(t)
+    = t^3, t > 0$.
+
+    <<hazard_rate1, fig.width=5, fig.height=2, fig.align='center', tidy=F, echo=F>>=
+        hazard_rate1 <- function(t) {t^3}
+        ggplot(data.frame(x=c(0,2)), aes(x)) + stat_function(fun=function(x) hazard_rate1(x), geom='line')
+    @
+
+    What is the probability that
+
+    @@ the item survives to age 2?
+    @@@ We can again look at the cumulative hazard rate function and solve.
+
+    \[
+        \begin{aligned}
+            \Lambda(t) = \int_0^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
+            S(2) = \exp \left( - \int_0^2 u^3 \, du \right) =
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0, 2)$value)}}
+        \end{aligned}
+    \]
+
+    @@ the item's lifetime is between $0.4$ and $1.4$?
+    @@@ Using the cumulative hazard rate with range modifications we obtain
+
+    \[
+        \begin{aligned}
+            \Lambda(t) = \int_{0.4}^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
+            S(1.4) = \exp \left( - \int_{0.4}^{1.4} u^3 \, du \right) =
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0.4, 1.4)$value)}}
+        \end{aligned}
+    \]
+
+    @@ a 1-year-old item will survive to age 2?
+    @@@ Using our cumulative hazard function from before, save a minor tweak on the lower bounds we can solve for the
+    new parameter.
+
+    \[
+        \begin{aligned}
+            \Lambda(t) = \int_1^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
+            S(2) = \exp \left( - \int_1^2 u^3 \, du \right) =
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 1, 2)$value)}}
+        \end{aligned}
+    \]
+
+    @ \textit{Chapter 5, \#38 --} If $Y$ is uniformly distributed over $(0, 5)$, what is the probability that the roots
+    of the equation $4x^2 + 4xY + Y + 2 = 0$ are both real?
+    @@ $Y$ has form of a uniform distribution, meaning the pdf is equal to
+
+    \[
+        Y = f(x) =
+        \begin{cases}
+            \frac{1}{5} &\to 0 \le x \le 5\\
+            0 &\to Otherwise
+        \end{cases}
+    \]
+
+    This also means that when examined in the form of the equation $Y$ can be any value $[0,5]$. We can solve the
+    equation for the roots, leaving $Y$ undefined.
+
+    \[
+        \begin{aligned}
+            0 &=& 4x^2 + 4xY + Y + 2\\
+            x &=& \begin{cases}
+                        x \to \frac{1}{2} \left(-\sqrt{Y^2-Y-2}-Y\right)\\
+                        x \to \frac{1}{2} \left(\sqrt{Y^2-Y-2}-Y\right)
+                  \end{cases}\\
+        \end{aligned}
+    \]
+
+    The roots of the equation will be real if and only if the portion under the square root is positive, therefore we're
+    interested in all values of $Y$ for which $y^2 - y - 2 \ge 0$, which means that $Y$ has to be greater than or equal
+    to 2. The probability that $Y$ is greater than or equal to 2 is
+
+    \[
+        \int_2^5 \frac{1}{5} \, dx = \boxed{\Sexpr{integrate(function(x) (x/x) * (1/5),2,5)$value}}
+    \]
+
+    @ \textit{Chapter 5, \#39 --} If $X$ is an exponential random variable with parameter $\lambda = 1$, compute the
+    probability density function of the random variable $Y$ defined by $Y = \log X$.
+    @@ We need to tranform $X$ using $Y$ according to the following steps.
+
+    \[
+        \begin{aligned}
+            X = e^{-x} \qquad Y = \log X\\
+            P(Y \le y) \Rightarrow P(\log X \le y)\\
+            g^{-1}(y) = e^y \Rightarrow Y = e^y f(e^y) \Rightarrow e^{-e^y + y}
+        \end{aligned}
+    \]
+
+    Meaning our final distribution is $\boxed{Y = e^{-e^y + y}}$. If we compare this to the result we see
+
+    <<transformed_exp, fig.width=2, fig.height=2, fig.show='hold', fig.align='center', tidy=F, echo=F>>=
+        original <- function(x) { exp(-x) }
+        tranformed <- function(x) { exp(x) * exp(-(exp(x))) }
+        ggplot(data.frame(x=c(0,10)), aes(x)) + stat_function(fun=original, geom='line')
+        ggplot(data.frame(x=c(0,10)), aes(x)) + stat_function(fun=tranformed, geom='line')
+    @
+
+    @ \textit{Chapter 5, \#41 --} Find the distribution of $R = A \sin \theta$ , where $A$ is a fixed constant and
+    $\theta$ is uniformly distributed on $(-\pi/2, \pi/2)$. Such a random variable $R$ arises in the theory of
+    ballistics. If a projectile is fired from the origin at an angle $\alpha$ from the earth with a speed $v$, then the
+    point $R$ at which it returns to the earth can be expressed as $R = (v^2/g) \sin 2 \alpha$, where $g$ is the
+    gravitational constant, equal to 980 centimeters per second squared.
+    @@ Looking at this as a transformation of a random variable we can follow similar steps from last time.
+
+    \[
+        \begin{aligned}
+            \theta = \frac{1}{\pi} \qquad R = A \sin \theta\\
+            P(R \le r) \Rightarrow P(A \sin \theta \le r)\\
+            g^{-1}(y) = \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \Rightarrow R =
+                \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} f\left(\sin^{-1} \left( \frac{r}{A} \right)\right)\\
+        \end{aligned}
+    \]
+
+    We know that the distribution is uniform, therefore the input does not matter, and we obtain
+
+    \[
+        R = \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \left( \frac{1}{\pi} \right)
+    \]
+
+    We also know that the integration of this random variable from $-\pi/2$ to $\pi/2$ \textit{must} equal 1. Knowing
+    this, we can solve for $A$.
+
+    \[
+        \begin{aligned}
+            \int^{\pi/2}_{-\pi/2} \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \left( \frac{1}{\pi} \right) \, dr &=& 1\\
+            \frac{2 \sin^{-1} \left( \frac{\pi }{2 A} \right)}{\pi} &=& 1\\
+            A &=& \frac{\pi}{2}
+        \end{aligned}
+    \]
+
+    Therefore our final distribution is
+
+    \[
+        R = \frac{2}{\pi^2 \sqrt{1-\frac{4r^2}{\pi^2}}}
+    \]
+
+    Comparing the two graphs
+
+    <<transformed_sin, fig.width=2, fig.height=2, fig.show='hold', fig.align='center', tidy=F, echo=F>>=
+        original <- function(x) { 1 / pi }
+        tranformed <- function(x) { 2 / ((pi^2) * sqrt(1 - ((4*x^2)/pi^2))) }
+        ggplot(data.frame(x=c(-pi / 2,pi / 2)), aes(x)) +
+                stat_function(fun=original, geom='line')
+        ggplot(data.frame(x=c(-pi / 2,pi / 2)), aes(x)) +
+                stat_function(fun=tranformed, geom='line')
+    @
+
+    @ The median of a continuous random variable having distribution function $F(x)$ is that value $m$ such that $F(m) =
+    0.5$. That is, a random variable is just as likely to be larger than its median as it is to be smaller. The mode of
+    a continuous random variable having density $f(x)$ is the value of $x$ for which $f(x)$ attains its maximum. For
+    each of the following random variables, (i) state and graph the density function and then (ii) compute the median,
+    mode and mean and show these values on the graph.
+    @@ $W$ uniformly distributed over the interval $[a, b]$
+    @@@ The density function is that of any other uniform distribution. We can graph if we allow our $a=0$ and $b=10$,
+    but noting that these are merely placeholder values.
+
+    \[
+        f(x) =
+        \begin{cases}
+            \frac{1}{b - a} &\to a \le x \le b\\
+            0 &\to Otherwise
+        \end{cases}
+    \]
+
+    <<fig.width=4, fig.height=2, fig.align='center', tidy=F, echo=F>>=
+        ggplot(data.frame(x=c(0,10)), aes(x)) +
+                stat_function(fun=function(x) 1/10, geom='line') +
+                annotate("text", label="Mean & Median", x=5, y=0.11, size=3, fontface="bold.italic") +
+                annotate("segment", x=5, y=0.109, xend=5, yend=1/10, size=0.05)
+    @
+
+    We can determine the mean, median, and mode based off the properties of the uniform distribution. The mean and
+    median are simply the halfway point inbetween $a$ and $b$ since every point has equal distribution. The mode does
+    not exist for the uniform distribution however since every point has equal likelihood.
+
+    \[
+        \begin{aligned}
+            \text{Mean } = \frac{a + b}{2}\\
+            \text{Median } = \frac{a + b}{2}\\
+            \text{Mode } = DNE
+        \end{aligned}
+    \]
+
+    @@ $Y$ exponential with rate $\lambda$
+    @@@ The exponential distribution with rate $\lambda$ has the following pdf, which we can graph if again we allow
+    $\lambda=1$ to be a placeholder value.
+
+    \[
+        f(x) =
+        \begin{cases}
+            \lambda e^{-\lambda x} &\to x \ge 0\\
+            0 &\to Otherwise
+        \end{cases}
+    \]
+
+    <<fig.width=4, fig.height=2, fig.align='center', tidy=F, echo=F>>=
+        ggplot(data.frame(x=c(0,5)), aes(x)) +
+                stat_function(fun=function(x) exp(-x), geom='line') +
+                annotate("text", label="Mean", x=2, y=0.75, size=3, fontface="bold.italic") +
+                annotate("segment", x=1.63, y=0.7, xend=1, yend=1/exp(1), size=0.05) +
+                annotate("text", label="Median", x=1, y=0.75, size=3, fontface="bold.italic") +
+                annotate("segment", x=1, y=0.7, xend=log(2), yend=exp(-log(2)), size=0.05) +
+                annotate("text", label="Mode", x=1, y=1, size=3, fontface="bold.italic") +
+                annotate("segment", x=0.65, y=1, xend=0, yend=1, size=0.05)
+    @
+
+    The mean of this distribution is simply the inverse rate, while the median is the mean times $\ln 2$, and the mode
+    is zero.
+
+    \[
+        \begin{aligned}
+            \text{Mean } &= \lambda^{-1}\\
+            \text{Median } &= \lambda^{-1} \cdot \ln(2)\\
+            \text{Mode } &= 0
+        \end{aligned}
+    \]
+
+    @ With probability $0.7$, the toss of an Olympic shot putter travels $D = 60 + X$ meters, where $X$ is an
+    exponential random variable with expected value $\lambda = 10$. Otherwise, with probability $0.3$, a foul is
+    committed by stepping outside of the shotput circle and we say $D = 0$. Find and graph the cumulative distribution
+    of random variable $D$. (Note: This is an example of a random variable with a mixed discrete-continuous
+    distribution.)
+    @@ This is another case of a random variable transformation. We know $X$ has exponential distribution with
+    $\lambda=10$, and that $D = 60 + X$. Let's establish this first.
+
+    \[
+        \begin{aligned}
+            X = 10 e^{-10x} && D = 60 + X\\
+            P\left( 60 + X \le d\right) &\Rightarrow& P \left( X \le d - 60 \right)\\
+            &\Rightarrow& D = 10 e^{-10(d - 60)}
+        \end{aligned}
+    \]
+
+    Now that we've determined $D$ we can take a look at the rest of the statement regarding foul rate. Let $Z$ be the
+    random variable denoting success (S) or failure (F). We know that $P(Z=S) = 0.7$ and conversely $P(Z=F)=0.3$, so now
+    let's transform our transformed $D$.
+
+    \[
+        \begin{aligned}
+            D = 10 e^{-10(d - 60)} && Z = 0.7 D\\
+            P(Z = S) &\Rightarrow& P(0.7D = S)\\
+            P\left(D = \frac{S}{0.7} \right)  &\Rightarrow& P(0.7D = S)\\
+            &\Rightarrow& \Sexpr{(1/0.7) * 10} \exp\left(-10 \left( \frac{s}{0.7} - 60 \right)\right)
+        \end{aligned}
+    \]
+
+    <<fig.width=6, fig.height=4, fig.align='center', tidy=F, echo=F>>=
+        t <- function(s) { ((1/0.7) * 10) * exp(-10 * (-60 + ((1/0.7) * s))) }
+        ggplot(data.frame(x=c(42.17, 44)), aes(x)) +
+                stat_function(fun=function(x) t(x), geom='line')
+    @
+
+    As you can see, having only 70\% succeed radically shifts the distribution, and would be much better to be
+    eliminated if examining the average throw.
+
+\end{easylist}
+
+\end{document}

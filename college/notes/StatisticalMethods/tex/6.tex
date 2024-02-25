@@ -1,0 +1,848 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 6}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 4570}
+\rfoot{Hagar}
+\title{Homework 6}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+
+
+
+In addition to the questions asked, please state the estimated model, interpret all parameters in the model, and test
+the linear regression assumptions (using diagnostic plots\footnote{Some possibilities are e* vs $\hat{y}$, $y$ vs
+$\hat{y}$, hist(e*), or x vs y})
+
+\begin{easylist}[enumerate]
+    @ \textbf{Chapter 12, \#1}  %% DONE
+
+    @@ Plot a histogram of the data.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlkwd{ggplot}\hlstd{(ex12.01,} \hlkwd{aes}\hlstd{(Temp))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{2}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+         \hlkwd{ggplot}\hlstd{(ex12.01,} \hlkwd{aes}\hlstd{(Ratio))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{0.5}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.45\textwidth]{figure/12_1a1} 
+\includegraphics[width=0.45\textwidth]{figure/12_1a2} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    @@ Is the value of efficiency ratio completely and uniquely determined by tank temperature?\newline
+
+    No. If you examine the data as well as the scatterplot below, we see that even when the temperature remains
+    constant, our ratio fluctuates. On the other hand, if we do not care very much about error, we see that the ratio is
+    always within 1 ratio unit away from our regression line.
+
+    @@ Does it appear that efficiency ratio could be very well predicted by the value of temperature?
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlkwd{ggplot}\hlstd{(ex12.01,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Temp,} \hlkwc{y}\hlstd{=Ratio))} \hlopt{+}
+            \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+            \hlkwd{geom_smooth}\hlstd{(}\hlkwc{method}\hlstd{=lm)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/12_1c} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    Using our scatterplot with a linear regression line added, we see that while there is some linear relation between
+    the temperature and the ratio, the values vary far too much for our temperature to be a good predictor.
+
+    @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
+    plots.\newline
+
+    We can determine the coefficients $\hat{\beta}_0$ and $\hat{\beta}_1$ from the regression line used above.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{model} \hlkwb{<-} \hlkwd{lm}\hlstd{(Ratio}\hlopt{~}\hlstd{Temp,} \hlkwc{data}\hlstd{=ex12.01)}
+         \hlstd{cof} \hlkwb{<-} \hlkwd{coefficients}\hlstd{(model)}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ cof[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{cof[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding the equation $\boxed{Ratio(Temp=x) = -15.245 + 0.0942 \cdot x}$. Where $\hat{\beta}_0$ is
+    the $y$-intercept and $\hat{\beta}_1$ is the slope of our linear regression.\newline
+
+    We can also test our linear regression using diagnostic plots. We've already seen {\ttfamily Temp} vs. {\ttfamily
+    Ratio}, so we'll examine the others.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{x} \hlkwb{<-} \hlstd{ex12.01}\hlopt{$}\hlstd{Temp}
+         \hlstd{y} \hlkwb{<-} \hlstd{ex12.01}\hlopt{$}\hlstd{Ratio}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
+         \hlstd{raw_residuals} \hlkwb{<-} \hlstd{(y} \hlopt{-} \hlstd{y_hat)}
+         \hlstd{residuals} \hlkwb{<-} \hlstd{(raw_residuals} \hlopt{-} \hlkwd{mean}\hlstd{(raw_residuals))} \hlopt{/}
+                         \hlkwd{sd}\hlstd{(raw_residuals)}
+         \hlstd{diagnostic} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y,} \hlkwc{y_hat}\hlstd{=y_hat,}
+                                  \hlkwc{residuals}\hlstd{=residuals)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(residuals))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{1}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=x))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=y,} \hlkwc{y}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.45\textwidth]{figure/12_1_diagnostic1} 
+\includegraphics[width=0.45\textwidth]{figure/12_1_diagnostic2} 
+\includegraphics[width=0.45\textwidth]{figure/12_1_diagnostic3} 
+\includegraphics[width=0.45\textwidth]{figure/12_1_diagnostic4} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    Since our standardized residuals appear to be normally distributed and unbiased, our model is probably a good fit.
+
+    @ \textbf{Chapter 12, \#14} - With the same data as above
+
+    @@ Determine the equation of the estimated regression line.\newline
+
+    To find the equation, we need $\hat{\beta}_1$ and $\hat{\beta}_0$.
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{\beta}_1 &=& \frac{S_{xy}}{S_{xx}} =
+                \frac{\sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)/n}
+                {\sum x^2_i - {\left( \sum x_i \right)}^2/n}\\
+            \hat{\beta}_0 &=& \overline{y} - \hat{\beta}_1 \overline{x}
+        \end{aligned}
+    \end{equation}
+
+    We can calculate these points.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{temp} \hlkwb{<-} \hlstd{ex12.01}\hlopt{$}\hlstd{Temp}
+         \hlstd{ratio} \hlkwb{<-} \hlstd{ex12.01}\hlopt{$}\hlstd{Ratio}
+         \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(temp)}
+         \hlstd{b_1} \hlkwb{<-} \hlstd{(}\hlkwd{sum}\hlstd{(temp} \hlopt{*} \hlstd{ratio)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(temp)} \hlopt{*} \hlkwd{sum}\hlstd{(ratio))}\hlopt{/}\hlstd{n)} \hlopt{/}
+                 \hlstd{(}\hlkwd{sum}\hlstd{(temp}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(temp)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n)}
+         \hlstd{b_0} \hlkwb{<-} \hlkwd{mean}\hlstd{(ratio)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{mean}\hlstd{(temp)}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to -15.245, \hat{\beta}_1 \to 0.0942 \right\}}$, and the
+    equation $y = -15.245 + 0.0942 x$.
+
+    @@ Calculate a point estimate for true average efficiency ratio when tank temperature is 182.\newline
+
+    We defined our function above, so this is merely plugging in 182 into our function and obtain
+    $1.906$, which is on par with our regression line given by ggplot above.
+
+    @@ Calculate the values of the residuals from the least squares line for the four observations for which temperature
+    is 182. Why do they not all have the same sign?\newline
+
+    This can be accomplished with R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(}\hlnum{182}\hlstd{)}
+         \hlstd{residuals} \hlkwb{<-} \hlstd{ratio[temp} \hlopt{==} \hlnum{182}\hlstd{]} \hlopt{-} \hlstd{y_hat}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    And we obtain the residuals to be $\left\{-1.006, -0.096, 0.034, 0.774\right\}$. These aren't all the same sign because the
+    residual is an indicator of where the sample data lies compared to the true regression line.
+
+    @@ What proportion of the observed variation in efficiency ratio can be attributed to the simple linear regression
+    relationship between the two variables?\newline
+
+    This can be expressed by the coefficient of determination, $r^2$.
+
+    \begin{equation}
+        \begin{aligned}
+            r^2 &=& 1 - \frac{SSE}{SST}\\
+            SSE &=& \sum y_i^2 - \hat{\beta}_0 \sum y_i - \hat{\beta}_1 \sum x_i y_i\\
+            SST &=& \sum y_i^2 - \frac{{\left( \sum y_i \right)}^2}{n}\\
+        \end{aligned}
+    \end{equation}
+
+    These values are calculable.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{sse} \hlkwb{<-} \hlkwd{sum}\hlstd{(ratio}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{b_0} \hlopt{*} \hlkwd{sum}\hlstd{(ratio)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{sum}\hlstd{(temp} \hlopt{*} \hlstd{ratio)}
+         \hlstd{sst} \hlkwb{<-} \hlkwd{sum}\hlstd{(ratio}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(ratio)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n}
+         \hlstd{r2} \hlkwb{<-} \hlnum{1} \hlopt{-}\hlstd{(sse} \hlopt{/} \hlstd{sst)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding $r^2 = 0.4514$. This value means that about half the observed $y$ variation is explained by the
+    regression model.
+
+    @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
+    plots.\newline
+
+    We've already determined the model to be the equation $y = -15.245 + 0.0942 x$, and the interpretation for
+    the parameters is the same as in problem 1. Since the data for this problem and problem 1 are the same, the same
+    diagnostic plots apply.
+
+    @ \textbf{Chapter 12, \#24}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+      \hlstd{x} \hlkwb{<-} \hlstd{ex12.24}\hlopt{$}\hlstd{x}
+      \hlstd{y} \hlkwb{<-} \hlstd{ex12.24}\hlopt{$}\hlstd{y}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    @@ Construct a scatterplot. Does simple linear regression appear to be reasonable?\newline
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlkwd{ggplot}\hlstd{(ex12.24,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y))} \hlopt{+}
+             \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+             \hlkwd{geom_smooth}\hlstd{(}\hlkwc{method}\hlstd{=lm)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/12_24a} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    In this case it appears that simple linear regression is probably a reasonable estimate of our data, given our
+    outlying point is not an outlier. This is improbable, so linear regression may not be the best fit of our data. All
+    this being said however, we do not have a very large sample size, so no model will be very accurate.
+
+    @@ Calculate the equation of the estimated regression line.\newline
+
+    We can adopt the same process as we used before.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(x)}
+         \hlstd{b_1} \hlkwb{<-} \hlstd{(}\hlkwd{sum}\hlstd{(x} \hlopt{*} \hlstd{y)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(x)} \hlopt{*} \hlkwd{sum}\hlstd{(y))}\hlopt{/}\hlstd{n)} \hlopt{/}
+                 \hlstd{(}\hlkwd{sum}\hlstd{(x}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(x)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n)}
+         \hlstd{b_0} \hlkwb{<-} \hlkwd{mean}\hlstd{(y)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{mean}\hlstd{(x)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 137.8756, \hat{\beta}_1 \to 9.3116 \right\}}$, and the
+    equation $y = 137.8756 + 9.3116 x$.
+
+    @@ What percentage of observed variation in steel weight loss can be attributed to the model relationship in
+    combination with variation in deposition rate?\newline
+
+    This is again our coefficient of determination, which is also calculated using R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{sse} \hlkwb{<-} \hlkwd{sum}\hlstd{(y}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{b_0} \hlopt{*} \hlkwd{sum}\hlstd{(y)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{sum}\hlstd{(x} \hlopt{*} \hlstd{y)}
+         \hlstd{sst} \hlkwb{<-} \hlkwd{sum}\hlstd{(y}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(y)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n}
+         \hlstd{r2} \hlkwb{<-} \hlnum{1} \hlopt{-}\hlstd{(sse} \hlopt{/} \hlstd{sst)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding $r^2 = 0.9897$, indicating that a large degree of steel weight loss can be attributed to the model
+    relationship. In other words, our linear model fits the data very well as approximately $98\%$ of the data's
+    variance can be explained by the given variables.
+
+    @@ Because the largest x value in the sample greatly exceeds the others, this observation may have been very
+    influential in determining the equation of the estimated line. Delete this observation and recalculate the equation.
+    Does the new equation appear to differ substantially from the original one (you might consider predicted values)?
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{new_data} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{x}\hlstd{=x[x} \hlopt{!=} \hlnum{112}\hlstd{],} \hlkwc{y}\hlstd{=y[x} \hlopt{!=} \hlnum{112}\hlstd{])}
+         \hlkwd{ggplot}\hlstd{(new_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y))} \hlopt{+}
+             \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+             \hlkwd{geom_smooth}\hlstd{(}\hlkwc{method}\hlstd{=lm)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/12_24d} 
+
+}
+
+
+\begin{kframe}\begin{alltt}
+         \hlstd{y} \hlkwb{<-} \hlstd{y[x} \hlopt{!=} \hlnum{112}\hlstd{]}
+         \hlstd{x} \hlkwb{<-} \hlstd{x[x} \hlopt{!=} \hlnum{112}\hlstd{]}
+         \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(x)}
+         \hlstd{b_1} \hlkwb{<-} \hlstd{(}\hlkwd{sum}\hlstd{(x} \hlopt{*} \hlstd{y)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(x)} \hlopt{*} \hlkwd{sum}\hlstd{(y))}\hlopt{/}\hlstd{n)} \hlopt{/}
+                 \hlstd{(}\hlkwd{sum}\hlstd{(x}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(x)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n)}
+         \hlstd{b_0} \hlkwb{<-} \hlkwd{mean}\hlstd{(y)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{mean}\hlstd{(x)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 190.3524, \hat{\beta}_1 \to 7.5515 \right\}}$, and the
+    equation $y = 190.3524 + 7.5515 x$, which differs quite substantially from our original regression line.
+
+    @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
+    plots.\newline
+
+    We already determined the model above with outliers removed, so we can just straight to the diagnostic plots.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \}}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
+         \hlstd{raw_residuals} \hlkwb{<-} \hlstd{y} \hlopt{-} \hlstd{y_hat}
+         \hlstd{residuals} \hlkwb{<-} \hlstd{(raw_residuals} \hlopt{-} \hlkwd{mean}\hlstd{(raw_residuals))} \hlopt{/}
+                         \hlkwd{sd}\hlstd{(raw_residuals)}
+         \hlstd{diagnostic} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y,} \hlkwc{y_hat}\hlstd{=y_hat,}
+                                  \hlkwc{residuals}\hlstd{=residuals)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(residuals))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{1}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=x))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=y,} \hlkwc{y}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.45\textwidth]{figure/12_24_diagnostic1} 
+\includegraphics[width=0.45\textwidth]{figure/12_24_diagnostic2} 
+\includegraphics[width=0.45\textwidth]{figure/12_24_diagnostic3} 
+\includegraphics[width=0.45\textwidth]{figure/12_24_diagnostic4} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    Again, our residuals appear to be unbiased, and potentially normally distributed, so the model is probably a good
+    fit, however again, since our sample size is so small it is impossible to tell for sure.
+
+    @ \textbf{Chapter 12, \#46}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+       \hlstd{data} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{'./wines.csv'}\hlstd{)}
+       \hlstd{tan} \hlkwb{<-} \hlstd{data}\hlopt{$}\hlstd{tannin}
+       \hlstd{ast} \hlkwb{<-} \hlstd{data}\hlopt{$}\hlstd{astringency}
+       \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(tan)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    @@ Fit the simple linear regression model to this data. Then determine the proportion of observed variation in
+    astringency that can be attributed to the model relationship between astringency and tannin concentration.\newline
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{line} \hlkwb{<-} \hlkwd{lm}\hlstd{(ast} \hlopt{~} \hlstd{tan)}
+         \hlkwd{ggplot}\hlstd{(data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=tannin,} \hlkwc{y}\hlstd{=astringency))} \hlopt{+}
+             \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+             \hlkwd{geom_smooth}\hlstd{(}\hlkwc{method}\hlstd{=lm)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/12_46a} 
+
+}
+
+
+\begin{kframe}\begin{alltt}
+             \hlstd{co} \hlkwb{<-} \hlkwd{coefficients}\hlstd{(line)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    The regression line for this data is $y = -1.5846 + 2.5849x$.\newline
+
+    The coefficient of determination in this case is calculated in the same method as above.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{sse} \hlkwb{<-} \hlkwd{sum}\hlstd{(ast}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{co[}\hlnum{1}\hlstd{]} \hlopt{*} \hlkwd{sum}\hlstd{(ast)} \hlopt{-} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlkwd{sum}\hlstd{(tan} \hlopt{*} \hlstd{ast)}
+         \hlstd{sst} \hlkwb{<-} \hlkwd{sum}\hlstd{(ast}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(ast)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n}
+         \hlstd{r2} \hlkwb{<-} \hlnum{1} \hlopt{-} \hlstd{(sse} \hlopt{/} \hlstd{sst)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields $r^2 = 0.8373$, indicating a large degree of observed variation. This means that our model is
+    probably a good fit, as a large amount of variance can be explained by it.
+
+    @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
+    plots.\newline
+
+    We've already established our model above.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{x} \hlkwb{<-} \hlstd{tan}
+         \hlstd{y} \hlkwb{<-} \hlstd{ast}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
+         \hlstd{raw_residuals} \hlkwb{<-} \hlstd{(y} \hlopt{-} \hlstd{y_hat)}
+         \hlstd{residuals} \hlkwb{<-} \hlstd{(raw_residuals} \hlopt{-} \hlkwd{mean}\hlstd{(raw_residuals))} \hlopt{/}
+                         \hlkwd{sd}\hlstd{(raw_residuals)}
+         \hlstd{diagnostic} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y,} \hlkwc{y_hat}\hlstd{=y_hat,}
+                                  \hlkwc{residuals}\hlstd{=residuals)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(residuals))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{1}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=x))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=y,} \hlkwc{y}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.45\textwidth]{figure/12_46_diagnostic1} 
+\includegraphics[width=0.45\textwidth]{figure/12_46_diagnostic2} 
+\includegraphics[width=0.45\textwidth]{figure/12_46_diagnostic3} 
+\includegraphics[width=0.45\textwidth]{figure/12_46_diagnostic4} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    This is probably the best fit data so far. Our residuals are normally distributed and unbiased, while our $y$ and
+    $\hat{y}$ are strongly linked. All of this indicates a high probability that our regression is accurate.
+
+    @@ Calculate and interpret a confidence interval for the slope of the true regression line.\newline
+
+    As other with confidence intervals we use a probability, save in this case we use the $t$ distribution with
+    $\alpha=0.05$.
+
+    \begin{equation}
+        \begin{aligned}
+            1 - \alpha &=& P\left\{ -t_{\alpha / 2, n - 2} <
+                \frac{\hat{\beta}_1 - \beta_1}{S_{\hat{\beta}_1}} <
+                t_{\alpha/2, n - 2} \right\}\\
+            &=& \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{\beta}_1}\\
+            S_{\hat{\beta}_1} &=& \frac{\sqrt{\sum {\left( y - \hat{y} \right)}^2 / (n - 2)}}
+                                        {\sqrt{\sum {\left( x - \overline{x} \right)}^2}}
+        \end{aligned}
+    \end{equation}
+
+    Which we can express with R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{alpha} \hlkwb{=} \hlnum{0.05}
+         \hlstd{b_1} \hlkwb{<-} \hlstd{co[}\hlnum{2}\hlstd{]}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{sum}\hlstd{((y} \hlopt{-} \hlstd{y_hat)}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{/} \hlstd{(n} \hlopt{-} \hlnum{2}\hlstd{))} \hlopt{/}
+                \hlkwd{sqrt}\hlstd{(}\hlkwd{sum}\hlstd{((x} \hlopt{-} \hlkwd{mean}\hlstd{(x))}\hlopt{^}\hlnum{2}\hlstd{))}
+         \hlstd{lower} \hlkwb{<-} \hlstd{b_1} \hlopt{-} \hlstd{t} \hlopt{*} \hlstd{s}
+         \hlstd{upper} \hlkwb{<-} \hlstd{b_1} \hlopt{+} \hlstd{t} \hlopt{*} \hlstd{s}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding a confidence interval of $\boxed{\left[ 2.1601, 3.0098 \right]}$.
+
+    @@ Estimate true average astringency when tannin concentration is 0.6, and do so in a way that conveys information
+    about reliability and precision.\newline
+
+    Using our model from before we can estimate the true average astringency to be $-0.0336$, which is our
+    $\hat{y}$. We can determine the variance to be
+
+    \begin{equation}
+        \begin{aligned}
+            \sigma^2 \left[
+                \frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}
+                                {\sum x_i^2 - \left( \sum x_i \right)^2 / n}
+            \right]
+        \end{aligned}
+    \end{equation}
+
+    With a corresponding confidence interval
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{y}}
+        \end{aligned}
+    \end{equation}
+
+    Using R we can determine these values.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{alpha} \hlkwb{<-} \hlnum{0.05}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(}\hlnum{0.6}\hlstd{)}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)} \hlopt{*} \hlkwd{sqrt}\hlstd{((}\hlnum{1}\hlopt{/}\hlstd{n)} \hlopt{+}
+                      \hlstd{(}\hlnum{0.6} \hlopt{-} \hlkwd{mean}\hlstd{(x))}\hlopt{^}\hlnum{2}\hlopt{/}\hlstd{(}\hlkwd{sum}\hlstd{(x}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(x)}\hlopt{^}\hlnum{2}\hlopt{/}\hlstd{n)))}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Therefore astringency is equal to $-0.0336 \pm 0.2231$ with 95\% confidence.
+
+    @@ Predict astringency for a single wine sample whose tannin concentration is 0.6, and do so in a way that conveys
+    information about reliability and precision.\newline
+
+    Using a similar method we know that our prediction interval is equal to
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s_{\hat{y}}^2}
+        \end{aligned}
+    \end{equation}
+
+    Which we can calculate with R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{alpha} \hlkwb{<-} \hlnum{0.05}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(}\hlnum{0.6}\hlstd{)}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)}
+         \hlstd{sy} \hlkwb{<-} \hlkwd{sd}\hlstd{(}\hlkwd{reg_line}\hlstd{(x))}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding a prediction interval equal to $-0.0336 \pm 1.7098$ with 95\% confidence.
+
+    @@ Does it appear that true average astringency for a tannin concentration of 0.7 is something other than 0? State
+    and test the appropriate hypotheses.\newline
+
+    We wish to test if the true astringency at 0.7 is equal to 0, meaning our null hypotheses is that the true
+    astringency at 0.7 is equal to 0.\newline
+
+    In this situation our test statistic is equal to $\hat{y}(0.7)$, which is equal to $0.2249$. We can
+    standardize this value (by subtracting the mean of $\hat{y}$ and dividing by the standard deviation), obtaining
+    $0.4282$. Since this is a two tailed test, we can compare
+    this value to our $t$ distribution and see that $-2.0423 \le
+    0.4282$, indicating that our null hypotheses is probably
+    false, and that the true astringency at 0.07 is probably something other than 0.\newline
+
+    If we examine our data, we see that this is apparent in the data as well.
+
+    @ \textbf{Chapter 12, \#52}
+
+    @@ Does the simple linear regression model specify a useful relationship between chlorine flow and etch
+    rate?\newline
+
+    Let's plot the data with a linear regression model.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlkwd{ggplot}\hlstd{(ex12.52,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y))} \hlopt{+}
+            \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+            \hlkwd{geom_smooth}\hlstd{(}\hlkwc{method}\hlstd{=lm)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/12_52a} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    Based on the plot it certainly looks like it does, but let's examine our diagnostic plots as well.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{x} \hlkwb{<-} \hlstd{ex12.52}\hlopt{$}\hlstd{x}
+         \hlstd{y} \hlkwb{<-} \hlstd{ex12.52}\hlopt{$}\hlstd{y}
+         \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(x)}
+
+         \hlstd{line} \hlkwb{<-} \hlkwd{lm}\hlstd{(y}\hlopt{~}\hlstd{x)}
+         \hlstd{co} \hlkwb{<-} \hlkwd{coefficients}\hlstd{(line)}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
+         \hlstd{raw_residuals} \hlkwb{<-} \hlstd{(y} \hlopt{-} \hlstd{y_hat)}
+         \hlstd{residuals} \hlkwb{<-} \hlstd{(raw_residuals} \hlopt{-} \hlkwd{mean}\hlstd{(raw_residuals))} \hlopt{/}
+                         \hlkwd{sd}\hlstd{(raw_residuals)}
+         \hlstd{diagnostic} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{x}\hlstd{=x,} \hlkwc{y}\hlstd{=y,} \hlkwc{y_hat}\hlstd{=y_hat,}
+                                  \hlkwc{residuals}\hlstd{=residuals)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(residuals))} \hlopt{+}
+             \hlkwd{geom_histogram}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=..density..),} \hlkwc{binwidth}\hlstd{=}\hlnum{0.5}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{'black'}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{'white'}\hlstd{)}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=x))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=residuals,} \hlkwc{x}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+         \hlkwd{ggplot}\hlstd{(diagnostic,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=y,} \hlkwc{y}\hlstd{=y_hat))} \hlopt{+} \hlkwd{geom_point}\hlstd{()}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.45\textwidth]{figure/12_52_diagnostic1} 
+\includegraphics[width=0.45\textwidth]{figure/12_52_diagnostic2} 
+\includegraphics[width=0.45\textwidth]{figure/12_52_diagnostic3} 
+\includegraphics[width=0.45\textwidth]{figure/12_52_diagnostic4} 
+
+}
+
+
+
+\end{knitrout}
+
+
+    Given our diagnostic plots with regression model $y=6.4487 + 10.6026 \cdot x$, we can see that a linear
+    regression model is a useful model in this case.
+
+    @@ Estimate the true average change in etch rate associated with a 1-SCCM increase in flow rate using a 95\%
+    confidence interval, and interpret the interval.\newline
+
+    This is asking for the estimation of $\hat{\beta}_1$, the slope parameter with 95\% confidence. We've already
+    determined our parameter based on the data, therefore our interval is defined as
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{\beta}_1}\\
+            s_{\hat{\beta}_1} = \frac{s}{\sqrt{S_{xx}}}
+        \end{aligned}
+    \end{equation}
+
+    Which we can calculate with R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{alpha} \hlkwb{<-} \hlnum{0.05}
+         \hlstd{b1} \hlkwb{<-} \hlstd{co[}\hlnum{2}\hlstd{]}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)}
+         \hlstd{sb} \hlkwb{<-} \hlstd{s} \hlopt{/} \hlkwd{sqrt}\hlstd{(}\hlkwd{var}\hlstd{(x))}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+         \hlstd{err} \hlkwb{<-} \hlstd{t} \hlopt{*} \hlstd{sb}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding an estimate for $\hat{\beta}_1$ equal to $10.6026 \pm 25.8376$ with 95\% confidence. This indicates
+    that 95\% of the time the calculated interval for a subset of data will contain the true slope parameter.
+
+    @@ Calculate a 95\% CI for $\mu_{Y \cdot 3.0}$ , the true average etch rate when flow = 3.0. Has this average been
+    precisely estimated?\newline
+
+    We know our interval is defined as
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{y}}\\
+            s_{\hat{y}} = s \sqrt{\frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}{S_{xx}}}
+        \end{aligned}
+    \end{equation}
+
+    Which we can calculate with R.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{xs} \hlkwb{<-} \hlnum{3}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(xs)}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)}
+         \hlstd{sy} \hlkwb{<-} \hlstd{s} \hlopt{*} \hlkwd{sqrt}\hlstd{((}\hlnum{1}\hlopt{/}\hlstd{n)} \hlopt{+} \hlstd{((xs} \hlopt{-} \hlkwd{mean}\hlstd{(x))}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlkwd{var}\hlstd{(x))}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlnum{0.05} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields an estimate for $\mu_{Y\cdot x^*}$ equal to $38.2564 \pm 11.595$.
+
+    @@ Calculate a 95\% PI for a single future observation on etch rate to be made when flow = 3.0 . Is the prediction
+    likely to be accurate?\newline
+
+    Simarly, we can create a prediction interval for the same $x^*$ using the formula
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s^2_{\hat{y}}}
+        \end{aligned}
+    \end{equation}
+
+    Calculating with R we obtain
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+         \hlstd{xs} \hlkwb{<-} \hlnum{3}
+         \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(xs)}
+         \hlstd{t} \hlkwb{<-} \hlkwd{qt}\hlstd{(}\hlnum{1} \hlopt{-} \hlnum{0.05} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{2}\hlstd{)}
+         \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)}
+         \hlstd{sy} \hlkwb{<-} \hlkwd{sd}\hlstd{(}\hlkwd{reg_line}\hlstd{(x))}
+         \hlstd{err} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(s}\hlopt{^}\hlnum{2} \hlopt{+} \hlstd{sy}\hlopt{^}\hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Yielding the prediction interval for $\mu_{Y \cdot 3}$ equal to $38.2564 \pm 13.7238$.
+
+    @@ Would the 95\% CI and PI when flow = 2.5 be wider or narrower than the corresponding intervals of parts (c) and
+    (d)? Answer without actually computing the intervals.\newline
+
+    Since there are points there and we can rely on data as well as the regression model, the intervals should be
+    smaller.
+
+    @@ Would you recommend calculating a 95\% PI for a flow of 6.0? Explain.\newline
+
+    Yes. In this situation a CI would not work, as it does not take into account the imprecision of the model. A
+    Prediction Interval on the other hand remains wide enough to account for any error in the model.
+
+    @ \textbf{Chapter 13, \#13 --} Recall that $\hat{\beta}_0 + \hat{\beta}_1 x$ has a normal distribution with expected
+    value $\beta_0 + \beta_1 x$ and variance
+
+    \begin{equation}
+        \sigma^2 \left\{ \frac{1}{n} + \frac{ {\left( x - \overline{x} \right)}^2}
+                 {\sum { \left( x_i - \overline{x} \right)}^2} \right\}
+    \end{equation}
+
+    so that
+
+    \begin{equation}
+        Z = \frac{\hat{\beta}_0 + \hat{\beta}_1 x - \left( \beta_0 + \beta_1 x \right)}
+        {\sigma { \left( \frac{1}{n} + \frac{{\left( x - \overline{x} \right)}^2}
+                        {\sum { \left( x_i - \overline{x} \right)}^2} \right) }^2}
+    \end{equation}
+
+    has a standard normal distribution. If $S = \sqrt{SSE/(n-2)}$ is substituted for $\sigma$, the resulting
+    variable has a $t$ distribution with $n - 2$ df. By analogy, what is the distribution of any particular standardized
+    residual? If $n = 25$, what is the probability that a particular standardized residual falls outside the interval
+    $(-2.50, 2.50)$?\newline
+
+    Any standardized residual also has $t$ distribution with $n - 2$ degrees of freedom. If we let $n=25$, then the
+    probability that a particular standardized residual falls outside the given interval is equal to
+    $P\left\{ R < -2.5 \right\} + P\left\{ R > 2.5 \right\}$, which can be calculated with R, yielding
+    $0.02$.
+\end{easylist}
+
+\newpage
+
+\end{document}

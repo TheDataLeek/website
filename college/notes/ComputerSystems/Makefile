@@ -20,7 +20,3 @@ CSFinalReview.pdf:
 	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
 	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
 	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
-
-push:
-	scp $(OUTPUT) william@will-farmer.com:/var/www/files/
-	scp CSFinalReview.pdf william@will-farmer.com:/var/www/files/

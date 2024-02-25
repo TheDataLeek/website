@@ -24,6 +24,3 @@ FinalReview.pdf:
 	pdflatex --shell-escape $(TEXDIR)$(TEXREV)
 	make clean
 
-push:
-	scp $(OUTPUT) william@will-farmer.com:/var/www/files/
-	scp $(OUTREV) william@will-farmer.com:/var/www/files/MMFinalReview.pdf

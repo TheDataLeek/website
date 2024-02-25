@@ -1,0 +1,210 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 2}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 4570}
+\rfoot{Hagar}
+\title{Homework 2}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ One out of 500 people has disease $D$. You're a doctor and suspect that one of your patients may have that
+    disease. You order a diagnostic test $T$ for that patient. The test is not perfect - it accurately claims the
+    disease is ``present'' in 80\% of the patients who actually have it, and accurately declares the disease as
+    ``absent'' in 70\% of the patients who indeed don't have the disease.
+    @@ What is the probability that the test result comes back negative (the test says ``absence of disease'')? Does
+    this mean your patient definitely does not have the disease?
+    @@@ For this problem we need to consider the two separate cases where the individual has the disease, and where he
+    doesn't. This can be expressed as a problem of conditional probability. Let $E_1$ be the event that he has the
+    disease, $E_2$ the event that he doesn't, $E_3$ the event that the test comes back positive, and $E_4$ the event
+    that it comes back negative.\newline
+
+    We're only interested in how likely it is for the test to come back negative, but we need to first establish a
+    couple probabilities.
+
+        \[ \begin{aligned}
+            P(E_1) &=& 1/500\\
+            P(E_2) &=& 499/500\\
+            P(E_3|E_1) &=& 8/10\\
+            P(E_3|E_2) &=& 3/10\\
+            P(E_4|E_1) &=& 2/10\\
+            P(E_4|E_2) &=& 7/10\\
+        \end{aligned} \]
+
+    We can now set up an equality and solve for $P(E_4)$.
+
+        \[ \begin{aligned}
+            P(E_4) &=& P(E_4|E_2)P(E_2) + P(E_4|E^\prime_2)P(E^\prime_2)\\
+                   &=& P(E_4|E_2)P(E_2) + P(E_4|E^\prime_2)(1 - P(E_2))\\
+                   &=& P(E_4|E_2)P(E_2) + P(E_4|E_1)(1 - P(E_2))\\
+                   &=& \frac{7}{10} \cdot \frac{499}{500} + \frac{2}{10}\left(1 - \frac{499}{500}\right)\\
+                   &=& \frac{699}{1000} = \boxed{0.699}
+        \end{aligned} \]
+
+    If this test were to come back negative, it doesn't mean that the patient doesn't have the disease. In fact, since
+    the test is always \textit{probably} correct, there is always a chance that it was wrong. However we address this
+    issue in the next problem, and it turns out that if the test returns negative there is only a slim chance that the
+    individual has the disease.
+
+    @@ If the test is negative, how likely is he to actually have disease $D$?
+    @@@ We are now interested in the probability that he has the disease, given it returns negative. Expressed in the
+    above notation, we are looking for $P(E_1|E_4)$. In the previous problem we solved for $P(E_4)$, allowing us to
+    rewrite the problem below.
+
+        \[\begin{aligned}
+            P(E_1|E_4) &=& \frac{P(E_1 \cap E_4)}{P(E_4)}\\
+                       &=& \frac{P(E_1)P(E_4|E_1)}{P(E_4)}\\
+                       &=& \frac{\frac{1}{500} \cdot \frac{2}{10}}{0.699}\\
+                       &=& \frac{2}{3495} = \boxed{0.000572246}
+        \end{aligned}\]
+
+    @@ How about if the test comes back positive?
+    @@@ Now we're looking at the probability that he has the disease given that the test returns positive. This can be
+    solved in a very similar manner as the previous problem, however we don't initially know the value of $P(E_3)$. This
+    can be solved in the same method as in the first problem.
+
+        \[ \begin{aligned}
+            P(E_3) &=& P(E_3|E_2)P(E_2) + P(E_3|E^\prime_2)P(E^\prime_2)\\
+                   &=& P(E_3|E_2)P(E_2) + P(E_3|E^\prime_2)(1 - P(E_2))\\
+                   &=& P(E_3|E_2)P(E_2) + P(E_3|E_1)(1 - P(E_2))\\
+                   &=& \frac{3}{10} \cdot \frac{499}{500} + \frac{8}{10} \left( 1 - \frac{499}{500} \right)\\
+                   &=& \frac{301}{1000} = \boxed{0.301}
+        \end{aligned} \]
+
+        Now that we have $P(E_3)$ we can determine $P(E_1|E_3)$.
+
+        \[\begin{aligned}
+            P(E_1|E_3) &=& \frac{P(E_1 \cap E_3)}{P(E_3)}\\
+                       &=& \frac{P(E_1)P(E_3|E_1)}{P(E_3)}\\
+                       &=& \frac{\frac{1}{500} \cdot \frac{8}{10}}{0.301}\\
+                       &=& \frac{8}{1505} = \boxed{0.00531561}
+        \end{aligned}\]
+
+    @@ What do you think about the accuracy of this test?
+    @@@ When it comes to negative answers, this test is very accurate. If there is a negative result, there exists only
+    a \textit{very} slim chance that the individual actually has the disease. On the flip side, if the test comes back
+    positive, there is still a very slim chance the individual has the disease. In other words, the test is fantastic at
+    determining if the individual \textit{doesn't} have the disease, but absolute rubbish at determining if he does.
+
+    @ Give examples to justify your answers
+    @@ If events $J$ and $K$ are independent, what can we say about $J^\prime$ and $K$? How about $J^\prime$ and
+    $K^\prime$?
+    @@@ If $J$ and $K$ are independent, we know that $K$ is dependent on $J^\prime$ and that $J^\prime$ and $K^\prime$
+    remain independent. This can be illustrated with a simple example.  Let's say we're rolling 1D6. There are six
+    outcomes, $\{1, 2, 3, 4, 5, 6\}$, and let use assume that $J=\{1\}$ and $K=\{2\}$. This means that $J^\prime=\{2, 3,
+    4, 5, 6\}$ and $K^\prime = \{1, 3, 4, 5, 6\}$. We are using a fair die, therefore $K$ and $J$ are independent,
+    however $K$ can only occur if $J$ occurs, and vice-versa. However $J^\prime$ and $K^\prime$ are not mutually
+    dependent.
+    @@ If events $A$, $B$ and $C$ are mutually disjoint, what can we say about $A^\prime$, $B^\prime$, and $C^\prime$?
+    Are $A$ and $C$ independent? Are $A^\prime$ and $C^\prime$ independent?
+    @@@ If $A$, $B$, and $C$ are mutually disjoint, we know that their complements are no longer mutually disjoint. We
+    also know that $A$ and $C$ are independent, and that $A^\prime$ and $C^\prime$ are neither dependent nor
+    independent. We can use our dice example from before, with the sample space remaining the same. Let $A = \{1\}$,
+    $B=\{2\}$, and $C=\{3\}$. $A$, $B$, and $C$ are independent from one another, and their complements overlap. We also
+    know that the complements are independent as well, since no outcome relies on another.
+    @@ If $E$ is independent of $F$, and $F$ is independent of $G$, is $E$ independent of $G$?
+    @@@ Not necessarily, because $E$ could be dependent on $G$. An easy example is when $G$ is the event that an
+    individual will die in a car accident, $E$ is the event that the individual doesn't wear a seatbelt, and $F$ is the
+    event that the sky is blue. Both $E$ and $G$ are independent of $F$, however they are not independent of one
+    another.
+
+    @ Three fair dice are rolled together. Let $X$ be the random variable denoting the sum of all three top faces after
+    they're rolled.
+    @@ Write out the pmf and cdf of $X$.
+    @@@ Please refer to Table~\ref{table:pmf}.
+
+        \begin{table}[!ht]
+            \centering
+            \begin{tabular}{|l|l|l|}
+                \hline
+                $x$ & $p(x)$ & cmf\\
+                \hline
+                3 & 0.00462963 & 0.00462963\\
+                4 & 0.01388889 & 0.0185185\\
+                5 & 0.02777778 & 0.0462963\\
+                6 & 0.04629630 & 0.0925926\\
+                7 & 0.06944444 & 0.162037\\
+                8 & 0.09722222 & 0.259259\\
+                9 & 0.11574074 & 0.375\\
+                10 & 0.12500000 & 0.5\\
+                11 & 0.12500000 & 0.625\\
+                12 & 0.11574074 & 0.740741\\
+                13 & 0.09722222 & 0.837963\\
+                14 & 0.06944444 & 0.907407\\
+                15 & 0.04629630 & 0.953704\\
+                16 & 0.02777778 & 0.981481\\
+                17 & 0.01388889 & 0.99537\\
+                18 & 0.00462963 & 1.0\\
+                \hline
+            \end{tabular}
+            \caption{pmf and cdf of $X$}
+            \label{table:pmf}
+        \end{table}
+
+    @@ What is the expected value of $X$?
+    @@@ To find the expected value, we simply sum the values of $x$ multiplied by their corresponding $p(x)$.
+        \[ \sum^{18}_{i=3} i \cdot p(i) = \boxed{10.5} \]
+    @@ What is the variance of $X$?
+    @@@ Again, this is simply
+        \[ \sum^{18}_{i=3} {(i - 10.5)}^2 \cdot p(i) = \boxed{8.75} \]
+
+    @ A certain lab machine has 12 rings. With each use, these rings can fail, and an oil leak occurs. The probability
+    of any ring failing during machine use is 2\%. The rings are independent, and the failure of one ring does not
+    impact the probability of failing for other rings. The machine gets serviced after each use, so any damaged rings
+    are repaired after each use.\newline
+
+    If 6 or more rings fail, the entire machine will shut down. What is the probability that this happens within the
+    first 10 uses?
+    @@ We can use the Binomial distribution to solve this problem. Recall the formula for the Binomial distribution is
+        \[ P(x) = \binom{n}{x} \cdot p^x \cdot {(1 - p)}^n \]
+        Therefore if we determine the probability of how many parts fail, we can determine the probability that it will
+        happen within the first 10 trials. This summation yields, where $p=0.02$, and $n=10$.
+        \[ \sum^{10}_{x=6} \binom{n}{x} \cdot p^x \cdot {(1 - p)}^n = \boxed{1.204005 \times 10^{-8}} \]
+        In other words, not very likely\ldots
+
+    @ A traffic office wishes to monitor the number of vehicles crossing a certain bridge in the city in any given day.
+    What family of distributions will they most likely be observing?
+    @@ Given that we do now know the city, nor the bridge in question, we have to make some assumptions. First, let's
+    assume that the city is a relatively populated one, and that second, the bridge is the busiest bridge in the city,
+    and that almost everyone crosses it in any given day.\footnote{This is a little ridiculous, but it gets the point
+    across} Despite its busyness, this bridge will have certain characteristics that group it with a particular family
+    of statistical distributions.\newline
+
+    Since we are interested in how many events occur within a specified time period, we can immediately see the link
+    between the scenario and the Poisson distribution, which is characterized by focusing on the probability of certain
+    events occurring in a certain time duration independently of previous events.
+
+    @ If they estimate that an average of 30 cars cross the bridge per day, what member of the family of distributions
+    are they most likely working with?
+    @@ Given this new piece of information, it immediately becomes apparent that if we continue to assume that this is
+    the busiest bridge in the city, than the city is very very small.\newline
+
+    We now know that we are working with the Poisson distribution with a daily average of 30 cars, which can be
+    expressed as $\mathrm{Pois}(30)$, or
+
+        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \]
+
+    @ Under the distribution above, what is the probability that less than 10 cars will cross the bridge on any given
+    day?
+    @@ The equation to determine $p(k)$ for a Poisson distribution is
+
+        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \]
+
+        If we allow $k$ to equal $[1, 2, 3, \ldots, 10]$ we can determine the cdf and thereby the answer to the
+        question.
+
+        \[ \sum^{10}_{k=1} \frac{\lambda^k e^{-30}}{k!} = \boxed{2.234878 \times 10^{-5}} \]
+\end{easylist}
+\end{document}

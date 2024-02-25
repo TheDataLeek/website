@@ -1,0 +1,1087 @@
+\section{Intro to Statistics}
+We start with an introduction to histograms, assuming that the reader is familiar with the absolute basic terminology of
+statistics. A histogram is just a way to display data similar to a bar chart.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        Unimodal & Rise to a single peak and decline\\
+        Bimodal & Two separate peaks\\
+        Multimodal & Any number of peaks\\
+        \hline
+        Symmetric & Right and left sides mirrored\\
+        Positively Skewed & Data stretches to right\\
+        Negatively Skewed & Data stretches to left\\
+        \hline
+    \end{tabular}
+    \caption{Histogram Types}
+    \label{table:histograms}
+\end{table}
+
+The relative frequency of a group of values is number of times the value occurs divided by the number of observations,
+while the absolute frequency is the numerator.
+
+    \subsection{Measuring Data Location}
+    The mean (average) is a useful way to measure the center of data. Where $\bar{x}$ is the sample mean and $\bar{\mu}$
+    is the population mean.
+
+        \[ \bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n} = \left( \frac{1}{n} \right) \sum^n_{i=1} x_i \]
+
+    We can also use the median (center) where again $\tilde{x}$ is the sample median and $\tilde{\mu}$ is the population
+    median. The median divides data up into two equal parts, but this concept can be extended to allow for quartiles and
+    percentiles.
+
+        \[
+            \tilde{x} = \begin{cases}
+                            \text{Single middle value}\\
+                            \text{Average of two middle values}
+                        \end{cases}
+        \]
+
+    As well as the mode, which is the most frequent data point.
+
+    A trimmed mean is a compromise between the mean and median. With a trimmed mean trims the ends in order to remove
+    outliers.
+
+    \subsection{Measuring Variability}
+    We can measure variability of our data with a variety of different methods, for instance the range is the difference
+    between the largest data point and the smallest.
+
+    The sample variance (denoted $s^2$) is given by
+
+        \[ s^2 = \frac{\Sigma {\left( x_i - \bar{x} \right) }^2}{n-1} = \frac{S_{xx}}{n-1} \]
+
+    While the sample standard deviation is given by the square root of the variance,
+
+        \[ s = \sqrt{s^2} \]
+
+\section{Probability}
+An experiment is anything who's outcome is uncertain. The sample space ($\mathcal{S}$) of an experiment, is the set of
+all possible outcomes for said experiment. An event is any subset of outcomes contained in the sample space. Since
+events are subsets, we can pull in set theory and the concepts associated.\newline
+
+One thing we can easily to determine the probability of any given event occurring is to enumerate the number of ways
+possible for a given outcome to occur, and divide it by the total number of ways the event can happen.
+
+    \subsection{Axioms of Probability}
+    \noindent
+    \NewList
+    \begin{easylist}[itemize]
+    @ For any event $A$, $0 \le P(A) \le 1$.
+    @ $P(\mathcal{S}) = 1$.
+    @ If $A_1, A_2, A_3, \ldots$ is an infinite collection of disjoint events, then
+
+        \[ P(A_1 \cup A_2 \cup A_3 \cup \cdots) = \sum^\infty_{i=1}P(A_i) \]
+    @ For any event $A$, if $P(A) + P(A^\prime) = 1$, then $P(A) = 1 - P(A^\prime)$.
+    @ For any two events,
+        \[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+    @ For any three events,
+        \[ \begin{aligned}
+            P(A \cup B \cup C) =& P(A) + P(B) + P(C)\\
+                                & - P(A \cap B) - P(A \cap C) - P(B \cap C)\\
+                                & + P(A \cap B \cap C)
+        \end{aligned} \]
+    \end{easylist}
+
+    \subsection{Conditional Probability}
+    We can condition the probability of events on the outcomes of other events. This uses the notation $P(A|B)$ where we
+    say the conditional probability of $A$ given that $B$ has occurred.
+
+    For any two events $A$ and $B$ with $P(B) > 0$, the conditional probability of $A$ given that $B$ has occurred is
+    defined by
+
+        \[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+
+    We also have a couple rules that apply.
+
+        \NewList
+        \begin{easylist}
+            @ The Multiplication Rule $ \to P(A \cap B) = P(A|B) \cdot P(B)$.
+            @ The Law of Total Probability
+            @@ Let $A_1, \ldots, A_k$ be mutually exclusive and exhaustive events. Then for any other event $B$,
+                \[ \begin{aligned} 
+                    P(B) =& P(B|A_1)P(A_1) + \cdots + P(B|A_k)P(A_k)\\
+                         =& \sum^k_{i=1} P(B|A_i)P(A_i)
+                \end{aligned} \]
+            @ Bayes' Theorem
+            @@ Let $A_1, \ldots, A_k$ be a collection of $k$ mutually exclusive and exhaustive events with prior
+            probabilities $P(A_i) (i = 1, 2, \ldots, k)$. Then for any other event $B$ for which $P(B) > 0$, the
+            posterior probability of $A_j$ given that $B$ has occurred is
+                \[ \begin{aligned}
+                    P(A_j|B) =& \frac{P(A_j \cap B)}{P(B)}\\
+                             =& \frac{P(B|A_j)P(A_j)}{\sum^k_{i=1} P(B|A_i) \cdot P(A_i)}
+                    j = 1, 2, \ldots, k
+                \end{aligned} \]
+        \end{easylist}
+
+    \subsection{Independence}
+    Two events $A$ and $B$ are independent if $P(A|B) = P(A)$ and dependent otherwise, which means that $P(A \cap B) =
+    P(A) \cdot P(B)$.
+
+\section{Random Variables}
+For a given sample space $\mathcal{S}$ of some experiment, a random variable (rv) is any rule that associates a number
+with each outcome in $\mathcal{S}$. We usually use uppercase letters for random variables ($X, Y, Z$) and lowercase
+letters for particular values ($x, y, z$).
+
+We have discrete and continuous random variables, which are defined as the common definition. However they differ in one
+respect, which is that with continuous random variables no single point has positive probability, only intervals have
+probability.
+
+    \subsection{Probability Distributions for Discrete Random Variables}
+    The probability mass function (pmf) of a discrete random variable is defined for every number $x$ by
+    $p(x)=P(X=x)=P(\text{all }s\in\mathcal{S}:X(s)=x)$.
+
+    The cumulative distribution function (cdf) $F(x)$ of a discrete random variable $X$ with pmf $p(x)$ is defined for
+    every number $x$ by
+        \[ F(x) = P(X \le x) = \sum_{y:y \le x} p(y) \]
+    For any number $x$, $F(x)$ is the probability that the observed value of $X$ will be \textit{at most} $x$.
+
+    \subsection{Expected Values and Variance}
+    Let $X$ be a discrete random variable with set of possible values $D$ and pmdf $p(x)$. The expected value, of mean
+    of $X$, denoted $E(X)$ or $\mu_X$, or just $\mu$ is
+        \[ E(X) = \mu_X = \sum_{x \in D} x \cdot p(x) \]
+
+    This has some defining rules
+
+        \[ E(aX + b) = a \cdot E(X) + b \]
+
+    We can also calculate the variance and standard deviation, which are measures of spread and distribution.
+
+    Let $X$ have pmf $p(x)$, and expected value $\mu$. Then the variance of $X$, denoted by $V(X)$, or $\sigma^2_X$, or
+    just $\sigma^2$ is
+
+        \[ V(X) = \sum_D {(x - \mu)}^2 \cdot p(x) = E[(X - \mu^2)] \]
+
+    The standard deviation of $X$ is
+
+        \[ \sigma_X = \sqrt{\sigma^2_X} \]
+
+    We have a shortcut formula for $\sigma^2$.
+
+        \[ V(X) = \sigma^2 = \left[ \sum_D x^2 \cdot p(x) \right] - \mu^2 = E(X^2) - {[E(X)]}^2 \]
+
+    And again, we have some rules.
+
+        \[ \sigma_{aX} = |a| \cdot \sigma_X, \sigma_{X+b} = \sigma_X \]
+
+    Let $X$ be a continuous random variable. Then the probability distribution of $X$ (pdf) is such that for any two numbers $a$
+    and $b$ where $a \le b$,
+
+        \[ P(a \le X \le b) = \int^b_a f(x)\, dx \]
+
+    In essence, continuous random variables replace the $\Sigma$ with a $\int$. Any pdf must be greater than or equal to
+    zero, and the area under the entire region must equal 1.
+
+    A continuous random variable $X$ is said to have uniform distribution on $[A, B]$ if the pdf of $X$ is
+
+    \[
+        f(x;A, B) =
+        \begin{cases}
+            \frac{1}{B-A} &\to A \le x \le B\\
+            0 &\to Otherwise
+        \end{cases}
+    \]
+
+    Expected value of continuous random variables is pretty much the same
+
+        \[ \mu_X = E(X) = \int^\infty_{-\infty} x \cdot f(x) \, dx \]
+
+    While the variance is
+
+        \[ \sigma^2_X = V(X) = \int^\infty_{-\infty} {(x - \mu)}^2 \cdot f(x) \, dx = E[(X-\mu)^2] = E(X^2) - [E(X)]^2 \]
+
+    The same properties apply, and the standard deviation remains $\sigma_X = \sqrt{V(X)}$.
+
+    \subsection{Percentiles of Continuous Distributions}
+    The $n$th percentile is defined as
+
+        \[ p = F(\eta (p)) = \int^{\eta(p)}_{-\infty} f(y) \, dy \]
+
+\section{Distributions of Random Variables}
+    \subsection{Geometric and Bernoulli Random Variables}
+    Any random variable whose only possible outcomes are 0 and 1 are called Bernoulli Random Variables. For any
+    Bernoulli Random Variable we can establish the pmf.
+
+        \[
+            \begin{aligned}
+                p(x) &=& \begin{cases}
+                            p^x {(1 - p)}^{1-x} &\to x = 1, 2, 3, \ldots\\
+                            0 &\to Otherwise
+                       \end{cases}\\
+                E[X] &=& p\\
+                \Var(X) &=& p\left( 1 - p \right)
+            \end{aligned}
+        \]
+
+    Where $p$ can be any value in $[0,1]$. Depending on the value of $p$ we get different members of the Geometric
+    Distribution. Therefore a Bernoulli Random Variable is the measure of outcomes of binary experiments. It is a
+    discrete variable that takes on values 0 or 1, with $\pi_1 = p(X=1)$. On the other hand, Geometric Random Variables
+    measure the time (number of trials) until a certain outcome occurs, where the pdf is given below.
+
+    \begin{equation*}
+        \begin{aligned}
+            p(x) &=& \begin{cases}
+                        {\left( 1 - p \right)}^{k-1} p
+                     \end{cases}
+            E[X] &=& \frac{1}{p}\\
+            \Var(X) &=& \frac{1-p}{p^2}
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{The Binomial Probability Distribution}
+    There are many experiments that conform to the following requirements, which mark it as a binomial experiment.
+
+        \NewList
+        \begin{easylist}
+            @ The experiment consists of a sequence of $n$ smaller experiments call trials, where $n$ is fixed in
+            advance of the experiment.
+            @ Each trial can result in one of the same two possible outcomes which we generally denote by Success and
+            Failure.
+            @ The trials are independent, so that the outcome of any particular trial does not influence the outcome of
+            any other trial.
+            @ The probability of Success from trial to trial is constant by which we denote $p$.
+        \end{easylist}
+
+    Therefore the binomial random variable $X$ is defined as the number of Successes in $n$ trials. Since this depends
+    on two factors, we write the pmf as
+
+        \[
+            \begin{aligned}
+                b(x;n, p) &=& \begin{cases}
+                                \binom{n}{x} p^x {(1 - p)}^{n - x} &\to x = 0, 1, 2, 3, \ldots, n\\
+                                0 &\to \text{Otherwise}
+                            \end{cases}\\
+                E[X] &=& np\\
+                \Var(X) &=& np\left( 1 - p \right)
+            \end{aligned}
+        \]
+
+    If $X \to Bin(n, p)$, then $E(X) = np$, $V(X) = np(1 - p) = npq$, and $\sigma_X = \sqrt{npq}$ where $q = 1 - p$.
+
+    \subsection{Hypergeometric Distribution}
+    We need to make some initial assumptions to use this distribution.
+
+        \NewList
+        \begin{easylist}
+            @ The population consists of $N$ elements. (A finite population)
+            @ Each element can be characterized as a Success of a Failure, and there are $M$ successes in the
+            population.
+            @ A sample of $n$ elements is selected without replacement in such a way that each subset of size $n$ is
+            equally likely to be chosen.
+        \end{easylist}
+
+    Like the binomial probability distribution, $X$ is the number of successes in the sample.
+
+        \[ P(X=x) = h(x;n, M, N) = \frac{\binom{M}{x} \binom{N-M}{n-x}}{\binom{N}{n}} \]
+
+    The mean and variance of this distribution are
+
+        \[
+            E(X) = n \cdot \frac{M}{N}\qquad
+            V(X) = \left( \frac{N-n}{N-1} \right) \cdot n \cdot \frac{M}{N} \cdot \left( 1 - \frac{M}{N} \right)
+        \]
+
+    \subsection{Negative Binomial Distribution}
+    Again, we need to start with some assumptions.
+
+        \NewList
+        \begin{easylist}
+            @ The experiment consists of a sequence of independent trials.
+            @ Each trial can either result in Success of Failure.
+            @ The probability of Success is constant from trial to trial.
+            @ The experiment continues until a total of $r$ successes have been observed.
+        \end{easylist}
+
+    The pmf of the negative binomial distribution with parameters $r = $ the number of Successes, and $p=P(S)$ is
+
+        \[
+            nb(k;r,p) = {k+r-1 \choose k}\cdot (1-p)^r p^k \quad k = 0, 1, 2, \ldots
+        \]
+
+    The special case where $r=1$ is called the geometric distribution. The mean and variance are as follows
+
+        \[
+            E(X) = \frac{pr}{1-p} \qquad V(X) = \frac{pr}{(1-p)^2}
+        \]
+
+    \subsection{The Poisson Distribution}
+    A discrete random variable $X$ is said to have a Poisson Distribution with parameter $\lambda \; (\lambda > 0)$ if
+    the pmf of $X$ is
+
+        \[ p(k; \lambda) = \frac{\lambda^k}{k!} e^{-\lambda} \qquad k = 0, 1, 2, 3, \ldots \]
+
+    Suppose that in the binomial pmf we let $n \to \infty$ and $p \to 0$ in such a way that $np$ approaches a value
+    $\lambda > 0$. Then $b(x;n,p)\to p(x;\lambda)$.
+
+    The mean and variance of $X$ are refreshingly easy for the Poisson Distribution.
+
+        \[ E(X) = V(X) = \lambda \]
+
+    We mostly use the Poisson distribution to measure events that occur over time. The structure of this distribution
+    requires us to make some assumptions about the data being collected.
+
+        \NewList
+        \begin{easylist}
+            @ There exists a parameter $\alpha > 0$ such that for any short time interval of length $\Delta t$, the
+            probability that exactly one occurs is $\alpha \cdot \Delta t + o(\Delta t)$
+            @ The probability of more than one event occurring during $\Delta t$ is $o(\Delta t)$.
+            @ The number of events that occur during $\Delta t$ is independent of the number that occur prior to this
+            time interval.
+        \end{easylist}
+
+    We also can establish that $P_k(t) = e^{-\alpha t} \cdot {(\alpha t)}^k/k!$ so that the number of events during a
+    time interval of length $t$ is a Poisson rv with parameter $\mu = \alpha t$.The expected number of events during any
+    such time interval is $\alpha t$, so the expected number during a unit time interval is $\alpha$.
+
+    The occurrence of events over time as described in known as the Poisson Process.
+
+
+
+    \subsection{The Normal Distribution}
+    A continuous random variable is said to have normal distribution with parameters $\mu$ and $\sigma$ if the pdf of $X$ is
+
+        \[ f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-{(x-\mu)}^2}{2\sigma^2}} \]
+
+    This is often written as $X \to N(\mu, \sigma^2)$.
+
+        \subsubsection{The Standard Normal Distribution}
+        If $\mu = 0$ and $\sigma=1$ this is defined as the standard normal distribution (denoted by $Z$) with pdf
+
+            \[ f(z;0,1) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \]
+
+        Where the cdf is denoted by $\Phi(z)$.
+
+        We use tables to determine the values of these cdfs, which are used as reference for other distributions.
+
+        \subsubsection{$z$ Values}
+        $z_\alpha$ is the $z$ value for which $\alpha$ of the area under the $z$ curve lies to the right of $z_\alpha$.
+
+        \subsubsection{Non-Standard Normal Distributions}
+        When we're dealing with a nonstandard normal distribution, we can standardize to the standard normal distribution
+        with standardized variable $Z = (X - \mu)/\alpha$. This means that
+
+            \[
+                \begin{aligned}
+                    P(a \le X \le b) &=&  P\left( \frac{a - \mu}{\sigma} \le Z \le \frac{b - \mu}{\sigma} \right)\\
+                                     &=& \Phi \left( \frac{b - \mu}{\sigma} \right) - \Phi \left( \frac{a - \mu}{\sigma} \right)\\
+                    P(X \le a) &=& \Phi \left( \frac{a - \mu}{\sigma} \right)\\
+                    P(X \ge b) &=& 1 - \Phi \left( \frac{b - \mu}{\sigma} \right)
+                \end{aligned}
+            \]
+
+    \subsection{Exponential Distribution}
+    This distribution is handy to model the distribution of lifetimes, mostly due to its memoryless property. This means
+    that the distribution remains the same regardless of what happened prior.
+
+        \[
+            f(x:\lambda) =
+            \begin{cases}
+                \lambda e^{-\lambda x} &\to x \ge 0\\
+                0 &\to Otherwise
+            \end{cases}
+        \]
+
+    Where we can calculate
+
+        \[ \mu = \frac{1}{\lambda} \qquad \sigma^2 = \frac{1}{\lambda^2} \]
+
+    With cdf
+
+        \[
+            F(x; \lambda) =
+            \begin{cases}
+                0 \to& x < 0\\
+                1 - e^{-\lambda x} \to& x \ge 0
+            \end{cases}
+        \]
+
+    \subsection{The Gamma Distribution}
+    We need to first discuss the Gamma Function. For $\alpha > 0$, the gamma function $\Gamma (\alpha)$ is defined by
+        \[ \Gamma(\alpha) = \int^\infty_0 x^{\alpha - 1} e^{-x} \, dx \]
+    Where
+        \NewList
+        \begin{easylist}
+            @ For any $\alpha > 1$, $\Gamma(\alpha) = (\alpha - 1)\Gamma(\alpha - 1)$
+            @ For any positive integer $n$, $\Gamma(n) = (n - 1)!$
+            @ $\Gamma(1/2) = \sqrt{\pi}$.
+        \end{easylist}
+
+    Now we can define the distribution to be
+
+        \[
+            f(x; \alpha) =
+            \begin{cases}
+                \frac{x^{\alpha - 1}e^{-x}}{\Gamma(\alpha)} &\to x \ge 0\\
+                0 &\to Otherwise
+            \end{cases}
+        \]
+
+    A random variable is said to have Gamma Distribution if the pdf of $X$ is 
+
+        \[
+            f(x; \alpha, \beta) =
+            \begin{cases}
+                \frac{x^{\alpha - 1}e^{-x/\beta}}{\beta^\alpha \Gamma(\alpha)} &\to x \ge 0\\
+                0 &\to Otherwise
+            \end{cases}
+        \]
+
+    With mean and variance
+
+        \[
+            E(X) = \mu = \alpha \beta \qquad V(X) = \sigma^2 = \alpha \beta^2
+        \]
+
+    And cdf of the standard gamma distribution
+
+        \[
+            F(x;\alpha) =
+            \int^x_0 \frac{y^{\alpha - 1}e^{-y}}{\Gamma(\alpha)} \, dy
+        \]
+
+        \subsubsection{Chi-Squared}
+            \[
+                f(x; v) = 
+                \begin{cases}
+                    \frac{x^{v/2 - 1}e^{-x/2}}{2^{v/2} \Gamma(v/2)} &\to x \ge 0\\
+                    0 &\to x < 0
+                \end{cases}
+            \]
+
+    \subsection{Weibull Distribution}
+        \[
+            f(x; \alpha, \beta) = 
+            \begin{cases}
+                \frac{\alpha}{\beta^\alpha} x^{\alpha - 1} e^{-(x/\beta)^\alpha} &\to x \ge 0\\
+                0 &\to x < 0
+            \end{cases}
+        \]
+
+    With mean and variance
+
+        \[
+            \mu = \beta \Gamma ( 1 + 1/\alpha ) \qquad \sigma^2 = \beta^2 \left[ \Gamma(1 + 2/\alpha) - {\left( \Gamma(1 +
+            1/\alpha) \right)}^2 \right]
+        \]
+
+    And cdf
+
+        \[
+            f(x; \alpha, \beta) = 
+            \begin{cases}
+                0 &\to x < 0\\
+                1 - e^{-(x/\beta)^\alpha} &\to x \ge 0
+            \end{cases}
+        \]
+
+    \subsection{Lognormal Distribution}
+        \[
+            f(x; \mu, \sigma) = 
+            \begin{cases}
+                \frac{e^{-[\ln(x) - \mu]^2/(2\sigma^2)}}{\sigma x \sqrt{2 \pi}} &\to x \ge 0\\
+                0 &\to x < 0
+            \end{cases}
+        \]
+
+        \[
+            E(X) = e^{\mu + \sigma^2 / 2} \qquad V(X) = e^{2\mu + \sigma} \left( e^{\sigma^2} - 1\right)
+        \]
+
+    Since it has normal distribution it can be expressed in terms of the standard normal distribution $Z$.
+
+    \subsection{Beta Distribution}
+        \[
+            \begin{aligned}
+                f(x; \alpha, \beta, A, B) =\\
+                \begin{cases}
+                    \frac{1}{B-A} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \cdot \Gamma(\beta)}
+                    {\left( \frac{x - A}{B - A} \right)}^{\alpha - 1} {\left(\frac{B - x}{B - A}\right)}^{\beta - 1}
+                    &\to A \le x \le B\\
+                    0 &\to Otherwise
+                \end{cases}
+            \end{aligned}
+        \]
+
+        \[
+            \mu = A + (B - A) \cdot \frac{\alpha}{\alpha + \beta} \qquad \sigma^2 = \frac{{(B - A)}^2 \alpha
+        \beta}{{(\alpha+\beta)}^2 (\alpha + \beta + 1)}
+        \]
+
+\section{Functions of Random Variables}
+This is a relatively straightforward concept. If we have a function of a random variable, we can express this as an
+inequality and solve for the cdf. Examples follow, and derivations left to the reader.\newline
+
+Let $X$ be a random variables with continuous distribution. Let $Y = X^2$.
+
+\[
+    \begin{aligned}
+        F_Y(y) &=& P\left( Y \le y \right)\\
+               &=& P\left( X^2 \le y \right)\\
+               &=& P\left( -\sqrt{y} \le X^2 \le \sqrt{y} \right)\\
+               &=& F_x(\sqrt{y}) - F_x(-\sqrt{y})\\
+        \text{Now differentiate to obtain $f_x$}\\
+        f_Y(y) &=& \frac{1}{2\sqrt{y}} \left[ f_X(\sqrt{y}) + f_x(-\sqrt{y}) \right]
+    \end{aligned}
+\]
+
+\section{Joint Probability Distributions}
+A joint probability distribution is one of the form where
+
+\[
+    F(a, b) = P\left( X \le a, Y \le b \right) \qquad -\infty < a, b < \infty
+\]
+
+For joint discrete random variables we simply sum the two sets together. With continuous random variables we doubly
+integrate them together.\newline
+
+Two random variables are said to be independent if
+
+\[
+    p(x, y) = p_X(x) \cdot p_Y(y)
+\]
+
+To be honest, this concept is fairly straightforward. All joint distributions look the same, save we have to represent
+their cdf with two or more integrals. The big trick here is to \textit{DRAW A PICTURE FIRST}. This will save most
+headaches.\newline
+
+To find the marginal distribution from a joint distribution, integrate (or sum) over the opposite variable.
+
+\[
+    f_X(x) = \int_y f(x, y) \, dy \qquad
+    f_Y(y) = \int_x f(x, y) \, dx
+\]
+
+    \subsection{Covariance}
+    The covariance between two variables is
+        \[
+            Cov(X, Y) = E[(X - \mu_X)(Y - \mu_Y)] = E(XY) - \mu_X \cdot \mu_Y
+        \]
+
+    \subsection{Correlation}
+        \[
+            p_{X, Y} = \frac{Cov(X, Y)}{\sigma_X \cdot \sigma_Y}
+        \]
+
+    \subsection{Properties}
+    \[
+        \begin{aligned}
+            \Cov(aX + b, cY + d) = ac\Cov(X, Y)\\
+            \Corr(aX + b, cY + d) = sign(ac) \Corr(XY)\\
+            -1 \le \Corr(XY) \le 1
+        \end{aligned}
+    \]
+
+    \subsection{Sums of Independent Random Variables}
+    We can determine the sum of two random variables accordingly. This process is called the convolution of the two
+    variables. The cumulative distribution function is given
+
+    \[
+        \begin{aligned}
+            F_{X + Y}(a) &=& P\left\{ X + Y \le a \right\}\\
+            &=& \iint\limits_{x + y \le a} f_X(x) f_Y(y) \, dx \, dy\\
+            &=& \int_{-\infty}^\infty \int_{-\infty}^{a-y}f_X(x) f_Y(y) \, dx \, dy\\
+            &=& \int_{-\infty}^\infty F_X(a - y)f_Y(y) \, dy
+        \end{aligned}
+    \]
+
+    If we differentiate, we obtain the probability mass function
+
+    \[
+        f_{X+Y}(a)= \int_{-\infty}^\infty f_X(a - y)f_Y(y) \, dy
+    \]
+
+    We can apply this concept to a slew of identically distributed random variables. %% Fill in if bored?
+
+    \subsection{Conditional Distributions}
+
+        \subsubsection{Discrete}
+        According to Bayes
+
+        \[
+            P\left( E|F \right) = \frac{P(EF)}{P(F)}
+        \]
+
+        If $X$ and $Y$ are discrete random variables we can continue this definition to find the conditional probability
+        mass function of $X$ given $Y$.
+
+        \[
+            p_{X|Y}\left( x|y \right) = P\left\{ X = x | Y = y \right\} = \frac{p\left( x, y \right)}{p_Y(y)}
+        \]
+
+        We see that the cumulative distribution function is also found
+
+        \[
+            F_{X|Y}\left( x|y \right) = P\left\{ X \le x | Y = y \right\} = \sum_{a \le x} p_{X|Y}\left( a|y \right)
+        \]
+
+        \subsubsection{Continuous}
+        Extending the previous concepts we can apply Bayes' notion of conditionality to continuous random variables.
+
+        \[
+            f_{X|Y}\left( x|y \right) = \frac{f\left( x, y \right)}{f_Y(y)}
+        \]
+
+        Using this we can define the generalized form to be
+
+        \[
+            P\left\{ X \in A|Y = y \right\} = \int_A f_{X|Y}\left( x|y \right)\,dx
+        \]
+
+        With corresponding cdf
+
+        \[
+            F_{X|Y}\left( a|y \right) \equiv P\left\{ X\le a | Y = y \right\} =
+                \int_{\infty}^a f_{X|Y}\left( x|y \right) \, dx
+        \]
+
+    \subsection{Joint Probability Distribution of Functions of Random Variables}
+    If $X_1$ and $X_2$ are two jointly continuous random variables with $Y_1$, $Y_2$ functions of $X_1$ and $X_2$ we can
+    define the pdf.
+
+    \begin{equation*}
+        \begin{aligned}
+            Y_1 = g_1(X_1, X_2)\\
+            Y_2 = g_2(X_1, X_2)\\
+        \end{aligned}
+    \end{equation*}
+
+    This works iff $g_1$ and $g_2$ can be solved for $x_1$ and $x_2$ in terms of $y_1$ and $y_2$, namely $x_1 = h_1(y_1,
+    y_2)$ and $x_2 = h_2(y_1, y_2)$, and iff $g_1, g_2$ are continuous. If this is the case we can define the Jacobian
+    as
+
+    \begin{equation*}
+        \begin{aligned}
+            \left|
+            \begin{array}{cc}
+                \frac{\partial g_1}{\partial x_1} & 
+                \frac{\partial g_1}{\partial x_2}\\
+                \frac{\partial g_2}{\partial x_1} & 
+                \frac{\partial g_2}{\partial x_2}\\
+            \end{array}
+            \right| =
+            \left( \frac{\partial g_1}{\partial x_1} \right)
+            \left( \frac{\partial g_2}{\partial x_2} \right)
+            -
+            \left( \frac{\partial g_1}{\partial x_2} \right)
+            \left( \frac{\partial g_2}{\partial x_1} \right)
+            \neq 0
+        \end{aligned}
+    \end{equation*}
+
+    Under these conditions it can be show that $Y_1$ and $Y_2$ are jointly continuous with density given by
+
+    \begin{equation*}
+        \begin{aligned}
+            f_{Y_1Y_2}\left( y_1, y_2 \right) = f_{X_1,X_2}(x_1, x_2) {\left| J(x_1, x_2) \right|}^{-1}
+        \end{aligned}
+    \end{equation*}
+
+    Where $x_1 = h_1 (y_1 , y_2 ), x_2 = h_2 (y_1 , y_2 )$.
+
+\section{Expectation}
+We've already defined expectation of a random variable, however we haven't looked closely at its properties.
+
+    \subsection{Expectation of Sums of Random Variables}
+    If $X$ and $Y$ are random variables with joint distribution $f(x, y)$ and a corresponding function $g(X, Y)$ we can
+    establish the expected value of $g$ as
+
+    \begin{equation*}
+        \begin{aligned}
+            E\left[ g(X, Y) \right] &=& \sum\limits_y \sum\limits_x g(x, y) p(x, y)\\
+            E\left[ g(X, Y) \right] &=& \int_{-\infty}^\infty \int_{-\infty}^\infty g(x, y) f(x, y) \, dx \, dy
+        \end{aligned}
+    \end{equation*}
+
+    We can extend this theorem to account for sums of random variables. If $X_i$ is a finite set, then
+
+    \begin{equation*}
+        \begin{aligned}
+            E\left[ X_0 + X_1 + \cdots + X_i \right] &=& E[X_0] + E[X_1] + \cdots + E[X_i]
+        \end{aligned}
+    \end{equation*}
+
+\section{Point Estimation}
+We can use point estimation to determine certain parameters about a set of data. $\theta$ is merely an estimate for some
+parameter, based on given sample data.
+
+\NewList
+\begin{easylist}
+    @ Obtain Sample Data from each population under study.
+    @ Based on the sample data, estimate $\theta$
+    @ Conclusions based on sample estimates.
+\end{easylist}
+
+Note, different samples produce different estimates, even if the same estimator is used. This means that we are
+interested in determining how to find the best estimator with least error. Error can be defined in a couple ways. The
+squared error is defined as ${( \hat{\theta} - \theta )}^2$ while the mean squared error is defined as
+$MSE=E[{( \hat{\theta} - \theta )}^2]$. If among two estimators one has a smaller MSE than another, the one
+with a smaller MSE is better. Another good quality is unbiasedness ($E[\hat{\theta}] = \theta$), and another quality is
+small variance ($Var[\hat{\theta}]$).
+
+The standard error of an estimator is its $\sigma$. This roughly tells us how accurate our estimation is.
+
+    \subsection{Moments}
+    \NewList
+    \begin{easylist}
+        @ Equate sample characteristics to the corresponding population values.
+        @ Solve these equations for unknown parameters.
+        @ The solution formula is the estimator.
+    \end{easylist}
+
+    For $k = 1, 2, 3, \ldots$ the $k$th population moment, or $k$th moment of the distribution $f(x)$ is $E(X^k)$.
+
+    Therefore the $k$th sample moment is
+
+    \[
+        \frac{1}{n} \cdot \sum_{i=1}^n X^k_i
+    \]
+
+    This system for the most part assumes that any sample characteristic is indicative of the population.
+
+    \subsection{Maximum Likelihood Estimators}
+    To find the MSE, a few things need to be done. Let's assume that we're given a set of observations with the same
+    distribution with unknown pdf. First we need to find the joint density function for all observations, which when the
+    observations are independent is merely their product. This joint distribution function is our likelihood function.
+    We now need to find the maximal value, by either taking its derivative and setting it equal to zero, or by first
+    taking the $\log$ and then deriving following by setting equal to zero.
+
+\section{Central Limit Theorem}
+Any estimator has its own probability distribution. This distribution is often referred to as the sampling distribution
+of the estimator.$\sigma$ is again referred to as the standard error of the estimator. This leads to an interesting
+insight, that is $\overline{X}$ based on a large $n$ tends to be closer to $\mu$ than otherwise.
+
+    \[
+        \begin{aligned}
+            E(\overline{X}) \approx \mu\\
+            V(\overline{X}) \approx \sigma^2 / n
+        \end{aligned}
+    \]
+
+Let $X_1, X_2, \ldots, X_n$ be a random sample from a distribution with mean $\mu$ and variance $\sigma^2$. If $n$ is
+sufficiently large\footnote{n > 40}, $\overline{X}$ has approximately a normal distribution with $\mu_{\overline{X}} = \mu$ and
+$\sigma^2_{\overline{X}} = \sigma^2 / n$. The larger $n$ is, the better the approximation.
+
+\section{Intervals}
+The CLT tells us that as $n$ increases, the sample mean is normally distributed. We can normalize our sample mean.
+
+\[
+    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+\]
+
+This allows us to define a confidence interval. We know 
+
+\[
+    P \left( -1.96 < \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} < 1.96 \right) = 0.95
+\]
+
+Which means that the $100 ( 1 - \alpha)\%$ confidence interval is defined as
+
+\[
+    \left(
+    \overline{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},
+    \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+    \right)
+\]
+
+This confidence interval tells us that if this experiment were to be performed again and again, 95\% of the time our
+newly calculated interval would contain the true population mean.
+
+We can replace the instance of $\sigma$ (which is rarely known) with our sample standard deviation, $S$.
+
+    \subsection{The $t$ Distribution}
+    When our $n$ is less than 40, we need to use the $t$ distribution, which has the exact same normalization process,
+    save we now call it a $t$ distribution with $n - 1$ degrees of freedom.
+
+    Let $t_v$ denote the $t$ distribution with degrees of freedom $v$.
+
+    \NewList
+    \begin{easylist}
+        @ Each $t_v$ curve is bell shaped and centered at 0.
+        @ Each $t_v$ curve is more spread out than the standard normal.
+        @ As $v$ increases, the spread of $t_v$ decreases.
+        @ $ \lim_{v \to \infty} t_v = z$.
+    \end{easylist}
+
+    \subsection{One Sample $t$ Confidence Interval}
+    This confidence interval is defined as
+
+    \[
+        \left(
+        \overline{X} - t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}},
+        \overline{X} + t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}}
+        \right)
+    \]
+
+    \subsection{Confidence Intervals for Population Proportion}
+    If we have a certain proportion that we know about a population we can emulate it with a binomial random variable,
+    and
+
+    \[
+        \sigma_X = \sqrt{np ( 1 - p)}
+    \]
+
+    The natural estimator for $p$ is $\hat{p} = X / n$, or the fraction of ``successes'' that we identify. We know that
+    $\hat{p}$ has normal distribution, and that $E(\hat{p}) = P, \sigma_{\hat{p}} = \sqrt{p (1 - p) / n}$, therefore our
+    confidence interval is
+
+    \[
+        \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+    \]
+
+    \subsection{Confidence Intervals for Variance of a Normal Population}
+    If we have our random sample again, then we also know that
+
+    \[
+        \frac{(n - 1) S^2}{\sigma^2} = \frac{\sum {\left( X_i - \overline{X} \right)}^2}{\sigma^2}
+    \]
+
+    has chi-squared distribution with $n - 1$ degrees of freedom, therefore the confidence interval for the variance is
+    defined as
+
+    \[
+        \left(
+        \frac{(n - 1)s^2}{\chi^2_{\alpha/2, n - 1}},
+        \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2, n - 1}}
+        \right)
+    \]
+
+\section{Hypotheses Tests for One Sample}
+A statistical hypothesis is a claim about a value of a parameter. We have two different types of hypotheses, the null
+hypothesis and the alternative hypothesis. The null hypothesis is the status quo, while the alternative hypothesis is
+the research hypothesis. The objective of testing is to decide whether or not the null is valid. At the core, this
+process initially favors the null hypothesis.
+
+We need to consider three difference cases,
+
+\NewList
+\begin{easylist}
+    @ $H_a : \theta \neq \theta_0$
+    @ $H_a : \theta > \theta_0$
+    @ $H_a : \theta < \theta_0$
+\end{easylist}
+
+And we have two different types of errors:
+
+\NewList
+\begin{easylist}
+    @ A \textbf{Type I Error} is when the null is rejected but is true.
+    @ A \textbf{Type II Error} is when the null kept, but it is false.
+\end{easylist}
+
+We need a test statistic in order to determine the null's validity. One easy way is to standardize $\overline{X}$.
+
+\[
+    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+\]
+
+And we have three types, lower-tailed, upper-tailed and two-tailed.
+
+We also need to consider proportions, in which case we standardize again.
+
+\[
+    Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n}}}
+\]
+
+And then we use $p$-values, which is the probability that any $z$-test will occur on the standard normal curve. The
+smaller the $p$-value, the more evidence there is that the null hypothesis is false.
+
+\[
+    P-Values =
+    \begin{cases}
+        1 - \Phi(z)\\
+        \Phi(z)\\
+        2 \left[ 1 - \Phi(\abs{z}) \right]
+    \end{cases}
+\]
+
+$t$ tests work the same way.
+
+When $H_0$ is true, the $p$-values are distributed uniformly.
+
+\section{Inference Based on Two Samples}
+If we have two samples, $X$ and $Y$, a natural estimator is $\mu_X - \mu_Y$. The standard deviation of this is
+
+\begin{equation*}
+    \begin{aligned}
+        \sigma_{\overline{X} - \overline{Y}} = \sqrt{\frac{\sigma_1^2}{m} + \frac{\sigma_2^2}{n}}
+    \end{aligned}
+\end{equation*}
+
+We can standardize this and perform hypothesis testing. Provided both $m$ and $n$ are large, a confidence interval for
+this is
+
+\begin{equation*}
+    \begin{aligned}
+        \overline{x} - \overline{y} \pm z_{\alpha / 2} \sqrt{\frac{s^2_1}{m} + \frac{s^2_2}{n}}
+    \end{aligned}
+\end{equation*}
+
+When we don't have a lot of data, and the population distributions are both normal, our standardized variable has $t$
+distribution with degrees of freedom estimated by
+
+\begin{equation*}
+    \begin{aligned}
+        v = \frac{{\left( \frac{s^2_1}{m} + \frac{s^2_2}{n} \right)}^2}
+        {\frac{{\left( s^2_1 / m \right)}^2}{m - 1} + \frac{{\left( s^2_2 / n \right)}^2}{n - 1}}
+    \end{aligned}
+\end{equation*}
+    
+And again, testing can be performed.
+
+    \subsection{Pooled $t$}
+    If we know both distributions are normal and their variances are equal we can be a little tricky.
+
+    We need to redefine our sample variance as
+
+    \begin{equation*}
+        \begin{aligned}
+            S^2_p = \frac{m - 1}{m + n - 2} \cdot S^2_1 + \frac{n - 1}{m + n - 2} \cdot S^2_2
+        \end{aligned}
+    \end{equation*}
+
+    And now testing can be performed.
+
+    \subsection{$F$ Test for Equality of Variances}
+    Our test statistic defined as
+
+    \begin{equation*}
+        \begin{aligned}
+            F = \frac{S_1^2 / \sigma^2_1}{S_2^2/\sigma_2^2}\\
+            f = \frac{s^2_1}{s^2_2}
+        \end{aligned}
+    \end{equation*}
+
+    has $F$ distribution with $v_1 = m - 1$ and $v_2 = n - 1$.
+
+    \subsection{Inferences with Proportions}
+    If we let
+
+    \begin{equation*}
+        \begin{aligned}
+            \hat{p}_1 = X/m \qquad \hat{p}_2 = Y/n\\
+            V(\hat{p}_1 - \hat{p}_2) = \frac{p_1 q_1}{m} \frac{p_2 q_2}{n}
+        \end{aligned}
+    \end{equation*}
+
+\section{Simple Linear Regression}
+Given a set of data we can create a linear regression model between the independent and dependent variables using the
+ordinary least squares method.
+
+\begin{equation*}
+    \begin{aligned}
+        y &=& \hat{\beta}_0 + \hat{\beta}_1 \cdot x\\
+        \hat{\beta}_1 &=& \frac{\sum \left( x_i - \overline{x} \right)\left( y_i - \overline{y} \right)}{\sum \left( x_i -
+            \overline{x} \right)}
+            &=& \frac{S_{xy}}{S_{xx}} = \frac{\left( \sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)
+            \right)/n}{\left( \sum x^2_i - \left( \sum x_i \right)^2 \right) / n}
+        \hat{\beta}_0 &=& \overline{y} - \hat{\beta}_1 \overline{x}
+    \end{aligned}
+\end{equation*}
+
+The fitted values are basically if we run $x$ through our equation, and are denoted $\hat{y}$. The residuals are the
+difference between the fitted values and the actual values. These are estimates of the true error.
+
+    \subsection{Error Sum of Squares (Residual Sum of Squares)}
+    \begin{equation*}
+        \begin{aligned}
+            \text{SSE} &=& \sum \left( y_i - \hat{y}_i \right)^2\\
+            \sigma^2 &=& \frac{\text{SSE}}{n - 2}
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{Total Sum of Squares}
+    \begin{equation*}
+        \begin{aligned}
+            \text{SST} &=& S_{yy} = \sum\left( y_i - \overline{y} \right)^2 = \left(\sum y_i^2 - \left( \sum y_i \right)^2
+            \right) / n
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{Coefficient of Determination}
+
+    \begin{equation*}
+        \begin{aligned}
+            r^2 = 1 - \frac{\text{SSE}}{\text{SST}}
+        \end{aligned}
+    \end{equation*}
+
+    The regression sum of squares is written
+
+    \begin{equation*}
+        \begin{aligned}
+            \text{SSR} = \text{SST} = \text{SSE}
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{Inferences About $\hat{\beta}_1$}
+    Based on our definitions and assumptions,
+
+    \begin{equation*}
+        \begin{aligned}
+            T = \frac{\hat{\beta}_1 - \hat{\beta}}{S / \sqrt{S_{xx}}}
+        \end{aligned}
+    \end{equation*}
+
+    has $t$ distribution with $n - 2$ degrees of freedom.
+
+    We can test this and create a confidence interval.
+
+    \subsection{Predicted Values of $y$}
+    The mean value of $\hat{y}$ is our linear model result.
+
+    The variance of $\hat{y}$ is
+
+    \begin{equation*}
+        \begin{aligned}
+            V(\hat{Y}) = \sigma^2 \left[ \frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}{S_{xx}} \right]
+        \end{aligned}
+    \end{equation*}
+
+    It has normal distribution.
+
+    A prediction interval for this value is
+
+    \begin{equation*}
+        \begin{aligned}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \sqrt{s^2 + s^2_{\hat{Y}}}
+        \end{aligned}
+    \end{equation*}
+
+\section{Multiple Regression Analysis}
+This whole regression concept is extensible to more than one variable.
+
+\begin{equation*}
+    \begin{aligned}
+        Y = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \epsilon
+    \end{aligned}
+\end{equation*}
+
+This is best done with code.
+
+    \subsection{Adjusted $r^2$}
+    Instead of just using $r^2$ as is, we need to adjust it.
+
+    \begin{equation*}
+        \begin{aligned}
+            R^2_a = 1 - \frac{\text{SSE} / (n - (k + 1))}{\text{SST} / (n - 1)}
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{Mean Squared Error}
+
+    \begin{equation*}
+        \begin{aligned}
+            \sigma^2 = s^2 = \text{MSE} = \frac{\text{SSE}}{n - (k + 1)}
+        \end{aligned}
+    \end{equation*}
+
+    \subsection{Model Selection}
+    We can test if our model is actually useful by after eliminating variables establishing our null hypothesis that all
+    variables we eliminated were supposed to be eliminated.
+
+    \begin{equation*}
+        \begin{aligned}
+            F = \frac{\text{SSR}/k}{\text{SSE} / (n - (k + 1))} = \frac{\text{MSR}}{\text{MSE}}
+        \end{aligned}
+    \end{equation*}

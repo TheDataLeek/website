@@ -1,0 +1,266 @@
+\documentclass[11pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 14}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 3570}
+\rfoot{Kleiber}
+\title{Homework 14}
+\date{Kleiber}
+\author{Zoe Farmer - 101446930}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+
+\maketitle
+
+\begin{table}[H]
+    \centering
+    \scalebox{1.5}{%
+    \begin{tabular}{|l|l|l|l||l|}
+        \hline
+        1 & 2 & 3 & 4 & T\\
+        \hline
+        & & & &\\
+        \hline
+    \end{tabular}
+    }
+\end{table}
+
+\begin{easylist}[enumerate]
+    \ListProperties(Hide1=50)
+    @ \textbf{Chapter 7, \#6} A fair die is rolled 10 times. Calculate the expected sum of the 10 rolls.\newline
+
+    Assuming that we're using a six-sided die, the expectation of the sum is the same as the sum of the expectation. A
+    die has uniform distribution.
+
+    \begin{equation*}
+        \begin{aligned}
+            E\left[ \sum X_i \right] &=& \sum E\left[ X_i \right]\\
+            &=& \sum_{i=1}^{10} E[X_i]\\
+            &=& \sum_{i=1}^{10} \left( \sum_{j=1}^6 j \cdot \frac{1}{6} \right)\\
+            &=& \sum_{i=1}^{10} 3.5\\
+            &=& 35
+        \end{aligned}
+    \end{equation*}
+
+    @ \textbf{Chapter 7, \#16} Let $Z$ be a standard normal random variable, and, for a fixed $x$, set
+
+    \begin{equation*}
+        \begin{aligned}
+            X = \begin{cases}
+                Z \quad if Z > x\\
+                0 \quad Otherwise
+            \end{cases}
+        \end{aligned}
+    \end{equation*}
+
+    Show that $E[X]=\exp\left( -x^2/2 \right)/\sqrt{2 \pi}$.\newline
+
+    First we define $Z$ to be the standard normal variable.
+
+    \begin{equation*}
+        \begin{aligned}
+            Z = f(x, \mu \to 1, \sigma \to 1) = \frac{1}{\sqrt{2\pi}} e^{ -\frac{x^2}{2} }
+        \end{aligned}
+    \end{equation*}
+
+    Using the definition of expected value we see that the expected value of $X$ is equal to the probability of the
+    outcome times the outcome itself. Therefore our expected value is simply equal to $Z$, which we've already defined
+    as the standard normal distribution.
+
+    @ \textbf{Chapter 7, \#21} For a group of 100 people, compute
+
+    @@ the expected number of days of the year that are birthdays of exactly 3 people:\newline
+
+    Assuming that each individual's birthday is independent of every other, and that the probability of a birthday
+    falling on any day is uniformly distributed, we can define a new random variable $X$ to be the number of days of the
+    year that there are birthdays of exactly 3 people.\newline
+
+    The probability that there exactly three birthdays on any given day is
+
+    \begin{equation*}
+        \begin{aligned}
+            \frac{1}{365^3} = \frac{1}{\ensuremath{4.8627\times 10^{7}}}
+        \end{aligned}
+    \end{equation*}
+
+    We can now define $X$ to be a binomial distribution with $p=\ensuremath{2.0565\times 10^{-8}}$ and $n=365$, and expected value of any
+    given day equal to
+
+    \begin{equation*}
+        \begin{aligned}
+            {100 \choose 3} \left( \frac{1}{365^3} \right) {\left( \frac{364}{365} \right)}^{97}
+        \end{aligned}
+    \end{equation*}
+
+    With yearly expected value equal to
+
+    \begin{equation*}
+        \begin{aligned}
+            E[X] &=& \sum_{i=1}^{365} {100 \choose 3} \left( \frac{1}{365^3} \right) {\left( \frac{364}{365} \right)}^{97}\\
+            &=& 0.9301
+        \end{aligned}
+    \end{equation*}
+
+    @@ the expected number of distinct birthdays.\newline
+
+    This can also be phrased as the number of days that a birthday occurs. We can find the expected value of $X_i$ if
+    $X_i$ is a Bernoulli random variable equalling 1 if an individual has a birthday on day $i$.
+
+    \begin{equation*}
+        \begin{aligned}
+            E[X_i] = 1 - {\left( \frac{364}{265} \right)}^{100}
+        \end{aligned}
+    \end{equation*}
+
+    Therefore the expected value equals
+
+    \begin{equation*}
+        \begin{aligned}
+            E[X] &=& \sum_{i=1}^{365} \left( 1 - {\left( \frac{364}{265} \right)}^{100}\right)\\
+            &=& 87.5755
+        \end{aligned}
+    \end{equation*}
+
+    @ \textbf{Chapter 7, \#31} In Problem 6, calculate the variance of the sum of the rolls.\newline
+
+    This simply follows the formula
+
+    \begin{equation*}
+        \begin{aligned}
+            \Var\left( \sum_{i=1}^N X_i \right) = \sum_{i=1}^N \Var(X_i) + \sum_{i\neq j} \Cov(X_i, X_j)
+        \end{aligned}
+    \end{equation*}
+
+    We know the variance of $X_i$ is $E[X^2] - \left( E[X] \right)^2 = 2.9167$. We also know that the covariance between any two $X_i$ will equal zero, which lets us establish a new
+    equation
+
+    \begin{equation*}
+        \begin{aligned}
+            \Var\left( \sum_{i=1}^N X_i \right) &=& N \cdot \Var(X_i) + \cancel{\sum_{i\neq j} \Cov(X_i, X_j)}\\
+            &=& N \cdot \Var(X_i)\\
+            &=& 10 \cdot 2.9167\\
+            &=& 29.1667\\
+        \end{aligned}
+    \end{equation*}
+
+    @ \textbf{Chapter 7, \#36} Let $X$ be the number of ones and $Y$ the number of twos that occur in $n$ rolls of a
+    fair die. Compute $\Cov(X, Y)$.\newline
+
+    Covariance is defined as
+
+    \begin{equation*}
+        \begin{aligned}
+            \Cov(X, Y) = E[XY] - E[X] E[Y]
+        \end{aligned}
+    \end{equation*}
+
+    We can define $X$ and $Y$ to be Bernoulli random variables where $X_i=1$ if the $i$th roll is 1, and $Y_i=1$ if the
+    $i$th roll equals 2. Since these random variables deal with the same die, they are not independent. If $X_i=1$, then
+    $Y_i=0$ and vice versa, which indicates that $XY=0$, since if $X$ or $Y$ is 1, then the other is zero. Since $X$ and
+    $Y$ follow a binomial distribution, we know the expected value for each is the probability of success times the
+    number of trials, in this case $1/6$ and $n$ respectively.
+
+    \begin{equation*}
+        \begin{aligned}
+            \Cov(X, Y) &=& -E[X]E[Y]\\
+            &=& -\frac{n^2}{36}
+        \end{aligned}
+    \end{equation*}
+
+
+    @ \textbf{Chapter 7, \#37} A die is rolled twice. Let $X$ equal the sum of the outcomes, and let $Y$ equal the first
+    outcome minus the second. Compute $\Cov(X, Y)$.\newline
+
+    Since we roll the die twice, each outcome is independent of the other. Let $A$ and $B$ be the first and second roll,
+    respectively. This let's us establish $X=A+B$ and $Y=A-B$. Using our previous definition of Covariance we need the
+    expected value of $X, Y,$ and $XY$. Again, since each outcome is independent, $A$ and $B$ are independent, meaning
+    $E[A+B] = E[A] + E[B] = 7$, $E[A-B] = E[A] - E[B] = 0$, and $E[XY] = E[X]E[Y] = 0$.
+
+    \begin{equation*}
+        \begin{aligned}
+            \Cov(X, Y) &=& E[XY] - E[X]E[Y]\\
+            &=& 0
+        \end{aligned}
+    \end{equation*}
+
+    @ \textbf{Chapter 7, \#38} The random variables $X$ and $Y$ have a joint density function given by
+
+    \begin{equation*}
+        \begin{aligned}
+            f(x, y) =
+            \begin{cases}
+                \frac{2 e^{-2x}}{x} &\quad 0 \le x < \infty, 0 \le y \le x\\
+                0 &\quad Otherwise
+            \end{cases}
+        \end{aligned}
+    \end{equation*}
+
+    Compute $\Cov(X, Y)$.\newline
+
+    Since our joint distribution does not have $Y$, this means that as $Y$ changes, $X$ remains the same, and
+    vice-versa. This lack of change in the other variable indicates a complete lack of covariance between the two,
+    therefore $\Cov(X, Y) = 0$.
+
+\end{easylist}
+
+\end{document}

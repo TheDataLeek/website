@@ -1,0 +1,391 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 5}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 4570}
+\rfoot{Hagar}
+\title{Homework 5}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+<<echo=F, message=F>>=
+    library('ggplot2')
+    library('plyr')
+    library('data.table')
+    plot_p_vals <- function(p) {
+         ggplot(p, aes(vals)) +
+                    scale_x_continuous(limits = c(0, 1)) +
+                    geom_histogram(aes(y=..density..), binwidth=0.02,
+                                   color='black', fill='white') +
+                    geom_vline(aes(xintercept=0.1),
+                               color="red", linetype="solid", size=0.5) +
+                    geom_vline(aes(xintercept=0.05),
+                               color="red", linetype="solid", size=0.5) +
+                    geom_vline(aes(xintercept=0.01),
+                               color="red", linetype="solid", size=0.5)
+    }
+@
+
+\begin{easylist}[enumerate]
+    @ Hexavalent Chromium has been identified as an inhalation carcinogen and an air toxin of concern in a number of
+    different locales. The article gave the data given on both indoor and outdoor concentration (nanograms/meter cubed)
+    for a sample of houses selected from a certain region.
+
+    <<tidy=F>>=
+         hc_data_raw <- as.list(as.data.frame(t(read.table(
+                            './Hw5_prob1_data.txt',
+                            header=F, sep=','))))
+         hcd <- data.frame(indoor=hc_data_raw$V1,
+                           outdoor=hc_data_raw$V2,
+                           diff=(hc_data_raw$V1 - hc_data_raw$V2))
+    @
+
+    @@ Calculate a confidence interval for the population mean difference between indoor and outdoor concentrations
+    using a confidence level of 95\%, and interpret the resulting interval. Use your confidence interval to carry out a
+    hypothesis testing if indoor and outdoor concentrations are the same.
+
+    @@@ We can use {\ttfamily R} to perform these calculations. Note, since our dataset has $\Sexpr{length(hcd$indoor)}
+    < 40$ entries, we need to use the $t$ distribution, defined below.
+
+    \[
+        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n}}
+    \]
+
+    <<hw5.1a, tidy=F>>=
+                 alpha    <- 0.05
+                 n        <- length(hcd$diff)
+                 t        <- qt(alpha / 2, n - 1)
+                 diffsd   <- sd(hcd$diff)
+                 diffmean <- mean(hcd$diff)
+                 lower    <- diffmean - abs(t * (diffsd / sqrt(n)))
+                 upper    <- diffmean + abs(t * (diffsd / sqrt(n)))
+    @
+
+    Using these results, we obtain a confidence interval of $\boxed{\left( \Sexpr{lower}, \Sexpr{upper} \right)}$. We
+    can now use this interval to perform hypothesis testing, assuming that the null hypothesis is $indoor = outdoor$.
+    If we use the difference between the two datasets as our test statistic, normalize it, and then compare it versus
+    the normal distribution, we can determine our p-values. Note, since our hypothesis deals with equality, our testing
+    must be two-tailed. If we let $X$ be the difference between the two datasets, then our corresponding z test is
+
+    \[
+        Z = \frac{X - \mu}{\sigma/\sqrt{n}}
+    \]
+
+    <<hw5.1a.pvals, tidy=F, fig.pos='H', fig.width=3, fig.height=3, fig.align='center', fig.cap='P-Values'>>=
+                 normaldiff <- (hcd$diff - diffmean)/(diffsd / sqrt(n))
+                 p <- data.frame(vals=2 * (1 - pnorm(abs(normaldiff))))
+                 plot_p_vals(p)
+    @
+
+    If you'll note, our p-values are highly weighted towards zero. In fact, most elements fall below 0.05. This
+    indicates strong evidence against the null hypothesis.
+
+    @@ If a 34th house were to be randomly selected from the population, between what values would you predict the
+    difference in concentrations to lie?
+    @@@ WE IGNORE THIS ONE!
+    @@ Construct the 95\% confidence intervals for the indoor and for the outdoor true concentration. Do these CIs
+    overlap, and what does that imply about the hypothesis test in part (a)? Write a paragraph justifying your answer.
+    @@@ Constructing a confidence interval for the two datasets is straightforward.
+
+    <<hw5.1c, tidy=F>>=
+                 indoor_sd <- sd(hcd$indoor)
+                 indoor_mean <- mean(hcd$indoor)
+                 indoor_err <- abs(t * (indoor_sd / sqrt(n)))
+                 indoor_ci <- c(indoor_mean - indoor_err,
+                                 indoor_mean + indoor_err)
+
+                 outdoor_sd <- sd(hcd$outdoor)
+                 outdoor_mean <- mean(hcd$outdoor)
+                 outdoor_err <- abs(t * (outdoor_sd / sqrt(n)))
+                 outdoor_ci <- c(outdoor_mean - outdoor_err,
+                                  outdoor_mean + outdoor_err)
+    @
+
+    This results in the intervals being:
+
+    \[
+        \begin{aligned}
+            \text{Indoor} = \left[ \Sexpr{indoor_ci[1]}, \Sexpr{indoor_ci[2]} \right]\\
+            \text{Outdoor} = \left[ \Sexpr{outdoor_ci[1]}, \Sexpr{outdoor_ci[2]} \right]
+        \end{aligned}
+    \]
+
+    If you'll note, these two confidence intervals \textit{do not} overlap! Now, since the given dataset is relatively
+    small, our confidence interval may not contain the true mean of the data. This is unlikely. Therefore, it follows
+    that the hypothesis previously stated (that the difference of the two datasets would be equal) should not be
+    possible since the means are so far away.
+
+
+    @ Back to the ladybugs! Recall that aphid infestation of fruit trees is usally controlled either via pesticides or
+    via ladybug innundation. In a particular area, 2 different (and well isolated) groves, with 15 fruit trees each are
+    selected for an experiment. The trees in both groves are of the same age, roughly the same size, and can be assumed
+    to be independent. One grove is sprayed with pesticides, and one is flooded with ladybugs. The fruit yield(in
+    pounds) for each tree is given.
+
+    @@ Assume that these two samples come from a normal distribution. Find the sample means of yields for the two
+    groves, and provide the two 95\% confidence intervals for the true mean yields for trees under the two treatments.
+
+    @@@ Defining our confidence interval using the $t$ distribution, we obtain
+
+    \[
+        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n}} \right)
+    \]
+
+    <<hw5.2a, tidy=F>>=
+                 lbd <- read.csv(
+                         './treedata.txt',
+                         sep=',')
+                 n   <- length(lbd$pest)
+                 t   <- qt(alpha / 2, df=n - 1)
+                 pm  <- mean(lbd$pest)
+                 lm  <- mean(lbd$lady)
+                 per <- abs(t*(sd(lbd$pest)/sqrt(n)))
+                 plw <- pm - per
+                 pup <- pm + per
+                 ler <- abs(t*(sd(lbd$lady)/sqrt(n)))
+                 llw <- lm - ler
+                 lup <- lm + ler
+    @
+
+    We find the sample mean of yield for the Pesticide grove to be $\Sexpr{pm}$, and the sample mean of yield for the
+    Ladybug grove to be $\Sexpr{lm}$. Using these with the assumption of normality we can determine the 95\% confidence
+    intervals for the sample mean for both groves, using the $t$ distribution since $n=15$. The pesticide grove mean
+    confidence interval is identified to be $\left( \Sexpr{plw}, \Sexpr{pup} \right)$, and the ladybug grove mean
+    confidence interval is identified as $\left( \Sexpr{llw}, \Sexpr{lup} \right)$.
+
+    @@ What are the sample variances for the yields in the two groves? Test the equality of these two variance using a
+    significance level of 5\%.
+    @@@ Identifying the variances is relatively straightforward.
+
+    <<hw5.2b, tidy=F>>=
+                 vars <- var(lbd)
+    @
+
+    Which results in
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|l|l|}
+            \hline
+            & {\ttfamily pest} & {\ttfamily lady}\\
+            \hline
+            {\ttfamily pest} & $\Sexpr{vars[1]}$ & $\Sexpr{vars[2]}$\\
+            \hline
+            {\ttfamily lady} & $\Sexpr{vars[2]}$ & $\Sexpr{vars[4]}$\\
+            \hline
+        \end{tabular}
+        \caption{Covariances of Tree Data}
+        \label{table:treevars}
+    \end{table}
+
+    Now we can test the variance's equality. Let our hypothesis be that the two variances are equal, and our test
+    statistic equal to
+
+    \[
+        \frac{s_1}{s_2}
+    \]
+
+    We can now use the F distribution\footnote{$ F_{\alpha, m - 1, n - 1} $} to determine our p-values.
+
+    <<hw5.2b.2, tidy=F>>=
+                 alpha <- 0.05
+                 s1 <- vars[1]
+                 s2 <- vars[4]
+                 f <- s1 / s2
+                 lF <- qf(alpha / 2, n - 1, n - 1)
+                 uF <- qf(1 - alpha / 2, n - 1, n - 1)
+    @
+
+    Using these values we see that $\Sexpr{lF} \le \Sexpr{f} \le \Sexpr{uF}$, therefore the variances are probably
+    equal.
+
+    @@ Depending on your answer, test the equality of the two mean yields.
+    @@@ Examining the yields, we see that we can test mean equality using a pooled t test procedure. Let $X$ be the
+    difference in the means, $\mu_1 - \mu_2$. We can also calculate our shared variance
+
+    <<hw5.2c, tidy=F, fig.pos='H', fig.width=3, fig.height=3, fig.align='center', fig.cap='P-Values'>>=
+                 diff <- lbd$pest - lbd$lady
+                 mu <- mean(diff)
+                 c <- (n - 1) / (2*n  - 2)
+                 s <- c * sd(lbd$pest) + c * sd(lbd$lady)
+                 z <- (diff - mu) / sqrt(s)
+                 p <- data.frame(vals=2*(1 - pnorm(abs(z))))
+                 plot_p_vals(p)
+    @
+
+    Note, almost all values calculated have probability of appearing less than 5\% of the time. This indicates that the
+    means are probably unequal.
+
+    @ A controlled clinical trial was run to investigate the effect of the drug stelazine on chronic schizophrenics.
+    The data is given in the spreadsheet and shows the change in the patients behavior rating score after 3 months. Use
+    appropriate hypothesis tests to answer the following two questions, being sure to complete each of the four steps:
+
+    (i) State the two hypotheses being tested.
+
+    (ii) Compute the appropriate test statistic, degrees of freedom, and p-value.
+
+    (iii) Decide whether to reject the null using a significance level of 0.05
+
+    (iv) Conclude by writing a short sentence explaining your decision.
+
+    <<hw5.3.data, tidy=F>>=
+         a_st <- c(0.8, 0.1, 0.55, 0.6, 0.34, 1.42, 1.74, -0.29, 0.53)
+         a_pl <- c(-0.4, 0.4, -0.1, -0.9, 0.2, 0.78, 0.3, 0.64, 0.42)
+         a_df <- c(1.2, -0.3, 0.65, 1.5, 0.14, 0.64, 1.44, -0.93, 0.11)
+  
+         b_st <- c(-0.45, 0.15, -0.19, 0.12, 0.03, -0.15, 0.48)
+         b_pl <- c(0.01, 0.14, -0.55, -0.05, 0.04, -1.16, -0.16)
+         b_df <- c(-0.46, 0.01, 0.36, 0.17, -0.01, 1.01, 0.64)
+    @
+
+
+    @@ Considering all patients, test whether the average behavior change is higher for patients using stelazine than
+    for patients receiving a placebo.
+    @@@ If we consider all patients, we can essentially pool everything together, ignoring the artificial difference of
+    ward. In this case we assume the null hypothesis to be that stelazine was more beneficial for the patients than the
+    placebo, in other words if the mean change in behavior of those on the drug exceeded the mean change of those on the
+    placebo. We can express this by examining the difference in behaviors from stelazine patients and their placebo
+    pairing. We also assume that the alternate hypothesis is that the placebo was more beneficial than the stelazine.
+
+    <<hw5.3a, tidy=F, fig.pos='H', fig.width=3, fig.height=3, fig.align='center', fig.cap='P-Values'>>=
+                 st <- c(a_st, b_st)
+                 pl <- c(a_pl, b_pl)
+                 diff <- c(a_df, b_df)
+                 z <- (diff - mean(diff)) / sd(diff)
+                 p <- data.frame(vals=1 - pnorm(z))
+                 plot_p_vals(p)
+    @
+
+    Since our p values are normally distributed (or at least appear to be given our dataset), we do not reject the null
+    hypotheses.\newline
+
+    In the context of the problem, this indicates that the patients who were administered stelazine improved more than
+    those given the placebo.
+
+    @@ Using the differences, S-P, test whether stelazine is more effective on average in one of the wards than in the
+    other. Carry out the appropriate test for the equality of variance if necessary. Were we right to combine all
+    patients for our answer in (a)?
+    @@@ Our null hypothesis in this case is that stelazine in ward A is more effective than stelazine in ward B. If we
+    let $\mu_{A,1}$ be the mean change for ward A patients on stelazine, $\mu_{A,2}$ the mean change for the placebo
+    patients in ward A, $\mu_{B,1}$ the mean change for stelazine patients in ward B, and $\mu_{B,2}$ the mean change
+    for patients using the placebo, then we can define our null to be
+
+    \[
+        \begin{aligned}
+            ( \mu_{A,1} - \mu_{A,2} ) - ( \mu_{B,1} - \mu_{B,2} ) > 0\\
+            \mu_{A,diff} - \mu_{B,diff} > 0
+        \end{aligned}
+    \]
+
+    Before we examine the differences of our datasets, we can first examine our data itself and determine whether or not
+    it is from the same distribution, starting with testing equality of the variances.
+
+    <<hw5.3b, tidy=F>>=
+                 f <- var(a_df) / var(b_df)
+                 m <- length(a_df)
+                 n <- length(b_df)
+                 alpha <- 0.05
+                 lower <- qf(alpha / 2, m - 1, n - 1)
+                 upper <- qf(1 - alpha / 2, m - 1, n - 1)
+    @
+
+    Since $\Sexpr{lower} \le \Sexpr{f} \le \Sexpr{upper}$ with p-value $\Sexpr{pf(f, m - 1, n - 1)}$, we know that the variances
+    are probably equal, therefore if we assume that the distribution is normal in each ward, we can perform a pooled-t
+    test.
+
+    <<hw5.3b.2, tidy=F>>=
+                 s <- ((m - 1)/(m + n - 2)) * var(a_df) +
+                         ((n - 1)/(m + n - 2)) * var(b_df)
+                 z <- (mean(a_df) - mean(b_df)) /
+                         sqrt(s * ((1/m) + (1/n)))
+                 p <- 2 * (1 - pnorm(abs(z)))
+    @
+
+    The p-value of $\Sexpr{p}$ informs us that the distributions have not only similar variance, but also similar means,
+    and are therefore the same. This also tells us that combining the wards for part (a) was correct, as the patient
+    pairs all come from the same distribution.
+
+    @ A study performed in Boston showed a link between soda and weak bones. Among 57 active children who do not drink
+    soda, 5 suffered fractures. Among 107 active children who reported drinking soda, 38 suffered fractures. The study
+    did not specify how much soda the children drank.
+
+    @@ Using a two-sample test of proportions, determine whether this study provides significant evidence at the 1\%
+    level to suggest that the probability of getting a fracture is lower for kids that do not drink soda than it is for
+    kids that do drink soda.
+    @@@ We can first identify our two estimators for the proportion of fractured children. Let $\hat{p_1}$ the the
+    sample proportion of fractured children who do not drink soda, and similarly $\hat{p_2}$ the sample proportion of
+    fractured children who do drink soda.
+
+    <<hw5.4a.1, tidy=F>>=
+                 p1 <- 5 / 57
+                 m  <- 57
+                 p2 <- 38 / 107
+                 n  <- 107
+    @
+
+    We know that we are interested in the value $\hat{p_1} - \hat{p_2}$, which, if equal to zero, would indicate that
+    there is no difference between drinking soda and not. Therefore we are only interested in $\hat{p_1} - \hat{p_2} >
+    0$, which we take as our null hypothesis. We use z to determine the validity of our null hypothesis.
+
+    \[
+        z = \frac{\hat{p_1} - \hat{p_2}}{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)}}
+    \]
+
+    Where $\hat{p}$ is
+
+    \[
+        \hat{p} = \frac{m}{m + n} \cdot \hat{p_1} + \frac{n}{m + n} \cdot \hat{p_2}
+    \]
+
+    <<hw5.4a.2, tidy=F>>=
+                 phat <- ((m)/(m + n))*p1 + ((m)/(m + n))*p2
+                 q <- 1 - phat
+                 z <- (p1 - p2) / sqrt(phat * q * ((1 / m) + (1 / n)))
+    @
+
+    Using this calculated z we see that
+
+    \[
+        z \ge z_{0.01} \Rightarrow \Sexpr{z} \ge \Sexpr{qnorm(0.01)}
+    \]
+
+    Since $z$ is not greater than the normal distribution at 0.01, our null can be assumed to be valid, and that the
+    probability of getting a fracture is lower for soda-free children.
+
+    @@ Construct a 99\% confidence interval for the difference in the probabilities of getting a fraction for non-cola
+    drinking and cola drinking kids. In one of two sentences, interpret this interval for someone who has never taken a
+    statistics course.
+    @@@ To construct a confidence interval we need the following formula.
+
+    \[
+        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1}}{m} + \frac{\hat{p_2}\hat{q_2}}{n}}
+    \]
+
+    <<hw5.4b, tidy=F>>=
+                 z <- qnorm(0.005)
+                 err <- abs(z * sqrt(((p1 * (1 - p1))/m) + ((p2 * (1 - p2))/n)))
+                 lower <- p1 - p2 - err
+                 upper <- p1 - p2 + err
+    @
+
+    Which yields the confidence interval $\left[ \Sexpr{lower}, \Sexpr{upper} \right]$. To the uninitiated, this
+    confidence interval can be interpreted as if we take a group of children partitioned into those who drink soda and
+    those who don't, and apply a consistent force to their leg. The ones that drink soda more often will break a bone
+    than those who don't. The difference between the proportions of the populations of the children with fractures will
+    fall within this interval 99\% of the time.
+\end{easylist}
+
+\newpage
+
+\end{document}

@@ -1,0 +1,531 @@
+\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 5}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 4570}
+\rfoot{Hagar}
+\title{Homework 5}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+
+
+
+\begin{easylist}[enumerate]
+    @ Hexavalent Chromium has been identified as an inhalation carcinogen and an air toxin of concern in a number of
+    different locales. The article gave the data given on both indoor and outdoor concentration (nanograms/meter cubed)
+    for a sample of houses selected from a certain region.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+     \hlstd{hc_data_raw} \hlkwb{<-} \hlkwd{as.list}\hlstd{(}\hlkwd{as.data.frame}\hlstd{(}\hlkwd{t}\hlstd{(}\hlkwd{read.table}\hlstd{(}
+                        \hlstr{'./Hw5_prob1_data.txt'}\hlstd{,}
+                        \hlkwc{header}\hlstd{=F,} \hlkwc{sep}\hlstd{=}\hlstr{','}\hlstd{))))}
+     \hlstd{hcd} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{indoor}\hlstd{=hc_data_raw}\hlopt{$}\hlstd{V1,}
+                       \hlkwc{outdoor}\hlstd{=hc_data_raw}\hlopt{$}\hlstd{V2,}
+                       \hlkwc{diff}\hlstd{=(hc_data_raw}\hlopt{$}\hlstd{V1} \hlopt{-} \hlstd{hc_data_raw}\hlopt{$}\hlstd{V2))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    @@ Calculate a confidence interval for the population mean difference between indoor and outdoor concentrations
+    using a confidence level of 95\%, and interpret the resulting interval. Use your confidence interval to carry out a
+    hypothesis testing if indoor and outdoor concentrations are the same.
+
+    @@@ We can use {\ttfamily R} to perform these calculations. Note, since our dataset has $33
+    < 40$ entries, we need to use the $t$ distribution, defined below.
+
+    \[
+        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n}}
+    \]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{alpha}    \hlkwb{<-} \hlnum{0.05}
+             \hlstd{n}        \hlkwb{<-} \hlkwd{length}\hlstd{(hcd}\hlopt{$}\hlstd{diff)}
+             \hlstd{t}        \hlkwb{<-} \hlkwd{qt}\hlstd{(alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{)}
+             \hlstd{diffsd}   \hlkwb{<-} \hlkwd{sd}\hlstd{(hcd}\hlopt{$}\hlstd{diff)}
+             \hlstd{diffmean} \hlkwb{<-} \hlkwd{mean}\hlstd{(hcd}\hlopt{$}\hlstd{diff)}
+             \hlstd{lower}    \hlkwb{<-} \hlstd{diffmean} \hlopt{-} \hlkwd{abs}\hlstd{(t} \hlopt{*} \hlstd{(diffsd} \hlopt{/} \hlkwd{sqrt}\hlstd{(n)))}
+             \hlstd{upper}    \hlkwb{<-} \hlstd{diffmean} \hlopt{+} \hlkwd{abs}\hlstd{(t} \hlopt{*} \hlstd{(diffsd} \hlopt{/} \hlkwd{sqrt}\hlstd{(n)))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Using these results, we obtain a confidence interval of $\boxed{\left( -0.5611, -0.2868 \right)}$. We
+    can now use this interval to perform hypothesis testing, assuming that the null hypothesis is $indoor = outdoor$.
+    If we use the difference between the two datasets as our test statistic, normalize it, and then compare it versus
+    the normal distribution, we can determine our p-values. Note, since our hypothesis deals with equality, our testing
+    must be two-tailed. If we let $X$ be the difference between the two datasets, then our corresponding z test is
+
+    \[
+        Z = \frac{X - \mu}{\sigma/\sqrt{n}}
+    \]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{normaldiff} \hlkwb{<-} \hlstd{(hcd}\hlopt{$}\hlstd{diff} \hlopt{-} \hlstd{diffmean)}\hlopt{/}\hlstd{(diffsd} \hlopt{/} \hlkwd{sqrt}\hlstd{(n))}
+             \hlstd{p} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{vals}\hlstd{=}\hlnum{2} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hlstd{(}\hlkwd{abs}\hlstd{(normaldiff))))}
+             \hlkwd{plot_p_vals}\hlstd{(p)}
+\end{alltt}
+\end{kframe}\begin{figure}[H]
+
+
+{\centering \includegraphics[width=\maxwidth]{figure/hw5_1a_pvals} 
+
+}
+
+\caption[P-Values]{P-Values\label{fig:hw5.1a.pvals}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+    If you'll note, our p-values are highly weighted towards zero. In fact, most elements fall below 0.05. This
+    indicates strong evidence against the null hypothesis.
+
+    @@ If a 34th house were to be randomly selected from the population, between what values would you predict the
+    difference in concentrations to lie?
+    @@@ WE IGNORE THIS ONE!
+    @@ Construct the 95\% confidence intervals for the indoor and for the outdoor true concentration. Do these CIs
+    overlap, and what does that imply about the hypothesis test in part (a)? Write a paragraph justifying your answer.
+    @@@ Constructing a confidence interval for the two datasets is straightforward.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{indoor_sd} \hlkwb{<-} \hlkwd{sd}\hlstd{(hcd}\hlopt{$}\hlstd{indoor)}
+             \hlstd{indoor_mean} \hlkwb{<-} \hlkwd{mean}\hlstd{(hcd}\hlopt{$}\hlstd{indoor)}
+             \hlstd{indoor_err} \hlkwb{<-} \hlkwd{abs}\hlstd{(t} \hlopt{*} \hlstd{(indoor_sd} \hlopt{/} \hlkwd{sqrt}\hlstd{(n)))}
+             \hlstd{indoor_ci} \hlkwb{<-} \hlkwd{c}\hlstd{(indoor_mean} \hlopt{-} \hlstd{indoor_err,}
+                             \hlstd{indoor_mean} \hlopt{+} \hlstd{indoor_err)}
+
+             \hlstd{outdoor_sd} \hlkwb{<-} \hlkwd{sd}\hlstd{(hcd}\hlopt{$}\hlstd{outdoor)}
+             \hlstd{outdoor_mean} \hlkwb{<-} \hlkwd{mean}\hlstd{(hcd}\hlopt{$}\hlstd{outdoor)}
+             \hlstd{outdoor_err} \hlkwb{<-} \hlkwd{abs}\hlstd{(t} \hlopt{*} \hlstd{(outdoor_sd} \hlopt{/} \hlkwd{sqrt}\hlstd{(n)))}
+             \hlstd{outdoor_ci} \hlkwb{<-} \hlkwd{c}\hlstd{(outdoor_mean} \hlopt{-} \hlstd{outdoor_err,}
+                              \hlstd{outdoor_mean} \hlopt{+} \hlstd{outdoor_err)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    This results in the intervals being:
+
+    \[
+        \begin{aligned}
+            \text{Indoor} = \left[ 0.1854, 0.2765 \right]\\
+            \text{Outdoor} = \left[ 0.5201, 0.7896 \right]
+        \end{aligned}
+    \]
+
+    If you'll note, these two confidence intervals \textit{do not} overlap! Now, since the given dataset is relatively
+    small, our confidence interval may not contain the true mean of the data. This is unlikely. Therefore, it follows
+    that the hypothesis previously stated (that the difference of the two datasets would be equal) should not be
+    possible since the means are so far away.
+
+
+    @ Back to the ladybugs! Recall that aphid infestation of fruit trees is usally controlled either via pesticides or
+    via ladybug innundation. In a particular area, 2 different (and well isolated) groves, with 15 fruit trees each are
+    selected for an experiment. The trees in both groves are of the same age, roughly the same size, and can be assumed
+    to be independent. One grove is sprayed with pesticides, and one is flooded with ladybugs. The fruit yield(in
+    pounds) for each tree is given.
+
+    @@ Assume that these two samples come from a normal distribution. Find the sample means of yields for the two
+    groves, and provide the two 95\% confidence intervals for the true mean yields for trees under the two treatments.
+
+    @@@ Defining our confidence interval using the $t$ distribution, we obtain
+
+    \[
+        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n}} \right)
+    \]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{lbd} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}
+                     \hlstr{'./treedata.txt'}\hlstd{,}
+                     \hlkwc{sep}\hlstd{=}\hlstr{','}\hlstd{)}
+             \hlstd{n}   \hlkwb{<-} \hlkwd{length}\hlstd{(lbd}\hlopt{$}\hlstd{pest)}
+             \hlstd{t}   \hlkwb{<-} \hlkwd{qt}\hlstd{(alpha} \hlopt{/} \hlnum{2}\hlstd{,} \hlkwc{df}\hlstd{=n} \hlopt{-} \hlnum{1}\hlstd{)}
+             \hlstd{pm}  \hlkwb{<-} \hlkwd{mean}\hlstd{(lbd}\hlopt{$}\hlstd{pest)}
+             \hlstd{lm}  \hlkwb{<-} \hlkwd{mean}\hlstd{(lbd}\hlopt{$}\hlstd{lady)}
+             \hlstd{per} \hlkwb{<-} \hlkwd{abs}\hlstd{(t}\hlopt{*}\hlstd{(}\hlkwd{sd}\hlstd{(lbd}\hlopt{$}\hlstd{pest)}\hlopt{/}\hlkwd{sqrt}\hlstd{(n)))}
+             \hlstd{plw} \hlkwb{<-} \hlstd{pm} \hlopt{-} \hlstd{per}
+             \hlstd{pup} \hlkwb{<-} \hlstd{pm} \hlopt{+} \hlstd{per}
+             \hlstd{ler} \hlkwb{<-} \hlkwd{abs}\hlstd{(t}\hlopt{*}\hlstd{(}\hlkwd{sd}\hlstd{(lbd}\hlopt{$}\hlstd{lady)}\hlopt{/}\hlkwd{sqrt}\hlstd{(n)))}
+             \hlstd{llw} \hlkwb{<-} \hlstd{lm} \hlopt{-} \hlstd{ler}
+             \hlstd{lup} \hlkwb{<-} \hlstd{lm} \hlopt{+} \hlstd{ler}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    We find the sample mean of yield for the Pesticide grove to be $39.2754$, and the sample mean of yield for the
+    Ladybug grove to be $47.7767$. Using these with the assumption of normality we can determine the 95\% confidence
+    intervals for the sample mean for both groves, using the $t$ distribution since $n=15$. The pesticide grove mean
+    confidence interval is identified to be $\left( 34.562, 43.9889 \right)$, and the ladybug grove mean
+    confidence interval is identified as $\left( 42.9522, 52.6011 \right)$.
+
+    @@ What are the sample variances for the yields in the two groves? Test the equality of these two variance using a
+    significance level of 5\%.
+    @@@ Identifying the variances is relatively straightforward.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{vars} \hlkwb{<-} \hlkwd{var}\hlstd{(lbd)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which results in
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|l|l|}
+            \hline
+            & {\ttfamily pest} & {\ttfamily lady}\\
+            \hline
+            {\ttfamily pest} & $72.4448$ & $-4.0252$\\
+            \hline
+            {\ttfamily lady} & $-4.0252$ & $75.8964$\\
+            \hline
+        \end{tabular}
+        \caption{Covariances of Tree Data}
+        \label{table:treevars}
+    \end{table}
+
+    Now we can test the variance's equality. Let our hypothesis be that the two variances are equal, and our test
+    statistic equal to
+
+    \[
+        \frac{s_1}{s_2}
+    \]
+
+    We can now use the F distribution\footnote{$ F_{\alpha, m - 1, n - 1} $} to determine our p-values.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{alpha} \hlkwb{<-} \hlnum{0.05}
+             \hlstd{s1} \hlkwb{<-} \hlstd{vars[}\hlnum{1}\hlstd{]}
+             \hlstd{s2} \hlkwb{<-} \hlstd{vars[}\hlnum{4}\hlstd{]}
+             \hlstd{f} \hlkwb{<-} \hlstd{s1} \hlopt{/} \hlstd{s2}
+             \hlstd{lF} \hlkwb{<-} \hlkwd{qf}\hlstd{(alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{)}
+             \hlstd{uF} \hlkwb{<-} \hlkwd{qf}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Using these values we see that $0.3357 \le 0.9545 \le 2.9786$, therefore the variances are probably
+    equal.
+
+    @@ Depending on your answer, test the equality of the two mean yields.
+    @@@ Examining the yields, we see that we can test mean equality using a pooled t test procedure. Let $X$ be the
+    difference in the means, $\mu_1 - \mu_2$. We can also calculate our shared variance
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{diff} \hlkwb{<-} \hlstd{lbd}\hlopt{$}\hlstd{pest} \hlopt{-} \hlstd{lbd}\hlopt{$}\hlstd{lady}
+             \hlstd{mu} \hlkwb{<-} \hlkwd{mean}\hlstd{(diff)}
+             \hlstd{c} \hlkwb{<-} \hlstd{(n} \hlopt{-} \hlnum{1}\hlstd{)} \hlopt{/} \hlstd{(}\hlnum{2}\hlopt{*}\hlstd{n}  \hlopt{-} \hlnum{2}\hlstd{)}
+             \hlstd{s} \hlkwb{<-} \hlstd{c} \hlopt{*} \hlkwd{sd}\hlstd{(lbd}\hlopt{$}\hlstd{pest)} \hlopt{+} \hlstd{c} \hlopt{*} \hlkwd{sd}\hlstd{(lbd}\hlopt{$}\hlstd{lady)}
+             \hlstd{z} \hlkwb{<-} \hlstd{(diff} \hlopt{-} \hlstd{mu)} \hlopt{/} \hlkwd{sqrt}\hlstd{(s)}
+             \hlstd{p} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{vals}\hlstd{=}\hlnum{2}\hlopt{*}\hlstd{(}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hlstd{(}\hlkwd{abs}\hlstd{(z))))}
+             \hlkwd{plot_p_vals}\hlstd{(p)}
+\end{alltt}
+\end{kframe}\begin{figure}[H]
+
+
+{\centering \includegraphics[width=\maxwidth]{figure/hw5_2c} 
+
+}
+
+\caption[P-Values]{P-Values\label{fig:hw5.2c}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+    Note, almost all values calculated have probability of appearing less than 5\% of the time. This indicates that the
+    means are probably unequal.
+
+    @ A controlled clinical trial was run to investigate the effect of the drug stelazine on chronic schizophrenics.
+    The data is given in the spreadsheet and shows the change in the patients behavior rating score after 3 months. Use
+    appropriate hypothesis tests to answer the following two questions, being sure to complete each of the four steps:
+
+    (i) State the two hypotheses being tested.
+
+    (ii) Compute the appropriate test statistic, degrees of freedom, and p-value.
+
+    (iii) Decide whether to reject the null using a significance level of 0.05
+
+    (iv) Conclude by writing a short sentence explaining your decision.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+     \hlstd{a_st} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0.8}\hlstd{,} \hlnum{0.1}\hlstd{,} \hlnum{0.55}\hlstd{,} \hlnum{0.6}\hlstd{,} \hlnum{0.34}\hlstd{,} \hlnum{1.42}\hlstd{,} \hlnum{1.74}\hlstd{,} \hlopt{-}\hlnum{0.29}\hlstd{,} \hlnum{0.53}\hlstd{)}
+     \hlstd{a_pl} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{0.4}\hlstd{,} \hlnum{0.4}\hlstd{,} \hlopt{-}\hlnum{0.1}\hlstd{,} \hlopt{-}\hlnum{0.9}\hlstd{,} \hlnum{0.2}\hlstd{,} \hlnum{0.78}\hlstd{,} \hlnum{0.3}\hlstd{,} \hlnum{0.64}\hlstd{,} \hlnum{0.42}\hlstd{)}
+     \hlstd{a_df} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1.2}\hlstd{,} \hlopt{-}\hlnum{0.3}\hlstd{,} \hlnum{0.65}\hlstd{,} \hlnum{1.5}\hlstd{,} \hlnum{0.14}\hlstd{,} \hlnum{0.64}\hlstd{,} \hlnum{1.44}\hlstd{,} \hlopt{-}\hlnum{0.93}\hlstd{,} \hlnum{0.11}\hlstd{)}
+
+     \hlstd{b_st} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{0.45}\hlstd{,} \hlnum{0.15}\hlstd{,} \hlopt{-}\hlnum{0.19}\hlstd{,} \hlnum{0.12}\hlstd{,} \hlnum{0.03}\hlstd{,} \hlopt{-}\hlnum{0.15}\hlstd{,} \hlnum{0.48}\hlstd{)}
+     \hlstd{b_pl} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0.01}\hlstd{,} \hlnum{0.14}\hlstd{,} \hlopt{-}\hlnum{0.55}\hlstd{,} \hlopt{-}\hlnum{0.05}\hlstd{,} \hlnum{0.04}\hlstd{,} \hlopt{-}\hlnum{1.16}\hlstd{,} \hlopt{-}\hlnum{0.16}\hlstd{)}
+     \hlstd{b_df} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{0.46}\hlstd{,} \hlnum{0.01}\hlstd{,} \hlnum{0.36}\hlstd{,} \hlnum{0.17}\hlstd{,} \hlopt{-}\hlnum{0.01}\hlstd{,} \hlnum{1.01}\hlstd{,} \hlnum{0.64}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+
+    @@ Considering all patients, test whether the average behavior change is higher for patients using stelazine than
+    for patients receiving a placebo.
+    @@@ If we consider all patients, we can essentially pool everything together, ignoring the artificial difference of
+    ward. In this case we assume the null hypothesis to be that stelazine was more beneficial for the patients than the
+    placebo, in other words if the mean change in behavior of those on the drug exceeded the mean change of those on the
+    placebo. We can express this by examining the difference in behaviors from stelazine patients and their placebo
+    pairing. We also assume that the alternate hypothesis is that the placebo was more beneficial than the stelazine.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{st} \hlkwb{<-} \hlkwd{c}\hlstd{(a_st, b_st)}
+             \hlstd{pl} \hlkwb{<-} \hlkwd{c}\hlstd{(a_pl, b_pl)}
+             \hlstd{diff} \hlkwb{<-} \hlkwd{c}\hlstd{(a_df, b_df)}
+             \hlstd{z} \hlkwb{<-} \hlstd{(diff} \hlopt{-} \hlkwd{mean}\hlstd{(diff))} \hlopt{/} \hlkwd{sd}\hlstd{(diff)}
+             \hlstd{p} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{vals}\hlstd{=}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hlstd{(z))}
+             \hlkwd{plot_p_vals}\hlstd{(p)}
+\end{alltt}
+\end{kframe}\begin{figure}[H]
+
+
+{\centering \includegraphics[width=\maxwidth]{figure/hw5_3a} 
+
+}
+
+\caption[P-Values]{P-Values\label{fig:hw5.3a}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+    Since our p values are normally distributed (or at least appear to be given our dataset), we do not reject the null
+    hypotheses.\newline
+
+    In the context of the problem, this indicates that the patients who were administered stelazine improved more than
+    those given the placebo.
+
+    @@ Using the differences, S-P, test whether stelazine is more effective on average in one of the wards than in the
+    other. Carry out the appropriate test for the equality of variance if necessary. Were we right to combine all
+    patients for our answer in (a)?
+    @@@ Our null hypothesis in this case is that stelazine in ward A is more effective than stelazine in ward B. If we
+    let $\mu_{A,1}$ be the mean change for ward A patients on stelazine, $\mu_{A,2}$ the mean change for the placebo
+    patients in ward A, $\mu_{B,1}$ the mean change for stelazine patients in ward B, and $\mu_{B,2}$ the mean change
+    for patients using the placebo, then we can define our null to be
+
+    \[
+        \begin{aligned}
+            ( \mu_{A,1} - \mu_{A,2} ) - ( \mu_{B,1} - \mu_{B,2} ) > 0\\
+            \mu_{A,diff} - \mu_{B,diff} > 0
+        \end{aligned}
+    \]
+
+    Before we examine the differences of our datasets, we can first examine our data itself and determine whether or not
+    it is from the same distribution, starting with testing equality of the variances.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{f} \hlkwb{<-} \hlkwd{var}\hlstd{(a_df)} \hlopt{/} \hlkwd{var}\hlstd{(b_df)}
+             \hlstd{m} \hlkwb{<-} \hlkwd{length}\hlstd{(a_df)}
+             \hlstd{n} \hlkwb{<-} \hlkwd{length}\hlstd{(b_df)}
+             \hlstd{alpha} \hlkwb{<-} \hlnum{0.05}
+             \hlstd{lower} \hlkwb{<-} \hlkwd{qf}\hlstd{(alpha} \hlopt{/} \hlnum{2}\hlstd{, m} \hlopt{-} \hlnum{1}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{)}
+             \hlstd{upper} \hlkwb{<-} \hlkwd{qf}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{alpha} \hlopt{/} \hlnum{2}\hlstd{, m} \hlopt{-} \hlnum{1}\hlstd{, n} \hlopt{-} \hlnum{1}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Since $0.215 \le 2.9306 \le 5.5996$ with p-value $0.8964$, we know that the variances
+    are probably equal, therefore if we assume that the distribution is normal in each ward, we can perform a pooled-t
+    test.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{s} \hlkwb{<-} \hlstd{((m} \hlopt{-} \hlnum{1}\hlstd{)}\hlopt{/}\hlstd{(m} \hlopt{+} \hlstd{n} \hlopt{-} \hlnum{2}\hlstd{))} \hlopt{*} \hlkwd{var}\hlstd{(a_df)} \hlopt{+}
+                     \hlstd{((n} \hlopt{-} \hlnum{1}\hlstd{)}\hlopt{/}\hlstd{(m} \hlopt{+} \hlstd{n} \hlopt{-} \hlnum{2}\hlstd{))} \hlopt{*} \hlkwd{var}\hlstd{(b_df)}
+             \hlstd{z} \hlkwb{<-} \hlstd{(}\hlkwd{mean}\hlstd{(a_df)} \hlopt{-} \hlkwd{mean}\hlstd{(b_df))} \hlopt{/}
+                     \hlkwd{sqrt}\hlstd{(s} \hlopt{*} \hlstd{((}\hlnum{1}\hlopt{/}\hlstd{m)} \hlopt{+} \hlstd{(}\hlnum{1}\hlopt{/}\hlstd{n)))}
+             \hlstd{p} \hlkwb{<-} \hlnum{2} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hlstd{(}\hlkwd{abs}\hlstd{(z)))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    The p-value of $0.4775$ informs us that the distributions have not only similar variance, but also similar means,
+    and are therefore the same. This also tells us that combining the wards for part (a) was correct, as the patient
+    pairs all come from the same distribution.
+
+    @ A study performed in Boston showed a link between soda and weak bones. Among 57 active children who do not drink
+    soda, 5 suffered fractures. Among 107 active children who reported drinking soda, 38 suffered fractures. The study
+    did not specify how much soda the children drank.
+
+    @@ Using a two-sample test of proportions, determine whether this study provides significant evidence at the 1\%
+    level to suggest that the probability of getting a fracture is lower for kids that do not drink soda than it is for
+    kids that do drink soda.
+    @@@ We can first identify our two estimators for the proportion of fractured children. Let $\hat{p_1}$ the the
+    sample proportion of fractured children who do not drink soda, and similarly $\hat{p_2}$ the sample proportion of
+    fractured children who do drink soda.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{p1} \hlkwb{<-} \hlnum{5} \hlopt{/} \hlnum{57}
+             \hlstd{m}  \hlkwb{<-} \hlnum{57}
+             \hlstd{p2} \hlkwb{<-} \hlnum{38} \hlopt{/} \hlnum{107}
+             \hlstd{n}  \hlkwb{<-} \hlnum{107}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    We know that we are interested in the value $\hat{p_1} - \hat{p_2}$, which, if equal to zero, would indicate that
+    there is no difference between drinking soda and not. Therefore we are only interested in $\hat{p_1} - \hat{p_2} >
+    0$, which we take as our null hypothesis. We use z to determine the validity of our null hypothesis.
+
+    \[
+        z = \frac{\hat{p_1} - \hat{p_2}}{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)}}
+    \]
+
+    Where $\hat{p}$ is
+
+    \[
+        \hat{p} = \frac{m}{m + n} \cdot \hat{p_1} + \frac{n}{m + n} \cdot \hat{p_2}
+    \]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{phat} \hlkwb{<-} \hlstd{((m)}\hlopt{/}\hlstd{(m} \hlopt{+} \hlstd{n))}\hlopt{*}\hlstd{p1} \hlopt{+} \hlstd{((m)}\hlopt{/}\hlstd{(m} \hlopt{+} \hlstd{n))}\hlopt{*}\hlstd{p2}
+             \hlstd{q} \hlkwb{<-} \hlnum{1} \hlopt{-} \hlstd{phat}
+             \hlstd{z} \hlkwb{<-} \hlstd{(p1} \hlopt{-} \hlstd{p2)} \hlopt{/} \hlkwd{sqrt}\hlstd{(phat} \hlopt{*} \hlstd{q} \hlopt{*} \hlstd{((}\hlnum{1} \hlopt{/} \hlstd{m)} \hlopt{+} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{n)))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Using this calculated z we see that
+
+    \[
+        z \ge z_{0.01} \Rightarrow -4.5191 \ge -2.3263
+    \]
+
+    Since $z$ is not greater than the normal distribution at 0.01, our null can be assumed to be valid, and that the
+    probability of getting a fracture is lower for soda-free children.
+
+    @@ Construct a 99\% confidence interval for the difference in the probabilities of getting a fraction for non-cola
+    drinking and cola drinking kids. In one of two sentences, interpret this interval for someone who has never taken a
+    statistics course.
+    @@@ To construct a confidence interval we need the following formula.
+
+    \[
+        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1}}{m} + \frac{\hat{p_2}\hat{q_2}}{n}}
+    \]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+             \hlstd{z} \hlkwb{<-} \hlkwd{qnorm}\hlstd{(}\hlnum{0.005}\hlstd{)}
+             \hlstd{err} \hlkwb{<-} \hlkwd{abs}\hlstd{(z} \hlopt{*} \hlkwd{sqrt}\hlstd{(((p1} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{p1))}\hlopt{/}\hlstd{m)} \hlopt{+} \hlstd{((p2} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{p2))}\hlopt{/}\hlstd{n)))}
+             \hlstd{lower} \hlkwb{<-} \hlstd{p1} \hlopt{-} \hlstd{p2} \hlopt{-} \hlstd{err}
+             \hlstd{upper} \hlkwb{<-} \hlstd{p1} \hlopt{-} \hlstd{p2} \hlopt{+} \hlstd{err}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+    Which yields the confidence interval $\left[ -0.4208, -0.1141 \right]$. To the uninitiated, this
+    confidence interval can be interpreted as if we take a group of children partitioned into those who drink soda and
+    those who don't, and apply a consistent force to their leg. The ones that drink soda more often will break a bone
+    than those who don't. The difference between the proportions of the populations of the children with fractures will
+    fall within this interval 99\% of the time.
+\end{easylist}
+
+\newpage
+
+\end{document}

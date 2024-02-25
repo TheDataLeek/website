@@ -1,0 +1,245 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Homework 4}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{APPM 4570}
+\rfoot{Hagar}
+\title{Homework 4}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ For independent random variables $X$ and $Y$, we know that $f(x,y)=f_1(x) f_2(y)$ where $f_1$ is the marginal
+    density of $X$ and $f_2$ is the marginal density of $Y$. Using this, show that:
+    @@ $E(XY) = E(X)E(Y)$
+    @@@ We can rewrite this using the definition of expected value:
+
+    \[
+        \begin{aligned}
+            \int^\infty_{-\infty}\int^\infty_{-\infty} xy f_1(x) f_2(y) \, dx \, dy =
+            \int_{-\infty}^\infty x f_1(x) \, dx \int_{-\infty}^\infty y f_2(y) \, dy\\
+            \text{Which can be rewritten as}\\
+            \int_{-\infty}^\infty x f_1(x) \, dx \int_{-\infty}^\infty y f_2(y) \, dy =
+            \int_{-\infty}^\infty x f_1(x) \, dx \int_{-\infty}^\infty y f_2(y) \, dy\\
+        \end{aligned}
+    \]
+
+    This is all dependent on that fact that (a) the two random variables are independent, as well as the fact that the
+    integrals are only dependent on one variable at a time.
+
+    @@ $\Var(X + Y) = \Var(X) + \Var(Y)$
+    @@@ 
+
+    \[
+        \begin{aligned}
+            \Var(X + Y) &=& E\left[ {\left( X + Y - E(X + Y) \right)}^2 \right]\\
+                    &=& E \left[ {\left( X + Y - E(X) - E(Y) \right)}^2 \right]\\
+                    &=& E \left[ {\left( X - E(X) \right)}^2 \right] + E \left[ {\left( Y - E(Y) \right)}^2 \right]\\
+                    & & + \cancel{2 E \left[ {\left( X - E(X) \right)}{\left( Y - E(Y) \right)} \right]}\\
+                    \Var(X + Y) &=& {E\left[ {\left( X - E(X) \right)}^2\right] + E\left[ {\left( Y - E(Y)
+                    \right)}^2\right]}_\blacksquare
+        \end{aligned}
+    \]
+
+    @ At time $t=0$, a lab technician starts an experiment where 20 identical components are tested. The lifetime
+    distribution of each component is exponential with mean lifetime $w$ hours. The technician leaves the test facility
+    right away, and comes back in 24 hours to find 15 components still running (and 5 of them failed). Based on this
+    sample find the MLE for $w$.
+    @@ If the components have an exponential distribution, than we can determine the pdf
+
+    \[
+        f(x; \lambda=w) =
+        \begin{cases}
+            \lambda e^{-\lambda x}\\
+            0
+        \end{cases} \Rightarrow
+        \begin{cases}
+            w e^{-w x} &\to x \ge 0\\
+            0 &\to Otherwise
+        \end{cases}
+    \]
+
+    Given that we do not know the exact lifetimes of each component, we need to take a slightly different approach from
+    the standard. We know that since the lifetime of these components is based on the exponential distribution, that the
+    probability that any given component will survive until the twenty-fourth hour is
+
+    \[ P(X > 24) = 1 - P(X \le 24) = e^{-\lambda 24} \]
+
+    And while we don't know the rate parameter, we do know the mean and the relationship between the
+    two\footnote{$\lambda = w^{-1}$}, yielding
+
+    \[ P(X > 24) = e^{-w^{-1} 24} = e^\frac{-24}{w} \]
+
+    Now that this has been established we can set up the probability that these components were to fail after 24 hours,
+    by letting $Y$ be the number of failed components. In fact, this equation can also be thought of as the likelihood
+    function, because we know how many failed, which ones failed, and which ones survived. Let $p$ be the probability
+    that any given component fails.
+
+    \[
+        \begin{aligned}
+            P(Y=y=5) &=&
+            \begin{cases}
+                {\left( p \right)}^y
+                    {\left( 1 - p \right)}^{20-y} &\to y \in \{0, 1, \ldots, 19, 20\}\\
+                0 &\to Otherwise
+            \end{cases}\\
+            &=& \begin{cases}
+                {\left( p \right)}^5
+                    {\left( 1 - p\right)}^{15} &\to y \in \{0, 1, \ldots, 19, 20\}\\
+                0 &\to Otherwise
+            \end{cases}
+        \end{aligned}
+    \]
+
+    We can take this likelihood function and turn it into the log-likelihood function, yielding
+
+    \[
+        \begin{aligned}
+            L &=& {\left( p \right)}^5 {\left( 1-p\right)}^{15}\\
+            \ln L &=& \ln \left( {\left( p \right)}^5 {\left( 1-p\right)}^{15} \right)
+        \end{aligned}
+    \]
+
+    Which we can take the derivative of with respect to $p$, set equal to zero, and solve.
+
+    \[
+        \begin{aligned}
+            \frac{\partial \ln L}{\partial p} = \frac{5 - 20p}{p-p^2} &=& 0\\
+            \hat{p} &=& \frac{1}{4}\\
+            \text{We know that } p &=& 1 - e^\frac{-24}{w}\\
+            \hat{w} &=& \frac{-24}{\ln(1-p)}\\
+            \text{Solving for } \hat{w} &=& \frac{-24}{\ln \left( \frac{3}{4} \right)} \approx \boxed{83.4254}
+        \end{aligned}
+    \]
+
+    We aren't quite done, as we haven't converted this back to the form of the exponential distribution. When we do
+    this we see that $\lambda = 0.0119868$.
+
+    @ Aphid infestation of fruit trees is usually controlled either via pesticides or via ladybug inundation. In a
+    particular area, 2 different (and well isolated) groves, with 15 fruit trees each, are selected for an experiment.
+    The trees in both groves are of the same age, roughly the same size, and can be assumed to be independent. One grove
+    is sprayed with pesticides, and one is flooded with ladybugs. The fruit yield in pounds for each tree is given.
+    @@ Plot the histograms of the yields in the two groves.
+    @@@ Pictured in Figure~\ref{fig:hist_groves}. The top row has been created with binsize 10, and the bottom with
+    binsize 5, while the left column is the pesticide distribution with the right being the ladybugs distribution.
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[scale=0.5]{./img/hist_groves.png}
+            \caption{Histograms of the Groves of Trees with Normal Overlay}
+            \label{fig:hist_groves}
+        \end{figure}
+
+    @@ Comment on the histogram shapes. Which densities do they resemble? In particular, do they appear normal?
+    @@@ Both distributions are limited in that we only have 15 data points to use to determine any information about
+    that data. This means that any and all decisions made must be taken lightly, for we simply do not have enough data
+    to come to any concrete observations. That being said, both distributions look very similar to some derivation of
+    the normal distribution. Given how probability distributions work however, it is also a complete possibility that
+    we've received the more unique entries, and it would be improper to assume wholeheartedly that the data is
+    normal.\newline
+
+    This all being said however, given the relative lack of data we will proceed to assume that both distributions are
+    normal. Please reference Figure~\ref{fig:hist_groves} in order to see the similarities between the collected data
+    and the normal distribution.
+    @@ Find the sample means of yields for the two groves.
+    @@@ We can use {\ttfamily R}'s summary function to determine the necessary elements.
+
+        \begin{verbatim}
+                pest            lady
+                Min.   :22.85   Min.   :35.52
+                1st Qu.:34.58   1st Qu.:41.88
+                Median :38.50   Median :46.98
+                Mean   :39.28   Mean   :47.78
+                3rd Qu.:44.55   3rd Qu.:50.47
+                Max.   :55.57   Max.   :70.17
+                sd     :8.511   sd     :8.711
+                var    :72.44   var    :75.89
+        \end{verbatim}
+
+    @@ Using your conclusion in (b) and answer in (c), provide the two 95\% confidence intervals for the true mean
+    yields for trees under the two treatments.
+    @@@ Let's first examine the pesticide tree distribution. We've determined the sample mean is $\overline{x} = 39.28$,
+    and the sample standard deviation to be $s = 8.511$. Since our $n$ is relatively small, we'll use the $t$
+    distribution with $\alpha = 0.5$ in order to find our confidence interval, which is defined as
+
+    \[
+        \left( \overline{x} - t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n}},
+        \overline{x} + t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n}} \right)
+    \]
+
+    We can now substitue the known values.
+
+    \[
+        \left(
+            39.28 - 2.144787 \cdot \frac{8.511}{\sqrt{15}},
+            39.28 + 2.144787 \cdot \frac{8.511}{\sqrt{15}},
+        \right)
+    \]
+
+    Therefore our interval is equal to $\boxed{(34.56197, 43.98893)}$.\newline
+
+    For the second distribution we can use the exact same process.
+
+    \[
+        \left(
+            47.78 - 2.144787 \cdot \frac{8.711}{\sqrt{15}},
+            47.78 + 2.144787 \cdot \frac{8.711}{\sqrt{15}},
+        \right)
+    \]
+
+    For which we determine our interval to be $\boxed{(42.95220, 52.60113)}$.
+
+    @@ Interpret one of the confidence intervals you constructed.
+    @@@ Examining the pesticide distribution we can interpret exactly what our interval indicates. If we were to
+    reproduce this experiment thousands of times, our interval tells us that 95\% of the time, the true mean would fall
+    within our interval. In other words, since our interval will vary from sample to sample, 95\% of the time when we
+    calculate our interval we'll capture the true mean.
+    @@ Find the sample variances for the yields in the two groves.
+    @@@ Please reference the above summary for the variances. Note, the variance is simply the standard deviation
+    squared, all of which can be calculated either by hand or by using built in {\ttfamily R} functions {\ttfamily sd}
+    and {\ttfamily var}.
+    @@ We have learned how to construct confidence intervals for the variance of a normal distribution -- we do that
+    using a chi-square distribution. For the grove(s) with approximately normal yield, construct the 95\% confidence
+    interval for the true variance of yield.
+    @@@ We've assumed that both distributions are to be normal\footnote{Or normal enough for rough approximations given
+    the relative lack of data supplied}, and thereby we must examine both. The process is the same for both however, so
+    we'll first determine the equation, and then substitute the values.\newline
+
+    The 95\% confidence interval for the variance of a population is defined as
+
+    \[
+        \left(
+            \frac{(n - 1) s^2}{\chi^2_{\alpha/2, n-1}},
+            \frac{(n - 1) s^2}{\chi^2_{1 - \alpha/2, n-1}}
+        \right)
+    \]
+
+    To which we can insert the known quantities and determine the bounds.
+
+    \[
+        \left(
+            \frac{14 {\{8.511, 8.711\}}^2}{\chi^2_{\alpha/2, n-1}},
+            \frac{14 {\{8.511, 8.711\}}^2}{\chi^2_{1 - \alpha/2, n-1}}
+        \right)
+    \]
+
+    Which tells us the pesticide distribution variance bounds to be $\boxed{(4.562216, 21.170025)}$, and the ladybug
+    distribution variance bounds to be $\boxed{(4.669635, 21.668483)}$. Note that these distributions are very similar,
+    and so are the sample standard deviations.
+\end{easylist}
+
+\newpage
+
+
+\end{document}

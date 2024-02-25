@@ -1,0 +1,298 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{CSCI 3104 Notes}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\lfoot{CSCI 3104}
+\rfoot{Clauset}
+\title{CSCI 3104 Notes}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\tableofcontents    % Table of contents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Complexity}
+
+    \subsection{Atomic Operations}
+    Any fundamental operation that is performed: $ +, *, /, -, <<. >>, <, >, = $, assignment.
+
+    \subsection{Big-O Notation}
+    Big-O is a method to asymptotically analyze an equation or algorithm. When we analyze a process we're concerned about the complexity of two things: time and space.
+
+    These could be represented by two different equations
+
+        \[ \begin{cases} Time \to f(n)\\ Space \to g(n) \end{cases} \]
+
+    and further summarized by a limit of the ratio\footnote{This ratio can be reduced by L'Hospital's Rule until we determine the constant ratio}
+
+        \[ \lim_{n \to \infty} \frac{f(n)}{g(n)} \]
+
+    \begin{thm}
+        Let $f(n)$ and $g(n)$ be functions $\mathbb{N} \to \mathbb{R}$. We say $f = O(g)$, which means if there is $c > 0$ such that $f(n) \le c \cdot g(n)$.
+    \end{thm}
+
+    \subsection{Big-$\Theta$ Notation}
+    Big-$\Theta$ notation is the original notation and all others are merely spin-offs.
+
+    \begin{thm}
+        A function (or algorithm), $f(n)$, is Big-$\Theta$ of $g(n)$ if $ (\exists c_1 > 0, c_2 > 0, \forall n > n_0 > 0)[c_1 g(n) \le f(n) \le c_2 g(n)] $. We denote this $f(n) = \Theta(g(n))$.
+    \end{thm}
+
+\section{Sorting}
+    \subsection{Divide and Conquer}
+
+    This is a classic strategy to solve complex problems.
+
+    \NewList
+    \begin{easylist}[enumerate]
+        @ Divide the problem into $n$ sub-problems
+        @ Conquer each sub-problem individually
+        @ Combine the sub-problems back into the original problem.
+    \end{easylist}
+
+    A typical divide and conquet algorithm will look as such.
+
+    \begin{pythoncode*}{gobble=4}
+        def fun(n)
+            if n == trivial:
+                solve and return
+            else
+                partA = fun(n_)
+                partB = fun(n - n_)
+                AB    = combine(A, B)
+                return AB
+    \end{pythoncode*}
+
+    This code will create a binary tree with depth $n$ containing trivial problems on the left branches. This is commonly known as \textit{tail recursion}. The problem is being divided, but very slowly - removing a small part of the problem every step.
+
+        \subsubsection{Recurrence Relations}
+        Generally of the form
+
+            \[ T(n) = \underbrace{a}_{\text{Number of Recursive Calls}} \cdot
+                        \overbrace{T(\underbrace{g(n)}_{\text{Method of Reducing the Problem}})}^{\text{Cost of Recursion}} +
+                        \underbrace{f(n)}_{\text{Cost of Non-Recursive Work}} \]
+
+        If the problem is divided in twain it will generate a binary tree with approximate depth of $\log_2(n)$.
+
+    \subsection{Bubblesort}
+    While a pair of entries is out of order, loop and fix each pair each step.
+
+    \subsection{Quicksort}
+    Pick a pivot and sort the items in relation to the pivot.
+
+    \begin{pythoncode*}{gobble=8}
+        # precon:  A is an array to be sorted, p >= 1, r <= |A|
+        # postcon: A[p:r] is sorted
+        def quicksort(A, p, r):
+            if p < r:
+                q = partition(A, p, r)
+                quicksort(A, p, q - 1)
+                quicksort(A, q - 1, r)
+
+        # precon:  A[p:r] is input, p >= 1, r <= |A|
+        #          A[r] is the pivot
+        # postcon: A_ is A after function
+        #          A_[p:r] contains some elements in A[p:r]
+        #          A_[p:res - 1] <= A[r], A_[res] - A[r]
+        #          A_[res + 1:r] > A[r]
+        def partition(A, p, r):
+            x = A[r]                     # Choose Pivot
+            i = p - 1
+            for (j=p; j <= r - 1; j++):
+                if A[j] <= x:
+                    i++
+                    exchange(A[i], A[j])
+            exchange(A[i + 1], A[r])
+            return i + 1
+    \end{pythoncode*}
+
+        \subsubsection{Loop Invariants}
+        These are claims that hold at the beginning of each loop.
+
+        \NewList
+        \begin{easylist}[enumerate]
+            @ If $ p \le k \le i$, then $A[k] \le x$
+            @ If $ i + 1 \le k \le j - 1$ then $A[k] > x$
+            @ If $ k = r $ then $A[k] = x$
+        \end{easylist}
+
+        Verify that $\boxed{1}$ holds at the beginning of the loop.
+
+        Verify that if it holds at the $ (i - 1)^{th}$ iteration, then it holds at the $i^{th}$ iteration.
+
+        Verify that if it holds when the loop terminates, then $ A[p,r] $ is partitioned.
+
+        \subsubsection{Running Time}
+        The worst case for this algorithm is when we have a very unbalanced tree.
+
+            \[ T(n) = T(n - 1) + \Theta(n)  \Rightarrow \Theta(n^2) \]
+
+        Therefore, the best case occurs when we have a perfectly balanced binary tree.
+
+            \[ T(n) = 2 \cdot T \left( \frac{n}{2} \right) + \Theta(n) \Rightarrow \Theta() \]
+
+        \subsubsection{Randomizing}
+        As you can see, there is a very distinct case where the list results in an $O(n^2)$ algorithm. We solve this by randomizing the input list.
+
+        The average case of randomized quicksort is the same as quicksort's average case.
+
+        \begin{pythoncode*}{gobble=12}
+            def random_qs(A, p, r):
+                q = random_partition(A, p, r)
+                random_qs(A, p, q - 1)
+                random_qs(A, q + 1, r)
+
+            def random_partition(A, p, r)
+                i = random.int(p, r)  # Use a random pivot
+                swap(A[i], A[r])
+                x = A[r]
+                i = p - 1
+                for (j=p; j <= r - 1; j++):
+                    if A[j] <= x:
+                        i += 1
+                        exchange(A[i], A[j])
+                exchange(A[i + 1], A[r])
+                return i + 1
+        \end{pythoncode*}
+
+\section{Greedy Algorithms}
+This algorithms arise from cases where we wish to select the largest continuous time, area, space, etc.\ so that the regions don't overlap.\footnote{Also known as the interval scheduling problem} We can achieve this with greedy algorithms.
+
+This strategy works by selecting the largest items first, and then selecting by minumum conflict.
+
+    \NewList
+    \begin{easylist}[enumerate]
+        @ Order all intervals by end time. $O(n \log(n))$
+        @ Check each interval based on the overlap. $O(n)$
+    \end{easylist}
+
+The formal problem is stated as such: We have a set of $n$ intervals, $\{1, 2, 3, \cdots, n\}$, and we have a start and finish time. We call a subset of intervals compatible if they don't overlap.
+
+    \begin{pythoncode*}{gobble=8}
+        # Input: intervals
+        # Output: Maximal set of compatible intervals
+        # Let I = all intervals
+        #     O = empty list
+        def greedy_by_finish_time(I):
+            while I is not empty:
+                choose i from I with smallest finish time f(i)
+                add to O
+                delete all intervals from I that are not compatible with i
+            return O
+    \end{pythoncode*}
+
+\section{Recurrence Relations}
+    \subsection{Characteristic Polynomial}
+
+    \subsection{Unrolling}
+    Substitute the next equation in the current.
+
+    \subsection{Master Theorem}
+    There are three cases to consider.
+
+        \[ \begin{aligned}
+                & T(n) = a \cdot T(n/b) + f(n)\\
+                & \begin{cases}
+                    f(n) = O \left( n^{\log_b(a-\epsilon)} \right) \Rightarrow T(n) = \Theta \left( n^{\log_b(a)} \right)\\
+                    f(n) = O \left( n^{\log_b(a)} \right) \Rightarrow T(n) = \Theta \left( n^{\log_b(a)} \cdot \log(a) \right)\\
+                    \left. \begin{matrix}
+                        f(n) = \Omega \left( n^{\log_b(a + \epsilon)} \right)\\
+                        a \cdot f(n/b) \le c \cdot f(n)
+                    \end{matrix} \right\} \Rightarrow T(n) = \Theta(f(n))
+                \end{cases}
+            \end{aligned} \]
+
+\section{Basic Probability}
+The expectation of a discrete event, $E(x)$ is defined as
+
+    \[ E(x) = \sum_x x Pr(X = x) \]
+
+For continuous probabilities, we use
+
+    \[ E(x) = \int_x x Pr(x) \, dx \]
+
+If there are two random variables, in order to identify the probability of both events occurring can be found by multiplication if and only if they are mutually exclusive.
+
+    \[ Pr(X=x, Y=y) = Pr(X=x) \cdot Pr(Y=y) \]
+
+We can also use indicator random variables to count how many events occur.
+
+    \[ I(A) = \begin{cases}1 \text{ if event $A$ occurs}\\0 \text{ otherwise}\end{cases} \]
+
+Multiple random variables can be combined using addition.
+
+    \[ E \left( \sum_i X_i \right) = \sum_i E(X_i) \]
+
+\section{Knapsack Problem}
+    \subsection{Easy Version}
+    We have some capacity $k$ that limits our endeavours. We then have a set of items with two properties, their values,
+    and their weight.
+
+    \[ \begin{cases}
+        \text{Value: } \{ v_1, v_2, \ldots, v_n \} = \sum^n_{i=1} f_i \cdot v_i\\
+        \text{Weight: } \{ w_1, w_2, \ldots, w_n \} = \sum^n_{i=1} f_i \cdot w_i \le k
+    \end{cases} \]
+
+    We also have a fraction $f_i \in [0,1]$ that represents the fraction of the items we take. We wish to maximize the
+    total value of items that we take, while satisfying the total weight.
+
+    To solve this problem, we should look at the items' value density, i.e.\ the items with the least weight, but
+    maximum value, $\frac{v_n}{w_n}$. In other words, take the greedy approach, that is to take the best items until we
+    can only take a fractional item, in which case we stop. This greedy approach is optimal, and takes $O(n \log(n))$
+    time to complete.
+
+    \subsection{Hard Version (0-1 Knapsack Problem)}
+    In the hard version, our fraction adjusts to $f_i \in \{0, 1\}$. This essentially means that we are no longer
+    allowed to take fractional items, are are limited to boolean choices. This runs in $O(n \cdot k)$ time using a
+    dynamic programming solution.
+
+    For our solution, we need to use dynamic programming to construct a table. % Draw this!
+
+    \[
+        \begin{array}{ccccc}
+            v_{0,0} & v_{0,1} & \cdots & v_{0,w-1} & v_{0,w}\\
+        \end{array}
+    \]
+
+    Initially we set $v[0,w] = 0$ where $0 \le w \le k$, followed by setting $v[i,w]= - \infty$ where $w < 0$, $v[i, w]
+    \equiv$ the maximum value of items $[1,i]$ with combined weight at most $w$. Now we can start establishing entries
+    in our table. For each item in $v[i,w]$ we have two options.
+
+        \NewList
+        \begin{easylist}
+            @ Take $i$ if $w_i \le w$ also if the optimal solution $v[i,w]$ includes $i$. Leaving it gives the optimal
+            solution $v[i-1, w - w_i]$.
+            @ Leave $i$ if the optimal solution for items $\{1, \ldots, i-1\}$ with weight $w$ is $v[i-1,w]$.
+        \end{easylist}
+
+    These two rules can be rewritten, giving us
+
+        \[
+            v[i,w] = \max(v[i - 1,w], v_i + v[i - 1, w - w_i])
+            \text{ for } \begin{cases}1 \le i \le n\\0 \le w \le k\end{cases}
+        \]
+
+\section{Dynamic Programming}
+In dynamic programming we have some semblance of a subproblem structure, where as we solve each subproblem it helps us
+solve the next sub-problem. In other words, we remember the solutions to previous subproblems and thereby build
+solutions to the next problems off of what we remember\footnote{Memoization} from previous problems. In almost every
+dynamic programming solution we build a table of solutions.\footnote{See PS3, Dumbledore's Algorithm for an example of
+Memoization}
+
+\end{document}
