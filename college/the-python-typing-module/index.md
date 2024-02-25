@@ -33,7 +33,7 @@ There are also equivalent types for every native type that exist solely for the 
 
 Soooo, technically the following code snippet _works_, but isn't Pythonic.
 
-```
+```python-repl
 >>> x = 'foobarbizzbazzbang'
 >>> type(x) is str
 True
@@ -41,7 +41,7 @@ True
 
 The better way to check this is to use `isinstance` and `issubclass`
 
-```
+```python-repl
 >>> isinstance(x, str)
 True
 >>> issubclass(type(x), str)
@@ -52,7 +52,7 @@ For more information see [this SO post](https://stackoverflow.com/questions/1525
 
 For these examples however, we'll use [enforce](https://github.com/RussBaz/enforce) to check the types. Feel free to run the examples and verify the results.
 
-```
+```python
 from typing import *
 from enforce import runtime_validation
 ```
@@ -61,7 +61,7 @@ from enforce import runtime_validation
 
 Everything is of the `Any` type. Everything.
 
-```
+```python
 @runtime_validation
 def foobar(x: Any, y: Any, z: Any) -> Any:
     return x
@@ -75,7 +75,7 @@ foobar(2.2, 'sdasdiiijsdjo  ', lambda : None)
 
 This type allows for an object to be either one type or the other.
 
-```
+```python
 @runtime_validation
 def uniontype(x: Union[int, str]) -> int:
     return int(x)
@@ -100,7 +100,7 @@ RuntimeTypeError:
 
 The Tuple type models exactly what tuples do in python, immutable ordered collections.
 
-```
+```python
 @runtime_validation
 def tupletype(x: Tuple[int, int]) -> Tuple[int, int]:
     return x
@@ -124,7 +124,7 @@ RuntimeTypeError:
 
 This is for typing functions and other callable items.
 
-```
+```python
 @runtime_validation
 def callabletype(x: Callable[[int, int], str]) -> None:
     return
@@ -151,7 +151,7 @@ RuntimeTypeError:
 
 As with `Tuple`, this is the type for python lists.
 
-```
+```python
 @runtime_validation
 def listtype(x: List[int]) -> List[int]:
     return x

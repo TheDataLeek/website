@@ -25,7 +25,7 @@ In this writeup we'll discuss two algorithms, simulated annealing and genetic al
 
 This writeup is [available on GitHub](https://gitlab.com/thedataleek/politicalboundaries), or [my personal website](http://www.dataleek.io).
 
-[Slides for this post are also available here](http://dataleek.io/presentations/politicalboundaries/politicalboundaries.slides.html)
+[Slides for this post are also available here](/presentations/politicalboundaries/politicalboundaries.slides.html)
 
 # Table of Contents
 
@@ -86,7 +86,7 @@ Simulated annealing can be defined as follows.
 
 Incomplete python code for this is below.
 
-```
+```python
 def simulated_annealing(g):
     s, c = generate_solution(g)
     T = 1
@@ -119,7 +119,7 @@ Genetic algorithms are very similar, and the algorithm can be defined as follows
 
 Again, incomplete code is below.
 
-```
+```python
 for i in range(10):
     print(f'Starting with {get_value(solutions)}')
     new_solutions = gen_new(solutions)
@@ -269,7 +269,7 @@ Our first big problem is how we find neighbors of a single point. For any `(y, x
 
 In python, this is expressed as
 
-```
+```python
 neighbors = [(y0 + y, x0 + x)
              for x in range(-1, 2)
              for y in range(-1, 2)
@@ -289,7 +289,7 @@ One of the problems we need to solve is to know if any given district we have is
 
 Which is implemented in our code as the following.
 
-```
+```python
 class Mask(object):
 ...
 
@@ -334,7 +334,7 @@ The basic algorithm is as follows.
 5. If the point falls within the district, get all of the point's neighbors, add them to the queue, and go back to (4)
 6. If the point does not fall into the district, add it to the list of district neighbors.
 
-```
+```python
 class Solution(object):
 ...
     def get_district_neighbors(self, i):
@@ -375,7 +375,7 @@ We can design our fitness function to meet these criteria. The final fitness fun
 5. We also take into account that in non-homogeneous districts voters that aren't affiliated with the majority party might be swayed by targeted campaigns. To this effect we account each non-affiliated "zone" with a weight of -0.9 instead of -1.
 6. Finally, we can also minimize edge length as well as trying to keep each district the same size. This will result in hopefully ideal districts
 
-```
+```python
 class Solution(object):
 
 ...
@@ -431,7 +431,7 @@ The fill algorithm is also straightforward.
 5. Otherwise pick a neighbor at random and set it to `i`.
 6. Loop back to (2).
 
-```
+```python
 class Solution(object):
 
 ...
@@ -490,7 +490,7 @@ Now that we can do all of that, let's talk about simulated annealing. The basic 
 3. If the new solution is better than the old, set the current solution to the new one.
 4. If the solution is worse, but `random.random() < math.exp(dv / (k * T))`, where `dv` is the difference between solution values, `k` is a set constant, and `T` is the current iteration value, accept it.
 
-```
+```python
 def simulated_annealing(system, numdistricts, precision, animate, makegif):
     solution = get_good_start(system, numdistricts)
     history = [solution]  # Keep track of our history
@@ -539,7 +539,7 @@ The general algorithm can be thought of as follows.
 3. If the neighboring point's district has at least size 2, set this neighboring point to our district.
 4. Otherwise, pick a different neighboring point.
 
-```
+```python
 class Solution(object):
 
 ...
@@ -593,7 +593,7 @@ This algorithm is also straightforward, and is generally as follows.
 4. Set our parents to be the "best" of the current population, discard the rest.
 5. Go back to (2).
 
-```
+```python
 def genetic_algorithm(system, numdistricts, precision, animate, makegif):
     # Start with random initial solution space (3)
     solutions = [Solution(system, numdistricts) for _ in range(3)]
@@ -652,7 +652,7 @@ We can think of the code as follows.
 
 The algorithm behind making a district valid is easy, if we have more than one connected component in a given district, pick one at random and discard the other connected components.
 
-```
+```python
 class Solution(object):
 
 ...
@@ -719,7 +719,7 @@ To get around this, we could theoretically run the code thousands of times, with
 
 If you're a TA, this is straightforward! After installed the required libraries (again check [the repository](https://github.com/thedataleek/politicalboundaries)) just run
 
-```
+```bash
 python3.6 ./politicalboundaries.py $FILE_TO_RUN
 ```
 
@@ -734,7 +734,7 @@ If you want to dig a little deeper, use the `-h` flag to see what it can do, but
 - Generate report (`README.md`) assets.
 - Do all of the above in one go.
 
-```
+```bash
 ┬─[zoe@fillory:~/Dropbox/classwork/2016b/csci3202/hw5]
 ╰─>$ ./politicalboundaries.py -h
 usage: politicalboundaries.py [-h] [-a] [-g] [-n NUMDISTRICTS] [-z] [-p PRECISION]

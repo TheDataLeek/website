@@ -14,13 +14,13 @@ tags:
 
 Python has this neat feature of unpacking tuples during item assignment. Here's a general example:
 
-```
+```python
 a, b, c = (a, b, c)
 ```
 
 or if you have a function that returns multiple items:
 
-```
+```python
 a, b, c = foo()
 ```
 
@@ -30,7 +30,7 @@ But what if (for some reason) you have a function that returns some large number
 
 This is the naive approach, and also breaks line-length style.
 
-```
+```python
 first_var, second_var, third_var, fourth_var, fifth_var, sixth_var, seventh_var, eighth_var, ninth_var, tenth_var, eleventh_var, twelfth_var = foo()
 ```
 
@@ -38,7 +38,7 @@ first_var, second_var, third_var, fourth_var, fifth_var, sixth_var, seventh_var,
 
 This is probably the best style for this sort of thing (indentation style-dependent)
 
-```
+```python
 (first_var,
  second_var,
  third_var,
@@ -57,7 +57,7 @@ This is probably the best style for this sort of thing (indentation style-depend
 
 Don't do this. No matter how tempted you are. This is bad.
 
-```
+```python
 first_var, *_ = foo()
 second_var, *_ = _
 third_var, *_ = _
@@ -77,21 +77,21 @@ Here's a followup, even worse way to do things...
 
 Let's assume we have some function called `foo` that returns some number of variables. For testing purposes we'll set this function to just return all of its arguments.
 
-```
+```python
 def foo(*args):
     return args 
 ```
 
 We can call this and bind each of the returned variables to a custom variable in the `locals()` or `globals()` namespace (or both if we really want).
 
-```
+```python
 for i, arg in enumerate(foo(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)):
     locals()[f'variable_{i}'] = arg                        
 ```
 
 Which works great!
 
-```
+```python-repl
 >>> locals()
 {...
  'variable_0': 1,

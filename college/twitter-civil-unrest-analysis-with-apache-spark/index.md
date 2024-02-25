@@ -38,27 +38,27 @@ One initial design choice that I made was to create a streaming program that con
 
 [For reference, here's a link to the streaming API.](https://spark.apache.org/docs/latest/api/python/pyspark.streaming.html)
 
-```
+```python
 sc  = SparkContext('local[4]', 'Social Panic Analysis')
 ssc = StreamingContext(sc, BATCH_INTERVAL)
 ```
 
 Once the setup code is complete, the stream can be started by setting a default "blank" [RDD](https://spark.apache.org/docs/latest/quick-start.html), and creating a new `queueStream` whose default contents is the blank RDD.
 
-```
+```python
 rdd = ssc.sparkContext.parallelize([0])
 stream = ssc.queueStream([], default=rdd)
 ```
 
 At this point the stream consists of a single entry: an RDD with contents `[0]`. To convert it to a usable stream, I applied a flat map over every element in the stream. This mapping process converts each element currently in the stream to a new RDD that contains the next chunk of Twitter data. (Note, you could absolutely have a ton of elements in your blank RDD to start, which would mean that you're pulling in data over each one of those elements. I did not do that due to [Twitter's Rate Limiting](https://dev.twitter.com/rest/public/rate-limiting), which I'll go over more in depth later.)
 
-```
+```python
 stream = stream.transform(tfunc)
 ```
 
 Analysis is now performed on the streaming object! (I'll cover this more in depth later)
 
-```
+```python
 coord_stream = stream.map(lambda line: ast.literal_eval(line)) \
                     .filter(filter_posts) \
                     .map(get_coord)
@@ -66,13 +66,13 @@ coord_stream = stream.map(lambda line: ast.literal_eval(line)) \
 
 After the analysis is complete, the results are visualized. (Again, I'll go over this later)
 
-```
+```python
 coord_stream.foreachRDD(lambda t, rdd: q.put(rdd.collect()))
 ```
 
 Since Spark is lazily evaluated, nothing has been done yet. All that's been established is the fact that we have some data stream and the intent to perform some series of steps on it in our analysis. The final step is to start our stream and basically just wait for something to stop it. (Any keyboard interrupt or process termination signal counts.)
 
-```
+```python
 ssc.start()
 ssc.awaitTermination()
 ```
@@ -83,7 +83,7 @@ And that's it! Data is now being pulled from our streaming object.
 
 In order to convert our initial blank RDD to twitter data, a [flat map](http://www.dattamsha.com/2014/09/map-vs-flatmap-spark/) is applied over it. This converts each element (currently just one) to my stream output.
 
-```
+```python
 return rdd.flatMap(lambda x: stream_twitter_data())
 ```
 
@@ -97,7 +97,7 @@ This restricts my results to English tweets over a bounding box that is mostly j
 
 The response object that we get when we use the `stream=True` option with the [python `requests` library](http://docs.python-requests.org/en/latest/) has an iterable object. I iterate over those lines, yield them, and after receiving a set number of tweets I break and terminate the request. If I run into any hiccups along the way, for the purpose of this prototype, they are just printed out for visual debugging.
 
-```
+```python
     response  = requests.get(query_url, auth=config.auth, stream=True)
     print(query_url, response)
     count = 0
@@ -119,26 +119,25 @@ A more complete solution would ideally log these and create workarounds.
 
 Since each element in our resulting RDD is a string representation of a Python object, each line in our RDD is mapped to a literal Python object.
 
-```
+```python
     coord_stream = stream.map(lambda line: ast.literal_eval(line))
 ```
 
 The posts are filtered by its text content. For this project, the filters look for language indicative of social unrest. (If you'll note, this application is not limited to social unrest and many other filters could be applied.) I don't really have the background for the best [sentiment analysis](http://en.wikipedia.org/wiki/Sentiment_analysis), so all I have is a list of keywords as my filtering criteria. (I've also included the word "http" in there so that in my pool of limited results I actually have some content.)
 
-```
-:::python
+```python
 filtered_stream = coord_stream.filter(filter_posts)
 ```
 
 For a more sophisticated process, implementing word association and natural language processing would produce more accurate results. I didn't implement something along those lines due to personal time and scope constraints. [For some ideas, here's a paper on the subject](http://www.umiacs.umd.edu/~saif/WebPages/Abstracts/NRC-SentimentAnalysis.htm).
 
-```
+```python
     final_stream = filtered_stream.map(get_coord)
 ```
 
 At this point, the only posts that are left are those that indicate violence which need to be reduced to just their geographical coordinates. Once this is complete each point can be plotted.
 
-```
+```python
     final_stream.foreachRDD(lambda t, rdd: q.put(rdd.collect()))
 ```
 
@@ -148,7 +147,7 @@ As you probably noticed, the "plotting" referenced above actually puts the conte
 
 [Cartopy](http://scitools.org.uk/cartopy/docs/latest/) is used for the plotting process, and a new `matplotlib` figure is set to [interactive mode](http://stackoverflow.com/questions/6130341/exact-semantics-of-matplotlibs-interactive-mode-ion-ioff). If there is a new entry in the queue, we pull it out and add the points to our figure instance.
 
-```
+```python
     plt.ion() # Interactive mode
     fig = plt.figure(figsize=(30, 30))
     ax = plt.axes(projection=ccrs.PlateCarree())
