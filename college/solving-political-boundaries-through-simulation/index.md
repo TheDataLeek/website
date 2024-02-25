@@ -30,31 +30,24 @@ This writeup is [available on GitHub](https://gitlab.com/thedataleek/politicalbo
 # Table of Contents
 
 1. [Table of Contents](#table-of-contents)
-2. \[An Introduction to Simulated Annealing and Genetic Algorithms\](#an-introduction-to-simulated-annealing-and-gene tic-algorithms)
-    
+2. [An Introduction to Simulated Annealing and Genetic Algorithms](#an-introduction-to-simulated-annealing-and-genetic-algorithms)
     1. [What is a Fitness Function?](#what-is-a-fitness-function)
     2. [What is Simulated Annealing?](#what-is-simulated-annealing)
     3. [What are Genetic Algorithms?](#what-are-genetic-algorithms)
 3. [Drawing Political District Boundaries](#drawing-political-district-boundaries)
-    
     1. [Procedure](#procedure)
-        
         1. [Overall Structure](#overall-structure)
-            
             1. [Some Quick Notes](#some-quick-notes)
         2. [Helpful Code](#helpful-code)
-            
             1. [Finding Neighbors of a Point](#finding-neighbors-of-a-point)
             2. [Determining if a District is Valid](#determining-if-a-district-is-valid)
             3. [Finding District Neighbors](#finding-district-neighbors)
             4. [Fitness Function](#fitness-function)
         3. [Generating Random Solutions](#generating-random-solutions)
         4. [Simulated Annealing](#simulated-annealing)
-            
             1. [Mutations](#mutations)
             2. [A Better Starting Point](#a-better-starting-point)
         5. [Genetic Algorithm](#genetic-algorithm)
-            
             1. [Combining Solutions](#combining-solutions)
 4. [Using Provided Code](#using-provided-code)
 5. [Next Steps](#next-steps)
@@ -709,7 +702,7 @@ Which can be visualized as follows.
 
 # Final Thoughts
 
-Both of these approaches can be applied to solve incredibly complex problems with varying degrees of success, and much of their success hinges on how effective your evaluation of a given solution fitness' is.
+Both of these approaches can be applied to solve incredibly complex problems but much of their success hinges on the effectiveness of your fitness function.
 
 We also realize that any given "final solution" is somewhat unique, or at the very least hard to obtain again. If we visualize our solution space as a two-dimensional plane, with each solution having some value, then a final solution that we find is merely one of these peaks, so a re-run will not necessarily yield the same solution again.
 
