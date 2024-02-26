@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Chaos & Collatz
-nav-menu: true
+nav-menu: false
 show_tile: false
 ---
 

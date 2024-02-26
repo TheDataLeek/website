@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Ouroboros - SIAM 2017
-nav-menu: true
+nav-menu: false
 show_tile: false
 ---
 

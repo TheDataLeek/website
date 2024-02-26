@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PACE - SIAM 2016
-nav-menu: true
+nav-menu: false
 show_tile: false
 ---
 
