@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
-%% maxwidth is the original width if it is less than linewidth
-%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
 \def\maxwidth{ %
   \ifdim\Gin@nat@width>\linewidth
@@ -12,22 +12,23 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage} }%
+  \def\at@end@of@kframe{\end{minipage}}%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +37,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage} }%
+   \@setminipage}}%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -64,13 +65,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
 \maketitle
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in library("{}qgraph"{}): there is no package called 'qgraph'}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in library("{}FRACTION"{}): there is no package called 'FRACTION'}}\end{kframe}
+\end{knitrout}
 
 \begin{easylist}[enumerate]
     @ The Engineers of Gondor have installed a set canals that convey water from the spring $s$ to the town $t$. (They
@@ -84,16 +91,13 @@
     weight of that cut?
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-2} 
-
-}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in fra(7/8): could not find function "{}fra"{}}}
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in qgraph(edges, esize = 5, node.height = 1, node.width = 1, fade = F, : could not find function "{}qgraph"{}}}\end{kframe}
 \end{knitrout}
-
 
     If we denote the cut to be the starred edges in the graph above, the min-cut max-flow is 17.
 
@@ -107,16 +111,13 @@
     so the summation of the max flows of these paths is three, and since flux out = flux in, then $X = 3$.
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-3} 
-
-}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in fra(1/5): could not find function "{}fra"{}}}
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in qgraph(edges, esize = 5, node.height = 1, node.width = 1, fade = F, : could not find function "{}qgraph"{}}}\end{kframe}
 \end{knitrout}
-
 
     @@ Describe how the engineers could use a min-cut/max-flow algorithm to decide what capacity $X$ should be used for
     an arbitrary graph $G = (V, E)$ and arbitrary proposed edge $(u, v) \not\in E$ with capacity $X$.

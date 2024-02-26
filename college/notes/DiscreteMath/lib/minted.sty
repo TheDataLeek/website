@@ -35,13 +35,13 @@
 \RequirePackage{calc}
 \RequirePackage{ifplatform}
 \RequirePackage{pdftexcmds} % Necessary on TeX Live 2009
-\DeclareOption{chapter}{\def\minted@float@within{chapter} }
-\DeclareOption{section}{\def\minted@float@within{section} }
+\DeclareOption{chapter}{\def\minted@float@within{chapter}}
+\DeclareOption{section}{\def\minted@float@within{section}}
 \ProcessOptions\relax
 \ifwindows
-  \providecommand\DeleteFile[1]{\immediate\write18{del #1} }
+  \providecommand\DeleteFile[1]{\immediate\write18{del #1}}
 \else
-  \providecommand\DeleteFile[1]{\immediate\write18{rm #1} }
+  \providecommand\DeleteFile[1]{\immediate\write18{rm #1}}
 \fi
 \newboolean{AppExists}
 \newcommand\TestAppExists[1]{
@@ -55,7 +55,7 @@
     \endlinechar=-1\relax
     \readline\@appexistsfile to \@apppathifexists
     \endlinechar=\@tmp@cr
-    \ifthenelse{\equal{\@apppathifexists}{} }
+    \ifthenelse{\equal{\@apppathifexists}{}}
      {\AppExistsfalse}
      {\AppExiststrue}
     \immediate\closein\@appexistsfile
@@ -65,38 +65,38 @@
     \immediate\write18{which #1 && touch \jobname.aex}
     \IfFileExists{\jobname.aex}
      {\AppExiststrue
-      \DeleteFile{\jobname.aex} }
+      \DeleteFile{\jobname.aex}}
      {\AppExistsfalse}
   \fi}
 \newcommand\minted@resetoptions{}
 \newcommand\minted@defopt[1]{
   \expandafter\def\expandafter\minted@resetoptions\expandafter{%
     \minted@resetoptions
-    \@namedef{minted@opt@#1}{} } }
+    \@namedef{minted@opt@#1}{}}}
 \newcommand\minted@opt[1]{
   \expandafter\detokenize%
-    \expandafter\expandafter\expandafter{\csname minted@opt@#1\endcsname} }
+    \expandafter\expandafter\expandafter{\csname minted@opt@#1\endcsname}}
 \newcommand\minted@define@opt[3][]{
   \minted@defopt{#2}
-  \ifthenelse{\equal{#1}{} }{
-    \define@key{minted@opt}{#2}{\@namedef{minted@opt@#2}{#3} } }
-   {\define@key{minted@opt}{#2}[#1]{\@namedef{minted@opt@#2}{#3} } } }
+  \ifthenelse{\equal{#1}{}}{
+    \define@key{minted@opt}{#2}{\@namedef{minted@opt@#2}{#3}}}
+   {\define@key{minted@opt}{#2}[#1]{\@namedef{minted@opt@#2}{#3}}}}
 \newcommand\minted@define@switch[3][]{
   \minted@defopt{#2}
   \define@booleankey{minted@opt}{#2}
-   {\@namedef{minted@opt@#2}{#3} }
-   {\@namedef{minted@opt@#2}{#1} } }
+   {\@namedef{minted@opt@#2}{#3}}
+   {\@namedef{minted@opt@#2}{#1}}}
 \minted@defopt{extra}
 \newcommand\minted@define@extra[1]{
   \define@key{minted@opt}{#1}{
     \expandafter\def\expandafter\minted@opt@extra\expandafter{%
-      \minted@opt@extra,#1=##1} } }
+      \minted@opt@extra,#1=##1}}}
 \newcommand\minted@define@extra@switch[1]{
   \define@booleankey{minted@opt}{#1}
    {\expandafter\def\expandafter\minted@opt@extra\expandafter{%
-      \minted@opt@extra,#1} }
+      \minted@opt@extra,#1}}
    {\expandafter\def\expandafter\minted@opt@extra\expandafter{%
-      \minted@opt@extra,#1=false} } }
+      \minted@opt@extra,#1=false}}}
 \minted@define@switch{texcl}{-P texcomments}
 \minted@define@switch{mathescape}{-P mathescape}
 \minted@define@switch{linenos}{-P linenos}
@@ -136,10 +136,10 @@
   \def\minted@bgcol{#1}
   \noindent
   \begin{lrbox}{\minted@bgbox}
-  \begin{minipage}{\linewidth-2\fboxsep} }
+  \begin{minipage}{\linewidth-2\fboxsep}}
  {\end{minipage}
   \end{lrbox}%
-  \colorbox{\minted@bgcol}{\usebox{\minted@bgbox} } }
+  \colorbox{\minted@bgcol}{\usebox{\minted@bgbox}}}
 \newwrite\minted@code
 \newcommand\minted@savecode[1]{
   \immediate\openout\minted@code\jobname.pyg
@@ -154,19 +154,19 @@
   \immediate\write18{\minted@cmd}
   % For debugging, uncomment:
   %\immediate\typeout{\minted@cmd}
-  \ifthenelse{\equal{\minted@opt@bgcolor}{} }
+  \ifthenelse{\equal{\minted@opt@bgcolor}{}}
    {}
-   {\begin{minted@colorbg}{\minted@opt@bgcolor} }
+   {\begin{minted@colorbg}{\minted@opt@bgcolor}}
   \input{\jobname.out.pyg}
-  \ifthenelse{\equal{\minted@opt@bgcolor}{} }
+  \ifthenelse{\equal{\minted@opt@bgcolor}{}}
    {}
-   {\end{minted@colorbg} }
-  \DeleteFile{\jobname.out.pyg} }
-\newcommand\minted@usedefaultstyle{\usemintedstyle{default} }
+   {\end{minted@colorbg}}
+  \DeleteFile{\jobname.out.pyg}}
+\newcommand\minted@usedefaultstyle{\usemintedstyle{default}}
 \newcommand\usemintedstyle[1]{
   \renewcommand\minted@usedefaultstyle{}
   \immediate\write18{pygmentize -S #1 -f latex > \jobname.pyg}
-  \input{\jobname.pyg} }
+  \input{\jobname.pyg}}
 \newcommand\mint[3][]{
   \DefineShortVerb{#3}
   \minted@resetoptions
@@ -175,50 +175,50 @@
     \UndefineShortVerb{#3}
     \minted@savecode{\FV@SV@minted@verb}
     \minted@pygmentize{#2}
-    \DeleteFile{\jobname.pyg} }]{minted@verb}#3}
+    \DeleteFile{\jobname.pyg}}]{minted@verb}#3}
 \newcommand\minted@proglang[1]{}
 \newenvironment{minted}[2][]
  {\VerbatimEnvironment
   \renewcommand{\minted@proglang}[1]{#2}
   \minted@resetoptions
   \setkeys{minted@opt}{#1}
-  \begin{VerbatimOut}[codes={\catcode`\^^I=12}]{\jobname.pyg} }%
+  \begin{VerbatimOut}[codes={\catcode`\^^I=12}]{\jobname.pyg}}%
  {\end{VerbatimOut}
-  \minted@pygmentize{\minted@proglang{} }
-  \DeleteFile{\jobname.pyg} }
+  \minted@pygmentize{\minted@proglang{}}
+  \DeleteFile{\jobname.pyg}}
 \newcommand\inputminted[3][]{
   \minted@resetoptions
   \setkeys{minted@opt}{#1}
-  \minted@pygmentize[#3]{#2} }
+  \minted@pygmentize[#3]{#2}}
 \newcommand\newminted[3][]{
-  \ifthenelse{\equal{#1}{} }
-   {\def\minted@envname{#2code} }
-   {\def\minted@envname{#1} }
+  \ifthenelse{\equal{#1}{}}
+   {\def\minted@envname{#2code}}
+   {\def\minted@envname{#1}}
   \newenvironment{\minted@envname}
-   {\VerbatimEnvironment\begin{minted}[#3]{#2} }
-   {\end{minted} }
+   {\VerbatimEnvironment\begin{minted}[#3]{#2}}
+   {\end{minted}}
   \newenvironment{\minted@envname *}[1]
-   {\VerbatimEnvironment\begin{minted}[#3,##1]{#2} }
-   {\end{minted} } }
+   {\VerbatimEnvironment\begin{minted}[#3,##1]{#2}}
+   {\end{minted}}}
 \newcommand\newmint[3][]{
-  \ifthenelse{\equal{#1}{} }
-   {\def\minted@shortname{#2} }
-   {\def\minted@shortname{#1} }
+  \ifthenelse{\equal{#1}{}}
+   {\def\minted@shortname{#2}}
+   {\def\minted@shortname{#1}}
   \expandafter\newcommand\csname\minted@shortname\endcsname[2][]{
-    \mint[#3,##1]{#2}##2} }
+    \mint[#3,##1]{#2}##2}}
 \newcommand\newmintedfile[3][]{
-  \ifthenelse{\equal{#1}{} }
-   {\def\minted@shortname{#2file} }
-   {\def\minted@shortname{#1} }
+  \ifthenelse{\equal{#1}{}}
+   {\def\minted@shortname{#2file}}
+   {\def\minted@shortname{#1}}
   \expandafter\newcommand\csname\minted@shortname\endcsname[2][]{
-    \inputminted[#3,##1]{#2}{##2} } }
+    \inputminted[#3,##1]{#2}{##2}}}
 \@ifundefined{minted@float@within}
- {\newfloat{listing}{h}{lol} }
+ {\newfloat{listing}{h}{lol}}
  {\newfloat{listing}{h}{lol}[\minted@float@within]}
 \newcommand\listingscaption{Listing}
 \floatname{listing}{\listingscaption}
 \newcommand\listoflistingscaption{List of listings}
-\providecommand\listoflistings{\listof{listing}{\listoflistingscaption} }
+\providecommand\listoflistings{\listof{listing}{\listoflistingscaption}}
 \AtBeginDocument{
   \minted@usedefaultstyle}
 \AtEndOfPackage{

@@ -22,19 +22,20 @@
 \usepackage{listings}                                                   % Code display
 \usepackage{marginnote}                                                 % Notes in the margin
 \usepackage{microtype}                                                  % Niceness
-\usepackage{lib/minted}                                                 % Code display
+\usepackage{_lib/minted}                                                 % Code display
 \usepackage{multirow}                                                   % Multirow tables
 \usepackage{pdfpages}                                                   % Include pdfs
 \usepackage{pgfplots}                                                   % Create Pictures
 \usepackage{rotating}                                                   % Figure rotation
 \usepackage{setspace}                                                   % Allow double spacing
-% \usepackage{subcaption}                                                 % Figure captioning
-\usepackage{subfig}                                                   % Subfloats
+\usepackage{subcaption}                                                 % Figure captioning
+% \usepackage{subfig}                                                   % Subfloats
+% \usepackage{_lib/subfig}                                                   % Subfloats
 \usepackage{tikz}                                                       % Create Pictures
 \usetikzlibrary{positioning}
 %\usepackage{tocloft}                                                    % List of Equations
 \usepackage{longtable}                                                  % Huge Tables
-\usepackage{./lib/multicol}                                             % Dynamic Mutlicolumns
+\usepackage{_lib/multicol}                                             % Dynamic Mutlicolumns
 \usepackage{supertabular}
 \usepackage{float}
 \setcounter{LTchunksize}{50}
@@ -72,7 +73,5 @@
 \newtheorem{definition}{Definition}                                     %  Define the definition name
 \newtheorem{ex}{Example}                                                %  Define the example name
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
-\newminted{python}{frame=single,
-                   bgcolor=bg,
-                   mathescape,
-                   linenos}
+\newminted{python}{frame=single,bgcolor=bg,mathescape,linenos}
+

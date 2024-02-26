@@ -40,12 +40,14 @@ show_tile: false
 ---
 
 """
-    for note_file in path.glob('*.pdf'):
+    note_files = sorted(list(path.glob('*.pdf')), key=lambda x: x.name)
+    num_files = len(note_files)
+    for note_file in note_files:
         filename = note_file.stem
         note_name = split_camel_case(filename)
+        if num_files > 1:
+            template += f'\n# {note_name}\n\n'
         template += f"""
-# {note_name}
-
 <iframe src="/college/notes/{path.name}/{note_file.name}"
         style="width: 100%; height: 40em;">
 </iframe>
