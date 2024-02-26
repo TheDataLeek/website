@@ -20,7 +20,7 @@ Another SIAM presentation on running a massively parallel simulation on soliton 
 
 A college presentation on the Collatz Conjecture and Chaos Theory.
 
-## [Python Optimization](speedsnakes/Speed%20Snakes.slides.html)
+## [Python Optimization](speedsnakes/snakes.html)
 
 A brief talk on optimizing python given to Boulder Python.
 
