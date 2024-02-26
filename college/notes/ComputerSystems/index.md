@@ -1,0 +1,20 @@
+
+---
+layout: post
+title: Computer Systems Notes
+nav-menu: false
+show_tile: false
+---
+
+
+# C S Final Review
+
+<iframe src="/college/ComputerSystems/CSFinalReview.pdf"
+        style="width: 100%; height: 25em;">
+</iframe>
+
+# Computer Systems Notes
+
+<iframe src="/college/ComputerSystems/ComputerSystemsNotes.pdf"
+        style="width: 100%; height: 25em;">
+</iframe>

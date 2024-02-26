@@ -3,9 +3,9 @@ TEXDIR = ./tex/
 OUTPUT = DifferentialEquationsNotes.pdf
 
 all: attachments.tar.gz
-	pdflatex $(TEXDIR)$(TEXFILE)
-	pdflatex $(TEXDIR)$(TEXFILE)
-	pdflatex $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	make clean
 	wc $(TEXDIR)m* $(TEXDIR)$(TEXFILE) $(TEXDIR)f*
 
@@ -17,6 +17,6 @@ attachments.tar.gz: FinalReview.pdf
 	mv attachments.tar.gz $(TEXDIR)
 
 FinalReview.pdf:
-	pdflatex $(TEXDIR)FinalReview.tex
-	pdflatex $(TEXDIR)FinalReview.tex
-	pdflatex $(TEXDIR)FinalReview.tex
+	xelatex --shell-escape $(TEXDIR)FinalReview.tex
+	xelatex --shell-escape $(TEXDIR)FinalReview.tex
+	xelatex --shell-escape $(TEXDIR)FinalReview.tex

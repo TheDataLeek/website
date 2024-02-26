@@ -23,7 +23,6 @@
 \usepackage{marginnote}                                                 % Notes in the margin
 \usepackage{microtype}                                                  % Niceness
 \usepackage{lib/minted}                                                 % Code display
-\usepackage{./lib/mlptikz}                                              % Tikz mlp
 \usepackage{multirow}                                                   % Multirow tables
 \usepackage{pdfpages}                                                   % Include pdfs
 \usepackage{pgfplots}                                                   % Create Pictures
@@ -91,7 +90,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Computer Systems Notes}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
+\cfoot{ \thepage }
 \lfoot{CSCI 2400}
 \rfoot{Han}
 \title{Computer Systems Notes}

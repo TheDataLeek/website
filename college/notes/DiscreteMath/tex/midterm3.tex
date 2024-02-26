@@ -59,17 +59,14 @@
     \end{thm}
 
     \subsection{Greedy Algorithms}
-    A greedy algorithm is an algorithm that makes the ``best'' choice at each step.
+    A greedy algorithm is an algorithm that makes the "best" choice at each step.
 
         \subsubsection{Change Problem}
         \textit{Consider the problem of making change for $n$ checnts using quarters, dimes, nickels, and pennies using the fewest total number of coins.}
 
         The strategy for this problem is defined as the following. At each step, choose the coin of largest denomination possible without exceeding the total.
 
-        \begin{minted}[mathescape,
-                        linenos,
-                        gobble=8,
-                        frame=single]{python}
+        \begin{minted}[mathescape,linenos,gobble=8,frame=single]{python}
             def change(c1, c2, ..., c3, n):
                 c = [0, 0, 0, ..., 0]   # Number of coins we have
                 for i in range(0, c):
@@ -108,10 +105,7 @@
     \subsection{Base $b$ Expansion}
     The following algorithm finds the base $b$ representation of any integer $n \ge 0$.
 
-    \begin{minted}[mathescape,
-                    linenos,
-                    gobble=8,
-                    frame=single]{python}
+    \begin{minted}[mathescape,linenos,gobble=8,frame=single]{python}
         def base_b_expansion(n,b):
             q = n
             k = 0
