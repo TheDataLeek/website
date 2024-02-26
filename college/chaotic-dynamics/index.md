@@ -5,8 +5,6 @@ show_tile: false
 title: CSCI 4446 - Chaotic Dynamics
 ---
 
-# CSCI 4446 - Chaotic Dynamics
-
 * [Homework #2](2.md)
 * [Homework #4](4.md)
 * [Homework #5](5.md)
