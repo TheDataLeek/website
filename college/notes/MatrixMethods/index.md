@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Discrete Math Notes
+title: Matrix Methods Notes
 nav-menu: false
 show_tile: false
 ---
 
 
-# Discrete Math Notes
+# Matrix Methods Notes
 
-<iframe src="/college/DiscreteMath/DiscreteMathNotes.pdf"
+<iframe src="/college/MatrixMethods/MatrixMethodsNotes.pdf"
         style="width: 100%; height: 25em;">
 </iframe>

@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Calculus 3 Notes

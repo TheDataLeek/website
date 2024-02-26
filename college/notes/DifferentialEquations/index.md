@@ -1,0 +1,19 @@
+---
+layout: post
+title: Differential Equations Notes
+nav-menu: false
+show_tile: false
+---
+
+
+# Differential Equations Notes
+
+<iframe src="/college/DifferentialEquations/DifferentialEquationsNotes.pdf"
+        style="width: 100%; height: 25em;">
+</iframe>
+
+# Final Review
+
+<iframe src="/college/DifferentialEquations/FinalReview.pdf"
+        style="width: 100%; height: 25em;">
+</iframe>

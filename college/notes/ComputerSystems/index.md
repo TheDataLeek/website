@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Computer Systems Notes
