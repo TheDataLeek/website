@@ -27,9 +27,7 @@ Populating the interactive namespace from numpy and matplotlib
 Problem 1
 ---------
 
-**Here are some $$ (x, y, z) $$ coordinates for
-$$ 22 $$ points on the Worthington glacier near Valdez, Alaska
-- twelve on the top and ten on the bottom:**
+**Here are some $$ (x, y, z) $$ coordinates for $$ 22 $$ points on the Worthington glacier near Valdez, Alaska - twelve on the top and ten on the bottom:**
 
 ```python
     top = np.array([
@@ -59,10 +57,7 @@ $$ 22 $$ points on the Worthington glacier near Valdez, Alaska
     [76.55, 44.51, 22.0]])
 ```
 
-**Plot the points on the top surface using your favorite 3D plotting
-tool. Repeat for the bottom set. Notice how changing the perspective
-affects your ability to make any sense of the surface from the points.
-Try connecting the points in a wireframe plot.**
+**Plot the points on the top surface using your favorite 3D plotting tool. Repeat for the bottom set. Notice how changing the perspective affects your ability to make any sense of the surface from the points.  Try connecting the points in a wireframe plot.**
 
 First the top
 
@@ -81,7 +76,7 @@ First the top
     plt.show()
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_5_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_5_0.png)
 
 Now the bottom
 
@@ -100,22 +95,14 @@ Now the bottom
     plt.show()
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_7_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_7_0.png)
 
 Problems 2 & 3
 --------------
 
-**Using whatever smooth surface interpolation function is available fit
-a surface to the top points. The surface may pass through the points, or
-not.**
+**Using whatever smooth surface interpolation function is available fit a surface to the top points. The surface may pass through the points, or not.**
 
-**Plot your interpolated surface in 3D, experimenting with shading,
-point size, and other plotting parameters - contour versus perspective
-plot, various shading or coloring schemes, etc. - until it looks as good
-as possible. Turn in a printout of this plot, together with a
-one-paragraph discussion of your results and observations, including at
-least a few sentences on how and why you added interpolated points
-between those in the data set**
+**Plot your interpolated surface in 3D, experimenting with shading, point size, and other plotting parameters - contour versus perspective plot, various shading or coloring schemes, etc. - until it looks as good as possible. Turn in a printout of this plot, together with a one-paragraph discussion of your results and observations, including at least a few sentences on how and why you added interpolated points between those in the data set**
 
 Using `python` we have access to `griddata` which is a simple
 interpolation algorithm designed to give a surface based off of a couple
@@ -142,14 +129,12 @@ following equation for some $$ (x, y) $$ pair to be
 interpolated. (See http://paulbourke.net/miscellaneous/interpolation/ as
 reference)
 
-``` {.math}
-\$\$ z = \begin{cases} \frac{\sum\_{i = 1}\^{N - 1}
-\frac{z\_i}{ {\left\[ {(x\_i - x)}\^2 + {(y\_i - y)}\^2 \right\]}\^{p
-/ 2} } }{\sum\_{i = 1}\^{N - 1} \frac{1}{ {\left\[ {(x\_i - x)}\^2 +
-{(y\_i - y)}\^2 \right\]}\^{p / 2} } } & \quad x\_i \neq x \text{ or }
-y\_i \neq y\\ z\_i & \quad x\_i = x \text{ and } y\_i = y
-\end{cases} \$\$
-```
+$$
+z = \begin{cases}
+\frac{\sum\_{i = 1}\^{N - 1} \frac{z\_i}{ {\left\[ {(x\_i - x)}\^2 + {(y\_i - y)}\^2 \right\]}\^{p / 2} } }{\sum\_{i = 1}\^{N - 1} \frac{1}{ {\left\[ {(x\_i - x)}\^2 + {(y\_i - y)}\^2 \right\]}\^{p / 2} } } & \quad x\_i \neq x \text{ or } y\_i \neq y\\
+z\_i & \quad x\_i = x \text{ and } y\_i = y
+\end{cases}
+$$
 
 There are two parameters that can be tweaked in this method in order to
 get a \"more realistic\" surface. The first is the $$ p $$
@@ -167,19 +152,19 @@ was interpolated.
     Image(filename='snaps__top_nearest.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_11_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_11_0.png)
 
 ```python
     Image(filename='snaps__bot_nearest.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_12_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_12_0.png)
 
 ```python
     Image(filename='snaps__both_nearest.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_13_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_13_0.png)
 
 #### Kriging
 
@@ -202,19 +187,19 @@ realistic and are not recommendable.
     Image(filename='snaps__top_kriging.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_15_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_15_0.png)
 
 ```python
     Image(filename='snaps__bot_kriging.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_16_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_16_0.png)
 
 ```python
     Image(filename='snaps__both_kriging.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_17_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_17_0.png)
 
 #### Neural Net
 
@@ -244,19 +229,19 @@ approximation as there just isn\'t enough to go on.
     Image(filename='snaps__top_neural_net.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_19_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_19_0.png)
 
 ```python
     Image(filename='snaps__bot_neural_net.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_20_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_20_0.png)
 
 ```python
     Image(filename='snaps__both_neural_net.png')
 ```
 
-![png](files/interpolating3d/Zoë%20Farmer%20-%20Homework%207_21_0.png)
+![png](Zoë%20Farmer%20-%20Homework%207_21_0.png)
 
 Appendix A: Problem 2 & 3 Complete Code
 ---------------------------------------
