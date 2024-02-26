@@ -9,5 +9,5 @@ show_tile: false
 # main
 
 <iframe src="/college/notes/Calculus2/main.pdf"
-        style="width: 100%; height: 25em;">
+        style="width: 100%; height: 40em;">
 </iframe>

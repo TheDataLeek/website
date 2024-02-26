@@ -9,5 +9,5 @@ show_tile: false
 # Discrete Math Notes
 
 <iframe src="/college/notes/DiscreteMath/DiscreteMathNotes.pdf"
-        style="width: 100%; height: 25em;">
+        style="width: 100%; height: 40em;">
 </iframe>

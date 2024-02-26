@@ -47,7 +47,7 @@ show_tile: false
 # {note_name}
 
 <iframe src="/college/notes/{path.name}/{note_file.name}"
-        style="width: 100%; height: 25em;">
+        style="width: 100%; height: 40em;">
 </iframe>
 """
     (path / 'index.md').write_text(template)

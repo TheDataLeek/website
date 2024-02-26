@@ -9,15 +9,15 @@ description: Notes & Homework
 # Class Notes
 
 * [Numerical Computation](numerical-computation-notes)
-* [Algorithms](Algorithms)
-* [Calculus 2](Calculus2)
-* [Calculus 3](Calculus3)
-* [Computer Systems](ComputerSystems)
-* [Differential Equations](DifferentialEquations)
-* [Discrete Math](DiscreteMath)
-* [Matrix Methods](MatrixMethods)
-* [Probability](Probability)
-* [Statistical Methods](StatisticalMethods)
+* [Algorithms](notes/Algorithms)
+* [Calculus 2](notes/Calculus2)
+* [Calculus 3](notes/Calculus3)
+* [Computer Systems](notes/ComputerSystems)
+* [Differential Equations](notes/DifferentialEquations)
+* [Discrete Math](notes/DiscreteMath)
+* [Matrix Methods](notes/MatrixMethods)
+* [Probability](notes/Probability)
+* [Statistical Methods](notes/StatisticalMethods)
 
 
 # Projects

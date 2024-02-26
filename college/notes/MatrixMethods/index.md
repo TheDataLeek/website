@@ -9,5 +9,5 @@ show_tile: false
 # Matrix Methods Notes
 
 <iframe src="/college/notes/MatrixMethods/MatrixMethodsNotes.pdf"
-        style="width: 100%; height: 25em;">
+        style="width: 100%; height: 40em;">
 </iframe>
