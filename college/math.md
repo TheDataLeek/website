@@ -8,8 +8,17 @@ description: Notes & Homework
 
 # Class Notes
 
-* [All Latex Notes can be found here](notes)
-* [numerical computation notes](numerical-computation-notes)
+* [Numerical Computation](numerical-computation-notes)
+* [Algorithms](Algorithms)
+* [Calculus 2](Calculus2)
+* [Calculus 3](Calculus3)
+* [Computer Systems](ComputerSystems)
+* [Differential Equations](DifferentialEquations)
+* [Discrete Math](DiscreteMath)
+* [Matrix Methods](MatrixMethods)
+* [Probability](Probability)
+* [Statistical Methods](StatisticalMethods)
+
 
 # Projects
 

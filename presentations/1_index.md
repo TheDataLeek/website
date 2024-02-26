@@ -6,7 +6,7 @@ image: assets/images/headshot.jpg
 nav-menu: true
 ---
 
-# Presentations
+Here's the collection of talks I've given over the years! All are embedded in `iframe`s, so feel free to click through to see fullscreen!
 
 ## [SIAM 2016](siam2016)
 
