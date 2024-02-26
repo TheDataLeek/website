@@ -54,7 +54,7 @@ data point and the smallest.
 
 The sample variance (denoted $s^2$) is given by
 
-$$s^2 = \frac{\Sigma {\left( x_i - \bar{x} \right) }^2}{n-1} = \frac{S_{xx}}{n-1}$$
+$$s^2 = \frac{\Sigma {\left( x_i - \bar{x} \right) }^2}{n-1} = \frac{S_{xx} }{n-1}$$
 
 While the sample standard deviation is given by the square root of the
 variance,
@@ -239,7 +239,7 @@ equally likely to be chosen.
 Like the binomial probability distribution, $X$ is the number of
 successes in the sample.
 
-$$P(X=x) = h(x;n, M, N) = \frac{\binom{M}{x} \binom{N-M}{n-x}}{\binom{N}{n}}$$
+$$P(X=x) = h(x;n, M, N) = \frac{\binom{M}{x} \binom{N-M}{n-x} }{\binom{N}{n} }$$
 
 The mean and variance of this distribution are
 
@@ -362,7 +362,7 @@ The Normal Distribution
 A continuous random variable is said to have normal distribution with
 parameters $\mu$ and $\sigma$ if the pdf of $X$ is
 
-$$f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-{(x-\mu)}^2}{2\sigma^2}}$$
+$$f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi} } e^{\frac{-{(x-\mu)}^2}{2\sigma^2} }$$
 
 This is often written as $X \to N(\mu, \sigma^2)$.
 
@@ -371,7 +371,7 @@ This is often written as $X \to N(\mu, \sigma^2)$.
 If $\mu = 0$ and $\sigma=1$ this is defined as the standard normal
 distribution (denoted by $Z$) with pdf
 
-$$f(z;0,1) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$$
+$$f(z;0,1) = \frac{1}{\sqrt{2\pi} } e^{-z^2/2}$$
 
 Where the cdf is denoted by $\Phi(z)$.
 
@@ -436,7 +436,7 @@ Now we can define the distribution to be
 
 $$f(x; \alpha) =
         \begin{cases}
-            \frac{x^{\alpha - 1}e^{-x}}{\Gamma(\alpha)} &\to x \ge 0\\
+            \frac{x^{\alpha - 1}e^{-x} }{\Gamma(\alpha)} &\to x \ge 0\\
             0 &\to Otherwise
         \end{cases}$$
 
@@ -445,7 +445,7 @@ is
 
 $$f(x; \alpha, \beta) =
         \begin{cases}
-            \frac{x^{\alpha - 1}e^{-x/\beta}}{\beta^\alpha \Gamma(\alpha)} &\to x \ge 0\\
+            \frac{x^{\alpha - 1}e^{-x/\beta} }{\beta^\alpha \Gamma(\alpha)} &\to x \ge 0\\
             0 &\to Otherwise
         \end{cases}$$
 
@@ -456,13 +456,13 @@ $$E(X) = \mu = \alpha \beta \qquad V(X) = \sigma^2 = \alpha \beta^2$$
 And cdf of the standard gamma distribution
 
 $$F(x;\alpha) =
-        \int^x_0 \frac{y^{\alpha - 1}e^{-y}}{\Gamma(\alpha)} \, dy$$
+        \int^x_0 \frac{y^{\alpha - 1}e^{-y} }{\Gamma(\alpha)} \, dy$$
 
 ### Chi-Squared
 
 $$f(x; v) = 
             \begin{cases}
-                \frac{x^{v/2 - 1}e^{-x/2}}{2^{v/2} \Gamma(v/2)} &\to x \ge 0\\
+                \frac{x^{v/2 - 1}e^{-x/2} }{2^{v/2} \Gamma(v/2)} &\to x \ge 0\\
                 0 &\to x < 0
             \end{cases}$$
 
@@ -493,7 +493,7 @@ Lognormal Distribution
 
 $$f(x; \mu, \sigma) = 
         \begin{cases}
-            \frac{e^{-[\ln(x) - \mu]^2/(2\sigma^2)}}{\sigma x \sqrt{2 \pi}} &\to x \ge 0\\
+            \frac{e^{-[\ln(x) - \mu]^2/(2\sigma^2)} }{\sigma x \sqrt{2 \pi} } &\to x \ge 0\\
             0 &\to x < 0
         \end{cases}$$
 
@@ -515,8 +515,8 @@ $$\begin{aligned}
             \end{cases}
         \end{aligned}$$
 
-$$\mu = A + (B - A) \cdot \frac{\alpha}{\alpha + \beta} \qquad \sigma^2 = \frac{{(B - A)}^2 \alpha
-    \beta}{{(\alpha+\beta)}^2 (\alpha + \beta + 1)}$$
+$$\mu = A + (B - A) \cdot \frac{\alpha}{\alpha + \beta} \qquad \sigma^2 = \frac{ {(B - A)}^2 \alpha
+    \beta}{ {(\alpha+\beta)}^2 (\alpha + \beta + 1)}$$
 
 Functions of Random Variables
 =============================
@@ -534,7 +534,7 @@ $$\begin{aligned}
                &=& P\left( -\sqrt{y} \le X^2 \le \sqrt{y} \right)\\
                &=& F_x(\sqrt{y}) - F_x(-\sqrt{y})\\
         \text{Now differentiate to obtain $f_x$}\\
-        f_Y(y) &=& \frac{1}{2\sqrt{y}} \left[ f_X(\sqrt{y}) + f_x(-\sqrt{y}) \right]
+        f_Y(y) &=& \frac{1}{2\sqrt{y} } \left[ f_X(\sqrt{y}) + f_x(-\sqrt{y}) \right]
     \end{aligned}$$
 
 Joint Probability Distributions
@@ -577,9 +577,9 @@ Properties
 ----------
 
 $$\begin{aligned}
-            {\text{Cov}}(aX + b, cY + d) = ac{\text{Cov}}(X, Y)\\
-            {\text{Corr}}(aX + b, cY + d) = sign(ac) {\text{Corr}}(XY)\\
-            -1 \le {\text{Corr}}(XY) \le 1
+            {\text{Cov} }(aX + b, cY + d) = ac{\text{Cov} }(X, Y)\\
+            {\text{Corr} }(aX + b, cY + d) = sign(ac) {\text{Corr} }(XY)\\
+            -1 \le {\text{Corr} }(XY) \le 1
         \end{aligned}$$
 
 Sums of Independent Random Variables
@@ -710,7 +710,7 @@ $$\begin{aligned}
 Let $X_1, X_2, \ldots, X_n$ be a random sample from a distribution with
 mean $\mu$ and variance $\sigma^2$. If $n$ is sufficiently large[^1],
 $\overline{X}$ has approximately a normal distribution with
-$\mu_{\overline{X}} = \mu$ and $\sigma^2_{\overline{X}} = \sigma^2 / n$.
+$\mu_{\overline{X} } = \mu$ and $\sigma^2_{\overline{X} } = \sigma^2 / n$.
 The larger $n$ is, the better the approximation.
 
 Intervals
@@ -719,18 +719,18 @@ Intervals
 The CLT tells us that as $n$ increases, the sample mean is normally
 distributed. We can normalize our sample mean.
 
-$$Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}$$
+$$Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n} }$$
 
 This allows us to define a confidence interval. We know
 
-$$P \left( -1.96 < \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} < 1.96 \right) = 0.95$$
+$$P \left( -1.96 < \frac{\overline{X} - \mu}{\sigma / \sqrt{n} } < 1.96 \right) = 0.95$$
 
 Which means that the $100 ( 1 - \alpha)\%$ confidence interval is
 defined as
 
 $$\left(
-    \overline{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},
-    \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+    \overline{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n} },
+    \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n} }
     \right)$$
 
 This confidence interval tells us that if this experiment were to be
@@ -759,8 +759,8 @@ One Sample $t$ Confidence Interval
 This confidence interval is defined as
 
 $$\left(
-        \overline{X} - t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}},
-        \overline{X} + t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}}
+        \overline{X} - t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n} },
+        \overline{X} + t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n} }
         \right)$$
 
 Confidence Intervals for Population Proportion
@@ -774,10 +774,10 @@ $$\sigma_X = \sqrt{np ( 1 - p)}$$
 The natural estimator for $p$ is $\hat{p} = X / n$, or the fraction of
 “successes” that we identify. We know that $\hat{p}$ has normal
 distribution, and that
-$E(\hat{p}) = P, \sigma_{\hat{p}} = \sqrt{p (1 - p) / n}$, therefore our
+$E(\hat{p}) = P, \sigma_{\hat{p} } = \sqrt{p (1 - p) / n}$, therefore our
 confidence interval is
 
-$$\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$$
+$$\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n} }$$
 
 Confidence Intervals for Variance of a Normal Population
 --------------------------------------------------------
@@ -790,8 +790,8 @@ has chi-squared distribution with $n - 1$ degrees of freedom, therefore
 the confidence interval for the variance is defined as
 
 $$\left(
-        \frac{(n - 1)s^2}{\chi^2_{\alpha/2, n - 1}},
-        \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2, n - 1}}
+        \frac{(n - 1)s^2}{\chi^2_{\alpha/2, n - 1} },
+        \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2, n - 1} }
         \right)$$
 
 Hypotheses Tests for One Sample
@@ -817,14 +817,14 @@ And we have two different types of errors:
 We need a test statistic in order to determine the null’s validity. One
 easy way is to standardize $\overline{X}$.
 
-$$Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}$$
+$$Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n} }$$
 
 And we have three types, lower-tailed, upper-tailed and two-tailed.
 
 We also need to consider proportions, in which case we standardize
 again.
 
-$$Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n}}}$$
+$$Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n} } }$$
 
 And then we use $p$-values, which is the probability that any $z$-test
 will occur on the standard normal curve. The smaller the $p$-value, the

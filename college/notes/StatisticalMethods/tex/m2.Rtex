@@ -7,10 +7,10 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Midterm 2 -- Takehome Portion}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
-\title{Midterm 2\\\textit{Takehome Portion}}
+\title{Midterm 2\\\textit{Takehome Portion} }
 \author{Zoe Farmer}
 \date{March 21, 2014}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,7 @@ other information.
         distribution. This let's us establish a similar definition as above.
 
         \[
-            \sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}}
+            \sigma_{\hat{p} } = \sqrt{\frac{p(1-p)}{n} }
         \]
 
         With all these facts we can establish our confidence interval to be
@@ -56,9 +56,9 @@ other information.
         \[
             \begin{aligned}
                 P \left( -z_{\alpha/2} <
-                    \frac{\hat{p} - p}{\sqrt{\frac{\hat{p}\left(1-\hat{p}\right)}{n}}} <
+                    \frac{\hat{p} - p}{\sqrt{\frac{\hat{p}\left(1-\hat{p}\right)}{n} } } <
                     z_{\alpha/2} \right) = 0.95\\
-                \Rightarrow \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}}
+                \Rightarrow \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} }
             \end{aligned}
         \]
 
@@ -66,9 +66,9 @@ other information.
 
         \[
             \begin{aligned}
-                \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} -
-                    \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} &=& w\\
-                2 z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} &=& w\\
+                \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } -
+                    \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } &=& w\\
+                2 z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } &=& w\\
                 -\frac{4 \left(\hat{p}^2 z_{\alpha / 2}^2-\hat{p} z_{\alpha / 2}^2\right)}{w^2} &=& n
             \end{aligned}
         \]
@@ -81,7 +81,7 @@ other information.
                  n     <- round(- (4 * (p_hat^2 * z^2 - p_hat * z^2))/(w^2))
         @
 
-        The above computation yields an $n$ of $\boxed{\Sexpr{n}}$, we will use this $n$ later for better analysis.
+        The above computation yields an $n$ of $\boxed{\Sexpr{n} }$, we will use this $n$ later for better analysis.
 
         @ \textit{You go to the warehouse and sample $n$ printers. If the actual percentage of damaged printers is 10\%,
         on average, how many printers do you expect to count with damage?}
@@ -94,7 +94,7 @@ other information.
         @@ First let us establish our confidence interval.
 
         \[
-            \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}}
+            \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} }
         \]
 
         We know each of these elements, and we can calculate our interval.

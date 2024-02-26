@@ -43,8 +43,8 @@
     urlcolor=black,
 }
 \RequirePackage[l2tabu, orthodox]{nag}                                  % Nag about bad syntax
-\renewcommand*\thesection{\arabic{section}}                             % Reset numbering
-\renewcommand{\theFancyVerbLine}{{\arabic{FancyVerbLine}}}              % Needed for code display
+\renewcommand*\thesection{\arabic{section} }                             % Reset numbering
+\renewcommand{\theFancyVerbLine}{ {\arabic{FancyVerbLine} } }              % Needed for code display
 \renewcommand{\footrulewidth}{0.4pt}                                    % Footer hline
 \setcounter{secnumdepth}{3}                                             % Include subsubsections in numbering
 \setcounter{tocdepth}{3}                                                % Include subsubsections in toc
@@ -54,12 +54,12 @@
 \newcommand{\nvec}[1]{\left\langle #1 \right\rangle}                    %  Easy to use vector
 \newcommand{\inprod}[2]{\left\langle \vec{#1}, \vec{#2} \right\rangle}  %  Easy to use inner product
 \newcommand{\norm}[1]{\lvert \lvert \vec{#1} \rvert \rvert}             %  Easy to use norm
-\newcommand{\ma}[0]{\mathbf{A}}                                         %  Easy to use vector
-\newcommand{\mb}[0]{\mathbf{B}}                                         %  Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A} }                                         %  Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B} }                                         %  Easy to use vector
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}                       %  Easy to use abs
 \newcommand{\pren}[1]{\left( #1 \right)}                                %  Big parens
 \let\oldvec\vec
-\renewcommand{\vec}[1]{\mathbf{#1}}                            %  Vector Styling
+\renewcommand{\vec}[1]{\mathbf{#1} }                            %  Vector Styling
 \newtheorem{thm}{Theorem}                                               %  Define the theorem name
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}                                     %  Define the definition name
@@ -72,7 +72,7 @@
                                  frame=single,
                                  label=#1,
                                  bgcolor=bg,
-                                 linenos]{java}{#1}}
+                                 linenos]{java}{#1} }
 \newcommand{\python}[4]{\vspace{10pt}\inputminted[firstline=#2,
                                  lastline=#3,
                                  firstnumber=#2,
@@ -80,7 +80,7 @@
                                  frame=single,
                                  label=#1,
                                  bgcolor=bg,
-                                 linenos]{python}{#1}}
+                                 linenos]{python}{#1} }
 \newcommand{\js}[4]{\vspace{10pt}\inputminted[firstline=#2,
                                  lastline=#3,
                                  firstnumber=#2,
@@ -88,14 +88,14 @@
                                  frame=single,
                                  label=#1,
                                  bgcolor=bg,
-                                 linenos]{js}{#1}}
+                                 linenos]{js}{#1} }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Matrix Methods Notes}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3310}
 \rfoot{Beylkin}
 \title{Matrix Methods Notes}

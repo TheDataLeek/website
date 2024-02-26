@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 7}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 7}
@@ -42,14 +42,14 @@
     random, we see that the chance of being born on April 30 is 1/365. The chance that both have this birthday is
 
     \[
-        \frac{1}{365} \cdot \frac{1}{365} = \frac{1}{133225} = \boxed{7.5061 \times 10^{-6}}
+        \frac{1}{365} \cdot \frac{1}{365} = \frac{1}{133225} = \boxed{7.5061 \times 10^{-6} }
     \]
 
     @@ both partners celebrated their birthday on the same day of the year.
     @@@ Now we have to have the first pick the day (365 choose 1), and then the likelihood of the second person having
     the same day (1/365), and then divide by the total number of possibilities.
 
-    \[ \binom{365}{1} \cdot \frac{1}{365} \Big / \binom{365}{1}^2 = \frac{1}{133225} = \boxed{7.5061 \times 10^{-6}} \]
+    \[ \binom{365}{1} \cdot \frac{1}{365} \Big / \binom{365}{1}^2 = \frac{1}{133225} = \boxed{7.5061 \times 10^{-6} } \]
 
     @ \textit{Chapter 4, \#57 --} Suppose that the number of accidents occurring on a highway each day is a Poisson
     random variable with parameter $\lambda = 3$.
@@ -139,8 +139,8 @@
 
     \[
         \begin{aligned}
-            P\{X = n + k|X > n\} &=&  \frac{P\{X=n+k\}}{P\{X > n\}}\\
-            &=& \frac{{(1-p)}^{(n+k-1)}p}{{(1-p)}^n}\\
+            P\{X = n + k|X > n\} &=&  \frac{P\{X=n+k\} }{P\{X > n\} }\\
+            &=& \frac{ {(1-p)}^{(n+k-1)}p}{ {(1-p)}^n}\\
             &=& {(1-p)}^{(k-1)}p\\
             &=& P(X=k)_\blacksquare\\
         \end{aligned}
@@ -213,7 +213,7 @@
     @@@ We can model this as a Poisson Distribution with $\lambda = 0.2$
 
     \[
-        p(k;0.2) = \frac{0.2^k e^{-0.2}}{k!}
+        p(k;0.2) = \frac{0.2^k e^{-0.2} }{k!}
     \]
 
     And see that the probability that the number or errors is zero is $\boxed{0.818731}$.
@@ -226,7 +226,7 @@
 
     And therefore
 
-    \[ P(X=x) = \frac{2^x e^{-2}}{x!} \]
+    \[ P(X=x) = \frac{2^x e^{-2} }{x!} \]
 
     So
 

@@ -40,7 +40,7 @@
 %------------------------------
 \usetikzlibrary{calc,3d,arrows}
 
-\tikzset{tdplot_screen_coords/.style={x={(1 cm,0 cm)},y={(0 cm, 1 cm)},z={(-1 cm, -1 cm)}}}%
+\tikzset{tdplot_screen_coords/.style={x={(1 cm,0 cm)},y={(0 cm, 1 cm)},z={(-1 cm, -1 cm)} } }%
 
 \pgfmathsetmacro{\tdplotlowerphi}{0}
 \pgfmathsetmacro{\tdplotupperphi}{360}
@@ -97,7 +97,7 @@
 	\pgfmathparse{ abs(#2 - #1)<#3 }
 	
 	%\typeout{ \pgfmathresult }
-	\ifthenelse{\equal{\pgfmathresult}{1}}{#4}{#5}
+	\ifthenelse{\equal{\pgfmathresult}{1} }{#4}{#5}
 }
 
 %\tdplotsetdisplay{\theta_d}{\phi_d}
@@ -116,7 +116,7 @@
 \tdplotcalctransformmainscreen
 %
 %now here is where the output is performed
-\tikzset{tdplot_main_coords/.style={x={(\raarot cm,\rbarot cm)},y={(\rabrot cm, \rbbrot cm)},z={(\racrot cm, \rbcrot cm)}}}%
+\tikzset{tdplot_main_coords/.style={x={(\raarot cm,\rbarot cm)},y={(\rabrot cm, \rbbrot cm)},z={(\racrot cm, \rbcrot cm)} } }%
 }
 
 
@@ -341,7 +341,7 @@
 %
 %\rcarc\ \rcbrc\ \rccrc
 %
-\tikzset{tdplot_rotated_coords/.append style={x={(\raarc cm,\rbarc cm)},y={(\rabrc cm, \rbbrc cm)},z={(\racrc cm, \rbcrc cm)}}}%
+\tikzset{tdplot_rotated_coords/.append style={x={(\raarc cm,\rbarc cm)},y={(\rabrc cm, \rbbrc cm)},z={(\racrc cm, \rbcrc cm)} } }%
 }
 
 %\tdplotsetrotatedcoordsorigin{point}
@@ -349,14 +349,14 @@
 %#1: user-specified coordinate
 \newcommand{\tdplotsetrotatedcoordsorigin}[1]{%
 %\pgfmathsetmacro{\tdplotrotatedcoordsorigin}{#1}%
-\tikzset{tdplot_rotated_coords/.append style={shift=#1}}%
+\tikzset{tdplot_rotated_coords/.append style={shift=#1} }%
 }
 
 %\tdplotresetrotatedcoordsorigin
 %this resets the rotated coordinate system translation back to the origin of the main coordinate system
 \newcommand{\tdplotresetrotatedcoordsorigin}{%
 %\pgfmathsetmacro{\tdplotrotatedcoordsorigin}{#1}%
-\tikzset{tdplot_rotated_coords/.append style={shift={(0,0,0)}}}%
+\tikzset{tdplot_rotated_coords/.append style={shift={(0,0,0)} } }%
 }
 
 %\tdplotsetthetaplanecoords{\phi}
@@ -380,7 +380,7 @@
 	\tdplotsetrotatedcoords{\tdplotalpha}{\tdplotbeta}{\tdplotgamma + #1}%
 	%
 	%permute the coordinates
-	\tikzset{tdplot_rotated_coords/.append style={y={(\raarc cm,\rbarc cm)},z={(\rabrc cm, \rbbrc cm)},x={(\racrc cm, \rbcrc cm)}}}%
+	\tikzset{tdplot_rotated_coords/.append style={y={(\raarc cm,\rbarc cm)},z={(\rabrc cm, \rbbrc cm)},x={(\racrc cm, \rbcrc cm)} } }%
 }
 
 %\tdplotsetcoord{point}{r}{theta}{phi}
@@ -499,7 +499,7 @@
 
 	%draw the arc
 	\pgfmathparse{\tdplotstartphi < \tdplotresphi}
-	\ifthenelse{\equal{\pgfmathresult}{1}}%
+	\ifthenelse{\equal{\pgfmathresult}{1} }%
 		{}%
 		{
 			\pgfmathsetmacro{\tdplotstartphi}{\tdplotstartphi - 360}
@@ -659,7 +659,7 @@
 		\pgfmathsetmacro{\curlatitude}{90 - \curtheta}
 
 		%If sweeping to the right, shift the value of phi to the lower value of phi.
-		\ifthenelse{\equal{\leftright}{-1.0}}%
+		\ifthenelse{\equal{\leftright}{-1.0} }%
 			{%
 				\pgfmathsetmacro{\curphi}{\curphi - \origviewphistep}
 			}{}
@@ -669,7 +669,7 @@
 		\pgfmathsetmacro{\tdplotphi}{mod(\curphi,360)}
 
 		\pgfmathparse{\tdplotphi < 0}
-		\ifthenelse{\equal{\pgfmathresult}{1}}{
+		\ifthenelse{\equal{\pgfmathresult}{1} }{
 			\pgfmathsetmacro{\tdplotphi}{\tdplotphi + 360}
 		}{}%
 
@@ -696,7 +696,7 @@
 		\pgfmathsetmacro{\tdplotphi}{\tdplotphi + \viewphistep}
 
 		\pgfmathparse{\tdplotphi < 0}
-		\ifthenelse{\equal{\pgfmathresult}{1}}{
+		\ifthenelse{\equal{\pgfmathresult}{1} }{
 			\pgfmathsetmacro{\tdplotphi}{\tdplotphi + 360}
 		}{}%
 
@@ -711,9 +711,9 @@
 		\pgfmathsetmacro{\tdplotphi}{\curphi}
 
 		%if using fill color parametric to angles
-		\ifthenelse{\equal{#6}{parametricfill}}{%
+		\ifthenelse{\equal{#6}{parametricfill} }{%
 			%and, if it's being plotted
-			\ifthenelse{\equal{\logictest}{1.0}}{%
+			\ifthenelse{\equal{\logictest}{1.0} }{%
 			\pgfmathsetmacro{\radius}{#1}
 			\pgfmathsetmacro{\tdplotr}{\radius*360}  %factor of 360 lets the radius change hue through one full cycle for each unit radius
 			
@@ -737,28 +737,28 @@
 		}
 		\pgfsetstrokecolor{#4}
 
-		\ifthenelse{\equal{\leftright}{-1.0}}%
+		\ifthenelse{\equal{\leftright}{-1.0} }%
 			{%
 			\pgfmathsetmacro{\curphi}{\curphi + \origviewphistep}
 			}{}
 		%\fi
 
 		%if this section is being plotted
-		\ifthenelse{\equal{\logictest}{1.0}}{%
+		\ifthenelse{\equal{\logictest}{1.0} }{%
 		\pgfmathsetmacro{\radius}{abs(#1)}
-		\pgfpathmoveto{\pgfpointspherical{\curlongitude}{\curlatitude}{\radius}}
+		\pgfpathmoveto{\pgfpointspherical{\curlongitude}{\curlatitude}{\radius} }
 
 		\pgfmathsetmacro{\tdplotphi}{\curphi + \viewphistep}
 		\pgfmathsetmacro{\radius}{abs(#1)}
-		\pgfpathlineto{\pgfpointspherical{\curlongitude - \viewphistep}{\curlatitude}{\radius}}
+		\pgfpathlineto{\pgfpointspherical{\curlongitude - \viewphistep}{\curlatitude}{\radius} }
 
 		\pgfmathsetmacro{\tdplottheta}{\curtheta + \viewthetastep}
 		\pgfmathsetmacro{\radius}{abs(#1)}
-		\pgfpathlineto{\pgfpointspherical{\curlongitude - \viewphistep}{\curlatitude - \viewthetastep}{\radius}}
+		\pgfpathlineto{\pgfpointspherical{\curlongitude - \viewphistep}{\curlatitude - \viewthetastep}{\radius} }
 
 		\pgfmathsetmacro{\tdplotphi}{\curphi}
 		\pgfmathsetmacro{\radius}{abs(#1)}
-		\pgfpathlineto{\pgfpointspherical{\curlongitude}{\curlatitude - \viewthetastep}{\radius}}
+		\pgfpathlineto{\pgfpointspherical{\curlongitude}{\curlatitude - \viewthetastep}{\radius} }
 		\pgfpathclose
 	
 		\pgfusepath{fill,stroke}
@@ -825,24 +825,24 @@
 %
 	%check for angles larger than 90
 	\pgfmathparse{\vzcalc < 0}
-	\ifthenelse{\equal{\pgfmathresult}{1}}%
+	\ifthenelse{\equal{\pgfmathresult}{1} }%
 		{%
 			\pgfmathsetmacro{\tdplotrestheta}{180 - \tdplotrestheta}
 		}
 		{}
 %
 	%check for special case: vx = 0
-	\ifthenelse{\equal{\vxcalc}{0.0}}%
+	\ifthenelse{\equal{\vxcalc}{0.0} }%
 		{%
 			%check the sign of vy, and set angle appropriately
 			\pgfmathparse{\vycalc < 0}
-			\ifthenelse{\equal{\pgfmathresult}{1}}%
+			\ifthenelse{\equal{\pgfmathresult}{1} }%
 				{%
 					\pgfmathsetmacro{\tdplotresphi}{270}
 				}
 				{%
 					\pgfmathparse{\vycalc > 0}
-					\ifthenelse{\equal{\pgfmathresult}{1}}%
+					\ifthenelse{\equal{\pgfmathresult}{1} }%
 						{%
 							%\typeout{\vycalc}
 							\pgfmathsetmacro{\tdplotresphi}{90}
@@ -860,7 +860,7 @@
 			%check if vx is less than zero, to properly identify the quadrant
 			\pgfmathparse{\vxcalc < 0}
 			%\typeout{x: \vxcalc\ y: \vycalc\ Raw phi: \tdplotresphi\ math result: \pgfmathresult}
-			\ifthenelse{\equal{\pgfmathresult}{1}}%
+			\ifthenelse{\equal{\pgfmathresult}{1} }%
 				{%
 					%\typeout{HERE!}
 					%increase by half a rotation if necessary
@@ -872,7 +872,7 @@
 
 			%ensure the angle lies between 0 and 360 degrees
 			\pgfmathparse{\tdplotresphi < 0}
-			\ifthenelse{\equal{\pgfmathresult}{1}}%
+			\ifthenelse{\equal{\pgfmathresult}{1} }%
 				{%
 					\pgfmathsetmacro{\tdplotresphi}{\tdplotresphi+360}
 				}

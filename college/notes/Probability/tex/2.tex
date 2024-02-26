@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 2}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 2}
@@ -29,7 +29,7 @@
 
     If we also allow for no individuals to leave on certain floors, there are a known amount of solutions.
 
-    \[ \begin{pmatrix}n + r - 1\\ r - 1\end{pmatrix} \Rightarrow \boxed{\begin{pmatrix}13\\5\end{pmatrix}} \]
+    \[ \begin{pmatrix}n + r - 1\\ r - 1\end{pmatrix} \Rightarrow \boxed{\begin{pmatrix}13\\5\end{pmatrix} } \]
 
     @@@ For the second part of the problem, if the idiot operator can now discern the difference between a man and a woman, the problem is phrased in two parts.
 
@@ -40,7 +40,7 @@
 
     However this only accounts for the two separate groups. In order to obtain the total number of solutions, they must be multiplied together. So the final answer is
 
-    \[ \boxed{\begin{pmatrix}10\\5\end{pmatrix} \cdot \begin{pmatrix}8\\5\end{pmatrix}} \]
+    \[ \boxed{\begin{pmatrix}10\\5\end{pmatrix} \cdot \begin{pmatrix}8\\5\end{pmatrix} } \]
 
     @ Chapter 2, p. 48: \#2, 4, 8, 9; p. 52 \#6, 7.
     @@ In an experiment, die is rolled continually until a 6 appears, at which point the experiment stops. What is the sample space of this experiment? Let $E_n$ denote the event that $n$ rolls are necessary to complete the experiment. What points of the sample space are contained in $E_n$? What is ${\left( \bigcup^\infty_1 E_n \right)}^c$?
@@ -112,10 +112,10 @@
     @@@ Any randomly chosen individual can read 0, 1, 2, or 3 newspapers. Therefore, for any individual $M$, the sample space of their newspaper readings can be expressed as
 
     \[ S = \left\{
-                \underbrace{()}_{\text{0 Read}},
-                \underbrace{(a), (b), (c)}_{\text{1 Read}},
-                \underbrace{(ab), (ac), (bc)}_{\text{2 Read}},
-                \underbrace{(abc)}_{\text{3 Read}}
+                \underbrace{()}_{\text{0 Read} },
+                \underbrace{(a), (b), (c)}_{\text{1 Read} },
+                \underbrace{(ab), (ac), (bc)}_{\text{2 Read} },
+                \underbrace{(abc)}_{\text{3 Read} }
         \right\} \]
 
     @@ Suppose events $A$, $B$ and $C$ have the following probabilities: $P(A) = 0.30, P(B) = 0.35, P(C) = 0.40, P(A \cap B) = 0.06, P(A \cap C) = 0.11, P(B \cap C) = 0.16$ and $P(A \cap B \cap C) = 0.01$. For each of the following events, describe it with a Venn diagram, describe it with set notation (using your sample space from part (a)), and find its probability.
@@ -216,13 +216,13 @@
 
         According to our previous result, the cardinality of the set is 3003, meaning each combination has a 1 in 3003 chance of occurring. Therefore, this probability is merely
 
-        \[ \frac{1}{\begin{pmatrix}15\\5\end{pmatrix}} \cdot \begin{pmatrix}8\\3\end{pmatrix} \cdot \begin{pmatrix}7\\2\end{pmatrix} = \boxed{\frac{56}{143} \approx 0.3916} \]
+        \[ \frac{1}{\begin{pmatrix}15\\5\end{pmatrix} } \cdot \begin{pmatrix}8\\3\end{pmatrix} \cdot \begin{pmatrix}7\\2\end{pmatrix} = \boxed{\frac{56}{143} \approx 0.3916} \]
 
     @@ Let $B$ be the event that at least 2 women serve on the committee. What is the probability of $B$?
     @@@ Again the key to this problem is to identify how many combinations satisfy the condition, and then determine the probability based off the cardinality. Since all conditions are mutually exclusive, we can look at them independently.
 
     \[
-        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix}} \cdot
+        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix} } \cdot
             \left( \begin{pmatrix}7\\2\end{pmatrix}\begin{pmatrix}8\\3\end{pmatrix} +
             \begin{pmatrix}7\\3\end{pmatrix}\begin{pmatrix}8\\2\end{pmatrix} +
             \begin{pmatrix}7\\4\end{pmatrix}\begin{pmatrix}8\\1\end{pmatrix} +
@@ -233,7 +233,7 @@
     @@ What is the event $A \cap B$ (describe in words or in symbols)? What is its probability?
     @@@ This event is when there are at least two women, intersected with two women and three men. This results in a committee where there are two women and three men. The probability of this event is the same as it is above, namely
 
-        \[ \frac{1}{\begin{pmatrix}15\\5\end{pmatrix}} \cdot \begin{pmatrix}8\\3\end{pmatrix} \cdot \begin{pmatrix}7\\2\end{pmatrix} = \boxed{\frac{56}{143} \approx 0.3916} \]
+        \[ \frac{1}{\begin{pmatrix}15\\5\end{pmatrix} } \cdot \begin{pmatrix}8\\3\end{pmatrix} \cdot \begin{pmatrix}7\\2\end{pmatrix} = \boxed{\frac{56}{143} \approx 0.3916} \]
 
     @@ Suppose one man and one woman are married and, by the rules of the committee, can not serve together. How does the sample space change in this situation? Re-calculate $P(A)$ and $P(B)$.
     @@@ In this situation the sample space shifts to only include committees without the couple together, however they can serve independently. Let $y_1$ and $y_2$ be our couple. Therefore, the sample space now becomes
@@ -250,7 +250,7 @@
     $P(A)$ adjusts accordingly.
 
     \[
-        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix}}
+        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix} }
         \left(
             \begin{pmatrix}7\\3\end{pmatrix} \begin{pmatrix}6\\2\end{pmatrix} \begin{pmatrix}2\\1\end{pmatrix}
         \right) = \boxed{\frac{50}{143} \approx 0.34965}
@@ -259,7 +259,7 @@
     As does $P(B)$.
 
     \[
-        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix}} \cdot
+        \frac{1}{\begin{pmatrix}15\\5\end{pmatrix} } \cdot
         \left(
             \begin{pmatrix}6\\2\end{pmatrix}\begin{pmatrix}7\\3\end{pmatrix}\begin{pmatrix}2\\1\end{pmatrix}+
             \begin{pmatrix}6\\3\end{pmatrix}\begin{pmatrix}7\\2\end{pmatrix}\begin{pmatrix}2\\1\end{pmatrix}+

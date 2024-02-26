@@ -50,7 +50,7 @@ while the absolute frequency is the numerator.
 
     The sample variance (denoted $s^2$) is given by
 
-        \[ s^2 = \frac{\Sigma {\left( x_i - \bar{x} \right) }^2}{n-1} = \frac{S_{xx}}{n-1} \]
+        \[ s^2 = \frac{\Sigma {\left( x_i - \bar{x} \right) }^2}{n-1} = \frac{S_{xx} }{n-1} \]
 
     While the sample standard deviation is given by the square root of the variance,
 
@@ -273,7 +273,7 @@ probability.
 
     Like the binomial probability distribution, $X$ is the number of successes in the sample.
 
-        \[ P(X=x) = h(x;n, M, N) = \frac{\binom{M}{x} \binom{N-M}{n-x}}{\binom{N}{n}} \]
+        \[ P(X=x) = h(x;n, M, N) = \frac{\binom{M}{x} \binom{N-M}{n-x} }{\binom{N}{n} } \]
 
     The mean and variance of this distribution are
 
@@ -341,14 +341,14 @@ probability.
     \subsection{The Normal Distribution}
     A continuous random variable is said to have normal distribution with parameters $\mu$ and $\sigma$ if the pdf of $X$ is
 
-        \[ f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-{(x-\mu)}^2}{2\sigma^2}} \]
+        \[ f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi} } e^{\frac{-{(x-\mu)}^2}{2\sigma^2} } \]
 
     This is often written as $X \to N(\mu, \sigma^2)$.
 
         \subsubsection{The Standard Normal Distribution}
         If $\mu = 0$ and $\sigma=1$ this is defined as the standard normal distribution (denoted by $Z$) with pdf
 
-            \[ f(z;0,1) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \]
+            \[ f(z;0,1) = \frac{1}{\sqrt{2\pi} } e^{-z^2/2} \]
 
         Where the cdf is denoted by $\Phi(z)$.
 
@@ -412,7 +412,7 @@ probability.
         \[
             f(x; \alpha) =
             \begin{cases}
-                \frac{x^{\alpha - 1}e^{-x}}{\Gamma(\alpha)} &\to x \ge 0\\
+                \frac{x^{\alpha - 1}e^{-x} }{\Gamma(\alpha)} &\to x \ge 0\\
                 0 &\to Otherwise
             \end{cases}
         \]
@@ -422,7 +422,7 @@ probability.
         \[
             f(x; \alpha, \beta) =
             \begin{cases}
-                \frac{x^{\alpha - 1}e^{-x/\beta}}{\beta^\alpha \Gamma(\alpha)} &\to x \ge 0\\
+                \frac{x^{\alpha - 1}e^{-x/\beta} }{\beta^\alpha \Gamma(\alpha)} &\to x \ge 0\\
                 0 &\to Otherwise
             \end{cases}
         \]
@@ -437,14 +437,14 @@ probability.
 
         \[
             F(x;\alpha) =
-            \int^x_0 \frac{y^{\alpha - 1}e^{-y}}{\Gamma(\alpha)} \, dy
+            \int^x_0 \frac{y^{\alpha - 1}e^{-y} }{\Gamma(\alpha)} \, dy
         \]
 
         \subsubsection{Chi-Squared}
             \[
                 f(x; v) = 
                 \begin{cases}
-                    \frac{x^{v/2 - 1}e^{-x/2}}{2^{v/2} \Gamma(v/2)} &\to x \ge 0\\
+                    \frac{x^{v/2 - 1}e^{-x/2} }{2^{v/2} \Gamma(v/2)} &\to x \ge 0\\
                     0 &\to x < 0
                 \end{cases}
             \]
@@ -479,7 +479,7 @@ probability.
         \[
             f(x; \mu, \sigma) = 
             \begin{cases}
-                \frac{e^{-[\ln(x) - \mu]^2/(2\sigma^2)}}{\sigma x \sqrt{2 \pi}} &\to x \ge 0\\
+                \frac{e^{-[\ln(x) - \mu]^2/(2\sigma^2)} }{\sigma x \sqrt{2 \pi} } &\to x \ge 0\\
                 0 &\to x < 0
             \end{cases}
         \]
@@ -504,8 +504,8 @@ probability.
         \]
 
         \[
-            \mu = A + (B - A) \cdot \frac{\alpha}{\alpha + \beta} \qquad \sigma^2 = \frac{{(B - A)}^2 \alpha
-        \beta}{{(\alpha+\beta)}^2 (\alpha + \beta + 1)}
+            \mu = A + (B - A) \cdot \frac{\alpha}{\alpha + \beta} \qquad \sigma^2 = \frac{ {(B - A)}^2 \alpha
+        \beta}{ {(\alpha+\beta)}^2 (\alpha + \beta + 1)}
         \]
 
 \section{Functions of Random Variables}
@@ -521,7 +521,7 @@ Let $X$ be a random variables with continuous distribution. Let $Y = X^2$.
                &=& P\left( -\sqrt{y} \le X^2 \le \sqrt{y} \right)\\
                &=& F_x(\sqrt{y}) - F_x(-\sqrt{y})\\
         \text{Now differentiate to obtain $f_x$}\\
-        f_Y(y) &=& \frac{1}{2\sqrt{y}} \left[ f_X(\sqrt{y}) + f_x(-\sqrt{y}) \right]
+        f_Y(y) &=& \frac{1}{2\sqrt{y} } \left[ f_X(\sqrt{y}) + f_x(-\sqrt{y}) \right]
     \end{aligned}
 \]
 
@@ -759,28 +759,28 @@ insight, that is $\overline{X}$ based on a large $n$ tends to be closer to $\mu$
     \]
 
 Let $X_1, X_2, \ldots, X_n$ be a random sample from a distribution with mean $\mu$ and variance $\sigma^2$. If $n$ is
-sufficiently large\footnote{n > 40}, $\overline{X}$ has approximately a normal distribution with $\mu_{\overline{X}} = \mu$ and
-$\sigma^2_{\overline{X}} = \sigma^2 / n$. The larger $n$ is, the better the approximation.
+sufficiently large\footnote{n > 40}, $\overline{X}$ has approximately a normal distribution with $\mu_{\overline{X} } = \mu$ and
+$\sigma^2_{\overline{X} } = \sigma^2 / n$. The larger $n$ is, the better the approximation.
 
 \section{Intervals}
 The CLT tells us that as $n$ increases, the sample mean is normally distributed. We can normalize our sample mean.
 
 \[
-    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n} }
 \]
 
 This allows us to define a confidence interval. We know 
 
 \[
-    P \left( -1.96 < \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} < 1.96 \right) = 0.95
+    P \left( -1.96 < \frac{\overline{X} - \mu}{\sigma / \sqrt{n} } < 1.96 \right) = 0.95
 \]
 
 Which means that the $100 ( 1 - \alpha)\%$ confidence interval is defined as
 
 \[
     \left(
-    \overline{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}},
-    \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+    \overline{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n} },
+    \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n} }
     \right)
 \]
 
@@ -808,8 +808,8 @@ We can replace the instance of $\sigma$ (which is rarely known) with our sample 
 
     \[
         \left(
-        \overline{X} - t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}},
-        \overline{X} + t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n}}
+        \overline{X} - t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n} },
+        \overline{X} + t_{\alpha/2, n - 1} \cdot \frac{\sigma}{\sqrt{n} }
         \right)
     \]
 
@@ -822,11 +822,11 @@ We can replace the instance of $\sigma$ (which is rarely known) with our sample 
     \]
 
     The natural estimator for $p$ is $\hat{p} = X / n$, or the fraction of ``successes'' that we identify. We know that
-    $\hat{p}$ has normal distribution, and that $E(\hat{p}) = P, \sigma_{\hat{p}} = \sqrt{p (1 - p) / n}$, therefore our
+    $\hat{p}$ has normal distribution, and that $E(\hat{p}) = P, \sigma_{\hat{p} } = \sqrt{p (1 - p) / n}$, therefore our
     confidence interval is
 
     \[
-        \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+        \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n} }
     \]
 
     \subsection{Confidence Intervals for Variance of a Normal Population}
@@ -841,8 +841,8 @@ We can replace the instance of $\sigma$ (which is rarely known) with our sample 
 
     \[
         \left(
-        \frac{(n - 1)s^2}{\chi^2_{\alpha/2, n - 1}},
-        \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2, n - 1}}
+        \frac{(n - 1)s^2}{\chi^2_{\alpha/2, n - 1} },
+        \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2, n - 1} }
         \right)
     \]
 
@@ -872,7 +872,7 @@ And we have two different types of errors:
 We need a test statistic in order to determine the null's validity. One easy way is to standardize $\overline{X}$.
 
 \[
-    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+    Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n} }
 \]
 
 And we have three types, lower-tailed, upper-tailed and two-tailed.
@@ -880,7 +880,7 @@ And we have three types, lower-tailed, upper-tailed and two-tailed.
 We also need to consider proportions, in which case we standardize again.
 
 \[
-    Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n}}}
+    Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n} } }
 \]
 
 And then we use $p$-values, which is the probability that any $z$-test will occur on the standard normal curve. The
@@ -904,7 +904,7 @@ If we have two samples, $X$ and $Y$, a natural estimator is $\mu_X - \mu_Y$. The
 
 \begin{equation*}
     \begin{aligned}
-        \sigma_{\overline{X} - \overline{Y}} = \sqrt{\frac{\sigma_1^2}{m} + \frac{\sigma_2^2}{n}}
+        \sigma_{\overline{X} - \overline{Y} } = \sqrt{\frac{\sigma_1^2}{m} + \frac{\sigma_2^2}{n} }
     \end{aligned}
 \end{equation*}
 
@@ -913,7 +913,7 @@ this is
 
 \begin{equation*}
     \begin{aligned}
-        \overline{x} - \overline{y} \pm z_{\alpha / 2} \sqrt{\frac{s^2_1}{m} + \frac{s^2_2}{n}}
+        \overline{x} - \overline{y} \pm z_{\alpha / 2} \sqrt{\frac{s^2_1}{m} + \frac{s^2_2}{n} }
     \end{aligned}
 \end{equation*}
 
@@ -922,8 +922,8 @@ distribution with degrees of freedom estimated by
 
 \begin{equation*}
     \begin{aligned}
-        v = \frac{{\left( \frac{s^2_1}{m} + \frac{s^2_2}{n} \right)}^2}
-        {\frac{{\left( s^2_1 / m \right)}^2}{m - 1} + \frac{{\left( s^2_2 / n \right)}^2}{n - 1}}
+        v = \frac{ {\left( \frac{s^2_1}{m} + \frac{s^2_2}{n} \right)}^2}
+        {\frac{ {\left( s^2_1 / m \right)}^2}{m - 1} + \frac{ {\left( s^2_2 / n \right)}^2}{n - 1} }
     \end{aligned}
 \end{equation*}
     
@@ -973,7 +973,7 @@ ordinary least squares method.
         y &=& \hat{\beta}_0 + \hat{\beta}_1 \cdot x\\
         \hat{\beta}_1 &=& \frac{\sum \left( x_i - \overline{x} \right)\left( y_i - \overline{y} \right)}{\sum \left( x_i -
             \overline{x} \right)}
-            &=& \frac{S_{xy}}{S_{xx}} = \frac{\left( \sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)
+            &=& \frac{S_{xy} }{S_{xx} } = \frac{\left( \sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)
             \right)/n}{\left( \sum x^2_i - \left( \sum x_i \right)^2 \right) / n}
         \hat{\beta}_0 &=& \overline{y} - \hat{\beta}_1 \overline{x}
     \end{aligned}
@@ -986,7 +986,7 @@ difference between the fitted values and the actual values. These are estimates 
     \begin{equation*}
         \begin{aligned}
             \text{SSE} &=& \sum \left( y_i - \hat{y}_i \right)^2\\
-            \sigma^2 &=& \frac{\text{SSE}}{n - 2}
+            \sigma^2 &=& \frac{\text{SSE} }{n - 2}
         \end{aligned}
     \end{equation*}
 
@@ -1002,7 +1002,7 @@ difference between the fitted values and the actual values. These are estimates 
 
     \begin{equation*}
         \begin{aligned}
-            r^2 = 1 - \frac{\text{SSE}}{\text{SST}}
+            r^2 = 1 - \frac{\text{SSE} }{\text{SST} }
         \end{aligned}
     \end{equation*}
 
@@ -1019,7 +1019,7 @@ difference between the fitted values and the actual values. These are estimates 
 
     \begin{equation*}
         \begin{aligned}
-            T = \frac{\hat{\beta}_1 - \hat{\beta}}{S / \sqrt{S_{xx}}}
+            T = \frac{\hat{\beta}_1 - \hat{\beta} }{S / \sqrt{S_{xx} } }
         \end{aligned}
     \end{equation*}
 
@@ -1034,7 +1034,7 @@ difference between the fitted values and the actual values. These are estimates 
 
     \begin{equation*}
         \begin{aligned}
-            V(\hat{Y}) = \sigma^2 \left[ \frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}{S_{xx}} \right]
+            V(\hat{Y}) = \sigma^2 \left[ \frac{1}{n} + \frac{ {\left( x^* - \overline{x} \right)}^2}{S_{xx} } \right]
         \end{aligned}
     \end{equation*}
 
@@ -1044,7 +1044,7 @@ difference between the fitted values and the actual values. These are estimates 
 
     \begin{equation*}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \sqrt{s^2 + s^2_{\hat{Y}}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \sqrt{s^2 + s^2_{\hat{Y} } }
         \end{aligned}
     \end{equation*}
 
@@ -1072,7 +1072,7 @@ This is best done with code.
 
     \begin{equation*}
         \begin{aligned}
-            \sigma^2 = s^2 = \text{MSE} = \frac{\text{SSE}}{n - (k + 1)}
+            \sigma^2 = s^2 = \text{MSE} = \frac{\text{SSE} }{n - (k + 1)}
         \end{aligned}
     \end{equation*}
 
@@ -1082,6 +1082,6 @@ This is best done with code.
 
     \begin{equation*}
         \begin{aligned}
-            F = \frac{\text{SSR}/k}{\text{SSE} / (n - (k + 1))} = \frac{\text{MSR}}{\text{MSE}}
+            F = \frac{\text{SSR}/k}{\text{SSE} / (n - (k + 1))} = \frac{\text{MSR} }{\text{MSE} }
         \end{aligned}
     \end{equation*}

@@ -12,22 +12,22 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
+  \def\at@end@of@kframe{\end{minipage} }%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +36,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
+   \@setminipage} }%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -56,16 +56,16 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Midterm 2 -- Takehome Portion}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
-\title{Midterm 2\\\textit{Takehome Portion}}
+\title{Midterm 2\\\textit{Takehome Portion} }
 \author{Zoe Farmer}
 \date{March 21, 2014}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
 \begin{document}
 
 
@@ -97,7 +97,7 @@ other information.
         distribution. This let's us establish a similar definition as above.
 
         \[
-            \sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}}
+            \sigma_{\hat{p} } = \sqrt{\frac{p(1-p)}{n} }
         \]
 
         With all these facts we can establish our confidence interval to be
@@ -105,9 +105,9 @@ other information.
         \[
             \begin{aligned}
                 P \left( -z_{\alpha/2} <
-                    \frac{\hat{p} - p}{\sqrt{\frac{\hat{p}\left(1-\hat{p}\right)}{n}}} <
+                    \frac{\hat{p} - p}{\sqrt{\frac{\hat{p}\left(1-\hat{p}\right)}{n} } } <
                     z_{\alpha/2} \right) = 0.95\\
-                \Rightarrow \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}}
+                \Rightarrow \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} }
             \end{aligned}
         \]
 
@@ -115,9 +115,9 @@ other information.
 
         \[
             \begin{aligned}
-                \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} -
-                    \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} &=& w\\
-                2 z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} &=& w\\
+                \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } -
+                    \hat{p} + z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } &=& w\\
+                2 z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} } &=& w\\
                 -\frac{4 \left(\hat{p}^2 z_{\alpha / 2}^2-\hat{p} z_{\alpha / 2}^2\right)}{w^2} &=& n
             \end{aligned}
         \]
@@ -148,7 +148,7 @@ other information.
         @@ First let us establish our confidence interval.
 
         \[
-            \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}}
+            \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p} (1 - \hat{p})}{n} }
         \]
 
         We know each of these elements, and we can calculate our interval.
@@ -198,7 +198,7 @@ other information.
 
 }
 
-\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data}}
+\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data} }
 \end{figure}
 
 
@@ -219,7 +219,7 @@ other information.
              \hlstd{clower} \hlkwb{<-} \hlstd{m} \hlopt{-} \hlkwd{abs}\hlstd{(z} \hlopt{*} \hlkwd{sqrt}\hlstd{((m} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{m))} \hlopt{/} \hlstd{n))}
              \hlstd{cupper} \hlkwb{<-} \hlstd{m} \hlopt{+} \hlkwd{abs}\hlstd{(z} \hlopt{*} \hlkwd{sqrt}\hlstd{((m} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{m))} \hlopt{/} \hlstd{n))}
              \hlstd{(clower} \hlopt{<} \hlnum{0.10}\hlstd{)} \hlopt{&} \hlstd{(}\hlnum{0.10} \hlopt{<} \hlstd{cupper)}
-         \hlstd{\}}
+         \hlstd{\} }
          \hlstd{count100} \hlkwb{<-} \hlkwd{length}\hlstd{(interval_data100}\hlopt{$}\hlstd{percent[}
                          \hlkwd{in_interval}\hlstd{(interval_data100}\hlopt{$}\hlstd{percent, n)])}
 \end{alltt}
@@ -289,7 +289,7 @@ other information.
 
 }
 
-}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits}}
+}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits} }
 \end{figure}
 
 
@@ -345,7 +345,7 @@ other information.
 
 }
 
-\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues}}
+\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues} }
 \end{figure}
 
 
@@ -386,7 +386,7 @@ other information.
 
 }
 
-\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data_new}}
+\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data_new} }
 \end{figure}
 
 
@@ -457,7 +457,7 @@ other information.
 
 }
 
-}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits_new}}
+}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits_new} }
 \end{figure}
 
 
@@ -498,7 +498,7 @@ other information.
 
 }
 
-\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues_new}}
+\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues_new} }
 \end{figure}
 
 

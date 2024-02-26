@@ -8,7 +8,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{CSCI 3104 Notes}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{CSCI 3104}
 \rfoot{Clauset}
 \title{CSCI 3104 Notes}
@@ -84,9 +84,9 @@
         \subsubsection{Recurrence Relations}
         Generally of the form
 
-            \[ T(n) = \underbrace{a}_{\text{Number of Recursive Calls}} \cdot
-                        \overbrace{T(\underbrace{g(n)}_{\text{Method of Reducing the Problem}})}^{\text{Cost of Recursion}} +
-                        \underbrace{f(n)}_{\text{Cost of Non-Recursive Work}} \]
+            \[ T(n) = \underbrace{a}_{\text{Number of Recursive Calls} } \cdot
+                        \overbrace{T(\underbrace{g(n)}_{\text{Method of Reducing the Problem} })}^{\text{Cost of Recursion} } +
+                        \underbrace{f(n)}_{\text{Cost of Non-Recursive Work} } \]
 
         If the problem is divided in twain it will generate a binary tree with approximate depth of $\log_2(n)$.
 

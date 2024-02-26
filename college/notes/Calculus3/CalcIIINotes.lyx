@@ -572,7 +572,7 @@ Projections
 \begin_layout Standard
 
 Formula for projections: 
-\begin_inset Formula $Proj_{\vec{A}}\vec{B}=|\vec{B}|\cos(\theta)\frac{\vec{A}}{|\vec{A}|}$
+\begin_inset Formula $Proj_{\vec{A} }\vec{B}=|\vec{B}|\cos(\theta)\frac{\vec{A} }{|\vec{A}|}$
 \end_inset
 
  
@@ -637,13 +637,13 @@ Example - Projection
 
 \begin_inset Formula \[
         \begin{aligned}
-        \text{Find }Proj_{\vec{A}} \vec{B}\\
+        \text{Find }Proj_{\vec{A} } \vec{B}\\
         \vec{B} = \nvec{6,3,2}\\
         \vec{A} = \nvec{1,-2,-2}\\
-        \frac{\vec{A} \cdot \vec{B}}{{|\vec{A}|^2}}\\
+        \frac{\vec{A} \cdot \vec{B} }{ {|\vec{A}|^2} }\\
         \vec{A} \cdot \vec{B} = -4\\
         |\vec{A}|^2 = 1^2 + (-2)^2 + (-2)^2 = 9\\
-        Proj_{\vec{A}} \vec{B} = \frac{-4}{9} \cdot \nvec{1,-2,-2}\\
+        Proj_{\vec{A} } \vec{B} = \frac{-4}{9} \cdot \nvec{1,-2,-2}\\
         \end{aligned}
         \]
 \end_inset
@@ -825,7 +825,7 @@ Vector between
             x(t)=x_0+tv_1\\
             y(t)=y_0+tv_2\\
             z(t)=z_0+tv_3
-        \end{cases}}
+        \end{cases} }
     \end{equation}
 \end_inset
 
@@ -1352,8 +1352,8 @@ The TNB frame is at its core a method for describing a line in 3 dimensional spa
 
 The Tangent Vector describes the direction of motion in space as well as the velocity of a particle at that point. 
 \begin_inset Formula \begin{equation}
-\hat{T} = \frac{\frac{d\vec{r}}{dt}}{\abs{\frac{d\vec{r}}{dt}}} =
-\frac{\vec{r}\prime(t)}{\abs{\vec{r}\prime(t)}}
+\hat{T} = \frac{\frac{d\vec{r} }{dt} }{\abs{\frac{d\vec{r} }{dt} } } =
+\frac{\vec{r}\prime(t)}{\abs{\vec{r}\prime(t)} }
 \end{equation}
 \end_inset
 
@@ -1364,7 +1364,7 @@ The Tangent Vector describes the direction of motion in space as well as the vel
 
 The Normal Vector describes the tendency for the line to curve in space as well as centripetal acceleration. 
 \begin_inset Formula \begin{equation}
-\hat{N} = \frac{\frac{d\hat{T}}{ds}}{\abs{\frac{d\hat{T}}{ds}}}
+\hat{N} = \frac{\frac{d\hat{T} }{ds} }{\abs{\frac{d\hat{T} }{ds} } }
 \end{equation}
 \end_inset
 
@@ -1386,7 +1386,7 @@ The Binormal Vector describes the tendency for the line to leave the plane.
 
 These three components also give us curvature 
 \begin_inset Formula \begin{equation}
-\kappa = \abs{\frac{d\hat{T}}{ds}} = \frac{\abs{\vec{v}\times\vec{a}}}{\abs{\vec{v}}^3}
+\kappa = \abs{\frac{d\hat{T} }{ds} } = \frac{\abs{\vec{v}\times\vec{a} } }{\abs{\vec{v} }^3}
 \end{equation}
 \end_inset
 
@@ -1411,7 +1411,7 @@ indent
     \ddot{x} & \ddot{y} & \ddot{z}\\
     \dddot{x} & \dddot{y} & \dddot{z}\\
     \end{vmatrix}
-}{\abs{\vec{v}\times\vec{a}}^2}
+}{\abs{\vec{v}\times\vec{a} }^2}
 \end{equation}
 \end_inset
 
@@ -1801,7 +1801,7 @@ If we wish to know how
 
  we use 
 \begin_inset Formula \begin{equation}
-D_{\vec{u}}f = \nvec{\frac{df}{dx}, \frac{df}{dy}} \cdot \nvec{u_1, u_2} = \nabla f \cdot \vec{u}
+D_{\vec{u} }f = \nvec{\frac{df}{dx}, \frac{df}{dy} } \cdot \nvec{u_1, u_2} = \nabla f \cdot \vec{u}
 \end{equation}
 \end_inset
 
@@ -2087,7 +2087,7 @@ Example - Switch the order of integration for the given integrals
 
 \begin_inset Formula \[
     \begin{aligned}
-    \text{Given } \int_0^1 \int_{\sqrt{y}}^1 f(x,y) dxdy\\
+    \text{Given } \int_0^1 \int_{\sqrt{y} }^1 f(x,y) dxdy\\
     \text{Bounds}\begin{cases}
     \sqrt{y} \le x \le 1\\
     0 \le y \le x^2
@@ -2174,7 +2174,7 @@ Example - Find the area of the lemniscate
 
 
 \begin_inset Formula \[
-    \int_0^{\frac{\pi}{4}} \int_0^{2 \sqrt{\cos(2\theta)}} rdrd\theta = 1
+    \int_0^{\frac{\pi}{4} } \int_0^{2 \sqrt{\cos(2\theta)} } rdrd\theta = 1
     \]
 \end_inset
 
@@ -3745,7 +3745,7 @@ Example - Find
     \text{First parametrize the line } \to \vec{r}(t)=\nvec{t,t,t}, 0 \le t \le 1\\
     \int\limits_c f(x,y,z)ds = \int_{t_0}^{t_f} f(x(t), y(t), z(t)) \frac{ds}{dt} dt\\
     = \int_{t_0}^{t_f} f(x(t), y(t), z(t)) |\vec{v}(t)| dt\\
-    \text{\textit{If }} \vec{r}(t) = \nvec{t,t,t} \text{\textit{ Then }} \vec{v}(t) = \nvec{1,1,1}\\
+    \text{\textit{If } } \vec{r}(t) = \nvec{t,t,t} \text{\textit{ Then } } \vec{v}(t) = \nvec{1,1,1}\\
     |\vec{v}|=\sqrt{3}\\
     t_0 = 0; t_f = 1\\
     \int_0^1(t-3t^2+t)\sqrt{3}dt = \sqrt{3}(t^2-t^3)\big{\vert}_0^1=0
@@ -3778,7 +3778,7 @@ Circulation, or flow, can be described as the rate at which fluid is moving arou
 
 
 \begin_inset Formula \begin{equation}
-    \int\limits_c \vec{u} \cdot \hat{T} ds = \int\limits_c \vec{u} \cdot \frac{d\vec{r}}{ds} = \int\limits_c \vec{u} \cdot dr
+    \int\limits_c \vec{u} \cdot \hat{T} ds = \int\limits_c \vec{u} \cdot \frac{d\vec{r} }{ds} = \int\limits_c \vec{u} \cdot dr
     \end{equation}
 \end_inset
 
@@ -3872,7 +3872,7 @@ Suppose
 
 
 \begin_inset Formula \[
-    w=\int\limits_c\nabla\phi\cdot d\vec{r} = \int_{t_0}^{t_f} (\nabla\phi \cdot \frac{d\vec{r}}{dt})dt
+    w=\int\limits_c\nabla\phi\cdot d\vec{r} = \int_{t_0}^{t_f} (\nabla\phi \cdot \frac{d\vec{r} }{dt})dt
     \]
 \end_inset
 
@@ -3883,7 +3883,7 @@ Suppose
 
 And by chain rule we can find 
 \begin_inset Formula \[
-    \nabla \phi \frac{d\vec{r}}{dt} = \phi_x \frac{dx}{dt} + \phi_y \frac{dy}{dt} + \phi_z \frac{dz}{dt} = \frac{d\phi}{dt}
+    \nabla \phi \frac{d\vec{r} }{dt} = \phi_x \frac{dx}{dt} + \phi_y \frac{dy}{dt} + \phi_z \frac{dz}{dt} = \frac{d\phi}{dt}
     \]
 \end_inset
 
@@ -4268,7 +4268,7 @@ Therefore if
 \end_inset
 
 , and 
-\begin_inset Formula $\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz}}$
+\begin_inset Formula $\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz} }$
 \end_inset
 
 . Therefore the Laplacian can be defined as:
@@ -4278,7 +4278,7 @@ Therefore if
 
 
 \begin_inset Formula \begin{equation}
-Laplacian=\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz}} \equiv \Delta \phi = \phi_{xx} + \phi_{yy} + \phi_{zz}
+Laplacian=\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz} } \equiv \Delta \phi = \phi_{xx} + \phi_{yy} + \phi_{zz}
 \end{equation}
 \end_inset
 
@@ -4358,9 +4358,9 @@ Example - Surface Area of a Sphere
     \hat{p} = \hat{k} \text{ Since the shadow region is in the $xy$ plane}\\
     \nabla F = \nvec{2x, 2y, 2z}\\
     \abs{\nabla F} = 2 \sqrt{x^2 + y^2 + z^2} \to R\\
-    \abs{\nabla F \cdot \hat{p}} = 2z\\
-    \iint \frac{2 \sqrt{x^2 + y^2 + z^2}}{2z} dA \to R \iint \frac{dA}{\sqrt{R^2 - x^2 - y^2}}\\
-    \int_0^{2\pi} \int_0^R \frac{rdrd\theta}{\sqrt{R^2 - r^2}} \to 4\pi R^2
+    \abs{\nabla F \cdot \hat{p} } = 2z\\
+    \iint \frac{2 \sqrt{x^2 + y^2 + z^2} }{2z} dA \to R \iint \frac{dA}{\sqrt{R^2 - x^2 - y^2} }\\
+    \int_0^{2\pi} \int_0^R \frac{rdrd\theta}{\sqrt{R^2 - r^2} } \to 4\pi R^2
     \end{aligned}
     \]
 \end_inset
@@ -4381,12 +4381,12 @@ To find Total Flux, we have to calculate
 
 . We can rearrange this formula to find 
 \begin_inset Formula \[
-\iint\limits_{surface} \vec{F} \cdot \hat{N} d \sigma = \iint\limits_s \frac{u \cdot \nabla F}{\abs{\nabla F \cdot \hat{p}}} dA
+\iint\limits_{surface} \vec{F} \cdot \hat{N} d \sigma = \iint\limits_s \frac{u \cdot \nabla F}{\abs{\nabla F \cdot \hat{p} } } dA
 \]
 \end_inset
 
 Where 
-\begin_inset Formula $\hat{N} d \sigma = \frac{\nabla F}{\abs{\nabla F \cdot \hat{p}}} dA$
+\begin_inset Formula $\hat{N} d \sigma = \frac{\nabla F}{\abs{\nabla F \cdot \hat{p} } } dA$
 \end_inset
 
  and 

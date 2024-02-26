@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 5}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 5}
@@ -59,7 +59,7 @@
     < 40$ entries, we need to use the $t$ distribution, defined below.
 
     \[
-        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n}}
+        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n} }
     \]
 
     <<hw5.1a, tidy=F>>=
@@ -79,7 +79,7 @@
     must be two-tailed. If we let $X$ be the difference between the two datasets, then our corresponding z test is
 
     \[
-        Z = \frac{X - \mu}{\sigma/\sqrt{n}}
+        Z = \frac{X - \mu}{\sigma/\sqrt{n} }
     \]
 
     <<hw5.1a.pvals, tidy=F, fig.pos='H', fig.width=3, fig.height=3, fig.align='center', fig.cap='P-Values'>>=
@@ -139,7 +139,7 @@
     @@@ Defining our confidence interval using the $t$ distribution, we obtain
 
     \[
-        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n}} \right)
+        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n} } \right)
     \]
 
     <<hw5.2a, tidy=F>>=
@@ -339,7 +339,7 @@
     0$, which we take as our null hypothesis. We use z to determine the validity of our null hypothesis.
 
     \[
-        z = \frac{\hat{p_1} - \hat{p_2}}{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)}}
+        z = \frac{\hat{p_1} - \hat{p_2} }{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)} }
     \]
 
     Where $\hat{p}$ is
@@ -369,7 +369,7 @@
     @@@ To construct a confidence interval we need the following formula.
 
     \[
-        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1}}{m} + \frac{\hat{p_2}\hat{q_2}}{n}}
+        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1} }{m} + \frac{\hat{p_2}\hat{q_2} }{n} }
     \]
 
     <<hw5.4b, tidy=F>>=

@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                 %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Problem Set 6}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer, Jeremy Granger, Ryan Roden}     %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{CSCI 3104}
 \rfoot{Clauset}
 \title{Problem Set Six}
@@ -98,7 +98,7 @@
     \[ \begin{aligned}
         f = {\left(1 - {\left( 1 - \frac{1}{m} \right)}^{kn} \right)}^k &\approx {\left( 1 - e^{-kn/m} \right)}^k\\
         \text{Assuming } k = \lg n\\
-        {\left(1 - e^{\frac{-n\lg n}{m}} \right)}^{\lg n} &= \frac{1}{n}\\
+        {\left(1 - e^{\frac{-n\lg n}{m} } \right)}^{\lg n} &= \frac{1}{n}\\
         \therefore m = \frac{-n\lg n}{\ln \left( 1 - {\left( \frac{1}{n} \right)}^\frac{1}{\lg n}\right)}
     \end{aligned} \]
     @@ Suppose the adversary knows that Acme is using Flitwick's scheme, but does not have access to the hash functions
@@ -139,7 +139,7 @@
         maximum and a minimum, each at least once.
 
         \url{http://en.wikipedia.org/wiki/Extreme_value_theorem}
-    \end{thm}}\newline
+    \end{thm} }\newline
 
     Even though this applies solely to functions, we can define our own theorem that states that for any array of
     numerical values there will be at least one minimum and maximum. In essence, this is provable in that any sorted

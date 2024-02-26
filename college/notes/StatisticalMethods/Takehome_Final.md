@@ -477,7 +477,7 @@ We also examine the adjusted coefficients of determination for both our linear
 and quadratic model which is defined as
 
 \begin{equation}
-\bar R^2 = {R^{2}-(1-R^{2}){p \over n-p-1}}
+\bar R^2 = {R^{2}-(1-R^{2}){p \over n-p-1} }
 \end{equation}
 
 

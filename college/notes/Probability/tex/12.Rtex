@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 12}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 12}
@@ -240,7 +240,7 @@
             f_X(x) &=& \int_0^\infty x \cdot e^{-x \left( y + 1 \right)} \, dy\\
                     &=& e^{-x}\\
             f_Y(y) &=& \int_0^\infty x \cdot e^{-x \left( y + 1 \right)} \, dx\\
-                    &=& \frac{1}{{\left( 1 + y \right)}^2}\\
+                    &=& \frac{1}{ {\left( 1 + y \right)}^2}\\
         \end{aligned}
     \]
 
@@ -251,7 +251,7 @@
             f_{X|Y}\left( x|y \right) =
                 {\left( 1 + y \right)}^2 x \cdot e^{-x \left( y + 1 \right)}\\
             f_{Y|X}\left( y|x \right) =
-                \frac{x \cdot e^{-x \left( y + 1 \right)}}{e^{-x}}
+                \frac{x \cdot e^{-x \left( y + 1 \right)} }{e^{-x} }
         \end{aligned}
     \]
 

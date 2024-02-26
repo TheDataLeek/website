@@ -7,7 +7,7 @@ It's important to note here that this dot product is equal to the matrix product
 
 Any vector, when dotted with itself yields the sum of the squares of its entries, which leads us to the Euclidean Norm, or the length of the vector, which is the square root.
 
-    \[ \Vert \vec{v} \Vert = \sqrt{\vec{v} \cdot \vec{v}} \]
+    \[ \Vert \vec{v} \Vert = \sqrt{\vec{v} \cdot \vec{v} } \]
 
 \begin{thm}
     An inner product on the real vector spave $V$ is a pairing that takes two vectors $\vec{v}, \vec{w} \in V$ and produces a real number $\langle \vec{v}, \vec{w} \rangle \in \mathbb{R} $. The inner product is required to satisfy the following three axioms for all $\vec{u}, \vec{v}, \vec{w} \in V$ and scalars $c, d \in \mathbb{R} $
@@ -139,11 +139,11 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
         \begin{easylist}[enumerate]
             & Sesquilinearity:
                 \[ \begin{aligned}
-                    \nvec{c \vec{u} + d \vec{v}, \vec{w}} = c \inprod{u}{w} + d \inprod{v}{w}\\
-                    \nvec{\vec{u}, c \vec{v} + d\vec{w}} = c \inprod{u}{v} + d \inprod{u}{w}
+                    \nvec{c \vec{u} + d \vec{v}, \vec{w} } = c \inprod{u}{w} + d \inprod{v}{w}\\
+                    \nvec{\vec{u}, c \vec{v} + d\vec{w} } = c \inprod{u}{v} + d \inprod{u}{w}
                 \end{aligned} \]
             & Conjugate Symmetry:
-                \[ \inprod{v}{w} = \overline{\inprod{w}{v}} \]
+                \[ \inprod{v}{w} = \overline{\inprod{w}{v} } \]
             & Positivity:
                 \[ \norm{v}^2 = \inprod{v}{v} \geq 0 \wedge \inprod{v}{v} = 0 \Leftrightarrow \vec{v} = \vec{0} \]
         \end{easylist}
@@ -175,7 +175,7 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
             are explicitly given as inner products. Moreover, its norm is the square root of the sum of the squares of its orthonormal basis coordinates.
 
             We also can say that if $\vec{v}_1, \cdots, \vec{v}_n$ form an orthogonal basis, then the corresponding coordinates of a vector are given by
-                \[ a_i = \frac{\inprod{v}{v_i}}{\norm{v_i}^2} \]
+                \[ a_i = \frac{\inprod{v}{v_i} }{\norm{v_i}^2} \]
         \end{thm}
 
     \subsection{The Gram-Schmidt Process}
@@ -187,7 +187,7 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
 
     We can extrapolate this process to all vectors in the space, giving us the general Gram-Schmidt formula
 
-        \[ \vec{v}_k = \vec{w}_k - \sum^{k - 1}_{j = 1} \frac{\inprod{w_k}{v_j}}{\norm{v_j}^2} \vec{v}_j, k = 1, \cdots, n \]
+        \[ \vec{v}_k = \vec{w}_k - \sum^{k - 1}_{j = 1} \frac{\inprod{w_k}{v_j} }{\norm{v_j}^2} \vec{v}_j, k = 1, \cdots, n \]
 
     We also can say that every non-zero finite-dimensional inner product space has an orthonormal basis. In fact, if the dimension is greater that 1, there are infinitely many.
 
@@ -201,8 +201,8 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
         we obtain the next orthonormal basis vector with
 
             \[ \begin{aligned}
-                    r_{ij} = \sqrt{\norm{w_j}^2 - r^2_{1j} - \cdots - r^2_{j-1,j}}\\
-                    \vec{u}_j = \frac{\vec{w}_j - r_{1j}\vec{u}_1 - \cdots - r_{j-1, j}\vec{u}_{j-1}}{r_{jj}}
+                    r_{ij} = \sqrt{\norm{w_j}^2 - r^2_{1j} - \cdots - r^2_{j-1,j} }\\
+                    \vec{u}_j = \frac{\vec{w}_j - r_{1j}\vec{u}_1 - \cdots - r_{j-1, j}\vec{u}_{j-1} }{r_{jj} }
                 \end{aligned} \]
 
     \subsection{Orthogonal Matrices}
@@ -248,11 +248,11 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
 
     The Rodrigues formula for the classical Legendre Polynomials is
 
-        \[ P_k(t) = \frac{1}{2^k k!} \frac{d^k}{dt^k} {(t^2 - 1)}^k, \norm{P_k} = \sqrt{\frac{2}{2k + 1}}, k = 0, 1, 2, \cdots \]
+        \[ P_k(t) = \frac{1}{2^k k!} \frac{d^k}{dt^k} {(t^2 - 1)}^k, \norm{P_k} = \sqrt{\frac{2}{2k + 1} }, k = 0, 1, 2, \cdots \]
 
     If $j \le k$, then the polynomial $R_{j,k}(t)$ is orthogonal to all polynomials of degree $\le j - 1$.
 
-    The transformed Legendre Polynomials \[ \widetilde{P}_k(t) = P_k \left( \frac{2t - b - a}{b - a} \right), \norm{\widetilde{P}_k} = \sqrt{\frac{b-a}{2k + 1}}, k=0, 1, 2, \cdots \] form an orthogonal system of polynomials with respect to the $L^2$ inner product on the interval $[a, b]$.
+    The transformed Legendre Polynomials \[ \widetilde{P}_k(t) = P_k \left( \frac{2t - b - a}{b - a} \right), \norm{\widetilde{P}_k} = \sqrt{\frac{b-a}{2k + 1} }, k=0, 1, 2, \cdots \] form an orthogonal system of polynomials with respect to the $L^2$ inner product on the interval $[a, b]$.
 
     \subsection{Orthogonal Projections and Least Squares}
     An Orthogonal Projection of a point onto a subspace is finding the nearest distance between that point and the subspace.
@@ -263,7 +263,7 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
 
     Let $\vec{u}_1, \cdots, \vec{u}_n$ be an orthonormal basis for the subspace $W \subset V$. Then the orthogonal projection of a vector $\vec{v} \in V$ onto $W$ is
 
-        \[ \vec{w} = c_1 \vec{u}_1 + \cdots + c_n \vec{u}_n \text{ where } c_i = \frac{\inprod{v}{u_i}}{\norm{u_i}^2}, i = 1, \cdots, n \]
+        \[ \vec{w} = c_1 \vec{u}_1 + \cdots + c_n \vec{u}_n \text{ where } c_i = \frac{\inprod{v}{u_i} }{\norm{u_i}^2}, i = 1, \cdots, n \]
 
         \subsubsection{Orthogonal Least Squares}
         The orthogonal projection of a vector onto a subspace is also the least squares vector, the closest point in the subspace.
@@ -277,7 +277,7 @@ Any vector, when dotted with itself yields the sum of the squares of its entries
             \[ p(t) = a_0 P_0(t) + a_1P_1(t) + \cdots + a_n P_n(t) = a_0 + a_1 t + a_2(\frac{3}{2} t^2 - \frac{1}{2}) + \cdots \]
 
         The least squares coefficients can also be computed by the inner product formula, giving us the Rodrigues formula:
-            \[ a_k = \frac{\inprod{e^t}{P_k}}{\norm{P_k}^2} = \frac{2k + 1}{2} \int^1_{-1} e^t P_k(t) \, dt \]
+            \[ a_k = \frac{\inprod{e^t}{P_k} }{\norm{P_k}^2} = \frac{2k + 1}{2} \int^1_{-1} e^t P_k(t) \, dt \]
 
     \subsection{Orthogonal Subspaces}
     We can extend the notion of orthogonailty from elements to subspaces.
@@ -327,7 +327,7 @@ In other words, Let $\vec{v}_1, \cdots, \vec{v}_n$ form a basis for the subspace
 
 The distance between the point and the subspace is
 
-\[ d* = \Vert \vec{v*} - \vec{b} \Vert = \sqrt{\norm{b}^2 - \vec{f}^T \vec{x*}} \]
+\[ d* = \Vert \vec{v*} - \vec{b} \Vert = \sqrt{\norm{b}^2 - \vec{f}^T \vec{x*} } \]
 
     \subsection{Least Squares}
     A least squares solution to a linear system of equations $A \vec{x} = \vec{b}$ is a vector $\vec{x*} \in \mathbb{R}^n$ that minimizes the Euclidean norm $\Vert A \vec{x} - \vec{b} \Vert$.

@@ -13,8 +13,8 @@
 %----------------------------------------------------------------------------------------
 \newcommand{\getmlptikz}[8]{
 	\ifstrequal{#1}{#2}{%
-    	\edef\colorval{{\commandkey{color}}}
-	\edef\textval{{\commandkey{text}}}
+    	\edef\colorval{ {\commandkey{color} } }
+	\edef\textval{ {\commandkey{text} } }
         %I need to add error checking for invalid inputs
         \expandafter\ifstrequal\colorval{mono}{%
 		#3
@@ -30,17 +30,17 @@
         \expandafter\ifstrequal\colorval{invert}{%
         	#6
         }{}
-		\resizebox{\commandkey{size}}{!}{%
+		\resizebox{\commandkey{size} }{!}{%
 			\begin{tikzpicture}[y=\commandkey{yscale}, x=\commandkey{xscale}, yscale=-\commandkey{flipy}, xscale=\commandkey{flipx}, inner sep=0pt, outer sep=0pt]
 				\begin{scope}[rotate=\commandkey{rotate},opacity=\commandkey{opacity}]
 					#8
 					\expandafter\ifstrequal\textval{on}{%
-					\node[\commandkey{textshape},draw=\commandkey{textshapebordercolor}, text opacity=1, opacity=\commandkey{textshapeopacity}, yscale=\commandkey{textscale},xscale=\commandkey{textscale}, fill=\commandkey{textshapecolor}, line width=\commandkey{textshapeborder}, rotate=\commandkey{textshaperotate}, inner sep=0pt,minimum size=14pt] (1) at(\commandkey{textposx},\commandkey{textposy}) {\,{\color{\commandkey{textcolor}}{\commandkey{textvalue}}}\,};
+					\node[\commandkey{textshape},draw=\commandkey{textshapebordercolor}, text opacity=1, opacity=\commandkey{textshapeopacity}, yscale=\commandkey{textscale},xscale=\commandkey{textscale}, fill=\commandkey{textshapecolor}, line width=\commandkey{textshapeborder}, rotate=\commandkey{textshaperotate}, inner sep=0pt,minimum size=14pt] (1) at(\commandkey{textposx},\commandkey{textposy}) {\,{\color{\commandkey{textcolor} }{\commandkey{textvalue} } }\,};
 					}{}
 				\end{scope}
 			\end{tikzpicture}
 		}
-}{}%{\errmessage{Error in mlptikz: #2 is not a valid input}}
+}{}%{\errmessage{Error in mlptikz: #2 is not a valid input} }
 }
 
 %----------------------------------------------------------------------------------------
@@ -116,8 +116,8 @@ applejack
 \definecolor{cee4043}{RGB}{123,123,123}
 \definecolor{c61bb4c}{RGB}{120,120,120}
 }{%
-\definecolor{cee4043}{RGB}{\commandkey{ccolor1a},\commandkey{ccolor1b},\commandkey{ccolor1c}}
-\definecolor{c61bb4c}{RGB}{\commandkey{ccolor2a},\commandkey{ccolor2b},\commandkey{ccolor2c}}
+\definecolor{cee4043}{RGB}{\commandkey{ccolor1a},\commandkey{ccolor1b},\commandkey{ccolor1c} }
+\definecolor{c61bb4c}{RGB}{\commandkey{ccolor2a},\commandkey{ccolor2b},\commandkey{ccolor2c} }
 }{%
 \definecolor{cee4043}{RGB}{00,00,00}
 \definecolor{c61bb4c}{RGB}{00,00,00}
@@ -128,7 +128,7 @@ applejack
 \definecolor{cee4043}{RGB}{238,64,67}
 \definecolor{c61bb4c}{RGB}{97,187,76}
 }{%
-\begin{scope}[cm={{2.39078,0.0,0.0,2.39078,(50,15)}}]
+\begin{scope}[cm={ {2.39078,0.0,0.0,2.39078,(50,15)} }]
   \path[fill=cee4043] (-402.0000,-5.0000) .. controls (-379.3333,-27.6667) and
     (-340.6667,-22.6667) .. (-286.0000,10.0000) .. controls (-246.6667,-42.6667)
     and (-211.0000,-63.6667) .. (-179.0000,-53.0000) .. controls
@@ -211,7 +211,7 @@ invertcolors
 \definecolor{c4291d2}{RGB}{66,145,210}
 \definecolor{c367c9c}{RGB}{54,124,156}
 }{%
-\begin{scope}[cm={{0.86554,0.0,0.0,0.86554,(-1000,-1000)}}]
+\begin{scope}[cm={ {0.86554,0.0,0.0,0.86554,(-1000,-1000)} }]
   \path[fill=ceefd8d] (213.3263,678.8461) .. controls (161.3091,634.8024) and
     (129.2992,586.8492) .. (122.5665,542.8814) .. controls (121.0163,532.7575) and
     (125.7219,510.9289) .. (132.3631,497.4364) .. controls (142.1909,477.4702) and
@@ -1723,7 +1723,7 @@ invertcolors
 \definecolor{c0d7085}{RGB}{13,112,133}
 \definecolor{c8fd6ea}{RGB}{143,214,234}
 }{%
-\begin{scope}[cm={{2.15296,0.0,0.0,2.15296,(-1115,-975)}}]
+\begin{scope}[cm={ {2.15296,0.0,0.0,2.15296,(-1115,-975)} }]
   \path[fill=cf9ba21] (686.5020,841.9900) .. controls (686.5020,841.9900) and
     (593.5020,790.9900) .. (739.0020,730.4900) .. controls (739.0020,730.4900) and
     (787.6140,715.7520) .. (824.9800,721.4410) .. controls (862.2920,727.1710) and
@@ -1826,7 +1826,7 @@ invertcolors
 \definecolor{cffd791}{RGB}{255,215,145}
 \definecolor{cfff6b9}{RGB}{255,246,185}
 }{%
-\begin{scope}[cm={{1.53044,0.0,0.0,1.53044,(-50,-15)}}]
+\begin{scope}[cm={ {1.53044,0.0,0.0,1.53044,(-50,-15)} }]
   \path[fill=cfcc38b] (160.9991,-281.9997) -- (172.9991,-237.9997) .. controls
     (130.9991,-262.6664) and (83.9992,-274.6664) .. (31.9992,-273.9997) --
     (-7.0007,-271.9997) .. controls (-39.0007,-304.6664) and (-54.3340,-338.9998)

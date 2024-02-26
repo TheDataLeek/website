@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                 %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Problem Set 4}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer, Jeremy Granger, Ryan Roden}     %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{CSCI 3104}
 \rfoot{Clauset}
 \title{Problem Set Four}
@@ -57,48 +57,48 @@
                                   child{%
                                     node[circle,draw](M)[below left=0.3cm and 0.5cm of K]{\ttfamily ab:2}
                                       child{%
-                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111111}}](O)[below left=0.8cm and 0.8cm of M]{\ttfamily a:1}
+                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111111} }](O)[below left=0.8cm and 0.8cm of M]{\ttfamily a:1}
                                           child[missing]
                                           child[missing]
                                       }
                                       child{%
-                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111110}}](N)[below=0.5cm of M]{\ttfamily b:1}
+                                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1111110} }](N)[below=0.5cm of M]{\ttfamily b:1}
                                           child[missing]
                                           child[missing]
                                       }
                                   }
                                   child{%
-                                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 111110}}](L)[right=0.55cm of N]{\ttfamily c:2}
+                                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 111110} }](L)[right=0.55cm of N]{\ttfamily c:2}
                                       child[missing]
                                       child[missing]
                                   }
                               }
                               child{%
-                                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 11110}}](J)[right=0.65cm of L]{\ttfamily d:3}
+                                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 11110} }](J)[right=0.65cm of L]{\ttfamily d:3}
                                   child[missing]
                                   child[missing]
                               }
                           }
                           child{%
-                            node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1110}}](H)[right=0.75cm of J]{\ttfamily e:5}
+                            node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 1110} }](H)[right=0.75cm of J]{\ttfamily e:5}
                               child[missing]
                               child[missing]
                           }
                       }
                       child{%
-                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 110}}](F)[right=0.85cm of H]{\ttfamily f:8}
+                        node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 110} }](F)[right=0.85cm of H]{\ttfamily f:8}
                           child[missing]
                           child[missing]
                       }
                   }
                   child{%
-                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 10}}](D)[right=0.95cm of F]{\ttfamily g:13}
+                    node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 10} }](D)[right=0.95cm of F]{\ttfamily g:13}
                     child[missing]
                     child[missing]
                   }
                 }
               child{%
-                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 0}}](B)[right=1.05cm of D]{\ttfamily h:21}
+                node[circle,draw,label={[label distance=0.1cm]-90:{\ttfamily 0} }](B)[right=1.05cm of D]{\ttfamily h:21}
                 child[missing]
                 child[missing]
               };
@@ -183,9 +183,9 @@
         ways to equate a smaller coin with a larger one. To demonstrate,
 
             \[ \begin{aligned}
-                25 \cents =& \underbrace{10 \cents + 10 \cents + 5 \cents}_{\text{3 Coins}}\\
-                10 \cents =& \underbrace{5 \cents + 5 \cents}_{\text{2 Coins}}\\
-                5 \cents  =& \underbrace{1 \cents + 1 \cents + 1 \cents + 1 \cents + 1 \cents}_{\text{5 Coins}}\\
+                25 \cents =& \underbrace{10 \cents + 10 \cents + 5 \cents}_{\text{3 Coins} }\\
+                10 \cents =& \underbrace{5 \cents + 5 \cents}_{\text{2 Coins} }\\
+                5 \cents  =& \underbrace{1 \cents + 1 \cents + 1 \cents + 1 \cents + 1 \cents}_{\text{5 Coins} }\\
             \end{aligned} \]
 
         Given the above statement, we can state several facts about our algorithm. One, any solution will have less than
@@ -204,9 +204,9 @@
         illustrative example is when $c=2$ and we'll let $l=3$.
 
             \[ \begin{aligned}
-                c^3 = 8 \cents =& \underbrace{4 \cents + 4 \cents}_{\text{2 Coins}}\\
-                c^2 = 4 \cents =& \underbrace{2 \cents + 2 \cents}_{\text{2 Coins}}\\
-                c^1 = 2 \cents =& \underbrace{1 \cents + 1 \cents}_{\text{2 Coins}}\\
+                c^3 = 8 \cents =& \underbrace{4 \cents + 4 \cents}_{\text{2 Coins} }\\
+                c^2 = 4 \cents =& \underbrace{2 \cents + 2 \cents}_{\text{2 Coins} }\\
+                c^1 = 2 \cents =& \underbrace{1 \cents + 1 \cents}_{\text{2 Coins} }\\
             \end{aligned} \]
 
         Using similar logic we can state several facts about our algorithm. Any solution will have at most one $4

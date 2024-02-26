@@ -140,7 +140,7 @@ Furthermore, if $c=0$, the equation is said to be homogeneous.
 
 We can generalize the concept of a linear equation to a linear differential equation. A differential equation $F(y, y\prime, y\prime\prime, \dots, y^n) = f(t)$ is linear if it is in the form:
 \[
-a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1}} + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0} = f(t)
+a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1} } + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0} = f(t)
 \]
 where all function of $t$ are assumed to be defined over some common interval $I$.
 
@@ -159,7 +159,7 @@ We will also introduce the linear operator $L$:
 \[
 \begin{aligned}
 L(\vec{x}) = a_1x_1 + a_2x_2 + \dots + a_nx_n\\
-L(\vec{y}) = a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1}} + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0}
+L(\vec{y}) = a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1} } + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0}
 \end{aligned}
 \]
 
@@ -350,14 +350,14 @@ Letting $L=\frac{r}{a}$ we get the official logistic equation:
     \]
 Where $r > 0$ is called the initial growth rate, and $L$ is called the carrying capacity. The solution is given by:
     \[
-    y(t) = \frac{L}{1 + \left( \frac{L}{y_0} - 1 \right) e^{-rt}}
+    y(t) = \frac{L}{1 + \left( \frac{L}{y_0} - 1 \right) e^{-rt} }
     \]
 The threshold equation, that is, the one that states if a population falls below a threshold it will tend to $0$ is thus:
 \[
 \begin{aligned}
 \frac{dy}{dt} = -r \left( 1 - \frac{y}{T} \right) y\\
 \text{and}\\
-y(t) = \frac{T}{1 + \left( \frac{T}{y_0} - 1 \right) e^{rt}}
+y(t) = \frac{T}{1 + \left( \frac{T}{y_0} - 1 \right) e^{rt} }
 \end{aligned}
 \]
 

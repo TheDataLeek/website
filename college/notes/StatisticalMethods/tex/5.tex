@@ -12,22 +12,22 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
+  \def\at@end@of@kframe{\end{minipage} }%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +36,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
+   \@setminipage} }%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -56,7 +56,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 5}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 5}
@@ -64,7 +64,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
 \begin{document}
 
 \maketitle
@@ -99,7 +99,7 @@
     < 40$ entries, we need to use the $t$ distribution, defined below.
 
     \[
-        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n}}
+        \overline{X} \pm t_{\alpha / 2, n - 1} \cdot \frac{sd}{\sqrt{n} }
     \]
 
 \begin{knitrout}
@@ -124,7 +124,7 @@
     must be two-tailed. If we let $X$ be the difference between the two datasets, then our corresponding z test is
 
     \[
-        Z = \frac{X - \mu}{\sigma/\sqrt{n}}
+        Z = \frac{X - \mu}{\sigma/\sqrt{n} }
     \]
 
 \begin{knitrout}
@@ -141,7 +141,7 @@
 
 }
 
-\caption[P-Values]{P-Values\label{fig:hw5.1a.pvals}}
+\caption[P-Values]{P-Values\label{fig:hw5.1a.pvals} }
 \end{figure}
 
 
@@ -204,7 +204,7 @@
     @@@ Defining our confidence interval using the $t$ distribution, we obtain
 
     \[
-        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n}} \right)
+        \left( \overline{X} \pm t_{\alpha / 2, n - 1} \frac{\sigma}{\sqrt{n} } \right)
     \]
 
 \begin{knitrout}
@@ -312,7 +312,7 @@
 
 }
 
-\caption[P-Values]{P-Values\label{fig:hw5.2c}}
+\caption[P-Values]{P-Values\label{fig:hw5.2c} }
 \end{figure}
 
 
@@ -375,7 +375,7 @@
 
 }
 
-\caption[P-Values]{P-Values\label{fig:hw5.3a}}
+\caption[P-Values]{P-Values\label{fig:hw5.3a} }
 \end{figure}
 
 
@@ -469,7 +469,7 @@
     0$, which we take as our null hypothesis. We use z to determine the validity of our null hypothesis.
 
     \[
-        z = \frac{\hat{p_1} - \hat{p_2}}{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)}}
+        z = \frac{\hat{p_1} - \hat{p_2} }{\sqrt{\hat{p}\hat{q} \left( \frac{1}{m} + \frac{1}{n} \right)} }
     \]
 
     Where $\hat{p}$ is
@@ -504,7 +504,7 @@
     @@@ To construct a confidence interval we need the following formula.
 
     \[
-        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1}}{m} + \frac{\hat{p_2}\hat{q_2}}{n}}
+        \hat{p_1} - \hat{p_2} \pm z_{\alpha / 2} \sqrt{\frac{\hat{p_1}\hat{q_1} }{m} + \frac{\hat{p_2}\hat{q_2} }{n} }
     \]
 
 \begin{knitrout}

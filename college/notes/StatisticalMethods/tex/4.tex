@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 4}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 4}
@@ -174,16 +174,16 @@
     distribution with $\alpha = 0.5$ in order to find our confidence interval, which is defined as
 
     \[
-        \left( \overline{x} - t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n}},
-        \overline{x} + t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n}} \right)
+        \left( \overline{x} - t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n} },
+        \overline{x} + t_{\alpha/2,n-1} \cdot \frac{s}{\sqrt{n} } \right)
     \]
 
     We can now substitue the known values.
 
     \[
         \left(
-            39.28 - 2.144787 \cdot \frac{8.511}{\sqrt{15}},
-            39.28 + 2.144787 \cdot \frac{8.511}{\sqrt{15}},
+            39.28 - 2.144787 \cdot \frac{8.511}{\sqrt{15} },
+            39.28 + 2.144787 \cdot \frac{8.511}{\sqrt{15} },
         \right)
     \]
 
@@ -193,8 +193,8 @@
 
     \[
         \left(
-            47.78 - 2.144787 \cdot \frac{8.711}{\sqrt{15}},
-            47.78 + 2.144787 \cdot \frac{8.711}{\sqrt{15}},
+            47.78 - 2.144787 \cdot \frac{8.711}{\sqrt{15} },
+            47.78 + 2.144787 \cdot \frac{8.711}{\sqrt{15} },
         \right)
     \]
 
@@ -220,8 +220,8 @@
 
     \[
         \left(
-            \frac{(n - 1) s^2}{\chi^2_{\alpha/2, n-1}},
-            \frac{(n - 1) s^2}{\chi^2_{1 - \alpha/2, n-1}}
+            \frac{(n - 1) s^2}{\chi^2_{\alpha/2, n-1} },
+            \frac{(n - 1) s^2}{\chi^2_{1 - \alpha/2, n-1} }
         \right)
     \]
 
@@ -229,8 +229,8 @@
 
     \[
         \left(
-            \frac{14 {\{8.511, 8.711\}}^2}{\chi^2_{\alpha/2, n-1}},
-            \frac{14 {\{8.511, 8.711\}}^2}{\chi^2_{1 - \alpha/2, n-1}}
+            \frac{14 {\{8.511, 8.711\} }^2}{\chi^2_{\alpha/2, n-1} },
+            \frac{14 {\{8.511, 8.711\} }^2}{\chi^2_{1 - \alpha/2, n-1} }
         \right)
     \]
 

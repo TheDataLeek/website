@@ -24,12 +24,12 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
 
             \begin{itemize}
                 \item \textbf{Restoring Force:} The restorative force of a spring is $\propto$ the amount of stretching/compression:
-                    \[ F_{\text{restoring}} = -k x \]
+                    \[ F_{\text{restoring} } = -k x \]
                 \item \textbf{Damping Force:} We also assume that friction exists, and therefore a damping force $\propto$ the velocity of the object:
-                    \[ F_{\text{damping}} = -b \dot{x} \]
+                    \[ F_{\text{damping} } = -b \dot{x} \]
                     Where damping constant $b > 0$ and small for slick surfaces.
                 \item \textbf{External Force:} We also allow for an external force to drive the motion:
-                    \[ F_{\text{external}} = f(t) \]
+                    \[ F_{\text{external} } = f(t) \]
             \end{itemize}
 
         Thus we get our equation for a Simple Harmonic Oscillator:
@@ -50,7 +50,7 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
             \[ \begin{aligned}
                 \text{Given Equation: } m \ddot{x} + kx = 0\\
                 x(t) = c_1 \cos \left( \omega_0 t \right) + c_2 \sin \left( \omega_0 t \right)\\
-                \omega_0 = \sqrt{\frac{k}{m}}
+                \omega_0 = \sqrt{\frac{k}{m} }
             \end{aligned} \]
 
         This gives us one form of the solution, however we can also find an alternate form:
@@ -60,8 +60,8 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
         Where
             \begin{itemize}
                 \item Amplitude $A$ and phase angle $\delta$ (radians) are arbitrary constants determined by initial conditions.
-                \item The motion has circular frequency $\omega_0 = \sqrt{\frac{k}{m}}$ (radians) per second, and a natural frequency $f_0 = \frac{\omega_0}{2 \pi}$
-                \item The period $T$ (seconds) is $2 \pi \sqrt{\frac{m}{k}}$
+                \item The motion has circular frequency $\omega_0 = \sqrt{\frac{k}{m} }$ (radians) per second, and a natural frequency $f_0 = \frac{\omega_0}{2 \pi}$
+                \item The period $T$ (seconds) is $2 \pi \sqrt{\frac{m}{k} }$
                 \item The above solution is a horizontal shift of $A \cos (\omega_0 t)$ with phase shift $\frac{\delta}{\omega_0}$.
             \end{itemize}
 
@@ -91,7 +91,7 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
             \item $x_p(t)$ can be assumed as
                 \[ A \cos ( \omega_f t ) + B \sin ( \omega_f t )\]
                 See \eqref{sec:2decoefficients}.
-            \item \[ \omega_0 = \sqrt{\frac{k}{m}} \]
+            \item \[ \omega_0 = \sqrt{\frac{k}{m} } \]
             \item \[ A = \frac{m (\omega_0^2 - \omega_f^2) F_0}{m^2{(\omega_0^2 - \omega_f^2)}^2 + {(b \omega_f)}^2} \]
             \item \[ B = \frac{b \omega_f F_0}{m^2{(\omega_0^2 - \omega_f^2)}^2 + {(b \omega_f)}^2} \]
         \end{enumerate}
@@ -107,7 +107,7 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
 
             \[ \begin{cases}
                     H \to \frac{dx}{dt} = \dot{x}\\
-                    V \to \frac{d\dot{x}}{dt} = \ddot{x}
+                    V \to \frac{d\dot{x} }{dt} = \ddot{x}
                 \end{cases} \]
 
         Trajectories can be formed by parametrically combining the vectors into a path. A graph showing these trajectories is called a phase portrait.
@@ -199,14 +199,14 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
             \begin{tabular}{| l | l | l |}
                 \hline
                 \textbf{Case One} & Real Unequal Roots & Overdamped Motion\\
-                $\Delta > 0$ & $r_1, r_2 = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ & $y_h(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}$\\&&\\
+                $\Delta > 0$ & $r_1, r_2 = \frac{-b \pm \sqrt{b^2 - 4ac} }{2a}$ & $y_h(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}$\\&&\\
                 \hline
                 \textbf{Case Two} & Real Repeated Root & Critically Damped Motion\\
                 $\Delta = 0$ & $r = - \frac{b}{2a} $ & $y_h(t) = c_1 e^{r t} + c_2 t e^{r t}$\\&&\\
                 \hline
                 \textbf{Case Three} & Complex Conjugate Roots & Underdamped Motion\\
                 $\Delta < 0$ & $r_1, r_2 = \alpha \pm \beta i$ & $y_h(t) = e^{\alpha t} \left( c_1 \cos \left(\beta t \right) + c_2 \sin \left( \beta t \right) \right)$\\
-                & $\alpha = - \frac{b}{2a}, \beta = \frac{\sqrt{4ac - b^2}}{2a}$ &\\&&\\
+                & $\alpha = - \frac{b}{2a}, \beta = \frac{\sqrt{4ac - b^2} }{2a}$ &\\&&\\
                 \hline
             \end{tabular}
             \caption{Roots for Second Order Differential Equations in Characteristic Equation Form}
@@ -327,18 +327,18 @@ The second order linear homogeneous equation \eqref{eq:2lde} is vital; it allows
             v_1\prime = \frac{\abs{\left[ \begin{matrix}
                 0 & y_2\\
                 f & y_2\prime\\
-            \end{matrix} \right]}}{\abs{\left[ \begin{matrix}
+            \end{matrix} \right]} }{\abs{\left[ \begin{matrix}
                 y_1 & y_2\\
                 y_1\prime & y_2\prime\\
-            \end{matrix} \right]}}
+            \end{matrix} \right]} }
             \text{ and }
             v_2\prime = \frac{\abs{\left[ \begin{matrix}
                 y_1 & 0\\
                 y_1\prime & f\\
-            \end{matrix} \right]}}{\abs{\left[ \begin{matrix}
+            \end{matrix} \right]} }{\abs{\left[ \begin{matrix}
                 y_1 & y_2\\
                 y_1\prime & y_2\prime\\
-            \end{matrix} \right]}}
+            \end{matrix} \right]} }
         \]
 
     The denominator in this case is the Wronskian. It will not be zero because both $y_1$ and $y_2$ are linearly independent. Integrate these to find $v_1$ and $v_2$.
@@ -394,7 +394,7 @@ As you'd imagine, once the size of a matrix becomes larger than 2 or 3, these st
                     2\\
                     1\\
                     -1
-                \end{cases}} \]
+                \end{cases} } \]
             \item For each eigenvalue we solve $( \ma - \lambda_i \mathbf{I}) \vec{v}_i = \vec{0}$ for the associated eigenvector.
                 \begin{itemize}
                     \item For $\lambda_1 = 2$ we obtain

@@ -24,7 +24,7 @@
 
 \begin{document}
 
-\title{\attachfile{CalcIIINotes.tex}{Calc III Notes (APPM 2350)}}
+\title{\attachfile{CalcIIINotes.tex}{Calc III Notes (APPM 2350)} }
 \author{Zoe Farmer}
 \maketitle
 
@@ -115,7 +115,7 @@ A vector possesses both magnitude as well as direction. However the magnitude an
         \]
 
     \subsection{Projections}
-    Formula for projections: $Proj_{\vec{A}}\vec{B}=|\vec{B}|\cos(\theta)\frac{\vec{A}}{|\vec{A}|}$
+    Formula for projections: $Proj_{\vec{A} }\vec{B}=|\vec{B}|\cos(\theta)\frac{\vec{A} }{|\vec{A}|}$
     \begin{figure}[ht]
         \centering
         \includegraphics[scale=.5]{projection.JPG}
@@ -125,13 +125,13 @@ A vector possesses both magnitude as well as direction. However the magnitude an
         \subsubsection{Example - Projection}
         \[
         \begin{aligned}
-        \text{Find }Proj_{\vec{A}} \vec{B}\\
+        \text{Find }Proj_{\vec{A} } \vec{B}\\
         \vec{B} = \nvec{6,3,2}\\
         \vec{A} = \nvec{1,-2,-2}\\
-        \frac{\vec{A} \cdot \vec{B}}{{|\vec{A}|^2}}\\
+        \frac{\vec{A} \cdot \vec{B} }{ {|\vec{A}|^2} }\\
         \vec{A} \cdot \vec{B} = -4\\
         |\vec{A}|^2 = 1^2 + (-2)^2 + (-2)^2 = 9\\
-        Proj_{\vec{A}} \vec{B} = \frac{-4}{9} \cdot \nvec{1,-2,-2}\\
+        Proj_{\vec{A} } \vec{B} = \frac{-4}{9} \cdot \nvec{1,-2,-2}\\
         \end{aligned}
         \]
 
@@ -203,7 +203,7 @@ A vector possesses both magnitude as well as direction. However the magnitude an
             x(t)=x_0+tv_1\\
             y(t)=y_0+tv_2\\
             z(t)=z_0+tv_3
-        \end{cases}}
+        \end{cases} }
     \end{equation}
     \end{enumerate}
 
@@ -345,13 +345,13 @@ The TNB frame is at its core a method for describing a line in 3 dimensional spa
 
 The Tangent Vector describes the direction of motion in space as well as the velocity of a particle at that point.
 \begin{equation}
-\hat{T} = \frac{\frac{d\vec{r}}{dt}}{\abs{\frac{d\vec{r}}{dt}}} =
-\frac{\vec{r}\prime(t)}{\abs{\vec{r}\prime(t)}}
+\hat{T} = \frac{\frac{d\vec{r} }{dt} }{\abs{\frac{d\vec{r} }{dt} } } =
+\frac{\vec{r}\prime(t)}{\abs{\vec{r}\prime(t)} }
 \end{equation}
 
 The Normal Vector describes the tendency for the line to curve in space as well as centripetal acceleration.
 \begin{equation}
-\hat{N} = \frac{\frac{d\hat{T}}{ds}}{\abs{\frac{d\hat{T}}{ds}}}
+\hat{N} = \frac{\frac{d\hat{T} }{ds} }{\abs{\frac{d\hat{T} }{ds} } }
 \end{equation}
 
 The Binormal Vector describes the tendency for the line to leave the plane.
@@ -361,7 +361,7 @@ The Binormal Vector describes the tendency for the line to leave the plane.
 
 These three components also give us curvature
 \begin{equation}
-\kappa = \abs{\frac{d\hat{T}}{ds}} = \frac{\abs{\vec{v}\times\vec{a}}}{\abs{\vec{v}}^3}
+\kappa = \abs{\frac{d\hat{T} }{ds} } = \frac{\abs{\vec{v}\times\vec{a} } }{\abs{\vec{v} }^3}
 \end{equation}
 \indent And torsion
 \begin{equation}
@@ -371,7 +371,7 @@ These three components also give us curvature
     \ddot{x} & \ddot{y} & \ddot{z}\\
     \dddot{x} & \dddot{y} & \dddot{z}\\
     \end{vmatrix}
-}{\abs{\vec{v}\times\vec{a}}^2}
+}{\abs{\vec{v}\times\vec{a} }^2}
 \end{equation}
 
 \section{Partial Derivatives}
@@ -469,7 +469,7 @@ If $x$ and $y$ are in terms of $t$ and $s$, then we can do two different chain r
 \section{Directional Derivative}
 If we wish to know how $f$ changes in terms of $x$ or $y$, we can find the derivative. However if we instead wish to know how $f$ changes in a given direction $\vec{u} = \nvec{u_1, u_2}$ we use
 \begin{equation}
-D_{\vec{u}}f = \nvec{\frac{df}{dx}, \frac{df}{dy}} \cdot \nvec{u_1, u_2} = \nabla f \cdot \vec{u}
+D_{\vec{u} }f = \nvec{\frac{df}{dx}, \frac{df}{dy} } \cdot \nvec{u_1, u_2} = \nabla f \cdot \vec{u}
 \end{equation}
 Where we define the gradient of a function $f$
 \begin{equation}
@@ -541,7 +541,7 @@ The hardest part of multiple integration is determining the bounds of integratio
     \subsection{Example - Switch the order of integration for the given integrals}
     \[
     \begin{aligned}
-    \text{Given } \int_0^1 \int_{\sqrt{y}}^1 f(x,y) dxdy\\
+    \text{Given } \int_0^1 \int_{\sqrt{y} }^1 f(x,y) dxdy\\
     \text{Bounds}\begin{cases}
     \sqrt{y} \le x \le 1\\
     0 \le y \le x^2
@@ -562,7 +562,7 @@ In Cartesian Coordinates you either use vertical or horizontal slices to determi
 \]
     \subsection{Example - Find the area of the lemniscate $r^2 = 4\cos(2\theta)$.}
     \[
-    \int_0^{\frac{\pi}{4}} \int_0^{2 \sqrt{\cos(2\theta)}} rdrd\theta = 1
+    \int_0^{\frac{\pi}{4} } \int_0^{2 \sqrt{\cos(2\theta)} } rdrd\theta = 1
     \]
 \section{Triple Integrals}
 Triple integrals calculate the volume of a specified region. To determine bounds, approach from one direction and then integrate over the identified region.
@@ -812,7 +812,7 @@ Thus we can get the concept of a line integral. As any mass travels along a para
     \text{First parametrize the line } \to \vec{r}(t)=\nvec{t,t,t}, 0 \le t \le 1\\
     \int\limits_c f(x,y,z)ds = \int_{t_0}^{t_f} f(x(t), y(t), z(t)) \frac{ds}{dt} dt\\
     = \int_{t_0}^{t_f} f(x(t), y(t), z(t)) |\vec{v}(t)| dt\\
-    \text{\textit{If }} \vec{r}(t) = \nvec{t,t,t} \text{\textit{ Then }} \vec{v}(t) = \nvec{1,1,1}\\
+    \text{\textit{If } } \vec{r}(t) = \nvec{t,t,t} \text{\textit{ Then } } \vec{v}(t) = \nvec{1,1,1}\\
     |\vec{v}|=\sqrt{3}\\
     t_0 = 0; t_f = 1\\
     \int_0^1(t-3t^2+t)\sqrt{3}dt = \sqrt{3}(t^2-t^3)\big{\vert}_0^1=0
@@ -823,7 +823,7 @@ Thus we can get the concept of a line integral. As any mass travels along a para
     Circulation, or flow, can be described as the rate at which fluid is moving around the curve. Let's assume we have a vector field $\vec{u}$ and a curve defined by $\vec{r}(t)$.
 
     \begin{equation}
-    \int\limits_c \vec{u} \cdot \hat{T} ds = \int\limits_c \vec{u} \cdot \frac{d\vec{r}}{ds} = \int\limits_c \vec{u} \cdot dr
+    \int\limits_c \vec{u} \cdot \hat{T} ds = \int\limits_c \vec{u} \cdot \frac{d\vec{r} }{ds} = \int\limits_c \vec{u} \cdot dr
     \end{equation}
 
     If we let $ \vec{u} = \nvec{M, N, P} $ and $ d\vec{r} = \nvec{dx, dy, dz} $, then we can define flow as:
@@ -849,12 +849,12 @@ Thus we can get the concept of a line integral. As any mass travels along a para
     Suppose $c$ is a curve. We know that $work=\int\limits_c\vec{F}\cdot d\vec{r}$. Suppose we set $\vec{F}=\nabla\phi$. This means that
 
     \[
-    w=\int\limits_c\nabla\phi\cdot d\vec{r} = \int_{t_0}^{t_f} (\nabla\phi \cdot \frac{d\vec{r}}{dt})dt
+    w=\int\limits_c\nabla\phi\cdot d\vec{r} = \int_{t_0}^{t_f} (\nabla\phi \cdot \frac{d\vec{r} }{dt})dt
     \]
 
     And by chain rule we can find
     \[
-    \nabla \phi \frac{d\vec{r}}{dt} = \phi_x \frac{dx}{dt} + \phi_y \frac{dy}{dt} + \phi_z \frac{dz}{dt} = \frac{d\phi}{dt}
+    \nabla \phi \frac{d\vec{r} }{dt} = \phi_x \frac{dx}{dt} + \phi_y \frac{dy}{dt} + \phi_z \frac{dz}{dt} = \frac{d\phi}{dt}
     \]
 
     Therefore, the total amount of work done on any object can be found using the following formula
@@ -1003,10 +1003,10 @@ curl(\vec{F}) = \nabla \times \vec{F} =
     \end{vmatrix}
 \]
 
-Therefore if $\vec{F}=\nabla\phi$, then $\nabla \times \nabla\phi = 0$. Meaning that $div(\vec{F}) = \nabla \cdot \vec{F} = \nabla \cdot \nabla\phi = \nabla \nvec{\phi_x, \phi_y, \phi_z}$, and $\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz}}$. Therefore the Laplacian can be defined as:
+Therefore if $\vec{F}=\nabla\phi$, then $\nabla \times \nabla\phi = 0$. Meaning that $div(\vec{F}) = \nabla \cdot \vec{F} = \nabla \cdot \nabla\phi = \nabla \nvec{\phi_x, \phi_y, \phi_z}$, and $\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz} }$. Therefore the Laplacian can be defined as:
 
 \begin{equation}
-Laplacian=\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz}} \equiv \Delta \phi = \phi_{xx} + \phi_{yy} + \phi_{zz}
+Laplacian=\nabla^2 = \Delta\phi = \nvec{\phi_{xx}, \phi_{yy}, \phi_{zz} } \equiv \Delta \phi = \phi_{xx} + \phi_{yy} + \phi_{zz}
 \end{equation}
 
 \section{Surface Area}
@@ -1028,18 +1028,18 @@ SA = \iint\limits_s d \sigma = \iint\limits_{shadow} \frac{\lvert \nabla F \rver
     \hat{p} = \hat{k} \text{ Since the shadow region is in the $xy$ plane}\\
     \nabla F = \nvec{2x, 2y, 2z}\\
     \abs{\nabla F} = 2 \sqrt{x^2 + y^2 + z^2} \to R\\
-    \abs{\nabla F \cdot \hat{p}} = 2z\\
-    \iint \frac{2 \sqrt{x^2 + y^2 + z^2}}{2z} dA \to R \iint \frac{dA}{\sqrt{R^2 - x^2 - y^2}}\\
-    \int_0^{2\pi} \int_0^R \frac{rdrd\theta}{\sqrt{R^2 - r^2}} \to 4\pi R^2
+    \abs{\nabla F \cdot \hat{p} } = 2z\\
+    \iint \frac{2 \sqrt{x^2 + y^2 + z^2} }{2z} dA \to R \iint \frac{dA}{\sqrt{R^2 - x^2 - y^2} }\\
+    \int_0^{2\pi} \int_0^R \frac{rdrd\theta}{\sqrt{R^2 - r^2} } \to 4\pi R^2
     \end{aligned}
     \]
 
 \section{Surface Flux}
 To find Total Flux, we have to calculate $\iint\limits_{surface} \vec{F} \cdot \hat{N} d \sigma$. We can rearrange this formula to find
 \[
-\iint\limits_{surface} \vec{F} \cdot \hat{N} d \sigma = \iint\limits_s \frac{u \cdot \nabla F}{\abs{\nabla F \cdot \hat{p}}} dA
+\iint\limits_{surface} \vec{F} \cdot \hat{N} d \sigma = \iint\limits_s \frac{u \cdot \nabla F}{\abs{\nabla F \cdot \hat{p} } } dA
 \]
-Where $\hat{N} d \sigma = \frac{\nabla F}{\abs{\nabla F \cdot \hat{p}}} dA$ and $\vec{u}$ is the line in question.
+Where $\hat{N} d \sigma = \frac{\nabla F}{\abs{\nabla F \cdot \hat{p} } } dA$ and $\vec{u}$ is the line in question.
 
 \section{Stokes' Theorem}
 If you remember Green's theorem, we found a two dimensional formula for the line integral.

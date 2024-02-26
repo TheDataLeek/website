@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 9}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 9}
@@ -81,9 +81,9 @@
         \begin{aligned}
             \Lambda(t) = \int^t_{40} \lambda(u) \, du \qquad S(t) = \exp(-\Lambda(t))\\
             S(50) = \exp\left({-\int_{40}^{50} 0.027 + 0.00025{\left( t - 40 \right)}^2 \, dt}\right) =
-                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 50)$value)}}\\
+                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 50)$value)} }\\
             S(60) = \exp\left({-\int_{40}^{60} 0.027 + 0.00025{\left( t - 40 \right)}^2 \, dt}\right) =
-                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 60)$value)}}
+                \boxed{\Sexpr{exp(-integrate(hazard_rate, 40, 60)$value)} }
         \end{aligned}
     \]
 
@@ -104,7 +104,7 @@
         \begin{aligned}
             \Lambda(t) = \int_0^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
             S(2) = \exp \left( - \int_0^2 u^3 \, du \right) =
-                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0, 2)$value)}}
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0, 2)$value)} }
         \end{aligned}
     \]
 
@@ -115,7 +115,7 @@
         \begin{aligned}
             \Lambda(t) = \int_{0.4}^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
             S(1.4) = \exp \left( - \int_{0.4}^{1.4} u^3 \, du \right) =
-                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0.4, 1.4)$value)}}
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 0.4, 1.4)$value)} }
         \end{aligned}
     \]
 
@@ -127,7 +127,7 @@
         \begin{aligned}
             \Lambda(t) = \int_1^t u^3 \, du \qquad S(t) = \exp(-\Lambda(t))\\
             S(2) = \exp \left( - \int_1^2 u^3 \, du \right) =
-                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 1, 2)$value)}}
+                \boxed{\Sexpr{exp(-integrate(hazard_rate1, 1, 2)$value)} }
         \end{aligned}
     \]
 
@@ -161,7 +161,7 @@
     to 2. The probability that $Y$ is greater than or equal to 2 is
 
     \[
-        \int_2^5 \frac{1}{5} \, dx = \boxed{\Sexpr{integrate(function(x) (x/x) * (1/5),2,5)$value}}
+        \int_2^5 \frac{1}{5} \, dx = \boxed{\Sexpr{integrate(function(x) (x/x) * (1/5),2,5)$value} }
     \]
 
     @ \textit{Chapter 5, \#39 --} If $X$ is an exponential random variable with parameter $\lambda = 1$, compute the
@@ -176,7 +176,7 @@
         \end{aligned}
     \]
 
-    Meaning our final distribution is $\boxed{Y = e^{-e^y + y}}$. If we compare this to the result we see
+    Meaning our final distribution is $\boxed{Y = e^{-e^y + y} }$. If we compare this to the result we see
 
     <<transformed_exp, fig.width=2, fig.height=2, fig.show='hold', fig.align='center', tidy=F, echo=F>>=
         original <- function(x) { exp(-x) }
@@ -196,15 +196,15 @@
         \begin{aligned}
             \theta = \frac{1}{\pi} \qquad R = A \sin \theta\\
             P(R \le r) \Rightarrow P(A \sin \theta \le r)\\
-            g^{-1}(y) = \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \Rightarrow R =
-                \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} f\left(\sin^{-1} \left( \frac{r}{A} \right)\right)\\
+            g^{-1}(y) = \frac{1}{A \sqrt{1-\frac{r^2}{A^2} } } \Rightarrow R =
+                \frac{1}{A \sqrt{1-\frac{r^2}{A^2} } } f\left(\sin^{-1} \left( \frac{r}{A} \right)\right)\\
         \end{aligned}
     \]
 
     We know that the distribution is uniform, therefore the input does not matter, and we obtain
 
     \[
-        R = \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \left( \frac{1}{\pi} \right)
+        R = \frac{1}{A \sqrt{1-\frac{r^2}{A^2} } } \left( \frac{1}{\pi} \right)
     \]
 
     We also know that the integration of this random variable from $-\pi/2$ to $\pi/2$ \textit{must} equal 1. Knowing
@@ -212,7 +212,7 @@
 
     \[
         \begin{aligned}
-            \int^{\pi/2}_{-\pi/2} \frac{1}{A \sqrt{1-\frac{r^2}{A^2}}} \left( \frac{1}{\pi} \right) \, dr &=& 1\\
+            \int^{\pi/2}_{-\pi/2} \frac{1}{A \sqrt{1-\frac{r^2}{A^2} } } \left( \frac{1}{\pi} \right) \, dr &=& 1\\
             \frac{2 \sin^{-1} \left( \frac{\pi }{2 A} \right)}{\pi} &=& 1\\
             A &=& \frac{\pi}{2}
         \end{aligned}
@@ -221,7 +221,7 @@
     Therefore our final distribution is
 
     \[
-        R = \frac{2}{\pi^2 \sqrt{1-\frac{4r^2}{\pi^2}}}
+        R = \frac{2}{\pi^2 \sqrt{1-\frac{4r^2}{\pi^2} } }
     \]
 
     Comparing the two graphs

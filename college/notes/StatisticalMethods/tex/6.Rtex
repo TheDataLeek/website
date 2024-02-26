@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 6}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 6}
@@ -104,7 +104,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{\beta}_1 &=& \frac{S_{xy}}{S_{xx}} =
+            \hat{\beta}_1 &=& \frac{S_{xy} }{S_{xx} } =
                 \frac{\sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)/n}
                 {\sum x^2_i - {\left( \sum x_i \right)}^2/n}\\
             \hat{\beta}_0 &=& \overline{y} - \hat{\beta}_1 \overline{x}
@@ -123,7 +123,7 @@ $\hat{y}$, hist(e*), or x vs y})
              reg_line <- function(x) { b_0 + b_1 * x }
     @
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\} }$, and the
     equation $y = \Sexpr{b_0} + \Sexpr{b_1} x$.
 
     @@ Calculate a point estimate for true average efficiency ratio when tank temperature is 182.\newline
@@ -153,7 +153,7 @@ $\hat{y}$, hist(e*), or x vs y})
         \begin{aligned}
             r^2 &=& 1 - \frac{SSE}{SST}\\
             SSE &=& \sum y_i^2 - \hat{\beta}_0 \sum y_i - \hat{\beta}_1 \sum x_i y_i\\
-            SST &=& \sum y_i^2 - \frac{{\left( \sum y_i \right)}^2}{n}\\
+            SST &=& \sum y_i^2 - \frac{ {\left( \sum y_i \right)}^2}{n}\\
         \end{aligned}
     \end{equation}
 
@@ -205,7 +205,7 @@ $\hat{y}$, hist(e*), or x vs y})
              b_0 <- mean(y) - b_1 * mean(x)
     @
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\} }$, and the
     equation $y = \Sexpr{b_0} + \Sexpr{b_1} x$.
 
     @@ What percentage of observed variation in steel weight loss can be attributed to the model relationship in
@@ -240,7 +240,7 @@ $\hat{y}$, hist(e*), or x vs y})
              b_0 <- mean(y) - b_1 * mean(x)
     @
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to \Sexpr{b_0}, \hat{\beta}_1 \to \Sexpr{b_1} \right\} }$, and the
     equation $y = \Sexpr{b_0} + \Sexpr{b_1} x$, which differs quite substantially from our original regression line.
 
     @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
@@ -334,11 +334,11 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             1 - \alpha &=& P\left\{ -t_{\alpha / 2, n - 2} <
-                \frac{\hat{\beta}_1 - \beta_1}{S_{\hat{\beta}_1}} <
+                \frac{\hat{\beta}_1 - \beta_1}{S_{\hat{\beta}_1} } <
                 t_{\alpha/2, n - 2} \right\}\\
             &=& \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{\beta}_1}\\
-            S_{\hat{\beta}_1} &=& \frac{\sqrt{\sum {\left( y - \hat{y} \right)}^2 / (n - 2)}}
-                                        {\sqrt{\sum {\left( x - \overline{x} \right)}^2}}
+            S_{\hat{\beta}_1} &=& \frac{\sqrt{\sum {\left( y - \hat{y} \right)}^2 / (n - 2)} }
+                                        {\sqrt{\sum {\left( x - \overline{x} \right)}^2} }
         \end{aligned}
     \end{equation}
 
@@ -365,7 +365,7 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             \sigma^2 \left[
-                \frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}
+                \frac{1}{n} + \frac{ {\left( x^* - \overline{x} \right)}^2}
                                 {\sum x_i^2 - \left( \sum x_i \right)^2 / n}
             \right]
         \end{aligned}
@@ -375,7 +375,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{y}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{y} }
         \end{aligned}
     \end{equation}
 
@@ -398,7 +398,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s_{\hat{y}}^2}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s_{\hat{y} }^2}
         \end{aligned}
     \end{equation}
 
@@ -479,7 +479,7 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{\beta}_1}\\
-            s_{\hat{\beta}_1} = \frac{s}{\sqrt{S_{xx}}}
+            s_{\hat{\beta}_1} = \frac{s}{\sqrt{S_{xx} } }
         \end{aligned}
     \end{equation}
 
@@ -504,8 +504,8 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{y}}\\
-            s_{\hat{y}} = s \sqrt{\frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}{S_{xx}}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{y} }\\
+            s_{\hat{y} } = s \sqrt{\frac{1}{n} + \frac{ {\left( x^* - \overline{x} \right)}^2}{S_{xx} } }
         \end{aligned}
     \end{equation}
 
@@ -529,7 +529,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s^2_{\hat{y}}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s^2_{\hat{y} } }
         \end{aligned}
     \end{equation}
 
@@ -569,7 +569,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         Z = \frac{\hat{\beta}_0 + \hat{\beta}_1 x - \left( \beta_0 + \beta_1 x \right)}
-        {\sigma { \left( \frac{1}{n} + \frac{{\left( x - \overline{x} \right)}^2}
+        {\sigma { \left( \frac{1}{n} + \frac{ {\left( x - \overline{x} \right)}^2}
                         {\sum { \left( x_i - \overline{x} \right)}^2} \right) }^2}
     \end{equation}
 

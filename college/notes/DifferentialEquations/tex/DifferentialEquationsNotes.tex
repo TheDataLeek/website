@@ -31,12 +31,12 @@
 % Custom commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\nvec}[1]{\left\langle #1 \right\rangle}        % Easy to use vector
-\newcommand{\ma}[0]{\mathbf{A}}        % Easy to use vector
-\newcommand{\mb}[0]{\mathbf{B}}        % Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A} }        % Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B} }        % Easy to use vector
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}           % Easy to use abs
 \newcommand{\pren}[1]{\left( #1 \right)}                    % Big parens
 \let\oldvec\vec
-\renewcommand{\vec}[1]{\oldvec{\mathbf{ #1 }}}                    % Big parens
+\renewcommand{\vec}[1]{\oldvec{\mathbf{ #1 } } }                    % Big parens
 \newtheorem{thm}{Theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
@@ -46,7 +46,7 @@
 \pagestyle{fancy}
 \fancyhead[LE,LO]{APPM 2360 - Differential Equations}   % Adds header to left
 \fancyhead[RE,RO]{Notes}                                % Adds header to right
-\cfoot{\mlptikz[size=0.25in,text=on,textposx=0,textposy=0,textvalue=\thepage,textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in,text=on,textposx=0,textposy=0,textvalue=\thepage,textscale=0.75in]{applejack} }
 
 \title{Differential Equations Notes}   % Attachs .tex file to pdf
 \author{Zoe Farmer}
@@ -55,7 +55,7 @@
 \tableofcontents    % Table of contents
 \listoffigures      % List of Figures
 
-\newcommand{\listequationsname}{\Large{List of Equations}}          % Funky code to include LOE
+\newcommand{\listequationsname}{\Large{List of Equations} }          % Funky code to include LOE
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}

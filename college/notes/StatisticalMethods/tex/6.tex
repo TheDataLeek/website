@@ -12,22 +12,22 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
+  \def\at@end@of@kframe{\end{minipage} }%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +36,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
+   \@setminipage} }%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -56,7 +56,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 6}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 6}
@@ -64,7 +64,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
 \begin{document}
 
 \maketitle
@@ -142,7 +142,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \begin{alltt}
          \hlstd{model} \hlkwb{<-} \hlkwd{lm}\hlstd{(Ratio}\hlopt{~}\hlstd{Temp,} \hlkwc{data}\hlstd{=ex12.01)}
          \hlstd{cof} \hlkwb{<-} \hlkwd{coefficients}\hlstd{(model)}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ cof[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{cof[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ cof[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{cof[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \} }
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -196,7 +196,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{\beta}_1 &=& \frac{S_{xy}}{S_{xx}} =
+            \hat{\beta}_1 &=& \frac{S_{xy} }{S_{xx} } =
                 \frac{\sum x_i y_i - \left( \sum x_i \right)\left( \sum y_i \right)/n}
                 {\sum x^2_i - {\left( \sum x_i \right)}^2/n}\\
             \hat{\beta}_0 &=& \overline{y} - \hat{\beta}_1 \overline{x}
@@ -214,13 +214,13 @@ $\hat{y}$, hist(e*), or x vs y})
          \hlstd{b_1} \hlkwb{<-} \hlstd{(}\hlkwd{sum}\hlstd{(temp} \hlopt{*} \hlstd{ratio)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(temp)} \hlopt{*} \hlkwd{sum}\hlstd{(ratio))}\hlopt{/}\hlstd{n)} \hlopt{/}
                  \hlstd{(}\hlkwd{sum}\hlstd{(temp}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(}\hlkwd{sum}\hlstd{(temp)}\hlopt{^}\hlnum{2}\hlstd{)}\hlopt{/}\hlstd{n)}
          \hlstd{b_0} \hlkwb{<-} \hlkwd{mean}\hlstd{(ratio)} \hlopt{-} \hlstd{b_1} \hlopt{*} \hlkwd{mean}\hlstd{(temp)}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \} }
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to -15.245, \hat{\beta}_1 \to 0.0942 \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to -15.245, \hat{\beta}_1 \to 0.0942 \right\} }$, and the
     equation $y = -15.245 + 0.0942 x$.
 
     @@ Calculate a point estimate for true average efficiency ratio when tank temperature is 182.\newline
@@ -255,7 +255,7 @@ $\hat{y}$, hist(e*), or x vs y})
         \begin{aligned}
             r^2 &=& 1 - \frac{SSE}{SST}\\
             SSE &=& \sum y_i^2 - \hat{\beta}_0 \sum y_i - \hat{\beta}_1 \sum x_i y_i\\
-            SST &=& \sum y_i^2 - \frac{{\left( \sum y_i \right)}^2}{n}\\
+            SST &=& \sum y_i^2 - \frac{ {\left( \sum y_i \right)}^2}{n}\\
         \end{aligned}
     \end{equation}
 
@@ -334,7 +334,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \end{knitrout}
 
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 137.8756, \hat{\beta}_1 \to 9.3116 \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 137.8756, \hat{\beta}_1 \to 9.3116 \right\} }$, and the
     equation $y = 137.8756 + 9.3116 x$.
 
     @@ What percentage of observed variation in steel weight loss can be attributed to the model relationship in
@@ -388,7 +388,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \end{knitrout}
 
 
-    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 190.3524, \hat{\beta}_1 \to 7.5515 \right\}}$, and the
+    Which yields $\boxed{\left\{ \hat{\beta}_0 \to 190.3524, \hat{\beta}_1 \to 7.5515 \right\} }$, and the
     equation $y = 190.3524 + 7.5515 x$, which differs quite substantially from our original regression line.
 
     @@ State the estimated model, interpret its parameters, and test the linear regression assumptions using diagnostic
@@ -399,7 +399,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ b_0} \hlopt{+} \hlstd{b_1} \hlopt{*} \hlstd{x \} }
          \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
          \hlstd{raw_residuals} \hlkwb{<-} \hlstd{y} \hlopt{-} \hlstd{y_hat}
          \hlstd{residuals} \hlkwb{<-} \hlstd{(raw_residuals} \hlopt{-} \hlkwd{mean}\hlstd{(raw_residuals))} \hlopt{/}
@@ -495,7 +495,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \} }
          \hlstd{x} \hlkwb{<-} \hlstd{tan}
          \hlstd{y} \hlkwb{<-} \hlstd{ast}
          \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
@@ -536,11 +536,11 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             1 - \alpha &=& P\left\{ -t_{\alpha / 2, n - 2} <
-                \frac{\hat{\beta}_1 - \beta_1}{S_{\hat{\beta}_1}} <
+                \frac{\hat{\beta}_1 - \beta_1}{S_{\hat{\beta}_1} } <
                 t_{\alpha/2, n - 2} \right\}\\
             &=& \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{\beta}_1}\\
-            S_{\hat{\beta}_1} &=& \frac{\sqrt{\sum {\left( y - \hat{y} \right)}^2 / (n - 2)}}
-                                        {\sqrt{\sum {\left( x - \overline{x} \right)}^2}}
+            S_{\hat{\beta}_1} &=& \frac{\sqrt{\sum {\left( y - \hat{y} \right)}^2 / (n - 2)} }
+                                        {\sqrt{\sum {\left( x - \overline{x} \right)}^2} }
         \end{aligned}
     \end{equation}
 
@@ -572,7 +572,7 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             \sigma^2 \left[
-                \frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}
+                \frac{1}{n} + \frac{ {\left( x^* - \overline{x} \right)}^2}
                                 {\sum x_i^2 - \left( \sum x_i \right)^2 / n}
             \right]
         \end{aligned}
@@ -582,7 +582,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{y}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot S_{\hat{y} }
         \end{aligned}
     \end{equation}
 
@@ -610,7 +610,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s_{\hat{y}}^2}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s_{\hat{y} }^2}
         \end{aligned}
     \end{equation}
 
@@ -682,7 +682,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
          \hlstd{line} \hlkwb{<-} \hlkwd{lm}\hlstd{(y}\hlopt{~}\hlstd{x)}
          \hlstd{co} \hlkwb{<-} \hlkwd{coefficients}\hlstd{(line)}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \} }
 
          \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(x)}
          \hlstd{raw_residuals} \hlkwb{<-} \hlstd{(y} \hlopt{-} \hlstd{y_hat)}
@@ -723,7 +723,7 @@ $\hat{y}$, hist(e*), or x vs y})
     \begin{equation}
         \begin{aligned}
             \hat{\beta}_1 \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{\beta}_1}\\
-            s_{\hat{\beta}_1} = \frac{s}{\sqrt{S_{xx}}}
+            s_{\hat{\beta}_1} = \frac{s}{\sqrt{S_{xx} } }
         \end{aligned}
     \end{equation}
 
@@ -753,8 +753,8 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{y}}\\
-            s_{\hat{y}} = s \sqrt{\frac{1}{n} + \frac{{\left( x^* - \overline{x} \right)}^2}{S_{xx}}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot s_{\hat{y} }\\
+            s_{\hat{y} } = s \sqrt{\frac{1}{n} + \frac{ {\left( x^* - \overline{x} \right)}^2}{S_{xx} } }
         \end{aligned}
     \end{equation}
 
@@ -763,7 +763,7 @@ $\hat{y}$, hist(e*), or x vs y})
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \}}
+         \hlstd{reg_line} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{) \{ co[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{co[}\hlnum{2}\hlstd{]} \hlopt{*} \hlstd{x \} }
          \hlstd{xs} \hlkwb{<-} \hlnum{3}
          \hlstd{y_hat} \hlkwb{<-} \hlkwd{reg_line}\hlstd{(xs)}
          \hlstd{s} \hlkwb{<-} \hlkwd{sd}\hlstd{(y)}
@@ -783,7 +783,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         \begin{aligned}
-            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s^2_{\hat{y}}}
+            \hat{y} \pm t_{\alpha / 2, n - 2} \cdot \sqrt{s^2 + s^2_{\hat{y} } }
         \end{aligned}
     \end{equation}
 
@@ -828,7 +828,7 @@ $\hat{y}$, hist(e*), or x vs y})
 
     \begin{equation}
         Z = \frac{\hat{\beta}_0 + \hat{\beta}_1 x - \left( \beta_0 + \beta_1 x \right)}
-        {\sigma { \left( \frac{1}{n} + \frac{{\left( x - \overline{x} \right)}^2}
+        {\sigma { \left( \frac{1}{n} + \frac{ {\left( x - \overline{x} \right)}^2}
                         {\sum { \left( x_i - \overline{x} \right)}^2} \right) }^2}
     \end{equation}
 

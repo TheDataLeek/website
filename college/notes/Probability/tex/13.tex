@@ -12,22 +12,22 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
+  \def\at@end@of@kframe{\end{minipage} }%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +36,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
+   \@setminipage} }%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -56,7 +56,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 13}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 13}
@@ -65,7 +65,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
 \begin{document}
 
 
@@ -102,13 +102,13 @@
                     {\left[ \frac{y - \mu_y}{\sigma_y} \right]}^2 -
                     2 \rho \frac{(x - \mu_x)(y - \mu_y)}{\sigma_x\sigma_y}
                 \right)
-            \right]}{2\pi \sigma_x \sigma_y \sqrt{1 - \rho^2}}
+            \right]}{2\pi \sigma_x \sigma_y \sqrt{1 - \rho^2} }
     \end{equation}
 
     Whereas the standard normal distribution is defined as
 
     \begin{equation}
-        f(x) = \frac{1}{\sqrt{2\pi}} e^{ -\frac{x^2}{2} }
+        f(x) = \frac{1}{\sqrt{2\pi} } e^{ -\frac{x^2}{2} }
     \end{equation}
 
     Let $g_1(z_1, z_2) = z_1$ and $g_2(z_1, z_2) = z_1 + z_2$, therefore the Jacobian is defined as
@@ -143,7 +143,7 @@
                         {\left[ \frac{y - (0)}{(1)} \right]}^2 -
                         2 (0) \frac{(x - (0))(y - (0))}{(1)(1)}
                     \right)
-                \right]}{2\pi (1) (1) \sqrt{1 - (0)^2}}\\
+                \right]}{2\pi (1) (1) \sqrt{1 - (0)^2} }\\
             &=& \frac{%
                 \exp \left[
                     - \frac{1}{2}
@@ -168,7 +168,7 @@
     \begin{equation}
         \begin{aligned}
             r(x, y) = {(x^2 + y^2)}^{1/2} &\qquad& \theta(x, y) = \arctan \left( \frac{y}{x} \right)\\
-            x = \sqrt{r^2 \cos^2 t} &\qquad& y = \frac{r \tan t}{\sqrt{1 + \tan^2 t}}
+            x = \sqrt{r^2 \cos^2 t} &\qquad& y = \frac{r \tan t}{\sqrt{1 + \tan^2 t} }
         \end{aligned}
     \end{equation}
 
@@ -177,10 +177,10 @@
     \begin{equation}
         \begin{aligned}
             J(x, y) = \left| \begin{pmatrix}
-                                 \frac{x}{\sqrt{x^2+y^2}} & \frac{y}{\sqrt{x^2+y^2}}\\
+                                 \frac{x}{\sqrt{x^2+y^2} } & \frac{y}{\sqrt{x^2+y^2} }\\
                                  \frac{-y}{x^2 \left(\frac{y^2}{x^2}+1\right)} & \frac{1}{x \left(\frac{y^2}{x^2}+1\right)}
                              \end{pmatrix}
-                      \right| = \frac{1}{\sqrt{x^2+y^2}} = \frac{1}{r}
+                      \right| = \frac{1}{\sqrt{x^2+y^2} } = \frac{1}{r}
         \end{aligned}
     \end{equation}
 
@@ -218,8 +218,8 @@
     \begin{equation}
         \begin{aligned}
             J(u, z) = \left| \begin{pmatrix}
-                                     -\sqrt{2z} \sin u & \frac{\cos u}{\sqrt{2z}}\\
-                                     \sqrt{2z} \cos u & \frac{\sin u}{\sqrt{2z}}\\
+                                     -\sqrt{2z} \sin u & \frac{\cos u}{\sqrt{2z} }\\
+                                     \sqrt{2z} \cos u & \frac{\sin u}{\sqrt{2z} }\\
                                  \end{pmatrix}
                           \right| = -1
         \end{aligned}
@@ -229,7 +229,7 @@
     $u=\arctan\left( y/x \right), z=\left( x^2 + y \right)/2$.
 
     \begin{equation}
-        f(x, y) = \frac{e^{-\left( x^2 \right)/2}}{2 \pi} \qquad -\infty \le x \le \infty
+        f(x, y) = \frac{e^{-\left( x^2 \right)/2} }{2 \pi} \qquad -\infty \le x \le \infty
     \end{equation}
 
     @ \textit{Chapter 6, \#55} $X$ and $Y$ have joint density function
@@ -336,7 +336,7 @@
 
     \begin{equation}
         \begin{aligned}
-            f(u, v) = \frac{v \exp\left({-\frac{(u+1) v}{v+1}}\right)}{(u+1) (v+1)}
+            f(u, v) = \frac{v \exp\left({-\frac{(u+1) v}{v+1} }\right)}{(u+1) (v+1)}
         \end{aligned}
     \end{equation}
 
@@ -366,7 +366,7 @@
     \begin{equation}
         \begin{aligned}
             S + W + R = 3 \qquad S,W,R \in \left\{ 0, 1, 2, 3 \right\}\\
-            p(x) = \frac{1}{\binom{5}{2}} = \frac{1}{10}
+            p(x) = \frac{1}{\binom{5}{2} } = \frac{1}{10}
         \end{aligned}
     \end{equation}
 

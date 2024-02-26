@@ -34,12 +34,12 @@
 % Custom commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\nvec}[1]{\left\langle#1\right\rangle}        % Easy to use vector
-\newcommand{\ma}[0]{\mathbf{A}}        % Easy to use vector
-\newcommand{\mb}[0]{\mathbf{B}}        % Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A} }        % Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B} }        % Easy to use vector
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}           % Easy to use abs
 \newcommand{\pren}[1]{\left(#1\right)}                    % Big parens
 \let\oldvec\vec
-\renewcommand{\vec}[1]{\oldvec{\mathbf{ #1 }}}                    % Big parens
+\renewcommand{\vec}[1]{\oldvec{\mathbf{ #1 } } }                    % Big parens
 \newtheorem{thm}{Theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
@@ -142,7 +142,7 @@ Furthermore, if $c=0$, the equation is said to be homogeneous.
 
 We can generalize the concept of a linear equation to a linear differential equation. A differential equation $F(y, y^\prime, y^\prime^\prime, \dots, y^n) = f(t)$ is linear if it is in the form:
 $
-a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1}} + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0} = f(t)
+a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1} } + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0} = f(t)
 $
 where all function of $t$ are assumed to be defined over some common interval $I$.
 
@@ -161,7 +161,7 @@ We will also introduce the linear operator $L$:
 $
 \begin{aligned}
 L(\vec{x}) = a_1x_1 + a_2x_2 + \dots + a_nx_n\\
-L(\vec{y}) = a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1}} + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0}
+L(\vec{y}) = a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1} } + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0}
 \end{aligned}
 $
 
@@ -999,12 +999,12 @@ which is called closure under linear combinations.
 
             \begin{itemize}
                 \item \textbf{Restoring Force:} The restorative force of a spring is $\propto$ the amount of stretching/compression:
-                    $ F_{\text{restoring}} = -k x $
+                    $ F_{\text{restoring} } = -k x $
                 \item \textbf{Damping Force:} We also assume that friction exists, and therefore a damping force $\propto$ the velocity of the object:
-                    $ F_{\text{damping}} = -b \dot{x} $
+                    $ F_{\text{damping} } = -b \dot{x} $
                     Where damping constant $b > 0$ and small for slick surfaces.
                 \item \textbf{External Force:} We also allow for an external force to drive the motion:
-                    $ F_{\text{external}} = f(t) $
+                    $ F_{\text{external} } = f(t) $
             \end{itemize}
 
         Thus we get our equation for a Simple Harmonic Oscillator:
@@ -1025,7 +1025,7 @@ which is called closure under linear combinations.
             $ \begin{aligned}
                 \text{Given Equation: } m \ddot{x} + kx = 0\\
                 x(t) = c_1 \cos \left( \omega_0 t \right) + c_2 \sin \left( \omega_0 t \right)\\
-                \omega_0 = \sqrt{\frac{k}{m}}
+                \omega_0 = \sqrt{\frac{k}{m} }
             \end{aligned} $
 
         This gives us one form of the solution, however we can also find an alternate form:
@@ -1035,8 +1035,8 @@ which is called closure under linear combinations.
         Where
             \begin{itemize}
                 \item Amplitude $A$ and phase angle $\delta$ (radians) are arbitrary constants determined by initial conditions.
-                \item The motion has circular frequency $\omega_0 = \sqrt{\frac{k}{m}}$ (radians) per second, and a natural frequency $f_0 = \frac{\omega_0}{2 \pi}$
-                \item The period $T$ (seconds) is $2 \pi \sqrt{\frac{m}{k}}$
+                \item The motion has circular frequency $\omega_0 = \sqrt{\frac{k}{m} }$ (radians) per second, and a natural frequency $f_0 = \frac{\omega_0}{2 \pi}$
+                \item The period $T$ (seconds) is $2 \pi \sqrt{\frac{m}{k} }$
                 \item The above solution is a horizontal shift of $A \cos (\omega_0 t)$ with phase shift $\frac{\delta}{\omega_0}$.
             \end{itemize}
 
@@ -1066,7 +1066,7 @@ which is called closure under linear combinations.
             \item $x_p(t)$ can be assumed as
                 $ A \cos ( \omega_f t ) + B \sin ( \omega_f t )$
                 See \eqref{sec:2decoefficients}.
-            \item $ \omega_0 = \sqrt{\frac{k}{m}} $
+            \item $ \omega_0 = \sqrt{\frac{k}{m} } $
             \item $ A = \frac{m (\omega_0^2 - \omega_f^2) F_0}{m^2{(\omega_0^2 - \omega_f^2)}^2 + {(b \omega_f)}^2} $
             \item $ B = \frac{b \omega_f F_0}{m^2{(\omega_0^2 - \omega_f^2)}^2 + {(b \omega_f)}^2} $
         \end{enumerate}
@@ -1082,7 +1082,7 @@ which is called closure under linear combinations.
 
             $ \begin{cases}
                     H \to \frac{dx}{dt} = \dot{x}\\
-                    V \to \frac{d\dot{x}}{dt} = \ddot{x}
+                    V \to \frac{d\dot{x} }{dt} = \ddot{x}
                 \end{cases} $
 
         Trajectories can be formed by parametrically combining the vectors into a path. A graph showing these trajectories is called a phase portrait.
@@ -1175,16 +1175,16 @@ which is called closure under linear combinations.
             \begin{tabular}{| l | l | l |}
                 \hline
                 \textbf{Case One} & Real Unequal Roots & Overdamped Motion\\
-                $\Delta > 0$ & $r_1, r_2 = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ & $y_h(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}$\\&&\\
+                $\Delta > 0$ & $r_1, r_2 = \frac{-b \pm \sqrt{b^2 - 4ac} }{2a}$ & $y_h(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}$\\&&\\
                 \hline
                 \textbf{Case Two} & Real Repeated Root & Critically Damped Motion\\
                 $\Delta = 0$ & $r = - \frac{b}{2a} $ & $y_h(t) = c_1 e^{r t} + c_2 t e^{r t}$\\&&\\
                 \hline
                 \textbf{Case Three} & Complex Conjugate Roots & Underdamped Motion\\
                 $\Delta < 0$ & $r_1, r_2 = \alpha \pm \beta i$ & $y_h(t) = e^{\alpha t} \left( c_1 \cos \left(\beta t \right) + c_2 \sin \left( \beta t \right) \right)$\\
-                & $\alpha = - \frac{b}{2a}, \beta = \frac{\sqrt{4ac - b^2}}{2a}$ &\\&&\\
+                & $\alpha = - \frac{b}{2a}, \beta = \frac{\sqrt{4ac - b^2} }{2a}$ &\\&&\\
                 \hline
-            \end{tabular}}
+            \end{tabular} }
             \caption{Roots for Second Order Differential Equations in Characteristic Equation Form}
             \label{table:roots}
         \end{table}
@@ -1597,7 +1597,7 @@ An $n$-dimensional first order differential equations system on an open interval
 
                 $ \lambda_{1,2} = \alpha \pm \beta i $
 
-                where $\alpha = \frac{{\rm Tr}(A)}{2}$ and $\beta = \sqrt{-\Delta}$. $\alpha$ and $\beta$ are real. The real solutions are given by:
+                where $\alpha = \frac{ {\rm Tr}(A)}{2}$ and $\beta = \sqrt{-\Delta}$. $\alpha$ and $\beta$ are real. The real solutions are given by:
 
                 $ \begin{cases}
                         \vec{x}_r = e^{\alpha t} ( \cos(\beta t) \vec{p} - \sin(\beta t)\vec{q})\\

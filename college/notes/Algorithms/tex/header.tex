@@ -50,8 +50,8 @@
     urlcolor=black,
 }
 \RequirePackage[l2tabu, orthodox]{nag}                                  % Nag about bad syntax
-\renewcommand*\thesection{\arabic{section}}                             % Reset numbering
-\renewcommand{\theFancyVerbLine}{{\arabic{FancyVerbLine}}}              % Needed for code display
+\renewcommand*\thesection{\arabic{section} }                             % Reset numbering
+\renewcommand{\theFancyVerbLine}{ {\arabic{FancyVerbLine} } }              % Needed for code display
 \renewcommand{\footrulewidth}{0.4pt}                                    % Footer hline
 \setcounter{secnumdepth}{3}                                             % Include subsubsections in numbering
 \setcounter{tocdepth}{3}                                                % Include subsubsections in toc
@@ -61,13 +61,13 @@
 \newcommand{\nvec}[1]{\left\langle #1 \right\rangle}                    %  Easy to use vector
 \newcommand{\inprod}[2]{\left\langle \vec{#1}, \vec{#2} \right\rangle}  %  Easy to use inner product
 \newcommand{\norm}[1]{\lvert \lvert \vec{#1} \rvert \rvert}             %  Easy to use norm
-\newcommand{\ma}[0]{\mathbf{A}}                                         %  Easy to use vector
-\newcommand{\mb}[0]{\mathbf{B}}                                         %  Easy to use vector
+\newcommand{\ma}[0]{\mathbf{A} }                                         %  Easy to use vector
+\newcommand{\mb}[0]{\mathbf{B} }                                         %  Easy to use vector
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}                       %  Easy to use abs
 \newcommand{\pren}[1]{\left( #1 \right)}                                %  Big parens
-\newcommand{\cents}[0]{\text{\textcent}}
+\newcommand{\cents}[0]{\text{\textcent} }
 \let\oldvec\vec
-\renewcommand{\vec}[1]{\mathbf{#1}}                            %  Vector Styling
+\renewcommand{\vec}[1]{\mathbf{#1} }                            %  Vector Styling
 \newtheorem{thm}{Theorem}                                               %  Define the theorem name
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}                                     %  Define the definition name

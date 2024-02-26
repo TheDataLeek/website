@@ -34,7 +34,7 @@ These structures are what the class will focus on.
     \end{thm}
 
     \begin{thm}[The Extended Pigeon-Hole Principle]
-        If $N$ pigeons are assigned to $K < N$ pigeon holes, then one of the pigeon holes must contain at least $\left \lfloor{\frac{N-1}{K}}\right \rfloor + 1$ or $\left \lceil{\frac{N}{K}}\right \rceil $ pigeons.
+        If $N$ pigeons are assigned to $K < N$ pigeon holes, then one of the pigeon holes must contain at least $\left \lfloor{\frac{N-1}{K} }\right \rfloor + 1$ or $\left \lceil{\frac{N}{K} }\right \rceil $ pigeons.
     \end{thm}
 
     \subsection{Permutations and Combinations}
@@ -221,7 +221,7 @@ These structures are what the class will focus on.
             \[
                 \left[ z^n \right] A(z)
             \]
-        Is the coefficient of the $z^{n\text{th}}$ term in the series $A(z)$.
+        Is the coefficient of the $z^{n\text{th} }$ term in the series $A(z)$.
     \end{thm}
 
     \begin{ex}
@@ -229,18 +229,18 @@ These structures are what the class will focus on.
     \end{ex}
 
     \begin{ex}
-        Show that the generating function for $a = n, n \ge 0$ is $A(z)=\frac{z}{{(1 - z)}^2}$
+        Show that the generating function for $a = n, n \ge 0$ is $A(z)=\frac{z}{ {(1 - z)}^2}$
 
-        $\hookrightarrow$ Note $\frac{d}{dz} \left( \frac{1}{1-z} \right) = \frac{1}{{(1 - z)}^2}$
+        $\hookrightarrow$ Note $\frac{d}{dz} \left( \frac{1}{1-z} \right) = \frac{1}{ {(1 - z)}^2}$
 
         But $\frac{d}{dz} = \left( \frac{1}{1-z} \right) = \frac{d}{dz} \left( \sum^\infty_{n=0} z^n \right) = \sum^\infty_{n=0} n - z^{n - 1}$
 
         So
             \[
-                z \cdot \frac{1}{{(1 - z)}^2} = z \cdot \sum^\infty_{n=0} nz^{-1} = \sum^\infty_{n = 0} nz^n = \sum^\infty_{n=0} a_n z^n \to a_n = n
+                z \cdot \frac{1}{ {(1 - z)}^2} = z \cdot \sum^\infty_{n=0} nz^{-1} = \sum^\infty_{n = 0} nz^n = \sum^\infty_{n=0} a_n z^n \to a_n = n
             \]
 
-        Therefore the generating function is $A(z) = \frac{z}{{(1 - z)}^2}$.
+        Therefore the generating function is $A(z) = \frac{z}{ {(1 - z)}^2}$.
     \end{ex}
 
     \begin{thm}
@@ -283,7 +283,7 @@ These structures are what the class will focus on.
         Let $A_1, A_2, \cdots, A_n$ be finite sets, then
             \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{1 \le i \le n} \abs{A_i} - \sum_{1 \le i < j \le n} \abs{A_i \cap A_j} + \cdots + {\left( -1 \right)}^{n+1} \abs{\bigcap^n_{i=1} a_i} \]
         or
-            \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{I \subset \{1, 2, 3, 4, \ldots, n \}} {(-1)}^{\abs{I} + 1} \abs{\bigcap_{i \in I} A_i} \]
+            \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{I \subset \{1, 2, 3, 4, \ldots, n \} } {(-1)}^{\abs{I} + 1} \abs{\bigcap_{i \in I} A_i} \]
         or
             \[ \abs{\bigcup^n_{i=1} A_i} = \sum_{I \in p(\{1, 2, 3, 4, \ldots, n \})} {(-1)}^{\abs{I} + 1} \abs{\bigcap_{i \in I} A_i} \]
 
@@ -293,5 +293,5 @@ These structures are what the class will focus on.
         A derangement of $(1, 2, 3, \cdots, n)$ is any permutation of these numbers that leaves no number in its original position.
 
         For a given set, $(1, 2, 3, \cdots, n)$, there are approximately $\frac{n!}{e}$ derangements, or more accurately
-            \[ n! \cdot \left( \sum^n_{i=0} \frac{{\left( -1 \right)}^i}{i!} \right) \]
+            \[ n! \cdot \left( \sum^n_{i=0} \frac{ {\left( -1 \right)}^i}{i!} \right) \]
 

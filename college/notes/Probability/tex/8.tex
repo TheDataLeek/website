@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 8}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 8}
@@ -58,7 +58,7 @@
                  &=& 10a + 5b = 12\\
              10a &=& 12 - 5b \Rightarrow a = \frac{12 - 5b}{10}\\
              1 &=& \int^1_0 \frac{12 - 5b}{10} + bx^2 \, dx\\
-             && \boxed{b = \frac{6}{5} \qquad a = \frac{3}{5}}
+             && \boxed{b = \frac{6}{5} \qquad a = \frac{3}{5} }
         \end{aligned}
     \]
 
@@ -186,14 +186,14 @@
     @@ Recall that a normally distributed random variable has the form
 
     \[
-        f(x, \mu=40, \sigma=4) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2} } =
-        \frac{1}{4\sqrt{2\pi}} e^{-\frac{(x-40)^2}{32}}
+        f(x, \mu=40, \sigma=4) = \frac{1}{\sigma\sqrt{2\pi} } e^{-\frac{(x-\mu)^2}{2\sigma^2} } =
+        \frac{1}{4\sqrt{2\pi} } e^{-\frac{(x-40)^2}{32} }
     \]
 
     If we let $X$ be how many inches of rain the region receives, we are then interested in $P(X > 50) = 1 - P(X \le
     50)$, which we can write as such.
 
-    \[ 1 - \int^{50}_0 \frac{1}{4\sqrt{2\pi}} e^{-\frac{(x-40)^2}{32}} \, dx = 0.00620967 \]
+    \[ 1 - \int^{50}_0 \frac{1}{4\sqrt{2\pi} } e^{-\frac{(x-40)^2}{32} } \, dx = 0.00620967 \]
 
     This number is the probability that any given year has more than 50 inches of rain. If we now let $Y$ be the random
     variable denoting how many years it is until 50 inches is received, then we can create a new Geometric distribution
@@ -211,8 +211,8 @@
     \[
         \begin{aligned}
             P(X > 9) = 1 - P(X \le 9) =
-            1 - \int^9_{-\infty} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-5)^2}{2\sigma^2} } \, dx &=& 0.2\\
-            \int^9_{-\infty} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-5)^2}{2\sigma^2} } \, dx &=& 0.8\\
+            1 - \int^9_{-\infty} \frac{1}{\sigma\sqrt{2\pi} } e^{-\frac{(x-5)^2}{2\sigma^2} } \, dx &=& 0.2\\
+            \int^9_{-\infty} \frac{1}{\sigma\sqrt{2\pi} } e^{-\frac{(x-5)^2}{2\sigma^2} } \, dx &=& 0.8\\
             \sigma &=& \boxed{4.75273}
         \end{aligned}
     \]
@@ -313,16 +313,16 @@
     function. That is, show that $f(x) = 0$ when $x = \mu - \sigma$ or $x = \mu + \sigma$.
     @@ A normal distribution has form
 
-    \[ f(x, \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}} e^{ -\frac{(x-\mu)^2}{2\sigma^2} } \]
+    \[ f(x, \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi} } e^{ -\frac{(x-\mu)^2}{2\sigma^2} } \]
 
     With first derivative
 
-    \[ \frac{df(x, \mu, \sigma)}{dx} = -\frac{e^{-\frac{{(x - \mu)}^2}{2 \sigma^2}} (x - \mu)}{\sqrt{2 \pi} \sigma^3} \]
+    \[ \frac{df(x, \mu, \sigma)}{dx} = -\frac{e^{-\frac{ {(x - \mu)}^2}{2 \sigma^2} } (x - \mu)}{\sqrt{2 \pi} \sigma^3} \]
 
     And second derivative
 
-    \[ \frac{d}{dx} = \frac{(x-\mu )^2 e^{-\frac{(x-\mu )^2}{2 \sigma ^2}}}{\sqrt{2 \pi } \sigma ^5}-
-                        \frac{e^{-\frac{(x-\mu )^2}{2 \sigma^2}}}{\sqrt{2 \pi } \sigma ^3} \]
+    \[ \frac{d}{dx} = \frac{(x-\mu )^2 e^{-\frac{(x-\mu )^2}{2 \sigma ^2} } }{\sqrt{2 \pi } \sigma ^5}-
+                        \frac{e^{-\frac{(x-\mu )^2}{2 \sigma^2} } }{\sqrt{2 \pi } \sigma ^3} \]
 
     Now if we simply plug in $\mu \pm \sigma$ we can see that the second derivative is equal to zero, which by
     definition makes these two points inflection points.

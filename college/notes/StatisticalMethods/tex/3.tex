@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 3}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 3}
@@ -123,7 +123,7 @@
     \[ \text{Var}(Y) = \text{Var}(5X+2) = 25 \cdot \text{Var}(x) = 100 \]
     @@ Find $P(Y < 10)$. Find $P(X < 10)$.
     @@@ We can use the definition of a normal distribution to determine the answer.
-    \[ p(x;\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}\, e^{-\frac{(x - \mu)^2}{2 \sigma^2}} \]
+    \[ p(x;\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi} }\, e^{-\frac{(x - \mu)^2}{2 \sigma^2} } \]
     Now we can define their CDF and find for $x=10$ and get $P(Y < 10) = 0.241964$ and $P(X < 10)=0.999767$
     @@ What is the 99th percentile of the distribution of $Y$?
     @@@ To find this we need to solve for when the cdf of $Y$ equals 0.99. This results in $40.2635$.

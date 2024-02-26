@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 2}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 4570}
 \rfoot{Hagar}
 \title{Homework 2}
@@ -66,7 +66,7 @@
         \[\begin{aligned}
             P(E_1|E_4) &=& \frac{P(E_1 \cap E_4)}{P(E_4)}\\
                        &=& \frac{P(E_1)P(E_4|E_1)}{P(E_4)}\\
-                       &=& \frac{\frac{1}{500} \cdot \frac{2}{10}}{0.699}\\
+                       &=& \frac{\frac{1}{500} \cdot \frac{2}{10} }{0.699}\\
                        &=& \frac{2}{3495} = \boxed{0.000572246}
         \end{aligned}\]
 
@@ -88,7 +88,7 @@
         \[\begin{aligned}
             P(E_1|E_3) &=& \frac{P(E_1 \cap E_3)}{P(E_3)}\\
                        &=& \frac{P(E_1)P(E_3|E_1)}{P(E_3)}\\
-                       &=& \frac{\frac{1}{500} \cdot \frac{8}{10}}{0.301}\\
+                       &=& \frac{\frac{1}{500} \cdot \frac{8}{10} }{0.301}\\
                        &=& \frac{8}{1505} = \boxed{0.00531561}
         \end{aligned}\]
 
@@ -171,7 +171,7 @@
         \[ P(x) = \binom{n}{x} \cdot p^x \cdot {(1 - p)}^n \]
         Therefore if we determine the probability of how many parts fail, we can determine the probability that it will
         happen within the first 10 trials. This summation yields, where $p=0.02$, and $n=10$.
-        \[ \sum^{10}_{x=6} \binom{n}{x} \cdot p^x \cdot {(1 - p)}^n = \boxed{1.204005 \times 10^{-8}} \]
+        \[ \sum^{10}_{x=6} \binom{n}{x} \cdot p^x \cdot {(1 - p)}^n = \boxed{1.204005 \times 10^{-8} } \]
         In other words, not very likely\ldots
 
     @ A traffic office wishes to monitor the number of vehicles crossing a certain bridge in the city in any given day.
@@ -194,17 +194,17 @@
     We now know that we are working with the Poisson distribution with a daily average of 30 cars, which can be
     expressed as $\mathrm{Pois}(30)$, or
 
-        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \]
+        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda} }{k!} \]
 
     @ Under the distribution above, what is the probability that less than 10 cars will cross the bridge on any given
     day?
     @@ The equation to determine $p(k)$ for a Poisson distribution is
 
-        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \]
+        \[ f(k;\lambda) = \mathrm{Pr}(X=k) = \frac{\lambda^k e^{-\lambda} }{k!} \]
 
         If we allow $k$ to equal $[1, 2, 3, \ldots, 10]$ we can determine the cdf and thereby the answer to the
         question.
 
-        \[ \sum^{10}_{k=1} \frac{\lambda^k e^{-30}}{k!} = \boxed{2.234878 \times 10^{-5}} \]
+        \[ \sum^{10}_{k=1} \frac{\lambda^k e^{-30} }{k!} = \boxed{2.234878 \times 10^{-5} } \]
 \end{easylist}
 \end{document}

@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Problem Set 1}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{CSCI 3104}
 \rfoot{Clauset}
 \title{Problem Set One}
@@ -24,10 +24,10 @@
     @@ $ n + 3 = O(n^3) \to $ \textbf{True}. According to the definition of Big-O notation, $f = O(g)$ if
         \[ \left( \exists c, k > 0, x > k \right) \left[ \abs{f(x)} \le c \abs{g(x)} \right] \]
         Therefore
-        \[ \boxed{\abs{n+3} \le c \abs{n^3}} \]
+        \[ \boxed{\abs{n+3} \le c \abs{n^3} } \]
         and the statement is valid.
     @@ $ 3^{2n} = O(3^n) \to $ \textbf{False}. Again, using the previous definition of Big-O notation we see that
-        \[ \boxed{\abs{3^{2n}} \not\le c \abs{3^n}} \]
+        \[ \boxed{\abs{3^{2n} } \not\le c \abs{3^n} } \]
     @@ $ n^n = o(n!) \to $ \textbf{False}. We can use the definition of little-o notation which states that $f$ is little-o of $g$ if
         \[ \lim_{x\to\infty} \frac{f(x)}{g(x)} = 0 \]
         Therefore this statement turns to
@@ -101,10 +101,10 @@
     @ \textit{Using the mathematical definition of Big-O, answer the following. Show your work.}
     @@ Is $2^{nk} = O(2^n)$ for $k > 1$?
     @@@ No. $2^{nk}$ will always grow faster that $2^n$.
-        \[ 2^{nk} \to {(2^n)}^k \to \abs{{(2^n)}^k} \not\le c \abs{2^n} \]
+        \[ 2^{nk} \to {(2^n)}^k \to \abs{ {(2^n)}^k} \not\le c \abs{2^n} \]
     @@ Is $2^{n+k} = O(2^n)$, for $k = O(1)$?
     @@@ Yes. $2^k$ is constant, therefore
-        \[ 2^{n+k} \to 2^n 2^k \to \vert {2^n \cancelto{c}{2^k}} \vert \le c \abs {2^n} \]
+        \[ 2^{n+k} \to 2^n 2^k \to \vert {2^n \cancelto{c}{2^k} } \vert \le c \abs {2^n} \]
 
     \rule{3in}{0.5pt}
 

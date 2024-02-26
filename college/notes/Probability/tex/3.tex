@@ -7,7 +7,7 @@
 \pagestyle{fancy}                                                       %  Establishes that the headers will be defined
 \fancyhead[LE,LO]{Homework 3}                                  %  Adds header to left
 \fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
-\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack}}
+\cfoot{\mlptikz[size=0.25in, text=on, textposx=0, textposy=0, textvalue=\thepage, textscale=0.75in]{applejack} }
 \lfoot{APPM 3570}
 \rfoot{Kleiber}
 \title{Homework 3}
@@ -70,11 +70,11 @@
     @@@ If 2 students are chosen randomly, what is the probability that at least 1 is taking a language class?
     @@@@ Recall that $C$ is the set of all students not taking at least one language class. We've determined its cardinality, and we can now apply that information to determine the current problem. Each student (as was proven in part (A)) has a $0.5$ chance of not being in a language class. Therefore the probability of at least one student not being in a language class is
 
-        \[ \frac{\binom{50}{2}}{\binom{100}{2}} = \frac{49}{198} \]
+        \[ \frac{\binom{50}{2} }{\binom{100}{2} } = \frac{49}{198} \]
 
     Therefore we can find the probability of at least one student being in a language class
 
-        \[ 1 - \frac{49}{198} = \boxed{\frac{149}{198}} \]
+        \[ 1 - \frac{49}{198} = \boxed{\frac{149}{198} } \]
 
     @@ The following data were given in a study of a group of 1000 subscribers to a certain magazine: In reference to job, marital status, and education, there were 312 professionals, 470 married persons, 525 college graduates, 42 professional college graduates, 147 married college graduates, 86 married professionals, and 25 married professional college graduates. Show that the numbers reported in the study must be incorrect.\newline
 
@@ -95,14 +95,14 @@
         We then need to determine the total number of ways 5 cards can be chosen.
         \[ \binom{52}{5} = 2598960 \]
         And to determine the probability we simply divide.
-        \[ \frac{\binom{4}{1} \binom{13}{5}}{\binom{52}{5}} = \frac{33}{16660} = \boxed{0.00198079} \]
+        \[ \frac{\binom{4}{1} \binom{13}{5} }{\binom{52}{5} } = \frac{33}{16660} = \boxed{0.00198079} \]
     @@@ one pair? (This occurs when the cards have denominations $a, a, b, c, d$, where $a, b, c$, and $d$ are all distinct.)
     @@@@ Again, we first need to determine which denomination we choose, and then which suits we take the cards from.
         \[ \binom{13}{1} \binom{4}{2} \]
         Now we need to pick three other cards that are distinct, being careful not to overcount ordering.
-        \[ \frac{\binom{12}{1} \binom{4}{1} \binom{11}{1} \binom{4}{1} \binom{10}{1} \binom{4}{1}}{3!} = 1098240 \]
+        \[ \frac{\binom{12}{1} \binom{4}{1} \binom{11}{1} \binom{4}{1} \binom{10}{1} \binom{4}{1} }{3!} = 1098240 \]
         Converting to probability
-        \[ \left( \binom{13}{1} \binom{4}{2} \frac{\binom{12}{1} \binom{4}{1} \binom{11}{1} \binom{4}{1} \binom{10}{1} \binom{4}{1}}{3!} \right) \Big / \binom{52}{5} = \frac{352}{833} = \boxed{0.422569} \]
+        \[ \left( \binom{13}{1} \binom{4}{2} \frac{\binom{12}{1} \binom{4}{1} \binom{11}{1} \binom{4}{1} \binom{10}{1} \binom{4}{1} }{3!} \right) \Big / \binom{52}{5} = \frac{352}{833} = \boxed{0.422569} \]
 
     @@@ two pairs? (This occurs when the cards have denominations $a, a, b, b, c$, where $a, b$, and $c$ are all distinct.)
     @@@@ Using a similar process, we first find our pairs, and then the other cards, being careful not to overcount.
@@ -122,12 +122,12 @@
 
     @@ Poker dice is played by simultaneously rolling 5 dice. Show that
     @@@ $ P\{\text{no two alike}\} = 0.0926 $
-    @@@@ If we assume that poker dice is played with 6-sided dice\footnote{If we assume otherwise, then replace every 6 and 6 - $n$ with the number of faces of the dice being played with. In other words, the problem is rephrased as $\frac{\binom{n}{1} \binom{n - 1}{1} \binom{n - 2}{1} \binom{n - 3}{1} \binom{n - 4}{1}}{{\left( \binom{n}{1} \right)}^5} $ where $n$ is the number of faces.}, then we know that each die has $\binom{6}{1}$ possibilities.
+    @@@@ If we assume that poker dice is played with 6-sided dice\footnote{If we assume otherwise, then replace every 6 and 6 - $n$ with the number of faces of the dice being played with. In other words, the problem is rephrased as $\frac{\binom{n}{1} \binom{n - 1}{1} \binom{n - 2}{1} \binom{n - 3}{1} \binom{n - 4}{1} }{ {\left( \binom{n}{1} \right)}^5} $ where $n$ is the number of faces.}, then we know that each die has $\binom{6}{1}$ possibilities.
         \[ \binom{6}{1} \binom{5}{1} \binom{4}{1} \binom{3}{1} \binom{2}{1} = 720\]
         Where the total number of possibilities is
         \[ \binom{6}{1} \binom{6}{1} \binom{6}{1} \binom{6}{1} \binom{6}{1} = {\left( \binom{6}{1} \right)}^5 = 7776 \]
         If we divide to find the probability, we get
-        \[ \frac{\binom{6}{1} \binom{5}{1} \binom{4}{1} \binom{3}{1} \binom{2}{1}}{{\left( \binom{6}{1} \right)}^5} = \boxed{0.0925926} \]
+        \[ \frac{\binom{6}{1} \binom{5}{1} \binom{4}{1} \binom{3}{1} \binom{2}{1} }{ {\left( \binom{6}{1} \right)}^5} = \boxed{0.0925926} \]
     @@@ $ P\{\text{one pair}\} = 0.4630 $
     @@@@ Similar to the poker problem above.
         \[ \binom{6}{1} \binom{1}{1} \binom{5}{1} \binom{4}{1} \binom{3}{1} = 360 \]
@@ -165,22 +165,22 @@
             \underbrace{%
                 \left( \frac{2}{6} \right)
                 \left( \frac{2}{6} \right)
-            }_{\text{Red Faces}}
+            }_{\text{Red Faces} }
             +
             \underbrace{%
             \left( \frac{2}{6} \right)
             \left( \frac{2}{6} \right)
-            }_{\text{Black Faces}}
+            }_{\text{Black Faces} }
             +
             \underbrace{%
             \left( \frac{1}{6} \right)
             \left( \frac{1}{6} \right)
-            }_{\text{Yellow Faces}}
+            }_{\text{Yellow Faces} }
             +
             \underbrace{%
             \left( \frac{1}{6} \right)
             \left( \frac{1}{6} \right)
-            }_{\text{White Faces}}
+            }_{\text{White Faces} }
             =
             \frac{5}{18}
         \]
@@ -225,9 +225,9 @@
     If we fix the value of $i$, we can determine $P(E_i), P(E_i \cap E_j)$, and $P(E_i \cap E_j \cap E_k)$.
 
     \[ \begin{aligned}
-        P(E_i) =& \frac{\binom{39}{13}}{\binom{52}{13}} = \frac{17063919}{1334062100} &=& 0.0127909\\
-        P(E_i \cap E_j) =& \frac{\binom{26}{13}}{\binom{52}{13}} = \frac{19}{1160054} &=& 0.0000163785\\
-        P(E_i \cap E_j \cap E_k) =& \frac{\binom{13}{13}}{\binom{52}{13}} = \frac{1}{635013559600} &=& 1.57477 \times 10^{-12}\\
+        P(E_i) =& \frac{\binom{39}{13} }{\binom{52}{13} } = \frac{17063919}{1334062100} &=& 0.0127909\\
+        P(E_i \cap E_j) =& \frac{\binom{26}{13} }{\binom{52}{13} } = \frac{19}{1160054} &=& 0.0000163785\\
+        P(E_i \cap E_j \cap E_k) =& \frac{\binom{13}{13} }{\binom{52}{13} } = \frac{1}{635013559600} &=& 1.57477 \times 10^{-12}\\
     \end{aligned} \]
 
     We can now plug in our probabilities. Since many are the same, we can just multiply by a coefficient.
