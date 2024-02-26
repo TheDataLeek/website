@@ -8,6 +8,6 @@ show_tile: false
 
 # main
 
-<iframe src="/college/Calculus2/main.pdf"
+<iframe src="/college/notes/Calculus2/main.pdf"
         style="width: 100%; height: 25em;">
 </iframe>

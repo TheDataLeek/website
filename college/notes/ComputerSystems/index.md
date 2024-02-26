@@ -8,12 +8,12 @@ show_tile: false
 
 # C S Final Review
 
-<iframe src="/college/ComputerSystems/CSFinalReview.pdf"
+<iframe src="/college/notes/ComputerSystems/CSFinalReview.pdf"
         style="width: 100%; height: 25em;">
 </iframe>
 
 # Computer Systems Notes
 
-<iframe src="/college/ComputerSystems/ComputerSystemsNotes.pdf"
+<iframe src="/college/notes/ComputerSystems/ComputerSystemsNotes.pdf"
         style="width: 100%; height: 25em;">
 </iframe>

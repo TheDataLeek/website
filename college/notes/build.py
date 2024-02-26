@@ -42,7 +42,7 @@ show_tile: false
         template += f"""
 # {note_name}
 
-<iframe src="/college/{path.name}/{note_file.name}"
+<iframe src="/college/notes/{path.name}/{note_file.name}"
         style="width: 100%; height: 25em;">
 </iframe>
 """

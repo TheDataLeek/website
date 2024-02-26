@@ -19,5 +19,5 @@ Initial data is acquired from micro- and macro- scale high-resolution photograph
 Parameterization of the Gaussian smoothing process focuses on repeatability and consistency between different datasets by finding the parameters that minimize the standard deviation of the residuals. This method is self-improving and after more data is classified by hand the results will improve. Initial data for model and process testing was acquired from past experiments pending publication.
 
 
-<iframe src="/presentations/siam2017/PACE.pdf" style="width: 100%; height: 25em;"></iframe>
+<iframe src="/presentations/siam2017/ouroboros.pdf" style="width: 100%; height: 25em;"></iframe>
 
