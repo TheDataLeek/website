@@ -5,9 +5,9 @@ OUTPUT = DiscreteMathNotes.pdf
 REVPUT = FinalReview.pdf
 
 all: attachments.tar.gz
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	make clean
 	wc $(TEXDIR)m* $(TEXDIR)$(TEXFILE)
 
@@ -19,7 +19,7 @@ attachments.tar.gz:
 	mv attachments.tar.gz $(TEXDIR)
 
 FinalReview.pdf:
-	pdflatex --shell-escape $(TEXDIR)$(TEXREV)
-	pdflatex --shell-escape $(TEXDIR)$(TEXREV)
-	pdflatex --shell-escape $(TEXDIR)$(TEXREV)
+	xelatex --shell-escape $(TEXDIR)$(TEXREV)
+	xelatex --shell-escape $(TEXDIR)$(TEXREV)
+	xelatex --shell-escape $(TEXDIR)$(TEXREV)
 	make clean

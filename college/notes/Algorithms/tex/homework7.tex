@@ -162,8 +162,6 @@
     below algorithm identifies the node it's been searching for it stop and returns the distance. The only storage
     needed for this algorithm to perform is the adjacency matrix representation (which has space $O(|V| + |E|)$, and 3
     arrays (with size $O(|V|)$, therefore the algorithm has a $O(|V| + |E|)$ space requirement.
-    
-    \lstinputlisting[language=Python, firstline=45, lastline=89]{./code/graph_diameter.py}
 
     @ Use your implementation from 5 to conduct the following numerical experiment to produce three nice-looking
     figures.
@@ -177,11 +175,7 @@
     space required, which are all averaged and appended to our csv file. If you'll note in the above definition of our
     diameter algorithm each class instance records its space requirements and how many operations are required.
 
-    \lstinputlisting[language=Python, firstline=13, lastline=42]{./code/graph_diameter.py}
-
     We now use {\ttfamily R}'s {\ttfamily ggplot2} to graph the relationships.
-
-    \lstinputlisting[language=R]{./code/diametergraphs.R}
 
     Which results in Figure (1).
 

@@ -3,9 +3,9 @@ TEXDIR = ./tex/
 OUTPUT = ComputerSystemsNotes.pdf
 
 all: attachments.tar.gz CSFinalReview.pdf
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
-	pdflatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
+	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	make clean
 	wc $(TEXDIR)m* $(TEXDIR)$(TEXFILE)
 
@@ -17,6 +17,6 @@ attachments.tar.gz:
 	mv attachments.tar.gz $(TEXDIR)
 
 CSFinalReview.pdf:
-	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
-	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
-	pdflatex --shell-escape $(TEXDIR)CSFinalReview.tex
+	xelatex --shell-escape $(TEXDIR)CSFinalReview.tex
+	xelatex --shell-escape $(TEXDIR)CSFinalReview.tex
+	xelatex --shell-escape $(TEXDIR)CSFinalReview.tex
