@@ -20,23 +20,23 @@ Another SIAM presentation on running a massively parallel simulation on soliton 
 
 A college presentation on the Collatz Conjecture and Chaos Theory.
 
-## [Python Optimization](speedsnakes/snakes.html)
+## [Python Optimization](speedsnakes)
 
 A brief talk on optimizing python given to Boulder Python.
 
-## [Simulated Annealing](politicalboundaries/politicalboundaries.slides.html)
+## [Simulated Annealing](politicalboundaries)
 
 A college project turned into presentation for Boulder Python.
 
-## [Reusable D3 Charting](d3reuse/D3Reuse.slides.html)
+## [Reusable D3 Charting](d3reuse)
 
 A presentation given to the Boulder D3 Meetup on a simple but effective reusable D3 framework.
 
-## [AirB&B Data Analysis](evolve/evolve_interview.slides.html)
+## [AirB&B Data Analysis](evolve)
 
 An interview project turned presentation.
 
-## [AirB&B Data Visualization](airbnb/index.html)
+## [AirB&B Data Visualization](airbnb)
 
 A D3 dashboard visualizing the above data.
 

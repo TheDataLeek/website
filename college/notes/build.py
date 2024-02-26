@@ -9,12 +9,14 @@ import subprocess
 def main():
     root = pathlib.Path()
     paths = []
+    built_files = False
     for path in root.glob('*'):
         if path.is_dir():
             paths.append(path)
-            build_latex(path)
+            built_files &= build_latex(path)
             build_index(path)
-    remove_buildfiles(root)
+    if built_files:
+        remove_buildfiles(root)
     build_root_index(root, paths)
 
 def build_latex(path):
@@ -25,6 +27,8 @@ def build_latex(path):
     pdf_files = len(list(path.glob('*.pdf'))) != 0
     if not pdf_files:
         subprocess.run("make", shell=True, cwd=path)
+        return True
+    return False
 
 def build_index(path):
     dir_name = split_camel_case(path.stem)
