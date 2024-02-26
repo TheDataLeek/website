@@ -144,9 +144,9 @@ reference)
 
 ``` {.math}
 \$\$ z = \begin{cases} \frac{\sum\_{i = 1}\^{N - 1}
-\frac{z\_i}{{\left\[ {(x\_i - x)}\^2 + {(y\_i - y)}\^2 \right\]}\^{p
-/ 2}}}{\sum\_{i = 1}\^{N - 1} \frac{1}{{\left\[ {(x\_i - x)}\^2 +
-{(y\_i - y)}\^2 \right\]}\^{p / 2}}} & \quad x\_i \neq x \text{ or }
+\frac{z\_i}{ {\left\[ {(x\_i - x)}\^2 + {(y\_i - y)}\^2 \right\]}\^{p
+/ 2} } }{\sum\_{i = 1}\^{N - 1} \frac{1}{ {\left\[ {(x\_i - x)}\^2 +
+{(y\_i - y)}\^2 \right\]}\^{p / 2} } } & \quad x\_i \neq x \text{ or }
 y\_i \neq y\\ z\_i & \quad x\_i = x \text{ and } y\_i = y
 \end{cases} \$\$
 ```
