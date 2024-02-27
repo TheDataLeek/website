@@ -7,7 +7,7 @@ plugins:
 remote_theme: andrewbanchich/forty-jekyll-theme
 author: thedataleek
 tiles-source: pages
-tiles-count: 6
+tiles-count: 5
 socials:
   GitHub: https://github.com/thedataleek
   LinkedIn: https://www.linkedin.com/in/zoefarmer
