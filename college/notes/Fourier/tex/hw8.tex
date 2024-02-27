@@ -1,0 +1,262 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Eight}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\section{Ambulance Problem}
+
+You are standing in front of your home and begin to hear an ambulance some distance away. Because you have been enjoying
+APPM 4350/5350 so much, you think to yourself, ``How can I model the sound coming from this ambulance?'' Being a good
+applied mathematician, you decide to start with the simplest model available, the one-dimensional wave equation. But the
+ambulance is moving and you are not so you consider the moving boundary value problem
+
+\mn{%
+    u_{tt} &= c_s^2 u_{xx} \qquad t > 0 x \in (c_a(t), \infty) \nonumber\\
+    u(c_a(t), t) &= p(t) \qquad t > 0 \\
+    u(x, 0) &= u_t(x, 0) = 0 \qquad x > 0 \nonumber
+}\label{eq:mvbdd}
+
+Where $c_s > 0$ is the speed of sound in air, $x = c_a(t)$ is the position of the ambulance at time $t > 0$, $u(x, t)$ is
+the air pressure, and $p(t)$ is the pressure disturbance emitted by the ambulance's siren. If the ambulance is
+approaching you, then $c_a > 0$, if it is moving away from you, then $c_a < 0$. Although this may be an unrealistic
+model of sound propagation in three spatial dimensions, you make the very realistic assumption that $\abs{c_a} < c_s$,
+i.e., the ambulance does not travel at supersonic speeds. You assume that the air is initially motionless.
+
+\begin{easylist}[enumerate]
+    @ Solve this moving boundary value problem.
+
+    Since the ambulance is not moving faster than the speed of sound we can make the base assumption that we will hear
+    $p(t)$, just at a different time then it is emitted.
+
+    @ What are the restrictions on $p(t)$ to ensure that your solution satisfies~\eqref{eq:mvbdd}?
+
+    @ You now model the ambulance's siren as a pressure disturbance with frequency $f_a > 0$, $p(t)=p_0\sin(2\pi f_at)$.
+    Suppose your home is at $x = L > 0$. Determine the frequency you hear (before the ambulance arrives). How does this
+    frequency differ from $f_a$ for $c_a > 0$? For $c_a < 0$? This is called the doppler effect.
+\end{easylist}
+
+\newpage
+\section{Problem 2.5.1.b \& f}
+
+Solve Laplace's Equation inside a rectangle $0 \le x \le L$, $0 \le y \le H$, with the following boundary conditions.
+
+For both, we seek the separated solution,
+
+\[
+    u(x, y) = F(x)G(y)
+\]
+
+Yielding two ODEs
+
+\[
+    \begin{cases}
+        F^{\prime\prime}(x) = -\mu F(x)\\
+        G^{\prime\prime}(y) = \mu F(y)
+    \end{cases}
+\]
+
+\begin{easylist}[enumerate]
+    @ \ms{%
+        u_x(0, y) &= g(y)\\
+        u_x(L, y) &= 0\\
+        u(x, 0) &= 0\\
+        u(x, H) &= 0
+    }
+
+    @@ Since $u(x, 0) = u(x, H) = 0$, we can ignore these sides, as the result would be zero.
+
+    @@ Examining the side $u_x(0, y) = g(y)$ first, we know, using our boundary conditions, that $G(0) = G(H) = 0$. This
+    means that if $\mu = -\lambda^2$
+
+    \ms{%
+        G(y) = A \sin(\lambda y) + B \cos(\lambda y)
+    }
+
+    Yielding
+
+    \ms{%
+        \phi_n(y) &= \sin \lambda_n y\\
+        \lambda_n &= \frac{n \pi}{H}
+    }
+
+    Therefore,
+
+    \ms{%
+        F(x) = \cosh\bren{\frac{n\pi}{H}\pren{x-L}}
+    }
+
+    Meaning that for this first side,
+
+    \ms{%
+        u_1(x, y) &= \sum_{n=1}^\infty \bren{A_n \cosh\bren{\frac{n\pi}{H}\pren{x-L}} \sin\pren{\frac{n\pi y}{H}}}\\
+        u_1^\prime(0, y) = g(y) &= \sum_{n=1}^\infty
+            \bren{A_n \cosh\bren{\frac{n\pi}{H}\pren{-L}} \sin\pren{\frac{n\pi y}{H}}}^\prime\\
+        g(y) &= \sum_{n=1}^\infty
+            \bren{A_n \frac{n \pi}{H} \sinh{\pren{\frac{n \pi}{H} \pren{-L}}} \sin\pren{\frac{n\pi y}{H}}}
+    }
+
+    Therefore, since this is just a Fourier series,
+
+    \ms{%
+        A_n \frac{n \pi}{H} \sinh{\pren{\frac{n \pi}{H} \pren{-L}}} &=
+            \frac{2}{H} \int_0^L g(y) \sin\pren{\frac{n\pi y}{H}} \, dy\\
+        A_n &= \frac{2}{n \pi \sinh{\pren{\frac{n \pi}{H} \pren{-L}}}}
+            \int_0^L g(y) \sin\pren{\frac{n\pi y}{H}} \, dy
+    }
+
+    Yielding our final solution for $u_1(x, y)$
+
+    \ms{%
+        u_1(x, y) &= \sum_{n=1}^\infty \bren{\pren{
+        \frac{2}{n \pi \sinh{\pren{\frac{n \pi}{H} \pren{-L}}}}
+            \int_0^L g(y) \sin\pren{\frac{n\pi y}{H}} \, dy
+        }\cosh\bren{\frac{n\pi}{H}\pren{x-L}} \sin\pren{\frac{n\pi y}{H}}}\\
+    }
+
+    @@ We now can examine the case where $u_x(L, y) = 0$. Similar to above, we get
+
+    \ms{%
+        \phi_n(y) &= \sin\pren{\lambda_n y}\\
+        \lambda_n &= \frac{n\pi}{H}\\
+        F(x) &= \cosh\bren{\frac{n\pi x}{H}}
+    }
+
+    Yielding this solution to be
+
+    \ms{%
+        u_2(x, y) &= \sum_{n=1}^\infty
+        \bren{A_n \cosh\bren{\frac{n\pi x}{H}} \sin\pren{\frac{n\pi y}{H}}}
+    }
+
+    With $A_n$
+
+    \ms{%
+        0 &= \sum_{n=1}^\infty \bren{A_n \frac{n \pi}{H} \sinh{\pren{\frac{n \pi L}{H}}} \sin\pren{\frac{n\pi y}{H}}}
+    }
+
+    Again, this is just a Fourier series, yielding $A_n = 0$
+
+    @@ Therefore our final solution is of the form $u_1 + u_2$
+
+    \ms{%
+        u_1(x, y) &= \sum_{n=1}^\infty \bren{\pren{
+        \frac{2}{n \pi \sinh{\pren{\frac{n \pi}{H} \pren{-L}}}}
+            \int_0^L g(y) \sin\pren{\frac{n\pi y}{H}} \, dy
+        }\cosh\bren{\frac{n\pi}{H}\pren{x-L}} \sin\pren{\frac{n\pi y}{H}}}\\
+    }
+
+    @ \ms{%
+        u(0, y) &= f(y)\\
+        u(L, y) &= 0\\
+        u_y(x, 0) &= 0\\
+        u_y(x, H) &= 0
+    }
+
+    We can examine this problem one side at a time.
+
+    @@ $u(0, y) = f(y)$
+
+    For $G(y)$ we know
+
+    \ms{%
+        \phi_n(y) &= \sin(\lambda_n y)\\
+        \lambda_n &= \frac{n\pi}{H}
+    }
+
+    Yielding $F(x)$
+
+    \ms{%
+        F(x) = \sinh\bren{\frac{n\pi}{H} \pren{x - L}}
+    }
+
+    Yielding the solution $u_1(x, y)$
+
+    \ms{%
+        u_1(x, y) &= \sum_{n=1}^\infty A_n \sinh\bren{\frac{n\pi}{H} (x - L)} \sin\pren{\frac{n\pi y}{H}}\\
+        A_n &= \frac{-2}{H\sinh\bren{\frac{L n\pi}{H}}} \int_0^H f(y) \sin\pren{\frac{n\pi y}{H}} \, dy\\
+        u_1(x, y) &= \sum_{n=1}^\infty
+            \pren{
+                \frac{-2}{H\sinh\bren{\frac{L n\pi}{H}}} \int_0^H f(y) \sin\pren{\frac{n\pi y}{H}} \, dy
+            } \sinh\bren{\frac{n\pi}{H} (x - L)} \sin\pren{\frac{n\pi y}{H}}\\
+    }
+
+    @@ $u(L, y) = 0$
+
+    This one is easy, as $u_2(x, y) = 0$ for any $x$ or $y$.
+
+    @@ $u_x(x, 0) = 0$
+
+    For this we examine $F(x)$, and get
+
+    \ms{%
+        \phi_n(x) &= \sin(\lambda_n x)\\
+        \lambda_n &= \frac{n\pi}{L}
+    }
+
+    Examining $G(y)$ we get
+
+    \ms{%
+        G(y) = \sinh\bren{\frac{n\pi}{L} \pren{y - H}}
+    }
+
+    Yielding solution
+
+    \ms{%
+        u_3(x, y) &= \sum_{n=1}^\infty
+            A_n \sinh\bren{\frac{n\pi}{L} \pren{y - H}} \sin\pren{\frac{n\pi x}{L}}\\
+        u_3^\prime(x, y) &= \sum_{n=1}^\infty
+            A_n \frac{n\pi}{L} \cosh\bren{\frac{n\pi}{L} \pren{y - H}} \sin\pren{\frac{n\pi x}{L}}\\
+        u_3^\prime(x, 0) &= \sum_{n=1}^\infty
+            A_n \frac{n\pi}{L} \cosh\bren{\frac{Hn\pi}{L}} \sin\pren{\frac{n\pi x}{L}}\\
+        A_n &= 0\\
+        u_3(x, y) &= 0
+    }
+
+    @@ $u_x(x, H) = 0$
+
+    This is the same as above, yielding final solution
+
+    \ms{%
+        u(x, y) &= \sum_{n=1}^\infty
+            \pren{
+                \frac{-2}{H\sinh\bren{\frac{L n\pi}{H}}} \int_0^H f(y) \sin\pren{\frac{n\pi y}{H}} \, dy
+            } \sinh\bren{\frac{n\pi}{H} (x - L)} \sin\pren{\frac{n\pi y}{H}}\\
+        }
+\end{easylist}
+
+\newpage
+\section{Problem 2.5.8.a \& b}
+
+Solve Laplace's equation inside a circular annulus $(a < r< b)$ subject to the boundary conditions.
+
+\begin{easylist}[enumerate]
+    @ \ms{%
+        u(a, \theta) &= f(\theta)\\
+        u(b, \theta) &= g(\theta)
+    }
+
+    @ \ms{%
+        u_r(a, \theta) &= 0\\
+        u(b, \theta) &= g(\theta)
+    }
+\end{easylist}
+
+\end{document}

@@ -1,6 +1,6 @@
 \documentclass[10pt]{report}\usepackage[]{graphicx}\usepackage[]{xcolor}
-%% maxwidth is the original width if it is less than linewidth
-%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
 \def\maxwidth{ %
   \ifdim\Gin@nat@width>\linewidth
@@ -12,22 +12,23 @@
 \makeatother
 
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1} }%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1} }%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1} } }%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1} }%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1} }%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1} } }%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1} }%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1} }%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1} } }%
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
 
 \usepackage{framed}
 \makeatletter
 \newenvironment{kframe}{%
  \def\at@end@of@kframe{}%
  \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage} }%
+  \def\at@end@of@kframe{\end{minipage}}%
   \begin{minipage}{\columnwidth}%
  \fi\fi%
  \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
@@ -36,7 +37,7 @@
      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
  \MakeFramed {\advance\hsize-\width
    \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage} }%
+   \@setminipage}}%
  {\par\unskip\endMakeFramed%
  \at@end@of@kframe}
 \makeatother
@@ -65,9 +66,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Beginning of document items - headers, title, toc, etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\IfFileExists{upquote.sty}{\usepackage{upquote} }{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-
 
 
 
@@ -77,9 +77,6 @@
 You are inspecting computer printers for damage, and the manufacturer has told you that 10\% of their printers are
 damaged.\newline
 
-Sidenote, all {\ttfamily R} code is included inline, using KnitR and \LaTeX. If you have any question about the contents
-of this report, or the methods used to create it, please reference \url{www.will-farmer.com} for my email address and
-other information.
 
 \section{Questions and Answers}
     \begin{easylist}[enumerate]
@@ -134,8 +131,7 @@ other information.
 \end{kframe}
 \end{knitrout}
 
-
-        The above computation yields an $n$ of $\boxed{114}$, we will use this $n$ later for better analysis.
+        The above computation yields an $n$ of $\boxed{114 }$, we will use this $n$ later for better analysis.
 
         @ \textit{You go to the warehouse and sample $n$ printers. If the actual percentage of damaged printers is 10\%,
         on average, how many printers do you expect to count with damage?}
@@ -163,8 +159,7 @@ other information.
 \end{kframe}
 \end{knitrout}
 
-
-        Thusly our interval is $\boxed{\left( 0.0449, 0.1551 \right)}$. If we calculate the 95\%
+        Thusly our interval is $\boxed{\left( 0.0449298, 0.1550702 \right)}$. If we calculate the 95\%
         confidence interval for the percentage 100 times based on the sample percentage, said percentage will fall
         within the interval every time, since the confidence interval is based off of this value. On the flipside, 10\%,
         our true percentage will only fall within these intervals 95 out of 100 times, since it is the 95\% confidence
@@ -193,17 +188,15 @@ other information.
 \end{alltt}
 \end{kframe}\begin{figure}[H]
 
-
-{\centering \includegraphics[width=\maxwidth]{figure/interval_data} 
+{\centering \includegraphics[width=\maxwidth]{figure/interval_data-1} 
 
 }
 
-\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data} }
+\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)}\label{fig:interval_data}
 \end{figure}
 
 
 \end{knitrout}
-
 
         \newpage
         @ \textit{For each of the 100 visits, make a 95\% confidence interval for the percentage of damaged printers you
@@ -219,18 +212,17 @@ other information.
              \hlstd{clower} \hlkwb{<-} \hlstd{m} \hlopt{-} \hlkwd{abs}\hlstd{(z} \hlopt{*} \hlkwd{sqrt}\hlstd{((m} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{m))} \hlopt{/} \hlstd{n))}
              \hlstd{cupper} \hlkwb{<-} \hlstd{m} \hlopt{+} \hlkwd{abs}\hlstd{(z} \hlopt{*} \hlkwd{sqrt}\hlstd{((m} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{m))} \hlopt{/} \hlstd{n))}
              \hlstd{(clower} \hlopt{<} \hlnum{0.10}\hlstd{)} \hlopt{&} \hlstd{(}\hlnum{0.10} \hlopt{<} \hlstd{cupper)}
-         \hlstd{\} }
+         \hlstd{\}}
          \hlstd{count100} \hlkwb{<-} \hlkwd{length}\hlstd{(interval_data100}\hlopt{$}\hlstd{percent[}
                          \hlkwd{in_interval}\hlstd{(interval_data100}\hlopt{$}\hlstd{percent, n)])}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
-
-        This results in $92$ intervals that contain the true percentage. We expected 95 of them, but this
+        This results in $91$ intervals that contain the true percentage. We expected 95 of them, but this
         is close enough.\footnote{Note, this count is regenerated every time this paper is recompiled. If my above
         statement makes no sense, please forgive the grammatically insensitive random data generator.} Note, this goes
-        back to the definition of a 95\% confidence interval as we can see that $92/100$ contained the
+        back to the definition of a 95\% confidence interval as we can see that $91/100$ contained the
         true percentage. This is as it should be. Since the data is randomly generated however, we won't always get
         exactly 95 for this number.
 
@@ -276,35 +268,27 @@ other information.
                          \hlkwd{in_interval}\hlstd{(interval_data1000}\hlopt{$}\hlstd{percent, n)])}
 \end{alltt}
 \end{kframe}\begin{figure}[H]
-\subfloat[500 Visits\label{fig:multivisits1}]{
 
-{\centering \includegraphics[width=0.45\textwidth]{figure/multivisits1} 
-
-}
-
-}
-\subfloat[1000 Visits\label{fig:multivisits2}]{
-
-{\centering \includegraphics[width=0.45\textwidth]{figure/multivisits2} 
+{\centering \subfloat[500 Visits\label{fig:multivisits1}]{\includegraphics[width=0.45\textwidth]{figure/multivisits-1} }
+\subfloat[1000 Visits\label{fig:multivisits2}]{\includegraphics[width=0.45\textwidth]{figure/multivisits-2} }
 
 }
 
-}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits} }
+\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial}\label{fig:multivisits}
 \end{figure}
 
 
 \end{knitrout}
 
-
         In Figure~\ref{fig:multivisits1} we see that not only is the histogram density becoming more and more smooth,
         but that the Central Limit Theorem is holding. The Central Limit Theorem roughly states that expected value of
         our estimators will approach the true value as the amount of data grows. If we examine our count, we see that it
-        is $0.948$, which is also close to 95\%\footnote{Ibid.}. We can now move to 1000 visits.
+        is $0.942$, which is also close to 95\%\footnote{Ibid.}. We can now move to 1000 visits.
         \newline
 
         In Figure~\ref{fig:multivisits2} we see that our histogram is a very accurate model of the situation with
         again, the Central Limit Theorem as to the reason why. If we now examine our count, we see that it is
-        $0.939$, which is also close to 95\%.\footnote{Ibid.}
+        $0.934$, which is also close to 95\%.\footnote{Ibid.}
 
         \newpage
         @ \textit{Make a histogram of the p-values for the 1000 visits, testing if the manufacturer's claim is true.
@@ -338,19 +322,19 @@ other information.
                     \hlkwd{geom_vline}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{xintercept}\hlstd{=}\hlnum{0.01}\hlstd{),}
                                \hlkwc{color}\hlstd{=}\hlstr{"red"}\hlstd{,} \hlkwc{linetype}\hlstd{=}\hlstr{"solid"}\hlstd{,} \hlkwc{size}\hlstd{=}\hlnum{0.5}\hlstd{)}
 \end{alltt}
-\end{kframe}\begin{figure}[H]
 
 
-{\centering \includegraphics[width=\maxwidth]{figure/pvalues} 
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 2 rows containing missing values (geom\_bar).}}\end{kframe}\begin{figure}[H]
+
+{\centering \includegraphics[width=\maxwidth]{figure/pvalues-1} 
 
 }
 
-\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues} }
+\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values}\label{fig:pvalues}
 \end{figure}
 
 
 \end{knitrout}
-
 
         In Figure~\ref{fig:pvalues} we mark $p=0.01, p=0.05$, and $p=0.1$ to indicate rejection zones. These $p$-values
         are distributed fairly uniformly, and as a result this graph does not tell us much about whther or not our null
@@ -381,17 +365,15 @@ other information.
 \end{alltt}
 \end{kframe}\begin{figure}[H]
 
-
-{\centering \includegraphics[width=\maxwidth]{figure/interval_data_new} 
+{\centering \includegraphics[width=\maxwidth]{figure/interval_data_new-1} 
 
 }
 
-\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)\label{fig:interval_data_new} }
+\caption[Percentage of Damaged Printers per Trial (100 Visits)]{Percentage of Damaged Printers per Trial (100 Visits)}\label{fig:interval_data_new}
 \end{figure}
 
 
 \end{knitrout}
-
 
         Now we can re-use our function from above to determine how many sample percentages are within the sample's
         calculated confidence interval.
@@ -405,9 +387,8 @@ other information.
 \end{kframe}
 \end{knitrout}
 
-
         And we see that the percent of confidence intervals that contain our true percentage under the null hypothesis
-        is $0.01$. We can now extend the experiment using 500 and 1000 visits as before.
+        is $0.02$. We can now extend the experiment using 500 and 1000 visits as before.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -444,27 +425,19 @@ other information.
                          \hlkwd{in_interval}\hlstd{(interval_data1000_new}\hlopt{$}\hlstd{percent, n)])}
 \end{alltt}
 \end{kframe}\begin{figure}[H]
-\subfloat[500 Visits\label{fig:multivisits_new1}]{
 
-{\centering \includegraphics[width=0.45\textwidth]{figure/multivisits_new1} 
-
-}
-
-}
-\subfloat[1000 Visits\label{fig:multivisits_new2}]{
-
-{\centering \includegraphics[width=0.45\textwidth]{figure/multivisits_new2} 
+{\centering \subfloat[500 Visits\label{fig:multivisits_new1}]{\includegraphics[width=0.45\textwidth]{figure/multivisits_new-1} }
+\subfloat[1000 Visits\label{fig:multivisits_new2}]{\includegraphics[width=0.45\textwidth]{figure/multivisits_new-2} }
 
 }
 
-}\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial\label{fig:multivisits_new} }
+\caption[Percentage of Damaged Printers per Trial]{Percentage of Damaged Printers per Trial}\label{fig:multivisits_new}
 \end{figure}
 
 
 \end{knitrout}
 
-
-        Repeating with 500 and 1000 visits respectively, we obtain $0.026$ and
+        Repeating with 500 and 1000 visits respectively, we obtain $0.028$ and
         $0.024$ percent of sample confidence intervals that contain our true percentage of
         $0.10$.\newline
 
@@ -491,19 +464,21 @@ other information.
                     \hlkwd{geom_vline}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{xintercept}\hlstd{=}\hlnum{0.01}\hlstd{),}
                                \hlkwc{color}\hlstd{=}\hlstr{"red"}\hlstd{,} \hlkwc{linetype}\hlstd{=}\hlstr{"solid"}\hlstd{,} \hlkwc{size}\hlstd{=}\hlnum{0.5}\hlstd{)}
 \end{alltt}
-\end{kframe}\begin{figure}[H]
 
 
-{\centering \includegraphics[width=\maxwidth]{figure/pvalues_new} 
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 5 rows containing non-finite values (stat\_bin).}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 1 rows containing missing values (geom\_bar).}}\end{kframe}\begin{figure}[H]
+
+{\centering \includegraphics[width=\maxwidth]{figure/pvalues_new-1} 
 
 }
 
-\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values\label{fig:pvalues_new} }
+\caption[Distribution of our $P$-Values]{Distribution of our $P$-Values}\label{fig:pvalues_new}
 \end{figure}
 
 
 \end{knitrout}
-
 
         After all the analysis is finished we can conclude that the printer manufacturer is incorrect in assuming that
         only 10\% of their printers are damaged. This conclusion is established from several different points. First, we

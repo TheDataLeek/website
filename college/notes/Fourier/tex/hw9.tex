@@ -1,0 +1,102 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Nine}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\section{Poisson's Formula}
+
+Consider Laplace's Equation on a disk of radius $a$:
+
+\mn{%
+    \frac{1}{r} \partial_r\pren{r \partial_r u} + \frac{1}{r^2} \partial_\theta^2 u = 0
+        & \qquad 0 < r < a & \qquad 0 < \theta < 2 \pi\\
+    u(a, \theta) = f(\theta), & \qquad 0 < \theta < 2\pi \nonumber
+}\label{eq:disklaplace}
+
+along with geometric boundary conditions,
+
+\mn{%
+    u(r, 0) = u(r, 2p) & \qquad \partial_\theta u(r, 0) = \partial_\theta u(r, 2\pi) & \qquad 0 < r < a\\
+    u(0, q) \text{ bounded} & \qquad 0 < \theta < 2 \pi \nonumber
+}\label{eq:boundary}
+
+Recall from class that the series solution of this problem is
+
+\mn{%
+    u(r, \theta) = a_0 + \sum_{n=1}^\infty \pren{\frac{r}{a}}^n \pren{a_n \cos(n\theta) + b_a \sin(n\theta)}
+}\label{eq:seriessolution}
+
+where
+
+\ms{%
+    a_0 = \frac{1}{2\pi} \int_0^{2\pi} f(\theta) \, d\theta, \quad
+    a_n = \frac{1}{\pi} \int_0^{2\pi} f(\theta) \cos(n\theta) \, d\theta, \quad
+    b_n = \frac{1}{\pi} \int_0^{2\pi} f(\theta) \sin(n\theta) \, d\theta
+}
+
+Poisson's formula, given below, provides a different representation of the solution, as an integral over $f(\theta)$
+around the boundary of the disk. The purpose of this problem is to derive Poisson's formula.
+
+\begin{easylist}[enumerate]
+    @ Insert the expression for each Fourier coefficient into the series solution and swap the order of the infinite sum
+    and integration. You should have an expression of the form
+
+    \mn{%
+        u(r, \theta) = \int_0^{2\pi} f\pren{\theta^\prime}\cren{\ldots} \, d\theta^\prime
+    }
+
+    with an infinite series involving $r$ and trigonometric functions of $\theta$ in the braces $\cren{\ldots}$.
+
+    @ Use a trig identity to simplify each term within the sum. You should end up with terms proportional to
+    $\cos\bren{n\pren{\theta-\theta^\prime}}$.
+
+    @ Sum the infinite series. Recall the calculation of the Dirichlet kernel way back when we studied Fourier series.
+    If you rewrite
+
+    \ms{%
+        \cos\bren{n\pren{\theta-\theta^\prime}} =
+        \frac{
+            \exp\pren{in\pren{\theta-\theta^\prime}} +
+            \exp\pren{-in\pren{\theta-\theta^\prime}}
+        }{2}
+    }
+
+    the series becomes two geometric series, which you can sum. Deduce Poisson's formula
+
+    \mn{%
+        u(r, \theta) = \frac{1}{2\pi} \int_0^{2\pi} \frac{a^2 - r^2}{a^2 - 2ar \cos\pren{\theta - \theta^\prime} + r^2}
+        f\pren{\theta^\prime} \, d\theta^\prime
+    }\label{eq:poissonform}
+
+    The integral has the form of a convolution product of the Poisson kernel,
+
+    \mn{%
+        P(r, \theta) = \frac{1}{2\pi} \frac{a^2-r^2}{a^2 - 2ar \cos\pren{\theta - \theta^\prime} + r^2}
+    }
+
+    and the boundary data $f(\phi) = u(a, \phi)$:
+
+    \mn{%
+        u(r, \theta) = \frac{1}{2\pi} \int_0^{2\pi} P(r, \theta-\theta^\prime)f(\theta^\prime) \, d\theta^\prime
+    }
+\end{easylist}
+
+\end{document}

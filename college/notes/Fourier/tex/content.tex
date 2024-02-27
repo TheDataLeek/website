@@ -1,0 +1,125 @@
+\section{Review}
+
+    \subsection{Series}
+
+    \[
+        \sum_{n=0}^\infty r^n = 0 \qquad 0 < r < 1
+    \]
+
+    \subsection{Ordinary Differential Equations}
+
+    \begin{thm}[Picard's Theorem]
+        If an $n$th order ODE has $n$ initial conditions, then the solutions exists in a neighborhood of initial conditions.
+        The solution is unique when
+
+        \[
+            \frac{\partial f}{\partial y}(x_0, y_0) \neq 0
+        \]
+
+        TL;DR An $n$th order equation needs $n$ initial conditions.
+    \end{thm}
+
+    TODO: Flesh out ODE review
+
+    \subsection{Calculus 3}
+
+    TODO: Flesh out calc 3 review
+
+\section{Fourier Series}
+
+\begin{thm}[Fourier Series Expansion on $-\pi \le x \le \pi$]
+    If we change basis of functions we can write them as a Fourier Series with the following equation on the interval
+    $[-\pi, \pi]$.
+
+    \begin{equation}
+    a_0 + \sum_{n=1}^\infty \left[ a_n \cos(nx) + b_n \sin(nx) \right]
+    \end{equation}
+
+    These coefficients are as follows for $[-\pi, \pi]$.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2\pi} \int_{-\pi}^\pi f(x) \, dx\\
+        a_n &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(nx) \, dx\\
+        b_n &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx\\
+    \end{align*}
+
+    This function is defined everywhere and is $2\pi$ periodic.
+\end{thm}
+
+\begin{thm}[Fourier Series Expansion on $-L \le x \le L$]
+    Same equation, but different coefficients.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2L} \int_{-L}^L f(x) \, dx\\
+        a_n &= \frac{1}{L} \int_{-L}^L f(x) \cos\left(\frac{nx\pi}{L}\right) \, dx\\
+        b_n &= \frac{1}{L} \int_{-L}^L f(x) \sin\left(\frac{nx\pi}{L}\right) \, dx\\
+    \end{align*}
+\end{thm}
+
+    \subsection{Piecewise Continuity}
+    A function is \textbf{Piecewise Smooth} on some interval if it can be broken up into pieces such that in each piece
+    the function is continuous and its derivative is also continuous. The entire function does not need to be
+    continuous, but can only have a finite number of jump discontinuities\footnote{Jump discontinuities are when the
+    left and right limits both exist and are unequal.}.
+
+    \subsection{Convergence for Fourier Series}
+    \begin{thm}[Fourier's Theorem]
+        If $f(x)$ is piecewise smooth on the interval $-L \le x \le L$, then the Fourier series of $f(x)$ converges
+
+        \begin{easylist}[enumerate]
+            @ to the periodic extension of $f(x)$, where the periodic extension is continuous;
+            @ to the average of the two limits, usually
+
+            \[
+                \frac{1}{2} [ f(x_+) + f(x_-) ]
+            \]
+
+            where the periodic extension has a jump discontinuity.
+        \end{easylist}
+    \end{thm}
+
+    \subsection{Cosine and Sine Series}
+
+        \subsubsection{Sine Series}
+        An odd function is defined as $f(-x) = f(x)$\footnote{In other words, reflected about the $y$ axis}. We can
+        calculate the Fourier Series of odd functions.
+
+        \begin{align*}
+            a_0 &= \frac{1}{2L} \int_{-L}^L f(x) \, dx = 0\\
+            a_n &= \frac{1}{L} \int_{-L}^L f(x) \cos\left(\frac{nx\pi}{L}\right) \, dx = 0\\
+            b_n &= \frac{2}{L} \int_0^L f(x) \sin\left(\frac{nx\pi}{L}\right) \, dx\\
+        \end{align*}
+
+        However this doesn't happen often, and instead we usually just find the odd extension of a function.
+
+        \begin{align*}
+            f(x) &\sim \sum_{n=1}^\infty \left[ B_n \sin\left(\frac{nx\pi}{L}\right) \right]\\
+            B_n &= \frac{2}{L} \int_0^L f(x) \sin\left(\frac{nx\pi}{L}\right) \, dx
+        \end{align*}
+
+        This is the Fourier sine series on the interval $0 \le x \le L$.
+
+        \subsubsection{Cosine Series}
+        We can apply similar methods to even functions, where $f(-x) = f(x)$.
+
+        \begin{align*}
+            f(x) &\sim \sum_{n=0}^\infty \left[ a_n \cos\left(\frac{nx\pi}{L}\right) \right]\\
+            a_0 &= \frac{1}{L} \int_0^L f(x) \, dx\\
+            a_n &= \frac{2}{L} \int_0^L f(x) \cos\left(\frac{n\pi x}{L}\right)\\
+            b_n &= 0\\
+        \end{align*}
+
+        Similarly, we can find the even extension of a given function.
+
+        \begin{align*}
+            f(x) &\sim \sum_{n=0}^\infty \left[ A_n \cos\left(\frac{nx\pi}{L}\right) \right]\\
+            A_0 &= \frac{1}{L} \int_0^L f(x) \, dx\\
+            A_n &= \frac{2}{L} \int_0^L f(x) \cos\left(\frac{nx\pi}{L}\right) \, dx
+        \end{align*}
+
+        \subsubsection{Even and Odd Parts}
+        \begin{thm}
+            The Fourier series of $f(x)$ equals the Fourier sine series of $f_o(x)$ plus the Fourier cosine series of
+            $f_e(x)$, where $f_e(x) = \frac{1}{2} [f(x) + f(-x)]$, and $f_o(x) = \frac{1}{2} [f(x) - f(-x)]$.
+        \end{thm}
+

@@ -1,0 +1,1235 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Five}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\section{Transient Solutions of the Heat Equation}
+\begin{easylist}[enumerate]
+    @ Let $u(x, t)$ satisfy the following problem.
+
+    \begin{align*}
+        u_t = ku_{xx} \qquad & 0 < x < L, t > 0, k > 0\\
+        u_x(0, t) = u_x(L, t) = 0 \qquad & t > 0\\
+        u(x, 0) = 100 \left( 1 - \frac{x}{L} \right) \qquad & 0 \le x \le L\\
+    \end{align*}
+
+    Find $u(x, t)$ in the form of an infinite series. Plot $u(x, t)$, evaluated at $x = L / 2$, as a function of $t$.
+
+    @@ We first find the steady-state solution, by setting $u_t = 0$.
+
+    \begin{align*}
+        0 &= ku_{xx}\\
+        u &= Ax + B\\
+        u_x(0, t) &= 0 = A\\
+    \end{align*}
+
+    Therefore the steady state is some constant $C$.
+
+    @@ We now find the transient.
+
+    Using separation of variables, we get the two Ordinary Differential Equations:
+
+    \begin{align*}
+        f^\prime(t) &= \mu k f(t)\\
+        \ddot{g}(x) &= \mu f(t)\\
+    \end{align*}
+
+    Where $\dot{g}(0) = \dot{g}(L) = 0$.
+
+    Solving for $f(t)$ is straightforward.
+
+    \[
+        f(t) = e^{\mu k t}
+    \]
+
+    Solving for $g(x)$ is a little more complicated. We need to examine three cases, where $\mu > 0, \mu = 0$, and
+    $\mu < 0$.
+
+    @@@ $\mu > 0$
+
+    In this case, we get the following equation for $g(x)$.
+
+    \begin{align*}
+        g(x) &= A \sinh(\sqrt{\mu}x) + B \cosh(\sqrt{\mu}x)\\
+        \dot{g}(x) &= A \sqrt{\mu} \cosh{\left (\sqrt{\mu} x \right )} + B \sqrt{\mu} \sinh{\left (\sqrt{\mu} x \right)}
+    \end{align*}
+
+    Using the boundary conditions, we see the following.
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = A\\
+        \dot{g}(L) &= 0 = B \sqrt{\mu} \sinh{\left (\sqrt{\mu} L \right)}
+    \end{align*}
+
+    This holds iff $B=0$, therefore $\mu \not> 0$.
+
+    @@@ $\mu = 0$
+
+    This is easy, as $g$ is simply
+
+    \begin{align*}
+        g(x) &= Ax + B\\
+        \dot{g}(x) &= A\\
+    \end{align*}
+
+    With Boundary Conditions:
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = A\\
+        \dot{g}(L) &= 0 = 0\\
+    \end{align*}
+
+    Using the boundary conditions we see that $A = 0$, and $B$ can be any real number.
+
+    @@@ $\mu < 0$
+
+    Let $\mu = -\lambda^2$. Now $g$ is the following.
+
+    \begin{align*}
+        g(x) &= A \sin\pren{\lambda x} + B \cos\pren{\lambda x}\\
+        \dot{g}(x) &= A \lambda \cos\pren{\lambda x} - B \lambda \sin\pren{\lambda x}\\
+    \end{align*}
+
+    Using the boundary conditions, we see
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = A \lambda\\
+        \dot{g}(L) &= 0 = - B \lambda \sin\pren{\lambda L}\\
+    \end{align*}
+
+    Therefore, $A = 0$, and $B$ is some real number. The above equation holds when
+
+    \[
+        \lambda_n L = n \pi \Rightarrow \lambda_n = \frac{n \pi}{L}
+    \]
+
+    These are our eigenvalues, and our eigenfunctions are
+
+    \[
+        \phi_n(x) = \cos\pren{\lambda_n x}
+    \]
+
+    @@ Therefore, our final equation is the following.
+
+    \begin{align*}
+        u(x, t) &= c + \sum_{n = 1}^\infty a_n \phi_n(x) e^{-k\lambda^2t}\\
+        &= c + \sum_{n = 1}^\infty a_n \cos\pren{\frac{n\pi x}{L}} e^{-k{\pren{\frac{n \pi}{L}}}^2t}
+    \end{align*}
+
+    @@ Now we can find the coefficients. Since $u(x, t)$ is in the form of a Fourier Series, we can write the
+    coefficients as
+
+    \begin{align*}
+        u(x, 0) = 100 \pren{1 - \frac{x}{L}} = c + \sum_{n = 1}^\infty a_n \cos\pren{\frac{n\pi x}{L}}\\
+    \end{align*}
+
+    Yielding,
+
+    \begin{align*}
+        c &= \frac{1}{L} \int_0^L 100 \pren{1 - \frac{x}{L}} \, dx\\
+        &= 50\\
+        a_n &= \frac{2}{L} \int_0^L 100 \pren{1 - \frac{x}{L}} \cos\pren{\frac{n\pi x}{L}} \, dx\\
+        &= \frac{1}{n^{2} \pi^{2}} \left(- 200 \cos{\left (n \pi \right )} + 200\right)
+    \end{align*}
+
+    @@ Finally, the whole thing with coefficients.
+
+    \begin{align*}
+        u(x, t) &= 50 + \sum_{n = 1}^\infty \pren{\frac{1}{n^{2} \pi^{2}} \left(- 200 \cos{\left (n \pi \right )} + 200\right)} \cos\pren{\frac{n\pi x}{L}} e^{-k{\pren{\frac{n \pi}{L}}}^2t}
+    \end{align*}
+
+    @@ Which we can plot.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+k = 5
+def an_gen(n):
+    an = (1 / (n**2 * np.pi**2)) * (-200 * np.cos(n * np.pi) + 200)
+    return an
+
+def fourier(x, t, N):
+    f = np.zeros((len(x), len(t)))
+    for i in range(len(x)):
+        for j in range(len(t)):
+            f[i][j] += 100
+            for n in range(1, N + 1):
+                f[i][j] += (an_gen(n) * np.cos(n * np.pi * x[i] / L)
+                    * np.exp(-k * t[j] * (n * np.pi / L)**2))
+    return f
+
+x = np.arange(0, L, 0.01)
+t = np.arange(0, 5, 0.1)
+points = fourier(x, t, 10)
+points_1 = points
+
+fig = plt.figure(figsize=(8, 8))
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], projection='3d')
+for i in range(len(t)):
+    ax.plot(x, points[:, i], t[i])
+ax.view_init(elev=-70, azim=90)
+ax.set_xlabel(r'x')
+ax.set_ylabel(r'u(x, t)')
+ax.set_zlabel(r't')
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure1_1.pdf}
+
+\noweave
+
+    @@ We can specifically examine $u(x, t)$ at $x = L / 2$.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+plt.figure()
+x0 = int(len(x) / 2)
+plt.plot(t, points[x0, :])
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure2_1.pdf}
+
+\noweave
+
+    \newpage
+    @ Let $v(x, t)$ satisfy the following problem.
+
+    \begin{align*}
+        v_t = kv_{xx} \qquad & 0 < x < L, t > 0, k > 0\\
+        v(0, t) = v(L, t) = 0 \qquad & t > 0\\
+        v(x, 0) = 100 \left( 1 - \frac{x}{L} \right) \qquad & 0 \le x \le L\\
+    \end{align*}
+
+    Find $v(x, t)$ in the form of an infinite series.
+
+    @@ First the steady-state solution.
+
+    \begin{align*}
+        v_t &= 0 = kv_{xx}\\
+        v(x, t) &= Ax + B\\
+        A = B &= 0\\
+    \end{align*}
+
+    Therefore the steady state is zero.
+
+    @@ Now the transient. Again, we use separation of variables to get two ODEs.
+
+    \begin{align*}
+        f^\prime(t) &= \mu k f(t)\\
+        \ddot{g}(x) &= \mu f(t)
+    \end{align*}
+
+    Where $g(0) = g(L) = 0$.
+
+    $f(t)$ is a straightforward ODE.
+
+    \[
+        f(t) = e^{\mu k t}
+    \]
+
+    We can now find $g(t)$. We need to again examine three cases: $\mu > 0, \mu = 0, \mu < 0$.
+
+    @@@ $\mu > 0$
+
+    As before with this case we obtain the following form for $g(x)$.
+
+    \[
+        g(x) = A \sinh\pren{\sqrt{\mu} x} + B \cosh\pren{\sqrt{\mu} x}
+    \]
+
+    Plugging in our initial conditions yields the following.
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(L) &= 0 = A \sinh\pren{\sqrt{\mu} L}
+    \end{align*}
+
+    So both $A$ and $B$ must be zero, yielding no non-trivial solution for $\mu > 0$.
+
+    @@@ $\mu = 0$
+
+    Same process:
+
+    \[
+        g(x) = Ax + B
+    \]
+
+    With intial conditions:
+
+    \[
+        A = B = 0
+    \]
+
+    And again, no non-trivial solutions exist, therefore $\mu \neq 0$.
+
+    @@@ $\mu < 0$. Let $\mu = -\lambda^2$.
+
+    Now we get $g(x)$ in the following form:
+
+    \[
+        g(x) = A \sin(\lambda x) + B \cos(\lambda x)
+    \]
+
+    With initial conditions we get the following.
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(L) &= 0 = A \sin(\lambda L)
+    \end{align*}
+
+    That last equation is true (thus yielding our eigenvalues) when
+
+    \[
+        \lambda L = n \pi \Rightarrow \lambda_n = \frac{n \pi}{L}
+    \]
+
+    With corresponding eigenfunctions
+
+    \[
+        \phi_n(x) = \sin\pren{\frac{n \pi x}{L}}
+    \]
+
+    @@ Finally, our solution is the following.
+
+    \[
+        v(x, t) = \sum_{n=1}^\infty a_n \phi_n(\lambda_n x) e^{-kt\lambda^2}
+    \]
+
+    With the eigenvalues and eigenfunctions, this becomes
+
+    \[
+        v(x, t) = \sum_{n=1}^\infty a_n \sin\pren{\frac{n\pi x}{L}} e^{-kt \pren{\frac{n \pi}{L}}}
+    \]
+
+    @@ We now examine the coefficients using the intial heat distribution function.
+
+    \[
+        v(x, 0) = 100 \pren{1 - \frac{x}{L}} = \sum_{n=1}^\infty a_n \sin\pren{\frac{n\pi x}{L}}
+    \]
+
+    This is a Fourier Series, and we can find $a_n$ with the following formula.
+
+    \begin{align*}
+        a_n &= \frac{2}{L} \int_0^L \pren{100 \pren{1 - \frac{x}{L}}} \sin\pren{\frac{n \pi x}{L}} \, dx\\
+        &= \frac{1}{n^{2} \pi^{2}} \left(200 n \pi - 200 \sin{\left (n \pi \right )}\right)
+    \end{align*}
+
+    @@ Finally, we get the whole equation.
+
+    \[
+        v(x, t) = \sum_{n=1}^\infty \pren{\frac{1}{n^{2} \pi^{2}} \left(200 n \pi - 200 \sin{\left (n \pi \right)}\right)} \sin\pren{\frac{n\pi x}{L}} e^{-kt \pren{\frac{n \pi}{L}}^2}
+    \]
+
+    @@ Which we can plot.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+k = 5
+def an_gen(n):
+    an = (1 / (n**2 * np.pi**2)) * (200 * n * np.pi - 200 * np.sin(n *
+np.pi))
+    return an
+
+def fourier(x, t, N):
+    f = np.zeros((len(x), len(t)))
+    for i in range(len(x)):
+        for j in range(len(t)):
+            for n in range(1, N + 1):
+                f[i][j] += an_gen(n) * np.sin(n * np.pi * x[i] / L) *
+np.exp(-k * t[j] * (n * np.pi / L)**2)
+    return f
+
+x = np.arange(0, L, 0.01)
+t = np.arange(0, 5, 0.1)
+points = fourier(x, t, 100)
+points_2 = points
+
+fig = plt.figure(figsize=(8, 8))
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], projection='3d')
+for i in range(len(t)):
+    ax.plot(x, points[:, i], t[i])
+ax.view_init(elev=-90, azim=90)
+ax.set_xlabel(r'x')
+ax.set_ylabel(r'u(x, t)')
+ax.set_zlabel(r't')
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure3_1.pdf}
+
+\noweave
+
+    \newpage
+    @ Let $w(x, t)$ satisfy the following problem.
+
+    \begin{align*}
+        w_t = kv_{xx} \qquad & 0 < x < L, t > 0, k > 0\\
+        w_x(0, t) = w(L, t) = 0 \qquad & t > 0\\
+        w(x, 0) = 100 \left( 1 - \frac{x}{L} \right) \qquad & 0 \le x \le L\\
+    \end{align*}
+
+    Find $w(x, t)$ in the form of an infinite series.
+
+    @@ And one last time, let's do the steady state solution.
+
+    \begin{align*}
+        w_t &= 0 = kv_{xx}\\
+        w_x(x, t) &= A\\
+        w(x, t) &= Ax + B\\
+        w_x(0, t) &= 0 = A\\
+        w(L, t) &= 0 = B\\
+    \end{align*}
+
+    Therefore the steady-state solution is $0$.
+
+    @@ Now we can use separation of variables to obtain two different ODEs. This yields the following.
+
+    \begin{align*}
+        f^\prime(t) &= \mu k f(t)\\
+        \ddot{g}(x) &= \mu f(t)
+    \end{align*}
+
+    Where $\dot{g}(0) = g(L) = 0$.
+
+    $f(t)$ is a straightforward ODE.
+
+    \[
+        f(t) = e^{\mu k t}
+    \]
+
+    We can now find $g(t)$. We need to again examine three cases: $\mu > 0, \mu = 0, \mu < 0$.
+
+    @@@ $\mu > 0$
+
+    In this case we obtain the following form for $g(x)$.
+
+    \begin{align*}
+        g(x) &= A \sinh(\sqrt{\mu}x) + B \cosh(\sqrt{\mu}x)\\
+        \dot{g}(x) &= A \sqrt{\mu} \cosh{\left (\sqrt{\mu} x \right )} + B \sqrt{\mu} \sinh{\left (\sqrt{\mu} x \right)}
+    \end{align*}
+
+    We can use our boundary conditions.
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = A \sqrt{\mu} \Rightarrow A = 0\\
+        g(L) &= 0 = B \cosh(\sqrt{\mu}L) \Rightarrow B = 0\\
+    \end{align*}
+
+    No non-trivial solutions exist, therefore $\mu \not> 0$.
+
+    @@@ $\mu = 0$
+
+    As before we get the form for $g(x)$ to be the following.
+
+    \begin{align*}
+        g(x) &= Ax + B\\
+        \dot{g}(x) &= A\\
+    \end{align*}
+
+    Using the boundary conditions we see
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = B\\
+        g(L) &= 0 = AL \Rightarrow A = 0\\
+    \end{align*}
+
+    No non trivial solutions exist.
+
+    @@@ $\mu < 0$. Let $\mu = - \lambda^2$.
+
+    This yields the following form of $g(x)$.
+
+    \begin{align*}
+        g(x) &= A \sin\pren{\lambda x} + B \cos\pren{\lambda x}\\
+        \dot{g}(x) &= A \lambda \cos\pren{\lambda x} - B \lambda \sin\pren{\lambda x}\\
+    \end{align*}
+
+    Using our boundary conditions we see the following.
+
+    \begin{align*}
+        \dot{g}(0) &= 0 = A \lambda \Rightarrow A = 0\\
+        g(L) &= 0 = B \cos\pren{\lambda L}\\
+    \end{align*}
+
+    That last equation holds when the following is true (yielding our eigenvalues).
+
+    \[
+        \lambda L = n \pi \Rightarrow \lambda_n = \frac{n \pi}{L}
+    \]
+
+    With corresponding eigenfunctions
+
+    \[
+        \phi_n(x) = B \cos\pren{\frac{n\pi x}{L}}
+    \]
+
+    @@ Yielding the final solution in the form
+
+    \[
+        w(x, t) = \sum_{n=1}^\infty a_n \phi_n(\lambda_n x)e^{-kt\lambda^2}
+    \]
+
+    @@ With our eigenvalues and eigenfunctions plugged in we get the following.
+
+    \[
+        w(x, t) = \sum_{n=1}^\infty a_n \cos\pren{\frac{nx\pi}{L}}e^{-kt\pren{\frac{n\pi}{L}}^2}
+    \]
+
+    @@ We can find $a_n$ using the initial condition.
+
+    \[
+        w(x, 0) = 100 \pren{1 - \frac{x}{L}} = \sum_{n=1}^\infty a_n \cos\pren{\frac{nx\pi}{L}}
+    \]
+
+    This is simply a Fourier Series, and we can use the following formula to determine this coefficient.
+
+    \begin{align*}
+        a_n &= \frac{2}{L} \int_0^L \pren{100 \pren{1 - \frac{x}{L}}} \cos\pren{\frac{nx\pi}{L}} \, dx\\
+        &= \frac{1}{n^2\pi^2} \pren{-200\cos(n\pi) + 200}
+    \end{align*}
+
+    @@ Now the full equation:
+
+    \[
+        w(x, t) = \sum_{n=1}^\infty \pren{\frac{1}{n^2\pi^2} \pren{-200\cos(n\pi) + 200}} \cos\pren{\frac{nx\pi}{L}}e^{-kt\pren{\frac{n\pi}{L}}^2}
+    \]
+
+    @@ Which we can plot.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+k = 5
+def an_gen(n):
+    an = (1 / (n**2 * np.pi**2)) * (- 200 * np.cos(n * np.pi) + 200)
+    return an
+
+def fourier(x, t, N):
+    f = np.zeros((len(x), len(t)))
+    for i in range(len(x)):
+        for j in range(len(t)):
+            for n in range(1, N + 1):
+                f[i][j] += an_gen(n) * np.cos(n * np.pi * x[i] / L) *
+np.exp(-k * t[j] * (n * np.pi / L)**2)
+    return f
+
+x = np.arange(0, L, 0.01)
+t = np.arange(0, 5, 0.1)
+points = fourier(x, t, 30)
+points_3 = points
+
+fig = plt.figure(figsize=(8, 8))
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], projection='3d')
+for i in range(len(t)):
+    ax.plot(x, points[:, i], t[i])
+ax.view_init(elev=-80, azim=90)
+ax.set_xlabel(r'x')
+ax.set_ylabel(r'u(x, t)')
+ax.set_zlabel(r't')
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure4_1.pdf}
+
+\noweave
+
+    \newpage
+    @ Answer each of the following questions for $u(x, t)$ from problem 1, for $v(x, t)$ from problem 2, and for $w(x,
+    t)$ from problem 3. Three answers for each question.
+
+    @@ To summarize:
+
+    @@@
+
+    \begin{align*}
+        u(x, t) &= 50 + \sum_{n = 1}^\infty \pren{\frac{1}{n^{2} \pi^{2}} \left(- 200 \cos{\left (n \pi \right )} + 200\right)} \cos\pren{\frac{n\pi x}{L}} e^{-k{\pren{\frac{n \pi}{L}}}^2t}
+    \end{align*}
+
+    @@@
+
+    \[
+        v(x, t) = \sum_{n=1}^\infty \pren{\frac{1}{n^{2} \pi^{2}} \left(200 n \pi - 200 \sin{\left (n \pi \right)}\right)} \sin\pren{\frac{n\pi x}{L}} e^{-kt \pren{\frac{n \pi}{L}}}
+    \]
+
+    @@@
+
+    \[
+        w(x, t) = \sum_{n=1}^\infty \pren{\frac{1}{n^2\pi^2} \pren{-200\cos(n\pi) + 200}} \cos\pren{\frac{nx\pi}{L}}e^{-kt\pren{\frac{n\pi}{L}}^2}
+    \]
+
+    @@ What is the steady-state temperature distribution.
+
+    @@@ $u(x, t)$
+
+    Steady state is a straight line, $y=50$.
+
+    @@@ $v(x, t)$
+
+    Steady State is zero.
+
+    @@@ $w(x, t)$
+
+    Steady State is also zero.
+
+    @@ Write down the Fourier mode that decays the slowest, as an explicit function of $(x, t)$ with no undefined
+    constants.
+
+    @@@ $u(x, t)$
+
+    For this we can see that when $n=1$ we get the following equation.
+
+    \begin{align*}
+        u_1(x, t) &= 50 + \pren{\frac{400}{\pi^{2}}} \cos\pren{\frac{\pi x}{L}} e^{-k{\pren{\frac{\pi}{L}}}^2t}
+    \end{align*}
+
+    For this solution there is no such $t$ and $x$ such that $u_1(x, t)$ is equal to 30, and is also a maximum in $x$.
+
+    @@@ $v(x, t)$
+
+    And again, when $n = 1$
+
+    \[
+        v_1(x, t) = \pren{\frac{200}{\pi^{2}}} \sin\pren{\frac{\pi x}{L}} e^{-kt \pren{\frac{\pi}{L}}^2}
+    \]
+
+    And again there will be no maximum of 30.
+
+    @@@ $w(x, t)$
+
+    When $n = 1$,
+
+    \[
+        w_1(x, t) = \pren{\frac{400}{\pi^2}} \cos\pren{\frac{x\pi}{L}} e^{-kt \pren{\frac{\pi}{L}}^2}
+    \]
+
+    This however does have a solution. Solving $w_1(x, t)$ for $t$ yields the time at which any given $x$ is equal to
+    $30$. We just need to find the maximum and we're set.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure5_1.pdf}
+
+\nosimpleweave
+
+    This maximum is at $t=0$.
+
+    @@ At $t = 0$, the maximum temperature in the rod is $100$, at $x = 0$. At what time does the slowest decaying
+    Fourier mode attain a maximum (in $x$) magnitude of $30$, and where (in $x$) does this maximum occur? Your answer
+    should come out in the form $t = M \left( \frac{L^2}{k} \right)$, for some constant $M$. You need to find $M$.
+
+    For each we will derivate with respect to $x$ and set equal to zero to solve.
+
+    @@@ $u(x, t)$
+    @@@ $v(x, t)$
+    @@@ $w(x, t)$
+
+    @@ In part two, you found the slowest decaying mode. Identify the second slowest mode and evaluate its maximum
+    magnitude of each mode at the time you found in the third part.
+
+    @@@ $u(x, t)$
+    @@@ $v(x, t)$
+    @@@ $w(x, t)$
+
+    @@ Based on your last results, plus a constant term if the series has one, sketch each solution as a function of
+    $x$, over $0 < x < L$ at the time you identified in part 3.
+
+    @@@ $u(x, t)$
+    @@@ $v(x, t)$
+    @@@ $w(x, t)$
+
+    @@ At each fixed $t \ge 0$, the solution of each problem attains a maximum value in $x$. Sketch the approximate
+    trajectory of the maximum value of the solution as a function of time.
+
+    @@@ $u(x, t)$
+    @@@ $v(x, t)$
+    @@@ $w(x, t)$
+
+\end{easylist}
+
+\newpage
+\section{Two Culinary Problems}
+    \subsection{Potato Slices}
+
+    How long does it take to cook a potato? Slice a potato into slices of thickness $L$, and drop the slices into a
+    large pot of boiling water. If $L$ is much smaller than the diameter of the potato, then almost all of the heat
+    entering a slice of potato comes through its two cut surfaces, and we can use a one-dimensional model to describe
+    the cooking process, at least approximately. Let $u(x, t)$ be the temperature in the potato, measured in $C$. If the
+    potato was taken from the refrigerator just before cooking, and if the slices are not too close to each other in the
+    boiling water, then
+
+    \begin{align*}
+        u_t = ku_{xx} \qquad & 0 < x < L, t > 0, k > 0\\
+        u(0, t) = u(L, t) = 100 \qquad & t > 0\\
+        u(x, 0) = 5 \qquad & 0 \le x \le L\\
+    \end{align*}
+
+    We need two things to answer this. The thermal diffusivity of a potato is $k = 0.0017 \, cm^2/s$. Let's call the
+    potato cooked when it has reached $75^\circ C$ everywhere in the potato.
+
+    \begin{easylist}[enumerate]
+    @ Solve the problem above, for the temperature in the potato. If you cut the potato into slices $1cm$ thick,
+    approximately how long do the slices take to cook?
+
+    @@ Steady State
+
+    Let $u_t = 0$. This yields the equation $0 = k u_{xx}$. Solving for $\overline{u}(x, t)$ we get the steady-state
+    solution.
+
+    \begin{align*}
+        \overline{u}(x, t) &= Ax + B\\
+    \end{align*}
+
+    Using our boundary conditions we can determine the values for $A$ and $B$.
+
+    \begin{align*}
+        \overline{u}(0, t) &= 100 = B\\
+        \overline{u}(L, t) &= 100 = AL + 100 \Rightarrow A = 0\\
+    \end{align*}
+
+    Yielding the steady-state solution,
+
+    \begin{align*}
+        \overline{u}(x, t) = 100
+    \end{align*}
+
+    Intuitively this makes sense. The pot of water is at $100^\circ \, C$. The potato bits should get to that
+    temperature after a certain period of time.
+
+    @@ Now we can determine the transient solution.
+
+    Let us assume that the solution of $u(x, t)$ has the following form.
+
+    \begin{align*}
+        u(x, t) = \overline{u}(x, t) + v(x, t)
+    \end{align*}
+
+    Substituting back into the original equation we get
+
+    \begin{align*}
+        {[\overline{u} + v]}_t = k {[\overline{u} + v]}_{xx}
+    \end{align*}
+
+    Distributing the Linear Operator $\partial$ we get
+
+    \begin{align*}
+        \overline{u}_t + v_t = k\overline{u}_{xx} + kv_{xx}
+    \end{align*}
+
+    We know the form of the steady state solution, therefore the equation we can solve is 
+
+    \begin{align*}
+        v_t = kv_{xx}
+    \end{align*}
+
+    In order to apply separation of variables we need to adjust our Initial Condition and Boundary Conditions a little.
+    We can rewrite these conditions as the following.
+
+    \begin{align*}
+        u(0, t) = u(L, t) = 0\\
+        u(x, 0) = f(x) - 100 = -95
+    \end{align*}
+
+    Using separation of variables, we get the following two ODEs.
+
+    \begin{align*}
+        f^\prime(t) &= \mu k f(t)\\
+        \ddot{g}(x) &= \mu g(x)
+    \end{align*}
+
+    Where we can use the initial conditions and get $g(0) = g(L) = 100$.
+
+    The solution to $f(t)$ is trivial.
+
+    \begin{align*}
+        f(t) = e^{\mu k t}
+    \end{align*}
+
+    Now we can solve for $g(x)$. We need to compare three cases: $\mu > 0, \mu = 0, \mu < 0$.
+
+    @@@ $\mu > 0$
+
+    This case yields $g(x)$ in the following form.
+
+    \begin{align*}
+        g(x) = A \sinh\left(\sqrt{\mu}x\right) + B \cosh\left(\sqrt{\mu} x\right)
+    \end{align*}
+
+    Using the Boundary Conditions we get the following values for $A$ and $B$.
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(L) &= 0 = A \sinh\left(\sqrt{\mu}L\right)\\
+        &\Rightarrow A = 0\\
+    \end{align*}
+
+    With final solution of the following form.
+
+    \begin{align*}
+        g(x) &= 0
+    \end{align*}
+
+    Therefore $\mu \not>0$, as there is no non-trivial solution.
+
+    @@@ $\mu = 0$
+
+    This is the simple case.
+
+    \begin{align*}
+        g(x) &= Ax + B\\
+    \end{align*}
+
+    With Boundary Conditions we get values for $A$ and $B$.
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(L) &= 0 = AL\\
+        &\Rightarrow A = 0
+    \end{align*}
+
+    Yielding the final equation:
+
+    \begin{align*}
+        g(x) = 0
+    \end{align*}
+
+    Therefore $\mu \neq 0$, as there are no non-trivial solutions.
+
+    @@@ $\mu < 0$. Let $\mu = -\lambda^2$.
+
+    In this case, $g(x)$ has the following form.
+
+    \begin{align*}
+        g(x) &= A \sin\left( \lambda x \right) + B \cos\left( \lambda x \right)
+    \end{align*}
+
+    Using Boundary Conditions we can determine $A$ and $B$.
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(L) &= 0 = A \sin\left( \lambda L \right)\\
+    \end{align*}
+
+    The above equation holds when $\lambda$ is of the following form.
+
+    \begin{align*}
+        \lambda L = n \pi \Rightarrow \lambda_n = \frac{n\pi}{L}
+    \end{align*}
+
+    This yields the eigenvalues above and the following eigenfunctions
+
+    \begin{align*}
+        \phi_n(x) = \sin\left(\lambda_n x\right) = \sin\left(\frac{n\pi x}{L}\right)
+    \end{align*}
+
+    @@ This yields the form of the final solution:
+
+    \begin{align*}
+        u(x, t) = \sum_{n=1}^\infty \left[ \phi\left(\lambda\right) f(t)\right] 
+    \end{align*}
+
+    Using our eigenvalues and eigenfunctions we get:
+
+    \begin{align*}
+        u(x, t) = \sum_{n=1}^\infty \left[ a_n \sin\left(\frac{n\pi x}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    Adding our Steady-State Solution we get the following form.
+
+    \begin{align*}
+        u(x, t) = 100 + \sum_{n=1}^\infty \left[ a_n \sin\left(\frac{n\pi x}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    We can calculate the values for $a_n$ using the Fourier Series equations.
+
+    \begin{align*}
+        u(x, 0) \Rightarrow -95 = 100 + \sum_{n=1}^\infty \left[ a_n \sin\left(\frac{n\pi x}{L}\right)\right]
+    \end{align*}
+
+    And
+
+    \begin{align*}
+        a_n &= \frac{2}{L} \int_0^L f(x) \sin\left(\frac{n\pi x}{L}\right) \, dx\\
+        &= \frac{2}{L} \int_0^L -95 \sin\left(\frac{n\pi x}{L}\right) \, dx\\
+        &= \frac{1}{n\pi} \pren{190 \cos(n\pi) - 190}
+    \end{align*}
+
+    Finally,
+
+    \begin{align*}
+        u(x, t) = 100 + \sum_{n=1}^\infty \left[ \pren{\frac{1}{n\pi} \pren{190 \cos(n\pi) - 190}} \sin\left(\frac{n\pi x}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    @@ Which we can plot.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure6_1.pdf}
+
+\nosimpleweave
+
+    @@ To determine when it's cooked, we've established that it is cooked when it has reached $75^\circ \, C$
+    everywhere in the potato. We know that the center is the last affected area, so we can simply determine where the
+    centerline ($x = 0.5$) is equal to $75$. This yields the following equation.
+
+    \begin{align*}
+        u(0.5, t) = 100 + \sum_{n=1}^\infty \left[ \pren{\frac{1}{n\pi} \pren{190 \cos(n\pi) - 190}} \sin\left(\frac{n\pi 0.5}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    Plotting again we see our centerline.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure7_1.pdf}
+
+\nosimpleweave
+
+    We can solve numerically for how long this takes.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+data = potato[int(len(x) / 2), :]
+print(t[np.where(data >= 75)[0][0]])
+\end{minted}
+\begin{minted}[fontsize=\small, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+95
+
+\end{minted}
+
+\noweave
+
+Therefore the potato will be cooked after approximately $t=95 s$.
+
+    @ The boiling temperature of water is $100^\circ C$ at sea level. In Boulder, the air pressure is lower, and water
+    boils at about $94^\circ C$. Does it take longer or shorter to cook a slice (1 cm thick) of potato in Boulder, CO
+    than it does in Boston, MA? By how much?\\
+
+    We can simply recalculate everything using $94^\circ C$ as our base temperature. It follows that our steady state is
+    now $94$, meaning our final solution is now the following. Our $a_n$ calculation also changes.
+
+    \begin{align*}
+        u(x, t) = 94 + \sum_{n=1}^\infty \left[ \pren{\frac{1}{n\pi} \pren{178 \cos(n\pi) - 178}} \sin\left(\frac{n\pi x}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    Redoing the above calulations, we can produce the same plots.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure9_1.pdf}
+
+\nosimpleweave
+
+    We examine the centerline again.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure10_1.pdf}
+
+\nosimpleweave
+
+    We can solve numerically for how long this takes.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+data = potato[int(len(x) / 2), :]
+print(t[np.where(data >= 75)[0][0]])
+\end{minted}
+\begin{minted}[fontsize=\small, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+110
+
+\end{minted}
+
+\noweave
+
+    This takes $110s$ to cook, which is about $15s$ longer.
+
+    @ Suppose you deep-fried the potato (in hot oil) instead of boiling it (in water). Now the temperature at the
+    boundaries might be $200^\circ C$ instead of $100^\circ C$. How would the cooking time change if the thickness
+    remains $1 cm$? \\
+
+    Again, we perform the same calculations.
+
+    \begin{align*}
+        u(x, t) = 200 + \sum_{n=1}^\infty \left[ \pren{\frac{1}{n\pi} \pren{390 \cos(n\pi) - 390}} \sin\left(\frac{n\pi x}{L}\right) e^{-kt\frac{n\pi}{L}}\right] 
+    \end{align*}
+
+    Redoing the above calulations, we can produce the same plots.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure12_1.pdf}
+
+\nosimpleweave
+
+    We examine the centerline again.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure13_1.pdf}
+
+\nosimpleweave
+
+    We can solve numerically for how long this takes.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+data = potato[int(len(x) / 2), :]
+print(t[np.where(data >= 75)[0][0]])
+\end{minted}
+\begin{minted}[fontsize=\small, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+45
+
+\end{minted}
+
+\noweave
+
+    This only takes $45s$! So oil is the best way to go\ldots
+
+    \end{easylist}
+
+    \newpage
+
+    \subsection{Round Potato}
+    What if you didn't cut the potato at all? The one-dimensional heat equation is irrelevant for a three-dimensional
+    potato. In spherical coordinates, the three-dimensional heat equation is
+
+    \[
+        u_t = k \left[ \frac{1}{r^2} {\left(r^2 u_r\right)}_r + \frac{1}{r^2 \sin \theta} {(\sin\theta u_\theta)}_\theta + \frac{1}{{(r \sin \theta)}^2} u_{\phi\phi} \right]
+    \]
+
+    We also need that the boundary conditions on the surface of the sphere are spatially uniform, and that the initial
+    conditions are radially symmetric in the interior of the sphere.  Then the problem becomes
+
+    \begin{align*}
+        u_t = \frac{k}{r^2} {(r^2 u_r)}_r \qquad & 0 < r < R, t > 0, k > 0\\
+        u(0, t) = \text{Bounded}, u(R, t) = 100 \qquad & t > 0\\
+        u(r, 0) = 5 \qquad & 0 \le r \le R\\
+    \end{align*}
+
+    \begin{easylist}[enumerate]
+    @ Find the steady-state solution of this problem.  Let $v(r, t)$ denote the solution of the transient problem, so
+    $u(r, t) = $steady-state$+ v(r, t)$. Write down the equations for $v(r, t)$.
+
+    As before, set $u_t = 0$. Therefore we get the simple problem.
+
+    \begin{align*}
+        u_t = 0 &= \frac{k}{r^2} {(r^2u_r)}_r\\
+        \overline{u}(x) = A + \frac{B}{r}\\
+    \end{align*}
+
+    Using the boundary conditions we get the final form.
+
+    \begin{align*}
+        \overline{u}(x) &= 100\\
+    \end{align*}
+
+    Again, intuitively this makes sense. The potato will cook.
+
+    Now we can determine the transient solution.
+
+    Let us assume that the solution of $u(x, t)$ has the following form.
+
+    \begin{align*}
+        u(x, t) = \overline{u}(x, t) + v(x, t)
+    \end{align*}
+
+    Substituting back into the original equation we get
+
+    \begin{align*}
+        {[\overline{u} + v]}_t = \frac{k}{r^2} {[r^2 (\overline{u} + v)_r]}_r
+    \end{align*}
+
+    Distributing the Linear Operator $\partial$ we get
+
+    \begin{align*}
+        \overline{u}_t + v_t &= k\overline{u}_{rr} + \frac{2k\overline{u}_r}{r} + kv_{rr} + \frac{2kv_r}{r}
+    \end{align*}
+
+    We know the form of the steady state solution, therefore the equation we can solve is 
+
+    \begin{align*}
+        v_t &= kv_{rr} + \frac{2kv_r}{r}
+    \end{align*}
+
+    In order to apply separation of variables we need to adjust our Initial Condition and Boundary Conditions a little.
+    We can rewrite these conditions as the following.
+
+    \begin{align*}
+        u(0, t) &= \beta\\
+        u(R, t) &= 100\\
+        u(r, 0) &= f(x) - 100 = -95
+    \end{align*}
+
+    @ In the transient problem, set
+
+    \[
+        v(r, t) = \frac{w(r, t)}{r}
+    \]
+
+    Write down the equations for $w(r, t)$.\\
+
+    Using the Substitution, we get the following equations.
+
+    \begin{align*}
+        v_t &= kv_{rr} + \frac{2kv_r}{r}\\
+        \frac{w_t(r, t)}{r} &= k\pren{\frac{w(r, t)}{r}}_{rr} + \frac{2k\pren{\frac{w(r, t)}{r}}_r}{r}\\
+        \frac{w_t(r, t)}{r} &= k\pren{\frac{w_r(r, t)}{r} - \frac{w(r, t)}{r^2}}_r + \frac{2k\pren{\frac{w_r(r, t)}{r} - \frac{w(r, t)}{r^2}}}{r}\\
+        \frac{w_t(r, t)}{r} &= \pren{\frac{k}{r} \left(w_{rr}{\left (r , t\right )} - \frac{2}{r} w_r{\left (r, t \right)} + \frac{2}{r^{2}} w{\left (r, t \right )}\right)} +
+                                \frac{2k\pren{\frac{w_r(r, t)}{r} - \frac{w(r, t)}{r^2}}}{r}\\
+        \frac{w_t(r, t)}{r} &= \frac{k}{r} w_{rr}{\left (r , t\right )} - \frac{2k}{r^2} w_r{\left (r, t \right)} + \frac{2k}{r^{3}} w{\left (r, t \right )} +
+                                \frac{2k\pren{\frac{w_r(r, t)}{r} - \frac{w(r, t)}{r^2}}}{r}\\
+        w_t(r, t) &= k w_{rr}{\left (r , t\right )} - \frac{2k}{r} w_r{\left (r, t \right)} + \frac{2k}{r^{2}} w{\left (r, t \right )} +
+                                2k\pren{\frac{w_r(r, t)}{r} - \frac{w(r, t)}{r^2}}\\
+        w_t(r, t) &= k w_{rr}{\left (r , t\right )} - \frac{2k}{r} w_r{\left (r, t \right)} + \frac{2k}{r^{2}} w{\left (r, t \right )} +
+                                \frac{2kw_r(r, t)}{r} - \frac{2kw(r, t)}{r^2}\\
+        w_t(r, t) &= k w_{rr}{\left (r , t\right )}\\
+    \end{align*}
+
+    Now we need to convert our initial condition.
+
+    \begin{align*}
+        w(r, 0) &= -95 r\\
+    \end{align*}
+
+    @ Find $w(r, t)$ in the usual way.\\
+
+    Ok\ldots. Time for separation of variables.
+
+    Assume that $w(r, t)$ is of the form $g(r)f(t)$. If we rewrite with this substitution, we get the following steps.
+
+    \begin{align*}
+        w_t(r, t) &= k w_{rr}{\left (r , t\right )}\\
+        g(r)f^\prime(t) &= k \ddot{g}(r)f(t)\\
+        \frac{f^\prime(t)}{kf(t)} &= \frac{\ddot{g}(r)}{g(r)} = \mu\\
+    \end{align*}
+
+    This yields two ODEs.
+
+    \[
+    \begin{cases}
+        f^\prime(t) &= \mu k f(t)\\
+        \ddot{g}(r) &= \mu g(r)
+    \end{cases}
+    \]
+
+    The solution to $f(t)$ is easy.
+
+    \begin{align*}
+        f(t) &= e^{\mu k t}
+    \end{align*}
+
+    And we can set based on our BCs and IC that $g(0) = \beta r$ and $g(R) = 100 r$.
+
+    We now need to compare the three cases for $\mu$.
+
+    First, $\mu > 0$. This yields
+
+    \begin{align*}
+        g(r) &= A \sinh\pren{\sqrt{\mu}r} + B \cosh\pren{\sqrt{\mu}r}
+    \end{align*}
+
+    With BCs
+
+    \begin{align*}
+        g(0) &= 0 = B\\
+        g(R) &= 0 = A \sinh\pren{\sqrt{\mu}R}
+    \end{align*}
+
+    There is no non-trivial solution.
+
+    Now, $\mu = 0$:
+
+    \begin{align*}
+        g(r) &= Ar + B\\
+        g(0) &= 0 = B\\
+        g(R) &= 0 = AR\\
+    \end{align*}
+
+    There is no non-trivial solution.
+
+    Finally, $\mu < 0$. Let $\mu = -\lambda^2$.
+
+    \begin{align*}
+        g(r) &= A \sin\pren{\lambda r} + B \cos\pren{\lambda r}\\
+        g(0) &= 0 = B\\
+        g(R) &= A \sin\pren{\lambda R}\\
+    \end{align*}
+
+    The above statement is true when $\lambda R = n \pi$, yielding our eigenvalues and functions.
+
+    \begin{align*}
+        \lambda_n &= \frac{n\pi}{R}\\
+        \phi_n(r) &= \sin\pren{\lambda_n r}
+    \end{align*}
+
+    Yielding our penultimate equation:
+
+    \begin{align*}
+        w(r, t) &= \sum_{n=1}^\infty a_n \sin\pren{\frac{n\pi r}{R}} e^{-kt \pren{\frac{n\pi}{R}}^2}
+    \end{align*}
+
+    To find $a_n$, we use the Fourier Series formula.
+
+    \begin{align*}
+        a_n &= \frac{2}{R} \int_0^R w(r, 0) \cdot \sin\pren{\frac{n\pi r}{R}} \, dx\\
+        &= \frac{2}{R} \int_0^R -95r \cdot \sin\pren{\frac{n\pi r}{R}} \, dx\\
+        &= - \frac{190 R}{n^{2} \pi^{2}} \left(- n \pi \cos{\left (n \pi \right )} + \sin{\left (n \pi \right )}\right)
+    \end{align*}
+
+    With final equation:
+
+    \begin{align*}
+        w(r, t) &= \sum_{n=1}^\infty \pren{- \frac{190 R}{n^{2} \pi^{2}} \left(- n \pi \cos{\left (n \pi \right )} + \sin{\left (n \pi \right )}\right)} \sin\pren{\frac{n\pi r}{R}} e^{-kt \pren{\frac{n\pi}{R}}^2}
+    \end{align*}
+
+    @ Based on $w(r, t)$, find $v(r, t)$ and then $u(r, t)$, the physically measurable temperature.  For any $t > 0$,
+    where in the potato does the minimum temperature occur? Using L'Hopital's Rule as needed, approximately when does
+    the minimum temperature in the potato reach $75^\circ C$? How long does it take to cook the uncut potato?\\
+
+    Based on the Substitution, we can see $v(r, t)$ is equal to the following.
+
+    \begin{align*}
+        v(r, t) &= \frac{1}{r} \sum_{n=1}^\infty \pren{- \frac{190 R}{n^{2} \pi^{2}} \left(- n \pi \cos{\left (n \pi \right )} + \sin{\left (n \pi \right )}\right)} \sin\pren{\frac{n\pi r}{R}} e^{-kt \pren{\frac{n\pi}{R}}^2}
+    \end{align*}
+
+    Yielding
+
+    \begin{align*}
+        u(r, t) &= -95 + \frac{1}{r} \sum_{n=1}^\infty \pren{- \frac{190 R}{n^{2} \pi^{2}} \left(- n \pi \cos{\left (n \pi \right )} + \sin{\left (n \pi \right )}\right)} \sin\pren{\frac{n\pi r}{R}} e^{-kt \pren{\frac{n\pi}{R}}^2}
+    \end{align*}
+
+    We can examine when $r = 0$ to determine when the potato is cooked, as this is the innermost temperature.
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw5_figure15_1.pdf}
+
+\nosimpleweave
+
+    The potato will be cooked after approximately $30s$.
+\end{easylist}
+
+
+\end{document}

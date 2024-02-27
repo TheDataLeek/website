@@ -1,0 +1,643 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Six}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\section{}
+
+Let $v(x, t)$ denote the solution of the following problem.
+
+\begin{align*}
+    v_t &= k v_{xx} + \alpha v + Q(x, t) \qquad & 0 < x < L \qquad & t > 0\\
+    v(0, t) &= f_0(t), v(L, t) = f_L(t) \qquad && t > 0\\
+    v(x, 0) &= V(x) \qquad & 0 < x < L \qquad & t = 0\\
+\end{align*}
+
+Where $k > 0$, $L > 0$ and $\alpha$ are fixed constants $f_0(t)$ and $f_L(t)$ are known functions of $t$, $V(x)$ is a
+known function of $x$, and $Q(x, t)$ is a known function of both variables. We seek to prove that this problem has at
+most one solution, for any choice of the functions $\{ f_0(t), f_L(t), V(x), Q(x, t) \}$.\\
+
+\NewList
+\begin{easylist}[enumerate]
+    @ By mimicking the proof given in the Outline of Method, in the Homework Set, show that this problem has at most one
+    solution for a range of real values of $\alpha$. State clearly the range of values of $\alpha$ for which the problem
+    has at most one solution. If there is a restriction on the space of functions for which the uniqueness proof
+    applies, state that restriction clearly. Support your conclusions with the appropriate work.
+
+    @@ \textit{Assume that Two Solutions Exist}
+
+    As with the outline, we assume that the problem has two solutions, $v_1(x, t)$ and $v_2(x, t)$. We will now prove
+    that they are the same using contradiction.
+
+    @@ \textit{Define the Difference}
+
+    We define the difference between the two solutions to be
+
+    \[
+        \delta(x, t) = v_1(x, t) - v_2(x, t)
+    \]
+
+    This equation has its own set of equations determined by subtracting the problem above from itself.
+
+    \begin{align}\label{1:delta}
+        \delta_t &= k \delta_{xx} + \alpha \delta \qquad & 0 < x < L \qquad & t > 0 \nonumber \\
+        \delta(0, t) &= 0, \delta(L, t) = 0 \qquad && t > 0\\
+        \delta(x, 0) &= 0 \qquad & 0 < x < L \qquad & t = 0 \nonumber
+    \end{align}
+
+    It is obvious by inspection that $\delta(x, t) \equiv 0$ satisfies~\eqref{1:delta}. We now must show that this is
+    the only solution to~\eqref{1:delta}.
+
+    @@ \textit{Multiply the PDE and Integrate}
+
+    We will multiply equation~\eqref{1:delta} by $\delta(x, t)$ (following the pattern in the notes). This yields the
+    following equation.
+
+    \begin{align*}
+        \delta \delta_t &= k \delta \delta_{xx} + \alpha \delta^2\\
+        \pren{\frac{\delta^2}{2}}_t &= k \delta \delta_{xx} + \alpha \delta^2
+    \end{align*}
+
+    We can integrate over the interval $[0, L]$.
+
+    \begin{align*}
+        \mathcal{L}(t) &= \int_0^L \pren{\frac{\delta^2}{2}} \, dx & \text{Note, this is strictly} \ge 0\\
+        &= \int_0^L k \delta \delta_{xx} \, dx + \int_0^L \alpha \delta^2 \, dx\\
+        &= \bren{k \delta \delta_x}\bigg|_0^L - \int_0^L k \delta_x^2 \, dx + \int_0^L \alpha \delta^2 \, dx\\
+    \end{align*}
+
+    @@ \textit{Examine the Integration}
+
+    We can determine by inspection using the boundary conditions that $\mathcal{L}(0) = 0$. We also can take the time
+    derivative.
+
+    \begin{align*}
+        \frac{d\mathcal{L}}{dt} &= - \bren{\int_0^L k \delta_x^2 \, dx}_t + \bren{\int_0^L \alpha \delta^2 \, dx}_t
+    \end{align*}
+
+    For any $\alpha \le 0$, $\mathcal{L}_t(t)$ is less than zero. Therefore we can determine that for any $\alpha \le
+    0$, $\mathcal{L} \equiv 0$ for all $t \ge 0$.
+
+    @@ \textit{Examine Possible Removable Discontinuities}
+
+    Almost done, but we need to examine the possibility of removable discontinuities. Shadowing the notes, assume
+    $\delta(x, t)$ is continuous in $x \in (0, L)$, $t \ge 0$. Assume at some time $t^* \ge 0$, there exists $x^*, x \in
+    (0, L)$, where $\delta^2(x^*, t^*) = p^2 > 0$, where $p$ is a fixed real number. Then because $\delta^2(x, t)$ is
+    continuous in $x$, there must be an open interval $(x^* - \epsilon < x < x^* + \epsilon)$ in which $\delta^2(x, t^*)
+    > p^2 / 2 > 0$. But this implies
+
+    \ms{%
+        \mathcal{L}(t^*) = \int_0^L \bren{\frac{\delta^2(x, t^*)}{2}} \, dx \ge
+            \int_{x^* - \epsilon}^{x^* + \epsilon} \bren{\frac{\delta^2(x, t^*)}{2}} \, dx \ge
+            \frac{p^2}{4} \cdot 2 \epsilon > 0.
+    }
+
+    Therefore $\mathcal{L}(t^*)$ does not satisfy our initial assumption. Therefore no such $(x^*, t^*)$ exists.
+
+    @@ \textit{Conclusion}
+
+    Since $\delta$ is zero for all $t$, there exists at most one solution that is continuous in $x \in (0, L)$, for $t >
+    0$.
+
+    @ For $\alpha$ in the range for which the problem has a unique solution, set $Q(x, t) = 0$, $f_0(t)=0$, $f_L(t)=0$,
+    $V(x,0)=1$, and find $v(x, t)$ in the form of a Fourier Series.\\
+
+    Assume $\alpha \le 0$, and
+
+    \begin{align*}
+        v_t &= k v_{xx} + \alpha v \qquad & 0 < x < L \qquad & t > 0\\
+        v(0, t) &= 0, v(L, t) = 0 \qquad && t > 0\\
+        v(x, 0) &= 1 \qquad & 0 < x < L \qquad & t = 0\\
+    \end{align*}
+
+    We can find the Fourier series solution.
+
+    @@ Steady State
+
+    Let $v_t = 0$,
+
+    \ms{%
+        0 &= k v_{xx} + \alpha v\\
+        v(x, t) &= A \cosh\pren{x\sqrt{\frac{\alpha}{k}}}
+    }
+
+    Using the Boundary Conditions we find $A$ and $B$.
+
+    \ms{%
+        v(0) &= 0 = A\\
+        v(L) &= 0
+    }
+
+    Therefore the steady state solution is 0.
+
+    @@ Separation of Variables
+
+    Now we can apply separation of variables. Assume $v(x, t) = g(x)f(t)$.
+
+    \ms{%
+        g(x)f^\prime(t) &= k\ddot{g}(x)f(t) + \alpha g(x) f(t)\\
+        \frac{f^\prime(t)}{kf(t)} - \frac{\alpha}{k} &= \frac{\ddot{g}(x)}{g(x)} = \mu
+    }
+
+    Yielding two ODEs.
+
+    \ms{%
+        f^\prime(t) &= f(t) \pren{k\mu + \alpha}\\
+        \ddot{g}(x) &= \mu g(x)
+    }
+
+    @@ Finding the first is easy,
+
+    \ms{%
+        f(t) = e^{t \pren{k\mu + \alpha}}
+    }
+
+    @@ Now we need to check the three cases:
+
+    @@@ $\mu > 0$
+
+    \ms{%
+        g(x) = A \sinh\pren{x\sqrt{mu}} + B \cosh\pren{x\sqrt{mu}}
+    }
+
+    With Boundary Conditions, $A = B = 0$, therefore $\mu \not> 0$.
+
+    @@@ $\mu = 0$
+
+    \ms{%
+        g(x) = Ax + B
+    }
+
+    With Boundary Conditions, $A = B = 0$, therefore $\mu \neq 0$.
+
+    @@@ $\mu < 0$. Let $\mu = -\lambda^2$.
+
+    This yields
+
+    \ms{%
+        g(x) = A \sin\pren{\lambda x} + B \cos\pren{\lambda x}
+    }
+
+    With Boundary conditions, it is trivial to see that $B = 0$. This yields
+
+    \ms{%
+        g(L) &= 0 = A \sin\pren{\lambda L}
+    }
+
+    Which is satisfied when
+
+    \ms{%
+        \lambda L = n \pi \Rightarrow \lambda_n = \frac{n \pi}{L}
+    }
+
+    Therefore the eigenfunctions and values are
+
+    \ms{%
+        \phi_n(x) &= \sin\pren{\lambda_n x}\\
+        \lambda_n &= \frac{n \pi}{L}
+    }
+
+    @@ Full Solution
+
+    Yielding full solution:
+
+    \ms{%
+        v(x, t) = \sum_{n=1}^\infty \bren{a_n \sin\pren{\frac{n\pi x}{L}} e^{t \pren{-k \pren{\frac{n\pi}{L}}^2 + \alpha}}}
+    }
+
+    @@ Find $a_n$
+
+    We can find $a_n$ using the Fourier Series equations.
+
+    \ms{%
+        v(x, 0) = 1 &= \sum_{n=1}^\infty \bren{a_n \sin\pren{\frac{n\pi x}{L}}}\\
+        a_n &= \frac{1}{2L} \int_0^L \sin\pren{\frac{n\pi x}{L}} \, dx = \frac{L}{n \pi} \pren{-\cos\pren{n\pi}+1}
+    }
+
+    @@ With final solution
+
+    \ms{%
+        v(x, t) = \sum_{n=1}^\infty \bren{\frac{L}{n \pi} \pren{-\cos\pren{n\pi}+1} \sin\pren{\frac{n\pi x}{L}} e^{t \pren{-k \pren{\frac{n\pi}{L}}^2 + \alpha}}}
+    }
+
+    @@ We can plot this
+
+\simpleweave
+
+\includegraphics[width= 6in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw6_figure1_1.pdf}
+
+\nosimpleweave
+
+    @ For $\alpha$ in the range in which the uniqueness proof using Lyapunov functionals fails, let $\delta(x, t)$
+    denote the difference between two solutions, and steady state. This steady-state problem has non-zero solutions for
+    several values of $\alpha$. Find the values of $\alpha$ for which this problem has a non-zero steady-state solution,
+    and give the most general solution of the problem for each such value.
+
+    @@ The system for which it fails is where $\alpha > 0$, shown below.
+
+    \begin{align}\label{1:delta}
+        \delta_t &= k \delta_{xx} + \alpha \delta \qquad & 0 < x < L \qquad & t > 0 \nonumber \\
+        \delta(0, t) &= 0, \delta(L, t) = 0 \qquad && t > 0\\
+        \delta(x, 0) &= 0 \qquad & 0 < x < L \qquad & t = 0 \nonumber
+    \end{align}
+
+    @@ Finding its steady state, we get
+
+    \ms{%
+        \delta_t(x, t) = 0 = k \delta_{xx}(x, t) + \alpha \delta(x, t)
+    }
+
+    Yielding solution
+
+    \ms{%
+        \delta(x, t) = A e^{-x \sqrt{- \frac{\alpha}{k}}} + B e^{x \sqrt{- \frac{\alpha}{k}}}
+    }
+
+    Using BCs we get
+
+    \ms{%
+        \delta(0, t) &= A + B = 0 \Rightarrow A = -B\\
+        \delta(L, t) &= A e^{-L \sqrt{- \frac{\alpha}{k}}} - A e^{L \sqrt{- \frac{\alpha}{k}}} = 0\\
+        &= A \pren{e^{-L \sqrt{- \frac{\alpha}{k}}} - e^{L \sqrt{- \frac{\alpha}{k}}}} = 0\\
+        &= A \pren{-2 \sinh\pren{L \sqrt{- \frac{\alpha}{k}}}} = 0\\
+        &= A \pren{-2 \sinh\pren{L i \sqrt{\frac{\alpha}{k}}}} = 0\\
+        &= A \pren{-2 i \sin\pren{L \sqrt{\frac{\alpha}{k}}}} = 0\\
+    }
+
+    With some simple manipulation we can see that the above expression holds whenever
+
+    \ms{%
+        \alpha = k \pren{\frac{n\pi}{L}}^2
+    }
+
+    Applying this result to the original system, we get
+
+    \begin{align}\label{1:delta}
+        \delta_t &= k \delta_{xx} + k \pren{\frac{n\pi}{L}}^2 \delta \qquad & 0 < x < L \qquad & t > 0 \nonumber \\
+        \delta(0, t) &= 0, \delta(L, t) = 0 \qquad && t > 0\\
+        \delta(x, 0) &= 0 \qquad & 0 < x < L \qquad & t = 0 \nonumber
+    \end{align}
+
+    Where fore both $n$ is some integer greater than or equal to zero.
+
+    @ What is the relation between (1) and (3)?\\
+
+    Whenever 
+
+    \ms{%
+        \alpha = k \pren{\frac{n\pi}{L}}^2
+    }
+
+    The original system has more than one solution. In other words, any solution that is found will not be unique.
+\end{easylist}
+
+\newpage
+\section{}
+
+Let $z(x, t)$ denote the solution of the following problem.
+
+\begin{align*}
+    z_t &= k z_{xx} + Q(x, t) \qquad & 0 < x < L \qquad & t > 0\\
+    z(0, t) &= f_0(t), z(L, t) + \beta z_x(L, t) = f_L(t)\qquad && t > 0\\
+    z(x, 0) &= Z(x) \qquad & 0 < x < L \qquad & t = 0\\
+\end{align*}
+
+where $k >0, L>0$, and $\beta$ are fixed constants, $f_0(t)$ and $f_L(t)$ are known functions of $t$, $Z(x)$ is a known
+function of $x$, and $Q(x, t)$ is a known function of both variables. The boundary condition at $x=L$ models convection
+of a fluid past the end of the rod using Newton's law of cooling. We seek to prove that this problem has at most one
+solution, for any choice of the functions $\{f_0(t), f_L(t), Z(x), Q(x, t)\}$.
+
+\begin{easylist}[enumerate]
+    @ Show that this problem has at most one solution for a range of values of $\beta$. State clearly the range of
+    values of $\beta$ for which the problem has at most one solution.
+
+    @@ Assume that two solutions exist.
+
+    @@ Define $\delta(x, t) = z_1(x, t) - z_2(x, t)$.
+
+    @@ Establish the initial and boundary conditions for $\delta$:
+
+    \ms{%
+        \delta_t(x, t) &= k \delta_{xx}(x, t)\\
+        \delta(0, t) &= 0\\
+        \delta(L, t) + \beta \delta_x(L, t) &= 0\\
+        \delta(x, 0) &= 0
+    }
+
+    @@ By inspection, $\delta(x, t) = 0$ satisfies the system. Is this solution unique?
+
+    @@ Multiply the PDE by $\delta(x, t)$.
+
+    \ms{%
+        \delta(x, t) \delta_t(x, t) &= k \delta(x, t) \delta_{xx}(x, t)\\
+        \pren{\frac{\delta(x, t)}{2}}_t &= k \delta(x, t) \delta_{xx}(x, t)\\
+    }
+
+    @@ Since the integration is on $x$, we can derive by $t$ later.
+
+    \ms{%
+        \mathcal{L}(t) = \int_0^L \pren{\frac{\delta(x, t)}{2}}_t \, dx
+    }
+
+    @@ Note, $\mathcal{L} \ge 0$ for all $t$.
+
+    @@
+
+    \ms{%
+        \mathcal{L}(0) = \int_0^L \pren{\frac{\delta(x, 0)}{2}}_t \, dx = 0
+    }
+
+    @@ Find $\mathcal{L}_t(t)$
+
+    \ms{%
+        \mathcal{L}(t) &= \int_0^L \pren{\frac{\delta(x, t)}{2}}_t \, dx\\
+        &= \pren{k \delta(x, t) \delta_x(x, t)}\bigg|_0^L - \int_0^L k {\delta_x(x, t)}^2 \, dx\\
+        &= \pren{k \delta(L, t) \delta_x(L, t) - k \delta(0, t) \delta_x(0, t)} - \int_0^L k {\delta_x(x, t)}^2 \, dx\\
+        &= \pren{k \delta(L, t) \delta_x(L, t)} - \int_0^L k {\delta_x(x, t)}^2 \, dx\\
+        \mathcal{L}_t(t) &= \bren{k \delta(L, t) \delta_x(L, t)}_t - \bren{\int_0^L k {\delta_x(x, t)}^2 \, dx}_t\\
+        &= \bren{-k \beta {\delta_x(x, t)}^2}_t - \bren{\int_0^L k {\delta_x(x, t)}^2 \, dx}_t \le 0
+    }
+
+    @@ We can use the same proof in the homework set to prove that there are no discontinuities present.
+
+    @@ Since $\mathcal{L}(t) \ge 0$, $\mathcal{L}(0) = 0$, and $\mathcal{L}_t(t) \le 0$, this implies that
+    $\mathcal{L}(t) \equiv 0$ for all $t \ge 0$, and all $\beta \ge 0$.
+
+    @ For $Q=0, f_0(t)=0,f_L(t)=0$, find separated solutions in the form $z(x, t) = g(x)g(t)$. What is the time
+    dependence for $h(t)$? For all $\beta$, what eigenvalues and eigenfunctions $g(x)$ can you obtain. Be careful and
+    check every possible case. How do the eigenvalues you find and the associated time dependence $h(t)$ relate to the
+    values of $\beta$ for which the energy method works or fails? These separated solutions can be used to solve the
+    initial/boundary value problem using generalized Fourier series. Do not do this.
+
+    @@ This new system becomes
+
+    \begin{align*}
+        z_t &= k z_{xx} \qquad & 0 < x < L \qquad & t > 0\\
+        z(0, t) &= 0, z(L, t) + \beta z_x(L, t) = 0 \qquad && t > 0\\
+        z(x, 0) &= Z(x) \qquad & 0 < x < L \qquad & t = 0\\
+    \end{align*}
+
+    @@ Assume $z(x, t) = g(x)h(t)$, yielding
+
+    \ms{%
+        z_t(x, t) = kz_{xx}(x, t)\\
+        g(x)f^\prime(t) = k \ddot{g}(x) h(t)\\
+        \frac{h^\prime(t)}{kh(t)} = \frac{\ddot{g}(x)}{g(x)} = \mu
+    }
+
+    @@ We can solve for $h(t)$.
+
+    \ms{%
+        h(t) = e^{\mu kt}
+    }
+
+    @@ Examining the boundary conditions we see that
+
+    \ms{%
+        g(0) = 0\\
+        g(L) + \beta \dot{g}(L) = 0
+    }
+
+    @@ We now need to examine the three cases.
+
+    @@@ $\mu > 0$
+
+    \ms{%
+        g(x) = A \sinh\pren{x \sqrt{\mu}} + B \cosh\pren{x \sqrt{\mu}}
+    }
+
+    With boundary conditions we clearly see that $B = 0$, and
+
+    \ms{%
+        A \sinh\pren{L \sqrt{\mu}} + \beta A \sqrt{\mu} \cosh\pren{L \sqrt{\mu}} = 0\\
+    }
+
+    The only value of $A$ for which this holds is $A = 0$, therefore there are no non-trivial solutions, and
+    $\mu\not>0$.
+
+    @@@ $\mu = 0$
+
+    \ms{%
+        g(x) = Ax + B\\
+    }
+
+    With boundary conditions it is apparent that again, $A = B = 0$, and $\mu\neq0$.
+
+    @@@ $\mu < 0$. Let $\mu = -\lambda^2$.
+
+    This yields
+
+    \ms{%
+        g(x) = A \sin\pren{\lambda x} + B \cos\pren{\lambda x}\\
+        \dot{g}(x) = A \lambda \cos\pren{\lambda x} - B \lambda \sin\pren{\lambda x}\\
+    }
+
+    With boundary conditions,
+
+    \ms{%
+        g(0) = 0 = A \cdot 0 + B \cdot 1\\
+    }
+
+    Therefore $B = 0$.
+
+    \ms{%
+        \sin\pren{\lambda L} + \beta \lambda \cos\pren{\lambda L} = 0\\
+        \sin\pren{\lambda L} = - \beta \lambda \cos\pren{\lambda L}\\
+        \tan\pren{\lambda L} = - \beta \lambda
+    }
+
+\simpleweave
+
+\includegraphics[width= 6in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw6_figure2_1.pdf}
+
+\nosimpleweave
+
+    I don't know how to solve this.
+
+\end{easylist}
+
+\newpage
+\section{}
+
+The wave equation derived in class for the motion of a stretched guitar string without damping is
+
+\begin{align*}
+    w_{tt} &= c^2 w_{xx} + Q(x, t) \qquad & 0 < x < L \qquad & t > 0\\
+    w(0, t) &= f_0(t), w(L, t) = f_L(t) \qquad && t > 0\\
+    w(x, 0) &= W(x), w_t(x, 0) = S(x) \qquad & 0 < x < L \qquad & t = 0\\
+\end{align*}
+
+Prove uniqueness.
+
+    \begin{easylist}[enumerate]
+        @ Find $\delta(x, t)$, multiply by $\delta_t(x, t)$, and integrate by parts. What is $\mathcal{L}(t)$? What
+        differential equation does it satisfy?
+
+        @@ First we assume two solutions exist.
+
+        @@ We obtain $\delta$ from these:
+
+        \ms{%
+            \delta(x, t) = w_1(x, t) - w_2(x, t)
+        }
+
+        @@ Yielding full system
+
+        \ms{%
+            \delta_t(x, t) = c^2 \delta_{xx}(x, t)\\
+            \delta(0, t) = \delta(L, t) = \delta(x, 0) = \delta(x, 0) = 0
+        }
+
+        @@ We multiply by $\delta_t(x, t)$, yielding
+
+        \ms{%
+            \delta_t^2(x, t) = c^2 \delta_{xx}(x, t) \delta_t(x, t)
+        }
+
+        @@ Yielding
+
+        \ms{%
+            \mathcal{L}(t) &= \int_0^L \bren{\delta_t^2(x, t)} \, dx \ge 0\\
+            &= \int_0^L \bren{c^2 \delta_{xx}(x, t) \delta_t(x, t)} \, dx\\
+            &= \bren{\delta_t \delta_x}\bigg|_0^L - c^2 \int_0^L \bren{\delta_{x} \delta_{tx}} \, dx\\
+            &= \bren{\delta_t \delta_x}\bigg|_0^L - c^2 \int_0^L \bren{\frac{\delta_x^2}{2}}_t \, dx\\
+            &= \bren{\delta_t(L, t) \delta_x(L, t) - \delta_t(0, t) \delta_x(0, t)} - c^2 \int_0^L \bren{\frac{\delta_x^2}{2}}_t \, dx\\
+            &= \int_0^L c^2 \bren{\frac{\delta_x^2}{2}}_t \, dx
+        }
+
+        $\mathcal{L}(t)$ satisfies the differential equation
+
+        \ms{%
+            v_x = \frac{c^2}{2} \pren{\delta^2_x}_t
+        }
+
+        @ Prove the rest. What conditions must be imposed on $w(x, t)$?
+
+        @@ By inspection, $\mathcal{L}(0) = 0$.
+
+        @@ Examining the $t$ derivative,
+
+        \ms{%
+            \frac{d\mathcal{L}(t)}{dt} &= \int_0^L c^2 \bren{\frac{\delta_x^2}{2}}_{tt} \, dx\\
+            &= \frac{c^2}{2} \bren{\int_0^L \delta_x^2 \, dx}_{tt}\\
+            &= \frac{c^2}{2} \bren{\delta^2(L, t) - \delta^2(0, t)}_{tt}\\
+            &= 0
+        }
+
+        @@ Therefore since $\mathcal{L}(t) \ge 0$, $\mathcal{L}(0) = 0$, and $\mathcal{L}_t(t) = 0$, we can determine
+        that $\mathcal{L}(t) \equiv 0$ for all $t \ge 0$.
+
+        @@ In order for this to hold, $w(x, t)$ must be twice $x$ and $t$ differentiable.
+
+        @ Is there any relation between $\mathcal{L}(t)$ and energy?
+
+        The larger this value is the more energy is in the system.
+
+        @ Is there a physical meaning of the ODE?
+
+        The solution to this equation gives the energy over time.
+    \end{easylist}
+
+\newpage
+\section{}
+
+The beam equation is neat.
+
+\begin{align*}
+    \rho w_{tt} &= -EI w_{xxxx} + Q(x, t) \qquad & 0 < x < L \qquad & t > 0\\
+    w(0, t) &= w_x(0, t) = w_{xx}(L, t) = w_{xxx}(L, t) = 0 \qquad && t > 0\\
+    w(x, 0) &= W(x), w_t(x, 0) = S(x) \qquad & 0 < x < L \qquad & t = 0\\
+\end{align*}
+
+Where $\rho$ is the linear mass density, $E$ is Young's modulus, and $I$ is the second moment of area are fixed positive
+constants.
+
+\begin{easylist}[enumerate]
+    @ For the Beam equation, one implements the procedure to prove uniqueness in the same way for the wave equation.
+    What is $\mathcal{L}(t)$? What differential equation does it satisfy?\\
+
+    @@ First we assume two solutions exist.
+
+    @@ We obtain $\delta$ from these:
+
+    \ms{%
+        \delta(x, t) = w_1(x, t) - w_2(x, t)
+    }
+
+    @@ Yielding full system
+
+    \ms{%
+        \rho \delta_{tt}(x, t) = -E I \delta_{xxxx}\\
+        \delta(0, t) = \delta_x(0, t) = \delta_{xx}(L, t) = \delta_{xxx}(L, t) = 0\\
+        \delta(x, 0) = \delta_t(x, 0) = 0
+    }
+
+    @@ We multiply by $\delta_t(x, t)$, yielding
+
+    \ms{%
+        \rho \delta_{tt}(x, t) = -E I \delta_{xxxx}\\
+        \Rightarrow \pren{\frac{\delta_t^2}{2}}_t = -E I \delta_{xxxx} \delta_t
+    }
+
+    @@ This gives us $\mathcal{L}(t)$,
+
+    \ms{%
+        \mathcal{L}(t) &= \int_0^L \pren{\frac{\delta_t^2}{2}} \, dx
+    }
+
+    @@ Which satisfies the following differential equation
+
+    \ms{%
+        2 v_x &= \delta_t^2
+    }
+
+    @ Prove the rest. What conditions must be imposed on $w(x, t)$ in order to complete the proof?
+
+    @@ From above, we perform integration by parts on $\mathcal{L}(t)$.\\
+
+    \ms{%
+        \mathcal{L}(t) &= \int_0^L \pren{\frac{\delta_t^2}{2}} \, dx\\
+        &= \int_0^L \pren{-EI \delta_{xxxx} \delta_t} \, dx\\
+        &= \bren{\delta_t \delta_{xxx}}\bigg|_0^L + EI \int_0^L \pren{\delta_{xxx} \delta_{tx}} \, dx\\
+        &= \bren{\delta_t(L, t) \delta_{xxx}(L, t) - \delta_t(0, t) \delta_{xxx}(0, t)} +
+            EI \int_0^L \pren{\delta_{xxx} \delta_{tx}} \, dx\\
+        &= \bren{- \delta_t(0, t) \delta_{xxx}(0, t)} + EI \int_0^L \pren{\delta_{xxx} \delta_{tx}} \, dx\\
+        \mathcal{L}(0) &= 0\\
+        \mathcal{L}_t(t) &= -\bren{\delta_t(0, t) \delta_{xxx}(0, t)}_t +
+            EI \int_0^L \pren{\delta_{xxx} \delta_{tx}}_t \, dx\\
+        &= -\bren{\delta_t(0, t) \delta_{xxx}(0, t)}_t +
+            EI \int_0^L \pren{\delta_{xt}\delta_{xxxt} + \delta_{xtt}\delta_{xxx}} \, dx
+    }
+
+    @@ In order for uniqueness to hold, 
+
+    \ms{%
+        EI \int_0^L \pren{\delta_{xt}\delta_{xxxt} + \delta_{xtt}\delta_{xxx}} \, dx
+    }
+
+    must be negative.
+
+    @@ We also need $w(x, t)$ differentiable four times.
+
+    @@ If the above conditions are met, since $\mathcal{L}(t) \ge 0$, $\mathcal{L}(0) = 0$, and $\mathcal{L}_t(t) \le
+    0$, this implies that $\mathcal{L}(t) \equiv 0$.
+\end{easylist}
+\end{document}

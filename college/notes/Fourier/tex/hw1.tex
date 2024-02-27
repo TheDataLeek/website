@@ -1,0 +1,624 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework One}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ \textit{Orthogonality}
+        The real-valued, Fourier basis functions for functions defined on $- \pi < x < \pi $ are the following.
+        \[
+            \left[
+                1, {\left\{ \sin(nx), \cos(nx) \right\}}_{n=1}^\infty
+            \right]
+        \]
+    @@ Show by direct calculation that for any two positive integers $(n, m)$:
+
+    @@@ \[ \int_{-\pi}^\pi \left[ \sin(nx) \sin(mx) \right] \, dx = 0 \quad \text{if } n \neq m \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ \sin(nx) \sin(mx) \right] \, dx &=& 0\\
+        \frac{1}{2} \left[ \int_{-\pi}^\pi \cos(x [n - m]) \, dx - \int_{-\pi}^\pi \cos(x [n + m]) \, dx \right] &=& 0\\
+        \frac{1}{2} \left[ \frac{\sin(x[n - m])}{n - m}\bigg|_{-\pi}^\pi - \frac{\sin(x[n + m])}{n + m} \bigg|_{\pi}^\pi\right] &=& 0\\
+        \frac{1}{2} \left[ \frac{\sin(\pi [n - m])}{n - m} - \frac{\sin(-\pi [n - m])}{n - m} -
+            \frac{\sin(\pi[n + m])}{n + m} + \frac{\sin(-\pi[n + m])}{n + m}\right] &=& 0\\
+        \frac{1}{2} &=&  0\\
+        0 &=& 0\\
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ \cos(nx) \cos(mx) \right] \, dx = 0 \quad \text{if } n \neq m \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ \cos(nx) \cos(mx) \right] \, dx &=& 0\\
+        \frac{1}{2} \left[ \int_{-\pi}^\pi \cos(nx - mx) \, dx + \int_{-\pi}^\pi \cos(nx + mx) \, dx \right] &=& 0\\
+        \frac{1}{2} \left[ \frac{\sin(\pi [n - m])}{n - m} - \frac{\sin(-\pi [n - m])}{n - m} +
+            \frac{\sin(\pi[n + m])}{n + m} + \frac{\sin(-\pi[n + m])}{n + m}\right] &=& 0\\
+        \frac{1}{2} &=& 0\\
+        0 &=& 0
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ 1 \cdot \sin(mx) \right] \, dx = 0 \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ 1 \cdot \sin(mx) \right] \, dx &=& 0\\
+        \int_{-\pi}^\pi \sin(mx) \, dx &=& 0\\
+        -\frac{\cos(mx)}{m} \bigg|_{-\pi}^\pi &=& 0\\
+        -\frac{-1}{m} + \frac{-1}{m} &=& 0\\
+        \frac{1}{m} - \frac{1}{m} &=& 0\\
+        0 &=& 0\\
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ \sin(nx) \sin(nx) \right] \, dx = \pi \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ \sin(nx) \sin(nx) \right] \, dx &=& \pi\\
+        \int_{-\pi}^\pi \sin^2(nx) \, dx &=& \pi\\
+        \int_{-\pi}^\pi \left[ \frac{1 - \cos(2x)}{2} \right] \, dx &=& \pi\\
+        \frac{1}{2} \left[ \int_{-\pi}^\pi 1 - \int_{-\pi}^\pi \cos(2x) \, dx \right] &=& \pi\\
+        \frac{1}{2} \left[ (2 \pi) - \left( \frac{1}{2} \left[ \sin(2 \pi) - \sin(-2 \pi) \right] \right) \right] &=& \pi\\
+        \frac{1}{2} ( 2 \pi ) &=& \pi\\
+        \pi &=& \pi
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ 1 \cdot 1 \right] \, dx = 2 \pi \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ 1 \cdot 1 \right] \, dx &=& 2 \pi\\
+        \int_{-\pi}^\pi 1 \, dx &=& 2 \pi\\
+        \pi - (- \pi) &=& 2 \pi\\
+        2 \pi &=& 2\pi
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ \sin(nx) \cos(mx) \right] \, dx = 0 \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ \sin(nx) \cos(mx) \right] \, dx &=& 0\\
+        \frac{1}{2} \left[ \int_{-\pi}^\pi \sin(x(n + m)) \, dx + \int_{-\pi}^\pi \sin(x(n - m)) \, dx \right] &=& 0\\
+        \frac{1}{2} \left[ \frac{-\cos(x(n+m))}{n+m} \bigg|_{-\pi}^\pi +
+            \frac{\cos(x(n-m))}{m-n} \bigg|_{-\pi}^\pi \right] &=& 0\\
+        \frac{1}{2} \left[ \frac{-1}{n+m} + \frac{1}{n+m} + \frac{-1}{m-n} + \frac{1}{m-n} \right] &=& 0\\
+        0 &=& 0\\
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ 1 \cdot \cos(mx) \right] \, dx = 0 \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ 1 \cdot \cos(mx) \right] \, dx &=& 0\\
+        \int_{-\pi}^\pi \cos(mx) \, dx &=& 0\\
+        \frac{-\sin(mx)}{m} \bigg|_{-\pi}^\pi &=& 0\\
+        \frac{0}{m} - \frac{0}{m} &=& 0\\
+        0 &=& 0\\
+    \end{align*}
+
+    @@@ \[ \int_{-\pi}^\pi \left[ \cos(nx) \cos(nx) \right] \, dx = \pi \]
+
+    \begin{align*}
+        \int_{-\pi}^\pi \left[ \cos(nx) \cos(nx) \right] \, dx &=& \pi\\
+        \int_{-\pi}^\pi \left[ \frac{1 + \cos(2nx)}{2} \right] \, dx &=& \pi\\
+        \int_{-\pi}^\pi \frac{1}{2} \, dx + \int_{-\pi}^\pi \frac{\cos(2nx)}{2} \, dx &=& \pi\\
+        \pi + \frac{\sin (2 \pi  n)}{2 n} &=& \pi\\
+        \pi &=& \pi\\
+    \end{align*}
+
+    @@ For functions defined on $-L < y < L$, the Fourier basis functions are:
+
+    \[
+        \left[
+            1,
+            {\left\{
+                \sin \left( \frac{m \pi y}{L} \right),
+                \cos \left( \frac{m \pi y}{L} \right)
+            \right\}}_{n=1}^\infty
+        \right]
+    \]
+
+    Write down the relations among these functions, corresponding to the relations in (a), in the same order. Then show
+    the validity of any one of the first three relations and any one of the last three, by direct calculation.\\
+
+    @@@ \[ \int_{-L}^L \left[ \sin\left(\frac{m \pi x}{L} \right) \sin\left(\frac{n \pi x}{L} \right) \right] \, dx = 0 \quad \text{if } n \neq m \]
+
+    $\sin\left(\frac{m \pi y}{L} \right)$ and $\sin\left(\frac{n \pi y}{L} \right)$ are orthogonal if $n \neq m$.
+
+    \begin{align*}
+        \int_{-L}^L \left[ \sin\left(\frac{m \pi x}{L} \right) \sin\left(\frac{n \pi x}{L} \right) \right] \, dx &=& 0\\
+        \frac{1}{2} \int_{-L}^L \left[ \cos\left(\frac{m \pi x}{L} - \frac{nx\pi}{L}\right) - \cos\left(\frac{n \pi x}{L} + \frac{mx\pi}{L}\right) \right] \, dx &=& 0\\
+        \frac{1}{2} \left[ \int_{-L}^L \cos\left(\frac{\pi x}{L}(m - n) \right) \, dx -
+            \int_{-L}^L \cos\left(\frac{\pi x}{L} (m + n) \right) \, dx \right] &=& 0\\
+        \frac{1}{2} \left[ \frac{\sin\left( \frac{\pi x}{L} (m - n) \right)}{\frac{\pi}{L}(m - n)} \bigg|_{-L}^L -
+            \frac{\sin\left( \frac{\pi x}{L} (m + n) \right)}{\frac{\pi}{L}(m + n)} \bigg|_{-L}^L \right] &=& 0\\
+        \frac{L \left(\frac{\sin (\pi (m-n))}{m-n}-\frac{\sin (\pi (m+n))}{m+n}\right)}{\pi } &=& 0\\
+        \frac{L(0 - 0)}{\pi} &=& 0\\
+        0 &=& 0\\
+    \end{align*}
+
+    @@@ \[ \int_{-L}^L \left[ \cos\left(\frac{n \pi x}{L}\right) \cos\left(\frac{m \pi x}{L}\right) \right] \, dx = 0 \quad \text{if } n \neq m \]
+
+    $\cos\left(\frac{n \pi x}{L}\right)$ and $\cos\left(\frac{m \pi x}{L}\right)$ are orthogonal if $n \neq m$.
+
+    @@@ \[ \int_{-L}^L \left[ 1 \cdot \sin\left(\frac{mx\pi}{L}\right) \right] \, dx = 0 \]
+
+    $1$ and $\sin\left(\frac{mx\pi}{L}\right)$ are orthogonal.
+
+    @@@ \[ \int_{-L}^L \left[ \sin\left(\frac{nx\pi}{L}\right) \sin\left(\frac{nx\pi}{L}\right) \right] \, dx = L \]
+
+    $\sin\left(\frac{nx\pi}{L}\right)$ and $\sin\left(\frac{nx\pi}{L}\right)$ are the same, so when combined with the
+    inner product, they yield the length of the vector.
+
+    @@@ \[ \int_{-L}^L \left[ 1 \cdot 1 \right] \, dx = 2 L \]
+
+    Similar to above, $1$ and $1$ when combined with the inner product yield the length of the vector.
+
+    @@@ \[ \int_{-L}^L \left[ \sin\left(\frac{nx\pi}{L}\right) \cos\left(\frac{mx\pi}{L}\right) \right] \, dx = 0 \]
+
+    $\sin\left(\frac{nx\pi}{L}\right)$ and $\cos\left(\frac{mx\pi}{L}\right)$ are orthogonal.
+
+    @@@ \[ \int_{-L}^L \left[ 1 \cdot \cos\left(\frac{mx\pi}{L}\right) \right] \, dx = 0 \]
+
+    $1$ and $\cos\left(\frac{mx\pi}{L}\right)$ are orthogonal.
+
+    @@@ \[ \int_{-L}^L \left[ \cos\left(\frac{nx\pi}{L}\right) \cos\left(\frac{nx\pi}{L}\right) \right] \, dx = L \]
+
+    As the other above questions, $\cos\left(\frac{nx\pi}{L}\right)$ and $\cos\left(\frac{nx\pi}{L}\right)$ when
+    combined with the inner product yields the length of the vector.
+
+    \begin{align*}
+        \int_{-L}^L \left[ \cos\left(\frac{nx\pi}{L}\right) \cos\left(\frac{nx\pi}{L}\right) \right] \, dx &=& L\\
+        \int_{-L}^L \left[ \frac{1 + \cos\left(\frac{2nx\pi}{L}\right) }{2} \right] \, dx &=& L\\
+        \int_{-L}^L \frac{1}{2} \, dx + \int_{-L}^L \frac{\cos\left(\frac{2nx\pi}{L}\right)}{2} \, dx &=& L\\
+        L + \frac{L \sin (2 \pi  n)}{2 \pi  n} &=& L\\
+        L + 0 &=& L\\
+        L &=& L\\
+    \end{align*}
+
+    \newpage
+    @ If $g(y)$ is defined on $-L \le y \le L$ and if its Fourier series converges to $g(y)$ for all $y$ in $(-L, L)$,
+    then its Fourier series has the form
+
+    \[
+        g(y) = a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right]
+    \]
+
+    for some set of coefficients, $[a_0, {\{a_m\}}_{m=1}^\infty, {\{b_m\}}_{m=1}^\infty]$.
+
+    @@ Use your results from 1(b) to derive an appropriate formula for each of $[a_0, {\{a_m\}}_{m=1}^\infty,
+    {\{b_m\}}_{m=1}^\infty]$ as an integral involving $g(y)$, over $-L \le y \le L$.\\
+
+    Since the coefficients that are bounded on $[-\pi, \pi]$ are defined as the inner product of each basis and the
+    function we can define ours as the same.
+
+    \begin{align*}
+        \langle 1, g(y) \rangle &=& \left\langle 1 ,
+            a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right] \right\rangle\\
+        &=& \left\langle 1 , a_0 \right\rangle + \sum_{m=1}^\infty \left[ a_m \left\langle 1, \cos \left( \frac{m \pi y}{L} \right) \right\rangle\right] +
+            \sum_{m=1}^\infty \left[ b_m \left\langle 1, \sin \left( \frac{m \pi y}{L} \right) \right\rangle \right] \\
+        &=& \left\langle 1 , a_0 \right\rangle + \sum_{m=1}^\infty \left[ a_m \left( \frac{2 L \sin (\pi  m)}{\pi m} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \cdot 0 \right] \\
+        &=& \int_{L}^L a_0 \, dy\\
+        &=& 2L a_0
+    \end{align*}
+
+    Therefore,
+
+    \begin{align*}
+        a_0 &=& \frac{1}{2L} \int_{-L}^L g(y) \, dy
+    \end{align*}
+
+    Now we can calculate $a_m$ in a similar way.
+
+    \begin{align*}
+        \left\langle \cos \left( \frac{ ny\pi }{L} \right) , g(y) \right\rangle &=& \left\langle \cos \left( \frac{ ny\pi }{L} \right),
+            a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right] \right\rangle\\
+        &=& \int_{-L}^L \cos \left( \frac{ ny\pi }{L} \right) \cdot\\
+            &&\left[ a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right] \right] \, dy\\
+        &=& \int_{-L}^L \left( a_0 \cos\left(\frac{ny\pi}{L}\right) \right) \, dy +\\
+            &&\sum_{m=1}^\infty \left[ a_m \int_{-L}^L \cos\left(\frac{ny\pi}{L}\right) \cos \left( \frac{m \pi y}{L} \right) \, dy \right] +\\
+            &&\sum_{m=1}^\infty \left[ b_m \int_{-L}^L \cos\left(\frac{ny\pi}{L}\right) \sin \left( \frac{m \pi y}{L} \right) \, dy \right]\\
+        &=& \sum_{m=1}^\infty \left[ a_m \int_{-L}^L \cos\left(\frac{ny\pi}{L}\right) \cos \left( \frac{m \pi y}{L} \right) \, dy \right]\\
+        &=& a_m L\\
+    \end{align*}
+
+    Therefore,
+
+    \begin{align*}
+        a_n &=& \frac{1}{L}\int_{-L}^L g(y) \cos \left( \frac{ny\pi}{L} \right) \, dy
+    \end{align*}
+
+    And finally $b_m$.
+
+    \begin{align*}
+        \left\langle \sin \left( \frac{ ny\pi }{L} \right) , g(y) \right\rangle &=& \left\langle \sin \left( \frac{ ny\pi }{L} \right),
+            a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right] \right\rangle\\
+        &=& \int_{-L}^L \sin \left( \frac{ ny\pi }{L} \right) \cdot\\
+            &&\left[ a_0 + \sum_{m=1}^\infty \left[ a_m \cos \left( \frac{m \pi y}{L} \right) \right] +
+            \sum_{m=1}^\infty \left[ b_m \sin \left( \frac{m \pi y}{L} \right) \right] \right] \, dy\\
+        &=& \int_{-L}^L \left( a_0 \sin\left(\frac{ny\pi}{L}\right) \right) \, dy +\\
+            &&\sum_{m=1}^\infty \left[ a_m \int_{-L}^L \sin\left(\frac{ny\pi}{L}\right) \cos \left( \frac{m \pi y}{L} \right) \, dy \right] +\\
+            &&\sum_{m=1}^\infty \left[ b_m \int_{-L}^L \sin\left(\frac{ny\pi}{L}\right) \sin \left( \frac{m \pi y}{L} \right) \, dy \right]\\
+        &=& \sum_{m=1}^\infty \left[ b_m \int_{-L}^L \sin\left(\frac{ny\pi}{L}\right) \sin \left( \frac{m \pi y}{L} \right) \, dy \right]\\
+        &=& b_m L\\
+    \end{align*}
+
+    Therefore,
+
+    \begin{align*}
+        b_n &=& \frac{1}{L} \int_{-L}^L g(y) \sin \left( \frac{ny\pi}{L} \right) \, dy
+    \end{align*}
+
+    Let's test to see if our coefficients are correct. Let $f(x) = \abs{x}$.
+
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def fourier_func(f, l, x, n):
+    # first term is value, second is error
+    # In form: a0 + avals + bvals
+    a0 = ((1 / (2 * l)) * si.quad(lambda z: f(z), -l, l)[0])
+    an = np.array([sum([(1 / l) * si.quad(lambda z: f(z) *
+                            np.cos(i * np.pi * z / l), -l, l)[0] *
+                        np.cos(i * np.pi * x0 / l)
+                            for i in range(1, n + 1)]) for x0 in x])
+    bn = np.array([sum([(1 / l) * si.quad(lambda z: f(z) *
+                            np.sin(i * np.pi * z / l), -l, l)[0] *
+                        np.sin(i * np.pi * x0 / l)
+                            for i in range(1, n + 1)]) for x0 in x])
+    res = a0 + an + bn
+    return res
+l = 10
+x = np.arange(-l, l, 0.1)
+f = lambda x: np.abs(x)
+plt.figure()
+plt.plot(x, f(x), label=r'$f(x)=|x|$')
+plt.plot(x, fourier_func(f, l, x, 1), label='1 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 2), label='2 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 5), label='5 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 10), label='10 Term Expansion')
+plt.legend(loc=1)
+plt.xlim(-15, 15)
+plt.ylim(0, 15)
+plt.show()
+\end{minted}
+\includegraphics[width= \linewidth]{./figures/hw1_figure2_1.pdf}
+
+\xdef\tpd{\the\prevdepth}
+\end{minipage}\\
+
+    \textbf{Awesome.}
+
+    @@ Set $g(y) = y^2 - L^2$, for $-L \le y \le L$. Find its Fourier series explicitly.\\
+
+    This is merely an extension of what we've done.
+
+    First we calculate $a_0$.
+
+    \begin{align*}
+        a_0 &=& \frac{1}{2L} \int_{-L}^L g(y) \, dy\\
+        &=& \frac{1}{2L} \int_{-L}^L \left( y^2 - L^2 \right) \, dy\\
+        &=& -\frac{2 L^2}{3}
+    \end{align*}
+
+    Now we find $a_n$.
+
+    \begin{align*}
+        a_n &=& \frac{1}{L} \int_{-L}^L g(y) \cos \left( \frac{n y \pi}{L} \right) \, dy\\
+        &=& \frac{1}{L} \int_{-L}^L (y^2 - L^2) \cos \left( \frac{n y \pi}{L} \right) \, dy\\
+        &=& \frac{4 L^2 (\pi  n \cos (\pi  n)-\sin (\pi n))}{\pi ^3 n^3}\\
+        &=& \frac{4 L^2 \cos (\pi  n)}{\pi^2 n^2}\\
+    \end{align*}
+
+    And finally, $b_n$.
+
+    \begin{align*}
+        a_n &=& \frac{1}{L} \int_{-L}^L g(y) \sin \left( \frac{n y \pi}{L} \right) \, dy\\
+        &=& \frac{1}{L} \int_{-L}^L (y^2 - L^2) \sin \left( \frac{n y \pi}{L} \right) \, dy\\
+        &=& 0\\
+    \end{align*}
+
+    This yields the resulting series:
+
+    \begin{align*}
+        g(y) &\approx& a_0 +
+            \sum_{m=1}^\infty a_m \cos \left( \frac{m \pi y}{L} \right) +
+            \sum_{m=1}^\infty b_m \sin \left( \frac{m \pi y}{L} \right)\\
+        &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi y}{L} \right) \right]\\
+    \end{align*}
+
+    We can test this for $L=10$.\\
+
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+l = 10
+x = np.arange(-l, l, 0.1)
+f = lambda x: x**2 - l**2
+def calculated_fourier(y, n):
+    a0 = -(2 * l**2 / 3)
+    an = np.array([sum([((4 * l**2 * np.cos(m * np.pi)) /
+                            (m**2 * np.pi**2)) *
+                        np.cos((m * np.pi * y0) / l)
+                        for m in range(1, n + 1)]) for y0 in y])
+    res = a0 + an
+    return res
+plt.figure()
+plt.plot(x, f(x), label=r'$f(x) = y^2 - {10}^2$')
+plt.plot(x, fourier_func(f, l, x, 1), label='1 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 2), label='2 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 5), label='5 Term Expansion')
+plt.plot(x, fourier_func(f, l, x, 10), label='10 Term Expansion')
+plt.plot(x, calculated_fourier(x, 10),
+            label='Calculated Fourier Expansion')
+plt.legend()
+plt.xlim(-15, 15)
+plt.ylim(-120, 75)
+plt.show()
+\end{minted}
+\includegraphics[width= \linewidth]{./figures/hw1_figure3_1.pdf}
+
+\xdef\tpd{\the\prevdepth}
+\end{minipage}\\
+
+    \textbf{Awesome.}
+
+    \newpage
+    @ Infinite series convergence.
+
+    @@ In problem 2(b), you found the Fourier series for $g(y) = y^2 - L^2$ on $-L \le y \le L$. Write down
+    $\{y^2-L^2=\text{Your Fourier Series}\}$ from 2(b).
+
+    \[
+        g(y) \approx -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi y}{L} \right) \right]\\
+    \]
+
+    @@ Give the first six non-zero terms of your series for $-L \le x < L$ explicitly.
+
+    \begin{align*}
+        g(y) &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^6 \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi y}{L} \right) \right]\\
+        &\approx& -\frac{2 L^2}{3} +
+            \frac{-4L^2}{\pi^2}\cos\left(\frac{\pi y}{L}\right) +
+            \frac{L^2}{\pi^2}\cos\left(\frac{2\pi y}{L}\right) +\\
+            &&\frac{-4L^2}{\pi^2 9}\cos\left(\frac{3\pi y}{L}\right) +
+            \frac{L^2}{\pi^2 4}\cos\left(\frac{4\pi y}{L}\right) +\\
+            &&\frac{-4L^2}{\pi^2 25}\cos\left(\frac{5\pi y}{L}\right) +
+            \frac{L^2}{\pi^2 9}\cos\left(\frac{6\pi y}{L}\right)\\
+    \end{align*}
+
+    @@ Evaluate the left and right sides of your answer to 3(a) at $y=0$, and obtain an explicit numerical value for
+    $\sum_{n=1}^\infty \left[ \frac{{(-1)}^{n+1}}{n^2} \right]$. Check the validity of your result by calculating the
+    first few partial sums numerically, to see if they are approaching your exact value for the sum.
+
+    @@@
+
+    \begin{align*}
+        y^2 - L^2 &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi y}{L} \right) \right]\\
+        -L^2 &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \right]\\
+        -L^2 &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{{(-1)}^m}{m^2} \right]\\
+    \end{align*}
+
+    @@@
+
+    \[
+        \sum_{n=1}^\infty \left[ \frac{{(-1)}^{n}}{n^2} \right] = -\frac{\pi^2}{12}
+    \]
+
+    @@@ We can combine these results.
+
+    \begin{align*}
+        -L^2 &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{{(-1)}^m}{m^2} \right]\\
+        -L^2 &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \left( -\frac{\pi^2}{12} \right)\\
+        -L^2 &\approx& -\frac{2 L^2}{3} + -\frac{L^2}{3}\\
+        -L^2 &\approx& -L^2\\
+    \end{align*}
+
+    @@ Evaluate your answer to 3(a) at $y=L$, and obtain an explicit formula for $\sum_{n=1}^\infty \frac{1}{n^2}$.
+    Check your result by calculating the first few partial sums.
+
+    \begin{align*}
+        L^2 - L^2 &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi L}{L} \right) \right]\\
+        0 &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{\cos^2(\pi  m)}{m^2} \right]\\
+        0 &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \left( \frac{\pi^2}{6} \right)\\
+        0 &\approx& -\frac{2 L^2}{3} + \frac{2L^2}{3}\\
+        0 &\approx& 0\\
+    \end{align*}
+
+    @@ Add your results from parts (b) and (c) to obtain an explicit formula for
+
+    \begin{align*}
+        \sum_{n=1}^\infty \frac{1}{{(2n - 1)}^2} &=& 1 + \frac{1}{9} + \frac{1}{25} + \cdots\\
+        &=& \frac{\pi^2}{8}
+    \end{align*}
+
+    @@ Evaluate your answer to 3(a) at $y = L / 2$. What happens?
+
+    \begin{align*}
+        g\left(\frac{L}{2}\right) &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi {\left(\frac{L}{2}\right)}}{L} \right) \right]\\
+        &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{\cos (\pi  m)}{m^2} \cos \left( \frac{m \pi}{2} \right) \right]\\
+        &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \left( \frac{-\pi^2}{48} \right)\\
+        &\approx& -\frac{2 L^2}{3} + \frac{-L^2}{12}\\
+        &\approx& -\frac{3 L^2}{4}\\
+    \end{align*}
+
+    @@ What happens if you evaluate your answer to 3(a) at $y=L/3$?
+
+    \begin{align*}
+        g\left(\frac{L}{3}\right) &\approx& -\frac{2 L^2}{3} + \sum_{m=1}^\infty \left[ \frac{4 L^2 \cos (\pi  m)}{\pi^2 m^2} \cos \left( \frac{m \pi {\left(\frac{L}{3}\right)}}{L} \right) \right]\\
+        &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{\cos (\pi  m)}{m^2} \cos \left( \frac{m \pi {\left(\frac{L}{3}\right)}}{L} \right) \right]\\
+        &\approx& -\frac{2 L^2}{3} + \frac{4L^2}{\pi^2} \sum_{m=1}^\infty \left[ \frac{\cos (\pi  m)}{m^2} \cos \left( \frac{m \pi}{3} \right) \right]\\
+    \end{align*}
+
+    A nightmare\ldots
+
+    \newpage
+    @ In this problem you will investigate implications on the coefficients of Fourier series when a function $f(x)$
+    defined on $-\pi \le x < \pi$ exhibits symmetry.
+
+    @@ Prove that if $f(x)$ is an odd function, then its Fourier series consists only of sine terms, called a sine
+    series.\\
+
+    Let us establish some function $f(x)$ such that $f$ is defined on $-\pi \le x < \pi$. By direct calculation we will
+    show that such a function, if it is odd, has only sine terms in its Fourier Series Expansion.\\
+
+    The Fourier Series equation is defined as the following.
+
+    \[
+        f(x) \approx a_0 + \sum_{n=1}^\infty \left[ a_n \cos(nx) \right] + \sum_{n=1}^\infty \left[ b_n \sin(nx) \right]
+    \]
+
+    With coefficients defined as
+
+    \begin{align*}
+        a_0 &=& \frac{1}{2 \pi} \int_{-\pi}^\pi f(x) \, dx\\
+        a_n &=& \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(nx) \, dx\\
+        b_n &=& \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx\\
+    \end{align*}
+
+    Since we know that $f(x)$ is odd, we can simplify our coefficients somewhat.
+
+    \begin{align*}
+        a_0 &=& 0\\
+        a_n &=& 0\\
+        b_n &=& \frac{1}{\pi} \int_{-\pi}^\pi \underbrace{f(x) \sin(nx)}_{\text{Even Function}} \, dx\\
+    \end{align*}
+
+    We can rewrite our original Fourier Expansion.
+
+    \[
+        f(x) \approx \sum_{n=1}^\infty \left[ \left( \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx \right) \sin(nx) \right]
+    \]
+
+    Because $\cos(nx)$ will either be $-1$ or $1$, this can be reduced to only contain sine terms.
+
+    This, of course, is also extensible to the interval $[-L, L]$.
+
+    @@ Suppose $f(x)$ is defined on for $0 \le x \le \pi$. Consider the odd extension of $f(x)$, $f_{odd}(x)$, as
+    follows.
+
+    \[
+        f_{odd}(x) = \begin{cases}
+            f(x) \qquad &0 \le x \le \pi\\
+            -f(-x) \qquad &-\pi \le x < 0\\
+        \end{cases}
+    \]
+
+    By part (a), we know that this odd function will have a sine series expansion. We will call this the sine series of
+    $f(x)$. Write a formula for the sine series coefficients ${\{b_m\}}_{m=1}^\infty$ in terms of $f(x)$. What is the
+    value of the sine series evaluated at $x=0$ and $x=\pi$?\\
+
+    Writing the formula for the coefficients is simple, as we've already done it in the previous part.
+
+    \[
+         {\{b_n\}}_{n=1}^\infty = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx
+    \]
+
+    We can find this precise value when $x = 0$ and when $x = \pi$.
+
+    @@@ $x = 0$
+    \begin{align*}
+         {\{b_n\}}_{n=1}^\infty &=& \frac{1}{\pi} \int_{-\pi}^\pi f(0) \sin(0) \, dx\\
+         &=& 0\\
+    \end{align*}
+
+    @@@ $x = \pi$
+    \begin{align*}
+         {\{b_n\}}_{n=1}^\infty &=& \frac{1}{\pi} \int_{-\pi}^\pi f(\pi) \sin(n\pi) \, dx\\
+         &=& 0\\
+    \end{align*}
+
+    @@ Using your result from part (b), determine the sine series expansion for the functions $f(x)=\cos(x)$ and
+    $g(x)=\sin(x)$ each restricted to the domain $0 \le x \le \pi$. Plot some partial sums of these sine series and
+    describe their behavior qualitatively as the number of terms is increased.\\
+
+    We simply just use our formula from before.
+
+    @@@ $f(x) = \cos(x)$
+
+    \begin{align*}
+        {\{b_n\}}_{n=1}^\infty &=& \frac{1}{\pi} \int_0^\pi \cos(x) \sin(nx) \, dx\\
+        &=& \frac{n (\cos (\pi  n)+1)}{\pi \left(n^2-1\right)}
+    \end{align*}
+
+    These terms will get smaller and smaller, which makes sense, as the sine term is trying to fit to a cosine term.
+
+    And hey! Let's plot that.\\
+
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+x = np.arange(2, 100, dtype=int)
+def terms(n):
+    res = []
+    for m in n:
+        res.append(sum([-((i * (np.cos(np.pi * i) + 1)) / (np.pi *
+(i**2 - 1))) for i in range(2, m + 1)]))
+    return np.array(res)
+plt.figure()
+plt.scatter(x, terms(x))
+plt.show()
+\end{minted}
+\includegraphics[width= \linewidth]{./figures/hw1_figure4_1.pdf}
+
+\xdef\tpd{\the\prevdepth}
+\end{minipage}\\
+
+    @@@ $f(x) = \sin(x)$
+
+    \begin{align*}
+        {\{b_n\}}_{n=1}^\infty &=& \frac{1}{\pi} \int_0^\pi \sin(x) \sin(nx) \, dx\\
+        &=& -\frac{\sin (\pi  n)}{\pi  \left(n^2-1\right)}
+        &=& 0\\
+    \end{align*}
+
+    We're not going to plot this one, because it's always zero. Intuitively this makes a lot of sense. Since our Fourier
+    Series solely contains sine terms, than we should really only need one, leaving the rest to be zero. This is evident
+    in the below graphs that show that for any $n$, the Fourier Expansion is accurate.
+
+    @@@ We will examine the Fourier Expansion.
+
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+l = np.pi
+x = np.arange(-l, l, 0.01)
+f1 = lambda x: np.cos(x)
+f2 = lambda x: np.sin(x)
+f, axarr = plt.subplots(2)
+axarr[0].plot(x, f1(x))
+axarr[0].plot(x, fourier_func(f1, l, x, 1))
+axarr[0].plot(x, fourier_func(f1, l, x, 2))
+axarr[0].plot(x, fourier_func(f1, l, x, 5))
+axarr[0].plot(x, fourier_func(f1, l, x, 10))
+axarr[1].plot(x, f2(x))
+axarr[1].plot(x, fourier_func(f2, l, x, 1))
+axarr[1].plot(x, fourier_func(f2, l, x, 2))
+axarr[1].plot(x, fourier_func(f2, l, x, 5))
+axarr[1].plot(x, fourier_func(f2, l, x, 10))
+plt.show()
+\end{minted}
+\includegraphics[width= \linewidth]{./figures/hw1_figure5_1.pdf}
+
+\xdef\tpd{\the\prevdepth}
+\end{minipage}\\
+\end{easylist}
+
+\end{document}

@@ -2,7 +2,7 @@ TEXFILE = DifferentialEquationsNotes.tex
 TEXDIR = ./tex/
 OUTPUT = DifferentialEquationsNotes.pdf
 
-all: attachments.tar.gz
+all: FinalReview.pdf
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)

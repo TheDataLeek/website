@@ -1,0 +1,483 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Four}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ \textit{Steady State Problems}
+
+    Let $u(x, t)$ denote the temperature in a metal rod of length $L$, with thermal conductivity $K_0 > 0$, and thermal
+    diffusivity $k >0$. The rod has uniform cross-section along the rod, and it is insulated on its sides. The rod
+    experiences non-uniform internal heating of the form $Q(x) = \frac{Mx}{L}$, for $0 < x < L$, where $M>0$ is a
+    positive constant. The governing equation for $u(x, t)$, the temperature of the rod, is
+
+    \[
+        u_t = ku_{xx} + \frac{Mx}{L} \qquad 0 < x < L \qquad t > 0
+    \]
+
+    The rod is subject to boundary conditions at each end of the rod. Three sets of boundary conditions are given below.
+
+    \begin{align*}
+        (i) \begin{cases}
+            u(0, t) = 20^\circ C\\
+            u_x(L, t) = 0
+        \end{cases}\\
+        (ii) \begin{cases}
+            u_x(0, t) = 0\\
+            u(L, t) = 20^\circ C
+        \end{cases}\\
+        (iii) \begin{cases}
+            u(0, t) = 20^\circ C\\
+            u(L, t) = 0^\circ C
+        \end{cases}
+    \end{align*}
+
+    In all three cases, the initial temperature is constant at $20^\circ C$.
+
+    @@ For each set of boundary conditions, find the solution of the steady state problem.\\
+
+    @@@ We can write our equation as the following.
+
+    \[
+        k u_{xx} + \frac{Mx}{L} = 0
+    \]
+
+    Taking the anti-derivatives yields the following equations.
+
+    \begin{align*}
+        u_{xx} &= \frac{-Mx}{Lk}\\
+        u_x &= \frac{-Mx^2}{2Lk} + A\\
+        u &= \frac{-Mx^3}{6Lk} + Ax + B\\
+    \end{align*}
+
+    We can use our boundary conditions to determine the coefficients.
+
+    \begin{align*}
+        u(0, t) \Rightarrow B = 20
+    \end{align*}
+
+    And,
+
+    \begin{align*}
+        u_x(L, t) \Rightarrow \frac{-ML^2}{2Lk} + A &= 0\\
+         A &= \frac{ML}{2k}\\
+    \end{align*}
+
+    Yielding the final equation of
+
+    \[
+        \boxed{%
+            u(x, t) = \frac{-Mx^3}{6Lk} + \frac{MLx}{2k} + 20\\
+        }
+    \]
+
+    @@@ Using the same general equation for $u$ as above, we can simply determine the coefficients again.
+
+    \begin{align*}
+        u_x(0,t) \Rightarrow A = 0
+    \end{align*}
+
+    And,
+
+    \begin{align*}
+        u(L,t) \Rightarrow -\frac{ML^2}{6k} + B &= 20\\
+        B &= 20 + \frac{ML^2}{6k}\\
+    \end{align*}
+
+    Yielding the final equation of
+
+    \[
+        \boxed{%
+            u(x, t) = \frac{-Mx^3}{6Lk} + \frac{ML}{6k} + 20\\
+        }
+    \]
+
+    @@@ And again, we can simply use the equation with the initial conditions, yielding the coefficients to be
+
+    \begin{align*}
+        A &= \frac{ML}{6k} - \frac{20}{L}\\
+        B&=20
+    \end{align*}
+
+    Yielding the final equation to be
+
+    \[
+        \boxed{%
+            u(x, t) = \frac{-Mx^3}{6Lk} + \left(\frac{ML}{6k} + \frac{20}{L}\right)x + 20
+        }
+    \]
+
+    @@ For the first two, sketch the steady-state solutions as functions of $x$. Choose a numerical value for $ML^2 / k$
+    for this sketch, and state the chosen value. Identify which sketch goes to which set of boundary conditions.\\
+
+
+
+    For the below plots, I chose the following constants.
+
+    \begin{align*}
+        L &= 10\\
+        M &= 3\\
+        k &= 7\\
+    \end{align*}
+
+    @@@
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+u = lambda x: (-M * x**3 / (6 * L * k)) + (M * L * x / (2 * k)) + 20
+plt.figure()
+plt.plot(x, u(x))
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure1_1.pdf}
+
+\noweave
+
+    @@@
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+u = lambda x: (-M * x**3 / (6 * L * k)) + (M * L**2 / (6 * k)) + 20
+plt.figure()
+plt.plot(x, u(x))
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure2_1.pdf}
+
+\noweave
+
+    @@@ We will also plot the third, as it is a simple check of my above solution.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+u = lambda x: ((-M * x**3 / (6 * L * k)) +
+                    (M * L * x / (6 * k)) -
+                    (20 * x / L) + 20)
+plt.figure(figsize=(16,8))
+plt.plot(x, u(x))
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure3_1.pdf}
+
+\noweave
+
+    @@ Find the steady state heat flux for each problem. Which way does the heat flow in each case?\\
+
+    This is simply the derivative.
+
+    @@@ Examining the derivative,
+
+    \[
+        u_x(x, t) = \frac{-Mx^2}{2Lk} + \frac{ML}{2k}
+    \]
+
+    we see that the flux is equal to $u_x(0)$, which is $ML / 2k$, a positive quantity. Therefore, heat flows to the
+    right.
+
+    @@@ Again, we can examine the derivative,
+
+    \[
+        u_x(x, t) = \frac{-Mx^2}{2Lk}
+    \]
+
+    This time, we can plug in $L$, and get $-ML / 2k$, a negative value. Therefore, heat flows to the left.
+
+    @@@ One last time\ldots
+
+    \[
+        u_x(x, t) = \frac{-Mx^2}{2Lk} + \frac{ML}{6k} + \frac{20}{L}
+    \]
+
+    Again, we'll use $L$, getting $-ML / (3k) + 20 / L$. Since $M > 0$, and $L > 0$, this is also a negative value,
+    meaning heat flows to the left.
+
+    @@ The first two differ only in terms of which boundary condition goes at which end. But the solution of one of the
+    problems has a significantly larger change of temperature from one end of the rod to the other. Between these two,
+    which problem has the bigger change of temperature from one end of the rod to the other? What is the physical
+    mechanism that makes it bigger?\\
+
+    $(i)$ has the larger change. This is a result of more heat being added at the insulated end.
+
+    (We can see this by graphing $Q(x)$.
+
+\simpleweave
+
+\includegraphics[width= 2in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure4_1.pdf}
+
+\nosimpleweave
+
+    @@ For the third case, what is the critical value of $ML^2/k$ at which the maximum temperature in the rod moves from
+    one end of the rod to the interior? Justify.\\
+
+    Using the equation we determined above,
+
+    \[
+        u(x, t) = \frac{-Mx^3}{6Lk} + \frac{MLx}{6k} + \frac{20x}{L} + 20
+    \]
+
+    As $M / k$ grows, this critical point changes.
+
+    We can prove this by letting $n = ML^2 / k$.
+
+    \begin{align*}
+        u(x, t) &= \frac{-nx^3}{6L^3} + \frac{nx}{6L} + \frac{20x}{L} + 20\\
+    \end{align*}
+
+    We can show this transition with the following plot, letting $L = 10$.
+
+\simpleweave
+
+\includegraphics[width= 6in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure5_1.pdf}
+
+\nosimpleweave
+
+    Taking the derivative with respect to $n$ yields the following equation.
+
+    \begin{align*}
+        u(x, t) &= \frac{-nx^3}{6L^3} + \frac{nx}{6L} + \frac{20x}{L} + 20\\
+    \end{align*}
+
+    Using this we see that the critical point is $n = L^3/k$.
+
+    @@ For the third case, write the entire solution of the problem as $u(x, t) = \overline{u}(x) + v(x, t)$, where
+    $\overline{u}(x)$ is the solution of the steady-state problem, and $v(x, t)$ is the solution of the transient
+    problem. Write down explicitly the set of equations that define $v(x, t)$, and show how you arrived at them.\\
+
+    We already know $\overline{u}(x)$, which we will denote as $u_{ss}(x)$. We now substitute $u(x, t)$ into the heat
+    equation.
+
+    \begin{align*}
+        u_t &= ku_{xx} + \frac{Mx}{L}\\
+        {(v + u_{ss})}_t &= k{(v + u_{ss})}_{xx} + \frac{Mx}{L}\\
+        v_t &= kv_{xx}\\
+    \end{align*}
+
+    Now we use our boundary conditions.
+
+    \begin{align*}
+        \alpha u(0, t) + \beta u(L, t)\\
+        \alpha v(0, t) + \alpha u_{ss}(0, t) + \beta v(L, t) + \beta u_{ss}(L, t)\\
+        \alpha v(0, t) + \beta v(L, t)\\
+    \end{align*}
+
+    Yielding our final solution as the following.
+
+    \[
+        u(x, t) = \underbrace{\frac{-Mx^3}{6Lk} + \frac{MLx}{6k} + \frac{20x}{L} + 20}_{\overline{u}(x, t)} +
+            \underbrace{\frac{ML}{k}}_{v(x, t)}
+    \]
+
+    \newpage
+    @ \textit{Heat equation in an insulated rod}
+
+    Consider the following IC/BC problem for the heat equation.
+
+    \begin{align*}
+        u_t = k u_{xx} \qquad &0 < x < L \qquad &t > 0\\
+        u(x, 0) = f(x) \qquad &0 < x < L \qquad &t = 0\\
+        u_x(0, t) = 0, u_x(L, t) = 0 \qquad &&t > 0\\
+    \end{align*}
+
+    @@ Does this problem have a steady-state solution? If so, what is it? Is it unique? Justify.\\
+
+    Yes, this problem has a steady solution since we have boundary conditions that are independent of time. This
+    solution is not unique however, as any constant temperature is a solution for the problem.
+
+    @@ Using separation of variables, determine a series solution of the transient problem. The coefficients can involve
+    explicit un-evaluated integrals.\\
+
+    First we establish $f$ and $g$ as functions of $t$ and $x$, respectively.
+
+    \begin{align*}
+        u(x, t) &= f(t) g(x)\\
+        u_t(x, t) &= f_t(t) g(x)\\
+        u_{xx}(x, t) &= f(t) g_{xx}(x)
+    \end{align*}
+
+    The heat equation implies the following.
+
+    \[
+        f_t(t) g(x) = k f(t) g_{xx}(x)
+    \]
+
+    We can divide both sides by $f(t)g(x)$.
+
+    \[
+        \frac{f_t(t)}{kf(t)} = \frac{g_{xx}(x)}{g(x)} = -\lambda
+    \]
+
+    Yielding two ordinary differential equations.
+
+    \begin{align*}
+        f_t(t) = -\lambda k f(t)\\
+        g_{xx}(x) = -\lambda g(x)
+    \end{align*}
+
+    We also know that the product solutions must satisfy the boundary conditions.
+
+    \begin{align*}
+        g_x(0)f(t) = 0 \Rightarrow g_x(0) = 0\\
+        g_x(L)f(t) = 0 \Rightarrow g_x(L) = 0\\
+    \end{align*}
+
+    Yielding eigenvalues and functions,
+
+    \begin{align*}
+        \lambda_n &= {\left(\frac{n\pi}{L}\right)}^2\\
+        \phi_n &= \cos\left(\frac{n\pi x}{L}\right)\\
+        n &= 0, 1, 2, 3, 4, \ldots\\
+    \end{align*}
+
+    Therefore our solutions will be
+
+    \[
+        u_n (x, t) = A_n \cos\left(\frac{n\pi x}{L}\right) \exp\left(-k{\left(\frac{n\pi}{L}\right)}^2 t\right)
+    \]
+
+    With solution
+
+    \[
+        u (x, t) = \sum_{n=0}^\infty \left[ A_n \cos\left(\frac{n\pi x}{L}\right) \exp\left(-k{\left(\frac{n\pi}{L}\right)}^2 t\right) \right]
+    \]
+
+    Using the initial condition, we see that
+
+    \[
+        u (x, 0) = \sum_{n=0}^\infty \left[ A_n \cos\left(\frac{n\pi x}{L}\right) \right]
+    \]
+
+    Leaving us with a cosine series, where $A_n$ is given by
+
+    \[
+        A_n = \begin{cases}
+            \frac{1}{L} \int_0^L f(x) \, dx \qquad &n = 0\\
+            \frac{2}{L} \int_0^L f(x) \cos\left(\frac{n\pi x}{L} \right) \, dx \qquad &else\\
+        \end{cases}
+    \]
+
+    @@ What is $\lim_{t\to\infty} u(x, t)$? Interpret the result physically. How does your answer reflect upon what you
+    found in part (a)?\\
+
+    As $t$ approaches $\infty$, the heat throughout the rod will approach the total heat contained. This makes sense
+    with our answer in part (a), as it will eventually reach a point where the system is no longer changing.
+
+    @@ Determine the solution explicitly when $f(x) = x^2 (1 - x^2), L = 1, k = 1$.\\
+
+
+
+    We can examine $f(x)$.
+
+\simpleweave
+
+\includegraphics[width= 3in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure6_1.pdf}
+
+\nosimpleweave
+
+    Now we can simply plug it into our equation from before.
+
+    \begin{align*}
+        A_n &= \begin{cases}
+            \frac{1}{L} \int_0^L f(x) \, dx \qquad &n = 0\\
+            \frac{2}{L} \int_0^L f(x) \cos\left(\frac{n\pi x}{L} \right) \, dx \qquad &else\\
+        \end{cases}\\
+        &= \begin{cases}
+            \frac{1}{L} \int_0^L x^2 (1 - x^2) \, dx \qquad &n = 0\\
+            \frac{2}{L} \int_0^L x^2 (1 - x^2) \cos\left(\frac{n\pi x}{L} \right) \, dx \qquad &else\\
+        \end{cases}\\
+    \end{align*}
+
+    This evaluates to 
+
+    \begin{align*}
+        A_n &= \begin{cases}
+            \frac{1}{L} \int_0^L x^2 (1 - x^2) \, dx \qquad &n = 0\\
+            \frac{2}{L} \int_0^L x^2 (1 - x^2) \cos\left(\frac{n\pi x}{L} \right) \, dx \qquad &else\\
+        \end{cases}\\
+            &= \begin{cases}
+            -\frac{L^4}{5} + \frac{L^2}{2} \qquad &n = 0\\
+            \frac{2L^2}{n^5\pi^5}\left(24L^2n\pi \cos(n\pi)+2n^3\pi^3(-2L^2+1)\cos(n\pi)\right) \qquad &else\\
+        \end{cases}\\
+    \end{align*}
+
+\simpleweave
+
+\includegraphics[width= 6in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw4_figure7_1.pdf}
+
+\nosimpleweave
+
+    \newpage
+    @ \textit{A Final Problem on Fourier Series}
+
+    \[
+        f(x) = \sum_{n=1}^\infty \left[ \frac{1}{n^2} \sin\left(\frac{n^2 \pi x}{L}\right) \right]
+    \]
+
+    @@ Show that the series converges absolutely. Conclude that $f(x)$ is continuous for all real $x$, and that it is
+    periodic, with period $2L$.\\
+
+    We need to show that
+
+    \[
+        \sum_{n=M+1}^\infty \abs{a_n} < \epsilon
+    \]
+
+    The steps are as follows.
+
+    \begin{align*}
+        \sum_{n=M+1}^\infty \abs{a_n}\\
+        \sum_{n=M+1}^\infty \abs{\frac{1}{n^2}}\\
+        \sum_{n=M+1}^\infty \frac{1}{n^2} \le \frac{\pi}{6} < \epsilon\\
+    \end{align*}
+
+    @@ Formally differentiate $f(x)$ by differentiating within the summation. Show that the formal series for
+    $f^\prime(x)$ converges for no real $x$. Explain why.\\
+
+    \begin{align*}
+        f(x) &= \sum_{n=1}^\infty \left[ \frac{1}{n^2} \sin\left(\frac{n^2 \pi x}{L}\right) \right]\\
+        f^\prime(x) &= \sum_{n=1}^\infty \left[ \frac{d}{dx} \left( \frac{1}{n^2} \sin\left(\frac{n^2 \pi x}{L}\right)\right) \right]\\
+        f^\prime(x) &= \sum_{n=1}^\infty \left[ \frac{1}{n^2} \left( \frac{d}{dx} \sin\left(\frac{n^2 \pi x}{L}\right)\right) \right]\\
+        f^\prime(x) &= \sum_{n=1}^\infty \left[ \frac{1}{n^2} \left( \frac{n^2 \pi \cos\left(\frac{n^2 \pi x}{L}\right)}{L} \right) \right]\\
+        f^\prime(x) &= \sum_{n=1}^\infty \left[ \frac{\pi \cos\left(\frac{n^2 \pi x}{L}\right)}{L} \right]\\
+        f^\prime(x) &= \frac{\pi}{2L} \sum_{n=1}^\infty \left[ \exp\left(\frac{in^2x\pi}{L}\right) + \exp\left(\frac{-in^2x\pi}{L}\right) \right]\\
+    \end{align*}
+
+    In order for this to converge, the following inequality must hold.
+
+    \[
+        \abs{\frac{\pm in^2x\pi}{L}} < 1
+    \]
+
+    For each case, $x$ must hold the value of
+
+    \[
+        \frac{1}{i} \cdot y
+    \]
+
+    where $\abs{y} \le 1$. Because of this complex part, this there is no \textit{real} value of $x$ for which this
+    holds.
+
+\end{easylist}
+
+
+\end{document}

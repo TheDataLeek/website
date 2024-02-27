@@ -1,0 +1,1107 @@
+\section{Preliminaries}
+
+There are three axioms that we start with. The Field Axiom, the Positivity Axiom, and the Completeness Axiom.
+
+    \subsection{Field Axiom}
+
+    To explain the field axiom we will use an example. $\mathbb{R}$ is a field as it obeys the definition of a field.
+
+    \begin{definition}[Field]
+        A field, $\mathcal{F}$, is a set $F$ together with two operations, ``$+$'' and ``$\cdot$'',
+        $\mathcal{F}=(F,+,\cdot)$ such that for all $a, b, c, \in F$:
+
+        If $x, y \in \mathcal{F}$ then
+        \NewList
+        \ListProperties(Hide=100, Margin=1cm)
+        \begin{easylist}
+            @ \textit{A0: Closure under Addition:} $x + y \in \mathcal{F}$.
+            @ \textit{A1: Communitivity under Addition:} $x + y = y + x$.
+            @ \textit{A2: Associativity under Addition:} $x + (y + z) = (x + y) + z$.
+            @ \textit{A3: Additive Identity:} $\exists 0 \in \mathcal{F}$ such that $x + 0 = x$.
+            @ \textit{A4: Additive Inverse:} $\forall x \in \mathcal{F}$, $\exists (-x) \in \mathcal{F}$ such that $x + (-x) = 0$.
+            @ \textit{M0: Closure under Multiplication:} $xy \in \mathcal{F}$.
+            @ \textit{M1: Communitivity under Multiplication:} $xy = yx$.
+            @ \textit{M2: Associativity under Multiplication:} $x(yz) = (xy)z$.
+            @ \textit{M3: Multiplicative Identity:} $\exists 1 \in \mathcal{F}$ such that $(1)x = x$.
+            @ \textit{M4: Multiplicative Inverse:} $\forall x \in \mathcal{F}$, $\exists x^{-1}$ such that
+                $(x)\left(x^{-1}\right) = 1$ as long as $x \neq 0$.
+            @ \textit{C1: Distributive Property:} $x(y + z) = xy + xz$.
+            @ \textit{C2: Non-Triviality:} $1 \neq 0$
+        \end{easylist}
+    \end{definition}
+
+    By this definition, $\mathbb{R}$ is a field.
+
+    \subsection{Positivity Axiom}
+
+    The following two postulates define the Positivity Axiom.
+
+    \begin{definition}[Positivity]
+        \begin{easylist}[enumerate]
+            @ If $a$ and $b$ are positive $(a, b > 0)$ then so is $a + b$ and $ab$.
+            @ For $a \in \mathbb{R}$, exactly one of the following is true:
+            @@ $a > 0$
+            @@ $a < 0$
+            @@ $a - 0$
+        \end{easylist}
+    \end{definition}
+
+    These postulates give an ordering on $\mathbb{R}$. Not all fields have order however. $\mathbb{C}$ for example does
+    not have this order.
+
+    \subsection{Completeness Axiom}
+
+        A nonempty set $S \subset \mathbb{R}$ is bounded above if there is a number $c$ such that $x \le c, \forall x \in
+        S$. $c$ is called the upper bound of $S$.
+
+        \begin{definition}[Completeness]
+            If $S$ is a non-empty subset of $\mathbb{R}$ that is bounded above then, among the set of upper bounds of
+            $S$, there exists a smallest, or least upper bound (lub, supremum, sup).
+
+            A non-empty set $S \subset \mathbb{R}$ is bounded below if $\exists c$ such that $c \le x, \forall x \in S$
+            then $c$ is called the greatest lower bound (glb, infinum, inf).
+        \end{definition}
+
+        \begin{definition}[Maximum]
+            If $S \subset \mathbb{R}, S \neq \emptyset, c \in S$, $c$ is called the maximum of $S$ provided that $c$ is
+            an upper bound.
+        \end{definition}
+
+    \subsection{Induction}
+
+    \begin{definition}[Inductive]
+        A set $S$ of real numbers is inductive if
+
+        \begin{easylist}[enumerate]
+            @ $1 \in S$
+            @ $x \in S \Rightarrow x + 1 \in S$
+        \end{easylist}
+    \end{definition}
+
+    We can prove using induction, which is covered in my other notes for Discrete Math.
+
+    \subsection{Denseness}
+
+    \begin{definition}[Dense]
+        A set $S$ is said to be dense in $\mathbb{R}$ provided every interval $I = (a, b)$ where $a < b$ contains a
+        member of $S$.
+    \end{definition}
+
+    \subsection{Useful Formulas}
+
+        \subsubsection{Distribution of Integers}
+        For any $c$ there exists exactly one integer in the interval $[c, c+1)$.
+
+        For any $a, b$ with $a < b$ there exists a rational number in the interval $(a, b)$.
+
+        \subsubsection{Archimedean Property}
+        The following two statements are equivalent.
+
+        \begin{easylist}[itemize]
+            @ For any $c > 0$, there exists some $n \in \mathbb{N}$ such that $n > c$.
+            @ For any $\epsilon > 0$, there exists some $n \in \mathbb{N}$ such that $\frac{1}{n} < \epsilon$.
+        \end{easylist}
+
+        \subsubsection{Formulas}
+        \begin{easylist}[itemize]
+            @ Difference of Powers:
+            \[
+                a^n - b^n = (a - b) \sum_{k = 0}^{n - 1} a^{n - 1 - k}b^k
+            \]
+            @ Geometric Sum
+            \[
+                \sum_{k = 0}^n r^k = \frac{1 - r^{n + 1}}{1 - r}
+            \]
+            @ Binomial Formula\footnote{\[ \binom{n}{k} = \frac{n!}{k!(n - k)!} \]}
+            \[
+                {(a + b)}^n = \sum_{k = 0}^n \binom{n}{k} a^{n - k} b^k
+            \]
+        \end{easylist}
+
+\newpage
+\section{Convergent Sequences}
+
+\begin{definition}[Sequence]
+    A sequence of real numbers is a real valued function, $f(x)$, whose domain is the set of natural numbers.
+\end{definition}
+
+\begin{definition}[Convergence]
+    A sequence $\{a_n\}$ is said to converge to $a$ provided that for every positive number $\epsilon$ there exists an
+    $N$ such that
+
+    \[
+        \abs{a_n - a} < \epsilon \qquad \forall n \ge N
+    \]
+
+    In other words, $\{a_n\}$ converges to $a$ if $\forall \epsilon$ there exists an $N$ such that
+
+    \[
+        a - \epsilon < a_n < a + \epsilon
+    \]
+
+    If $\{a_n\}$ converges to $a$ then
+
+    \[
+        \lim_{n \to \infty} a_n = a
+    \]
+\end{definition}
+
+\begin{definition}[Comparison Lemma]
+    Let $\{a_n\}$ converge to $a$, then $\{b_n\}$ converges to $b$ if there exists a non-negative number $C$ and $N$
+    such that
+
+    \[
+        \abs{b_n - b} \le C\abs{a_n - a} \qquad \forall n \ge N
+    \]
+\end{definition}
+
+    \subsection{Properties of Convergent Sequences}
+
+    Let $\{a_n\}$ and $\{b_n\}$ be two convergent sequences that converge to $a$ and $b$ respectively.
+
+    \begin{easylist}[itemize]
+        @ \textit{Sum Property:}
+        \[
+            \lim_{n \to \infty} \left( a_n + b_n \right) = \lim_{n \to \infty} a_n + \lim_{n \to \infty} b_n
+        \]
+        @ \textit{Constant Multiple:}
+        \[
+            \lim_{n \to \infty} \alpha \cdot a_n = \alpha \cdot a
+        \]
+        @ \textit{Product Property:}
+        \[
+            \lim_{n \to \infty} a_n \cdot b_n = a \cdot b
+        \]
+        @ \textit{Inverse:}
+        \[
+            \lim_{n \to \infty} \frac{1}{b_n} = \frac{1}{b}
+        \]
+        @ \textit{Quotient Property:}
+        \[
+            \lim_{n \to \infty} \frac{a_n}{b_n} = \frac{\lim_{n \to \infty} a_n}{\lim_{n \to \infty} b_n}
+        \]
+        @ \textit{Linearity Property:}
+        \[
+            \lim_{n \to \infty} \left( \alpha \cdot a_n + \beta \cdot b_n\right) =
+                \alpha \lim_{n \to \infty} a_n + \beta \lim_{n \to \infty} b_n
+        \]
+        @ \textit{Polynomial Property:} For any polynomial $p: \mathbb{R} \to \mathbb{R}$
+        \[
+            \lim_{n \to \infty} p(a_n) = p(a)
+        \]
+        @ \textit{Convergence:} A sequence is bounded if
+        \[
+            \abs{\{a_n\}} \le M
+        \]
+        Every convergent sequence is bounded.
+    \end{easylist}
+
+    \subsection{Denseness}
+    \begin{definition}[Dense]
+        A subset $S$ is dense if for every open interval $(a, b)$ there exists some point in $S$ contained in the
+        interval.
+    \end{definition}
+
+    We need to establish the concept of having a sequence being contained in a set. Some set $S$, $\{x_n\}$ is in the
+    set $S$ provided that for all indices $n$, $x_n \in S$.
+
+    Therefore $S$ is dense in $\mathbb{R}$ if and only if every $x$ is the limit of some sequence in $S$.
+
+    \begin{definition}[Sequential Density]
+        Every number is the limit of a sequence of rational numbers.
+    \end{definition}
+
+    \begin{definition}[Closed]
+        $S \subseteq \mathbb{R}$ is closed if $\{a_n\}$ is a sequence in $S$ that converges to $a$ and the limit $a$ is
+        contained in $S$.
+    \end{definition}
+
+    \subsection{Monotone Sequences}
+    A sequence $\{a_n\}$ is monotonically increasing if $a_{n+1} \ge a_n$, and decreasing if $a_{n+1} \le a_n$.
+
+    \begin{thm}[Monotone Convergence Theorem]
+        A monotone sequence converges if and only if it is bounded.
+    \end{thm}
+
+    The following propositions hold from the Monotone Convergence Theorem.
+
+    \begin{easylist}
+        @ Let $c$ be a number such that $\abs{c} < 1$, then
+        \[
+            \lim_{n \to \infty} c^n = 0
+        \]
+    \end{easylist}
+
+    \begin{thm}[Nested Interval Theorem]
+        For each natural number $n$, let $a_n$ and $b_n$ be numbers such that $a_n < b_n$, and consider the interval
+        $I_n \equiv [a_n, b_n]$. Assume that $I_{n + 1} \subseteq I_n$ for every index $n$. Also assume that
+        $\lim_{n\to\infty} [b_n - a_n] = 0$. Then there is exactly one point $x$ that belongs to the interval $I_n$ for
+        all $n$, and both of the sequences $\{a_n\}$ and $\{b_n\}$ converge to this point.
+    \end{thm}
+
+    \subsection{The Sequential Compactness Theorem}
+    \begin{definition}[Subsequence]
+        Let $\{a_n\}$ be some sequence. Let $\{n_k\}$ be a sequence of natural numbers that is strictly increasing. Then
+        the sequence $\{b_k\}$ defined by $b_k = a_{n_k}$ for any index $k$ is called a subsequence of the sequence
+        $\{a_n\}$.
+    \end{definition}
+
+    The following properties follow:
+
+    \begin{easylist}[itemize]
+        @ If $\{a_n\}$ converges to $a$, then every subsequence also converges to the same limit $a$.
+    \end{easylist}
+
+    \begin{thm}[Monotone Subsequences]
+        Every sequence has a monotone subsequence.
+    \end{thm}
+
+    \begin{thm}[Subsequence Convergence]
+        Every bounded sequence has a convergent subsequence.
+    \end{thm}
+
+    \begin{definition}[Sequential Compactness]
+        A set of real numbers $S$ is said to be sequentially compact provided that every sequence $\{a_n\}$ in $S$ has a
+        subsequence that converges to a point that belongs to $S$.
+    \end{definition}
+
+    \subsection{Covering Properties of Sets}
+    Let $S$ be a subset of $\mathbb{R}$ that is closed and bounded. Then $S$ is sequentially compact.
+
+    \begin{definition}[Compact]
+        A subset $S$ of $\mathbb{R}$ is said to be compact provided that any cover of $S$ by a collection
+        $\{I_n\}_{n=1}^\infty$ of open intervals has a finite subcover, that is, if for each index $n$, $I_n$ is an open
+        interval and
+
+        \[
+            S \subseteq U_{n=1}^\infty I_n
+        \]
+
+        then there is an index $N$ such that
+
+        \[
+            S \subseteq U_{n=1}^\infty I_N
+        \]
+    \end{definition}
+
+    Let $S$ be a compact subset of $\mathbb{R}$. Then $S$ is both closed and bounded.
+
+    Let $S$ be a sequentially compact subset of $\mathbb{R}$. Then $S$ is compact.
+
+    \begin{thm}[Sequentially Compact Properties]
+        For a subset $S$ of $\mathbb{R}$, the following three assertions are equivalent.
+
+        \begin{easylist}[itemize]
+            @ $S$ is closed and bounded.
+            @ $S$ is sequentially compact.
+            @ $S$ is compact.
+        \end{easylist}
+    \end{thm}
+
+\newpage
+\section{Continuity}
+
+In essence, a function is continuous if there exists a sequence in $x$ that corresponds to a sequence in $y$.
+
+\begin{definition}[Continuous]
+    A function $f:D \to \mathbb{R}$ is said to be continuous at the point $x_0$ in $D$ provided that whenever $\{x_n\}$
+    is a sequence in $D$ that converges to $x_0$, the image sequence $\{f(x_n)\}$ converges to $f(x_0)$. The function
+    $f:D \to \mathbb{R}$ is said to be continuous provided that it is continuous at every point in $D$.
+\end{definition}
+
+Given two functions $f:D\to\mathbb{R}$ and $g:D\to\mathbb{R}$, we define the sum $f+g:D \to \mathbb{R}$, and the product
+$fg:D\to\mathbb{R}$ by
+\ms{%
+    (f+g)(x) \equiv f(x) + g(x)\\
+    (fg)(x) \equiv f(x)g(x)
+}
+
+Some base properties hold.
+
+\begin{easylist}[enumerate]
+    @ Sums are continuous
+
+    @ Products are continuous
+
+    @ For non-zero functions, the quotient is continuous.
+
+    @ Polynomial quotients are continuous.
+
+    @ Compositions are continuous.
+\end{easylist}
+
+\begin{thm}[The Extreme Value Theorem]
+    A continuous function on a closed bounded interval
+
+    \[
+        f:[a, b] \to \mathbb{R}
+    \]
+    attains both a minimum and a maximum value.
+
+    Lemma: The image of a continuous function on a closed bounded interval is bounded above, that is, there is a number
+    $M$ such that
+
+    \[
+        f(x) \le M \qquad \forall x \in [a, b]
+    \]
+\end{thm}
+
+\begin{thm}[The Intermediate Value Theorem]
+    Suppose that the function $f:[a, b]\to\mathbb{R}$ is continuous. Let $c$ be a number strictly between $f(a)$ and
+    $f(b)$; that is
+
+    \[
+        f(a) < c < f(b) \qquad or \qquad f(b) < c < f(a)
+    \]
+
+    Then there is a point $x_0$ in the open interval $(a, b)$ at which $f(x_0) = c$
+\end{thm}
+
+\begin{definition}
+    A subset of $D$ of $\mathbb{R}$ is said to be convex provided that whenever the points $u$ an $v$ are in $D$ and $u
+    < v$, then the whole interval $[u, v]$ is contained in $D$.
+\end{definition}
+
+\begin{thm}
+    Let $I$ be an interval and suppose that the function $f:I\to\mathbb{R}$ is continuous. Then its image $f(I)$ also is
+    an interval.
+\end{thm}
+
+\begin{definition}
+    A function $f:D\to\mathbb{R}$ is said to be uniformly continuous provided that whenever $\cren{u_n}$ and
+    $\cren{v_n}$ are sequences in $D$ such that
+
+    \[
+        \lim_{n\to\infty} \bren{u_n - v_n} = 0
+    \]
+
+    then
+
+    \[
+        \lim_{n\to\infty} \bren{f(u_n) - f(v_n)} = 0
+    \]
+\end{definition}
+
+\begin{thm}
+    A continuous function on a closed bounded interval,
+
+    \[
+        f:[a, b] \to\mathbb{R}
+    \]
+
+    is uniformly continuous.
+\end{thm}
+
+    \subsection{The $\epsilon-\delta$ Criterion for Continuity}
+    \begin{definition}
+        A function $f:D\to\mathbb{R}$ is said to satisfy the $\epsilon-\delta$ criterion at a point $x_0$ in the domain
+        $D$ provided that for each positive number $\epsilon$ there is a positive number $\delta$ such that for $x$ in
+        $D$
+
+        \[
+            \abs{f(x) - f(x_0)} < \epsilon \qquad \text{if } \abs{x - x_0} < \delta
+        \]
+
+        This can be reworded as ``For each symmetric band of width $2\epsilon$ about the line $y=f(x_0)$ (no matter how
+        small this width is), there is an interval $(x_0-\delta,x_0+\delta)$, centered at $x_0$ and of diameter $2\delta
+        > 0$, such that the graph of the restriction of $f$ to this interval lies in the given band.''
+    \end{definition}
+
+    \begin{thm}
+        For a function $f:D\to\mathbb{R}$ and a point $x_0$ in its domain $D$, the following two assertions are
+        equivalent.
+
+        \begin{easylist}[enumerate]
+            @ The function $f$ is continuous at $x_0$; that is, for a sequence $\cren{x_n}$ in $D$,
+
+            \[
+                \lim_{n\to\infty} f(x_n) = f(x_0) \qquad \text{if } \lim_{n\to\infty} x_n = x_0
+            \]
+
+            @ The $\epsilon-\delta$ criterion at the point $x_0$ holds; that is, for each positive number $\epsilon$
+            there is a positive number $\delta$ such that for $x$ in $D$,
+
+            \[
+                \abs{f(x) - f(x_0)} < \epsilon \qquad \text{if } \abs{x - x_0} < \delta
+            \]
+        \end{easylist}
+    \end{thm}
+
+    \begin{definition}[The $\epsilon-\delta$ Criterion on the Domain]
+        A function $f:D\to\mathbb{R}$ is said to satisfy the $\epsilon-\delta$ criterion on the domain $D$ provided that
+        for each positive number $\epsilon$ there is a positive number $\delta$ such that for all $u, v$ in $D$,
+
+        \[
+            \abs{f(u) - f(v)} < \epsilon \qquad \text{if } \abs{u - v} < \delta
+        \]
+    \end{definition}
+
+    \begin{thm}
+        For a function $f:D\to\mathbb{R}$ the following two assertions are equivalent:
+
+        \begin{easylist}[enumerate]
+            @ The function is uniformly continuous; that is, for two sequences $\cren{u_n}$ and $\cren{v_n}$ in $D$,
+
+            \[
+                \lim_{n\to\infty} \bren{f(u_n) - f(v_n)} = 0 \qquad \text{if } \lim_{n\to\infty} \bren{u_n - v_n} = 0
+            \]
+
+            @ The function $f$ satisfies the $\epsilon-\delta$ criterion at the domain $D$; that is, for each positive
+            number $\epsilon$ there is a positive number $\delta$ such that for $u, v$ in $D$,
+
+            \[
+                \abs{f(u) - f(v)} < \epsilon \qquad \text{if } \abs{u - v} < \delta
+            \]
+        \end{easylist}
+    \end{thm}
+
+    \subsection{Images and Inverses; Monotone Functions}
+
+    \begin{definition}
+        The function $f$ is called monotonically increasing provided that
+
+        \[ f(v) \ge f(u) \qquad \forall u, v \in D | v > u \]
+
+        Decreasing in the reverse. If a function is one or the other, it is said to be monotone. If the inequality is
+        changed to be strict, then we call it strictly monotone.
+    \end{definition}
+
+    \begin{thm}
+        Suppose that the function $f$ is monotone. If its image $f(D)$ is an interval, then the function $f$ is
+        continuous.
+
+        Corollary: Let $I$ be an interval and suppose that the function $f:I\to\mathbb{R}$ is monotone. Then the function
+        $f$ is continuous iff its image $f(I)$ is an interval.
+    \end{thm}
+
+    \begin{thm}
+        Let $I$ be an interval and suppose that the function $f:I\to\mathbb{R}$ is strictly monotone. Then the inverse
+        function $f^{-1}:f(I)\to\mathbb{R}$ is continuous.
+    \end{thm}
+
+    \begin{definition}
+        For $x>0$ and rational number $r = m/n$, where $m$ and $n$ are integers with $n$ positive, we define
+
+        \[ x^r \equiv \pren{x^m}^\pren{1/n} \]
+    \end{definition}
+
+    \subsection{Limits}
+
+    \begin{definition}
+        For a set $D$ of real numbers, the number $x_0$ is called a limit point of $\mathbb{D}$ provided that there is a
+        sequence of points in $D \setminus \cren{x_0}$ that converges to $x_0$.
+    \end{definition}
+
+    \begin{definition}
+        Given a function $f:D\to\mathbb{R}$ and a limit point $x_0$ of its domain $D$, for a number $l$, we write
+
+        \[ \lim_{x\to x_0} f(x) = l \]
+    \end{definition}
+
+    \begin{thm}
+        For functions $f$ and $g$, and a limit point $x_0$ of their domains $D$, suppose that
+
+        \[ \lim_{x\to x_0} f(x) = A \qquad \text{and} \qquad \lim_{x \to x_0} g(x) = B \]
+
+        Then
+        \ms{%
+            \lim_{x \to x_0} \bren{f(x) + g(x)} &= A + B\\
+            \lim_{x \to x_0} \bren{f(x) g(x)} &= AB
+        }
+
+        and if $B \neq 0$ and $g(x) \neq 0$ for all $x$ in $D$,
+
+        \[
+            \lim_{x \to x_0} \frac{f(x)}{g(x)} = \frac{A}{B}
+        \]
+    \end{thm}
+
+    This extends to function compositions.
+
+\newpage
+\section{Differentiation}
+
+An open interval $I = (a, b)$ that contains the point $x_0$ is called a neighborhood of $x_0$.
+
+\begin{definition}
+    Let $I$ be a neighborhood of $x_0$. Then the function $f$ is said to be differentiable at $x_0$ provided that
+
+    \[
+        \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+    \]
+
+    exists, in which case we denote this limit by $f^\prime(x_0)$ and call it the derivative of $f$ at $x_0$. If the
+    function is differentiable at every point in $I$, we say that $f$ is differentiable, and call $f^\prime$ the
+    derivative of $f$.
+
+    A differentiable function is continuous.
+\end{definition}
+
+\noindent \textbf{Some rules:}
+
+\begin{easylist}[enumerate]
+    @ $\pren{x^n}^\prime \Rightarrow nx^{n-1}$
+    @ $\pren{f+g}^\prime \Rightarrow f^\prime + g^\prime$
+    @ $\pren{fg}^\prime \Rightarrow f^\prime g + f g^\prime$
+    @ Polynomials are differentiable.
+    @ $\pren{g \circ f}^\prime (x_0) = g^\prime(f(x_0))f^\prime(x_0)$
+\end{easylist}
+
+\begin{thm}[Derivative of the Inverse]
+    Let $I$ be a neighborhood of $x_0$ and let the function $f:I\to\mathbb{R}$ be strictly monotone and continuous.
+    Suppose that $f$ is differentiable at $x_0$ and that $f^\prime(x_0) \neq 0$. Define $J = f(I)$. Then the inverse
+    $f^{-1}:J\to\mathbb{R}$ is differentiable at the point $y_0 = f(x_0)$ and
+
+    \[
+        \pren{f^{-1}}^\prime (y_0) = \frac{1}{f^\prime(x_0)}
+    \]
+
+    Corollary: Let $I$ be an open interval and suppose that the function $f:I\to\mathbb{R}$ is strictly monotone and
+    differentiable with a nonzero derivative at each point in $I$. Define $J = f(I)$. Then the inverse function
+    $f^{-1}:J\to\mathbb{R}$ is differentiable and
+
+    \[
+        \pren{f^{-1}}^\prime(x) = \frac{1}{f^\prime\pren{f^{-1}(x)}}
+    \]
+\end{thm}
+
+\begin{thm}[Rolle's Theorem]
+    Suppose that the function $f:[a, b]\to\mathbb{R}$ is continuous and that the restriction of $f$ to the open interval
+    $(a, b)$ is differentiable. Assume, moreover, that
+
+    \[ f(a) = f(b) \]
+
+    Then there is a point $x_0$ in the open interval $(a, b)$ at which
+
+    \[ f^\prime(x_0) = 0 \]
+\end{thm}
+
+\begin{thm}[Mean Value Theorem]
+    Suppose that the function $f:[a, b]\to\mathbb{R}$ is continuous and that the restriction of $f$ to the open interval
+    $(a, b)$ is differentiable. Then there is a point $x_0$ in the open interval $(a, b)$ at which
+
+    \[ f^\prime(x_0) = \frac{f(b) - f(a)}{b-a} \]
+
+    Lemma: Let $I$ be a neighborhood of $x_0$ and suppose that the function $f:I\to\mathbb{R}$ is differentiable at
+    $x_0$. If the point $x_0$ is either a maximizer or a minimizer of the function $f:I\to\mathbb{R}$, then
+    $f^\prime(x_0) = 0$.
+\end{thm}
+
+\begin{thm}[The Identity Criterion]
+    A function $f$ is said to be constant provided that there is some number $c$ such that $f(x) = c$ for all $x$ in
+    $D$.
+
+    This function is also constant if $f^\prime = 0$ for all $x$ in $I$.
+
+    Let functions $g$ and $h$ be differentiable. These functions differ by a constant\footnote{$g(x) = h(x) + c$} iff
+    $g^\prime(x) = h^\prime(x)$. These functions are the same if at some point $x_0$, $g(x_0) = h(x_0)$.
+\end{thm}
+
+\begin{thm}[The Monotone Criterion]
+    If $f^\prime(x) > 0$ for all $x$, then $f$ is strictly increasing.
+\end{thm}
+
+\begin{thm}[The Maximizer and Minimizer Criterion]
+    A point $x_0$ in the domain of a function $f$ is said to be a local maximizer for $f$ provided that there is some
+    $\delta > 0$ such that
+
+    \[
+        f(x) \le f(x_0) \qquad \text{for all $x$ in $D$ such that } \abs{x - x_0} < \delta
+    \]
+
+    This is flipped for minimizers.
+
+    If $x_0$ is a minimizer or maximizer, then $f^\prime(x_0) = 0$. This also implies
+
+    \[
+        \begin{cases}
+            f^{\prime\prime} > 0 \Rightarrow x_0 \text{ is minimizer}\\
+            f^{\prime\prime} < 0 \Rightarrow x_0 \text{ is maximizer}\\
+        \end{cases}
+    \]
+\end{thm}
+
+\begin{thm}[The Cauchy Mean Value Theorem]
+    Suppose that the functions $f:[a, b]\to\mathbb{R}$ and $g:[a, b]\to\mathbb{R}$ are continuous and that their
+    restrictions to the open interval $(a, b)$ are differentiable. Moreover assume that
+
+    \[ g^\prime(x) \neq 0 \qquad \forall x \in (a, b) \]
+
+    Then there is a point $x_0$ in the open interval $(a, b)$ at which
+
+    \[
+        \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f^\prime(x_0)}{g^\prime(x_0)}
+    \]
+
+    Lemma: Let $I$ be an open interval and $n$ be a natural number and suppose that the function $f:I\to\mathbb{R}$ has
+    $n$ derivatives. Suppose also that at the point $x_0$ in $I$,
+
+    \[ f^\pren{k}(x_0) = 0 \qquad 0 \le k \le n - 1 \]
+
+    Then, for each point $x \neq x_0$ in $I$, there is a point $z$ strictly between $x$ and $x_0$ at which
+
+    \[ f(x) = \frac{f^\pren{n}(z)}{n!}\pren{x-x_0}^n \]
+\end{thm}
+
+\section{Differential Equations}  % TODO: More work here? Kinda dry.....
+We can provisionally solve a variety of differential equations.
+
+    \subsection{The Identity Criterion}
+    A differentiable function $g:I\to\mathbb{R}$, where $I$ is an open interval, is identically equal to 0 iff
+
+    \begin{easylist}[enumerate]
+        @ its derivative $g^\prime:I\to\mathbb{R}$ is identically equal to 0, and
+        @ there is some point $x_0 \in I$ at which $g(x_0) = 0$.
+    \end{easylist}
+
+    \subsection{The Logarithmic Differential Equation}
+    This is defined as
+    \ms{
+        \begin{cases}
+            F^\prime (x) = \frac{1}{x} \qquad \forall x > 0\\
+            F(1) = 0
+        \end{cases}
+    }
+
+    \begin{thm}
+        Let the function $F:(0, \infty) \to \mathbb{R}$ satisfy the differential equation above. Then,
+
+        \begin{easylist}[enumerate]
+            @ $F(ab) = F(a) + F(b) \forall a, b > 0$.
+            @ $F(a^r) = r F(a)$ if $a > 0$ and $r$ is rational.
+            @ For each number $c$ there is a unique positive number $x$ such that $F(x) = c$.
+        \end{easylist}
+    \end{thm}
+
+    This function is the natural logarithm, denoted $\ln x$. Also, $ln 1 = e$, $a^x \equiv \exp(x \ln a)$
+
+    \subsection{The Trigonometric Differential Equation}
+    This is defined as
+    \ms{
+        \begin{cases}
+            f^{\prime\prime} + f(x) = 0 \qquad \forall x\\
+            f(0) = 1\\
+            f^\prime(0) = 0
+        \end{cases}
+    }
+
+    This is solved by sine and cosine.
+
+\section{Integration: Two Fundamental Theorems}
+
+    \subsection{Darboux Sums}
+
+    \begin{definition}[Partition]
+        Let $a$ and $b$ be real numbers with $a < b$. If $n$ is a natural number and
+        \ms{
+            a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b
+        }
+
+        then $P=\cren{x_n, \ldots, x_n}$ is called a partition of the interval $[a, b]$. For each index $i \ge 0$, we
+        call $x_i$ a partition point of $P$, and if $i \ge 1$, we call the interval $[x_{i-1}, x_i]$ a partition
+        interval of $P$.
+    \end{definition}
+
+    Suppose that some function $f$ is bounded, and the partition $P$ is a partition of its domain. For each index $i$ we
+    define
+    \ms{
+        m_i \equiv \inf\cren{f(x) | x \in [x_{i-1}, x_i]}\\
+        M_i \equiv \sup\cren{f(x) | x \in [x_{i-1}, x_i]}
+    }
+
+    We then define
+    \ms{
+        L(f, P) \equiv \sum_{i=1}^n m_i \pren{x_i - x_{i-1}}\\
+        U(f, P) \equiv \sum_{i=1}^n M_i \pren{x_i - x_{i-1}}
+    }
+
+    $U$ is the upper Darboux Sum based on the partition $P$, and $L$ is the lower. It follows from the definitions above
+    that
+    \ms{%
+        m_i \le M_i
+    }
+
+    Therefore, for any partition $P$,
+    \ms{%
+        L(f, P) \le U(f, P)
+    }
+
+    Based on our intuitive definition of the integral, it also follows that
+    \ms{%
+        L(f, P) \le \int_a^b f \le U(f, P)
+    }
+
+    \begin{thm}[The Refinement Lemma]
+        Suppose that the function $f:[a, b] \to \mathbb{R}$ is bounded and that $P$ is a partition of its domain $[a,
+        b]$. If $P^*$ is a refinement of $P$, then
+        \ms{%
+            L(f, P) \le L(f, P^*)\\
+            U(f, P^*) \le U(f, P)
+        }
+    \end{thm}
+
+    \begin{thm}
+        Suppose that the function $f$ is bounded, and that $P_1$ and $P_2$ are partitions of its domain $[a, b]$. Then
+        \ms{%
+            L(f, P_1) \le U(f, P_2)
+        }
+    \end{thm}
+
+    \subsection{The Archimedes-Riemann Theorem}
+
+    \begin{definition}
+        Suppose that some function $f$ is bounded. Then we say that $f$ is integrable on $[a, b]$ (or just integrable)
+        if
+        \ms{%
+            \underline{\int_a^b} f = \overline{\int_a^b} f
+        }
+    \end{definition}
+
+    \begin{thm}[The Archimedes-Riemann Theorem]
+        Let $f$ be a bounded function. Then $f$ is integrable on $[a, b]$ iff there is a sequence $\cren{P_n}$ of
+        partitions of the interval $[a, b]$ such that
+        \ms{%
+            \lim_{n\to\infty} \bren{U\pren{f, P_n} - L\pren{f, P_n}} = 0
+        }
+
+        Moreover, for any sequence of partitions,
+        \ms{%
+            \lim_{n\to\infty} L\pren{f, P_n} = \int_a^b f
+            \quad \text{and} \quad
+            \lim_{n\to\infty} U\pren{f, P_n} = \int_a^b f
+        }
+    \end{thm}
+
+    \begin{definition}
+        Let the function $[a, b]:\mathbb{R}\to\mathbb{R}$ be bounded and for each natural number $n$, let $P_n$ be a
+        partition of its domain $[a, b]$. Then $\cren{P_n}$ is said to be an Archimedean sequence of partitions for $f$
+        on $[a, b]$ provided that
+        \ms{%
+            \lim_{n\to\infty} \bren{U\pren{f, P_n} - L\pren{f, P_n}} = 0
+        }
+    \end{definition}
+
+    \begin{definition}[Regular Partitions]
+        For a natural number $n$, the partition $P=\cren{x_0, \ldots, x_n}$ of the interval $[a, b]$ defined by
+        \ms{%
+            x_i = a + i \frac{b - a}{n} \qquad \forall 0 \le i \le n
+        }
+        is called the regular partition of $[a, b]$ into $n$ partition intervals. It is characterized by the fact that
+        all partition intervals are the same length, namely $(b - a) / n$.
+    \end{definition}
+
+    \begin{definition}[The Gap of a Partition]
+        For a partition $P=\cren{x_0, \ldots, x_n}$ of the interval $[a, b]$, we define the gap of $P$, denoted by
+        $\text{gap } P$, to be the length of the largest partition interval of $P$, that is,
+        \ms{%
+            \text{gap } P \equiv \max_{1 \le i \le n} [x_i - x_{i-1}]
+        }
+    \end{definition}
+
+    \subsection{Linearity}
+    \begin{thm}[Linearity of the Integral]
+        Let the two functions $f$ and $g$ be integrable. Then, for any two numbers, $\alpha$ and $\beta$, the function
+        $\alpha f + \beta g$ is integrable, and
+        \ms{%
+            \int_a^b \bren{\alpha f + \beta g} = \alpha \int_a^b f + \beta \int_a^b g
+        }
+    \end{thm}
+
+    \subsection{Continuity and Integrability}
+    \begin{thm}
+        Two Theorems in this section:
+
+        \begin{easylist}[enumerate]
+            @ A continuous function on a closed, bounded interval is integrable.
+            @ Suppose that the function $f$ is bounded on the closed interval $[a, b]$ and is continuous on the open
+            interval $(a, b)$. Then $f$ is integrable on $[a, b]$ and the value of the integral $\int_a^b f$ does not
+            depend on the values of $f$ at the endpoints of the interval.
+        \end{easylist}
+    \end{thm}
+
+    \subsection{The First Fundamental Theorem: Integrating Derivatives}
+    \begin{thm}[Integrating Derivatives]
+        Let the function $F$ be continuous on the closed interval $[a, b]$ and be differentiable on the open interval
+        $(a, b)$. Moreover, suppose that its derivative $F^\prime:(a, b) \to\mathbb{R}$ is both continuous and bounded.
+        Then
+        \ms{%
+            \int_a^b F^\prime(x) \, dx = F(b) - F(a)
+        }
+    \end{thm}
+
+    \subsection{The Second Fundamental Theorem: Differentiating Integrals}
+    \begin{thm}[The Mean Value Theorem for Integrals]
+        Suppose that the function $f$ is continuous, then there is a point $x_0 \in [a, b]$ at which
+        \ms{%
+            \frac{1}{b-a} \int_a^b f = f(x_0).
+        }
+    \end{thm}
+
+    \begin{thm}[Differentiating Integrals]
+        Suppose that the function $f$ is continuous. Then
+        \ms{%
+            \frac{d}{dx} \bren{\int_a^x f} = f(x) \qquad \forall x \in (a, b)
+        }
+    \end{thm}
+
+\section{Approximation by Taylor Polynomials}
+    \subsection{Taylor Polynomials}
+    \begin{definition}
+        Let $I$ be a neighborhood of the point $x_0$. Two functions $f$ and $g$ are said to have contact of order $0$ at
+        $x_0$ provided that $f(x_0) = g(x_0)$. For a natural number $n$, the functions $f$ and $g$ are said to have
+        contact of order $n$ at $x_0$ provided that $f$ and $g$ have $n$ derivatives and
+        \ms{%
+            f^\pren{k}(x_0) = g^\pren{k}(x_0) \qquad 0 \le k \le n
+        }
+    \end{definition}
+
+    \begin{thm}[Taylor Polynomial]
+        Let $I$ be a neighborhood of the point $x_0$ and let $n$ be a nonnegative integer. Suppose that the function $f$
+        has $n$ derivatives. Then there is a unique polynomial of degree at most $n$ that has contact of order $n$ with
+        the function $f$ at $x_0$. This polynomial is defined by the formula
+        \ms{%
+            p_n(x) = f(x_0) + f^\prime(x_0)(x - x_0) + \cdots + \frac{f^\pren{n}(x_0)}{n!} \pren{x - x_0}^n
+        }
+    \end{thm}
+
+    \subsection{The Lagrange Remainder Theorem}
+    Using the Cauchy Mean Value Theorem, we can define the Lagrange Remainder Theorem.
+
+    \begin{thm}[Lagrange Remainder Theorem]
+        Let $I$ be a neighborhood of the point $x_0$ and let $n$ be a non-negative integer. Suppose that the function
+        $f$ has $n+1$ derivatives. Then, for each point $x\neq x_0$ in $i$, there is a point $c$ strictly between $x$
+        and $x_0$ such that
+        \ms{%
+            f(x) = \sum_{k=0}^n \frac{f^\pren{k}(x_0)}{k!} \pren{x - x_0}^k +
+                \frac{f^\pren{n+1}(c)}{\pren{n+1}!}\pren{x-x_0}^{n+1}
+        }
+    \end{thm}
+
+    \subsection{The Convergence of Taylor Polynomials}
+    For some sequence of numbers $\cren{a_k}$ that is indexed by the nonnegative integers, we define
+    \ms{%
+        s_n = \sum_{k=0}^n a_k
+    }
+    and obtain a new sequence $\cren{s_n}$ called the sequence of partial sums.
+
+    Let $I$ be a neighborhood of the point $x_0$, and suppose that the function $f$ has derivatives of all orders. The
+    $n$th Taylor Polynomial for $f$ at $x_0$ is defined by
+    \ms{%
+        p_n(x) = \sum_{k=0}^n \frac{f^\pren{k}(x_0)}{k!} \pren{x - x_0}^k
+    }
+    Using our partial sum notation, if $x$ is a point in $I$ at which
+    \ms{%
+        \lim_{n\to\infty} p_n(x) = f(x)
+    }
+    we write
+    \ms{%
+        f(x) = \sum_{k=0}^n \frac{f^\pren{k}(x_0)}{k!} \pren{x - x_0}^k
+    }
+    However, this only holds if
+    \ms{%
+        \lim_{n\to\infty} \bren{f(x) - p_n(x)} = 0
+    }
+
+    \begin{thm}[Useful Lemma]
+        For any number $c$,
+        \ms{%
+            \lim_{n\to\infty} \frac{c^n}{n!} = 0
+        }
+    \end{thm}
+
+    \begin{thm}
+        Let $I$ be a neighborhood of the point $x_0$ and suppose that the function $f$ has derivatives of all orders.
+        Suppose also that there are positive numbers $r$ and $M$ such that the interval $\bren{x_0 - r, x_0 + r}$ is
+        contained in $I$ and that for every natural number $n$ and every point $x$ in the aforementioned interval,
+        \ms{%
+            \abs{f^\pren{n}(x)} \le M^n
+        }
+        Then
+        \ms{%
+            f(x) = \sum_{k=0}^n \frac{f^\pren{k}(x_0)}{k!} \pren{x - x_0}^k \qquad \text{if } \abs{x - x_0} \le r
+        }
+    \end{thm}
+
+    \begin{thm}[Corollary]
+        \ms{%
+            e^x &= \sum_{k=0}^\infty \frac{x^k}{k!}\\
+            \cos x &= \sum_{k=0}^\infty \frac{\pren{-1}^k}{\pren{2k}!}
+        }
+    \end{thm}
+
+    \subsection{The Cauchy Integral Remainder Theorem}
+    If $I$ is a neighborhood of the point $x_0$ and the function $f$ is differentiable, then, by the Mean Value Theorem,
+    for each point $x$ in $I$, there is a point $c$ strictly between $x$ and $x_0$ such that
+    \ms{%
+        f(x) = f(x_0) + f^\prime(c)(x-x_0)
+    }
+    If we further assume that the derivative $f^\prime$ is continuous, then, by the first fundamental theorem,
+    \ms{%
+        f(x)=f(x_0)+\int_{x_0}^x f^\prime(t) \, dt
+    }
+
+    \begin{thm}[The Cauchy Integral Remainder Formula]
+        Let $I$ be a neighborhood of the point $x_0$ and $n$ be a natural number. Suppose that the function $f$ has
+        $n+1$ derivatives, and that $f^\pren{n+1}$ is continuous. Then for each point $x \in I$,
+        \ms{%
+            f(x) = \sum_{k=0}^n \frac{f^\pren{k}(x_0)}{k!} \pren{x - x_0}^k +
+                \frac{1}{n!} \int_{x_0}^x f^\pren{n+1}(t)\pren{x -t}^n \, dt
+        }
+    \end{thm}
+
+    \begin{thm}[The Ratio Lemma for Sequences]
+        Suppose that $\cren{c_n}$ is a sequence of nonzero numbers with the property that
+        \ms{%
+            \lim_{n\to\infty} \frac{\abs{c_{n+1}}}{\abs{c_n}} = \textarn{f}
+        }
+        \begin{easylist}[enumerate]
+            @ If $\textarn{f} < 1$, then
+            \ms{%
+                \lim_{n\to\infty} c_n = 0
+            }
+            @ If $\textarn{f} > 1$, then the sequence is unbounded.
+        \end{easylist}
+    \end{thm}
+
+    \subsection{The Weierstrass Approximation Theorem}
+    \begin{thm}[The Weierstrass Approximation Theorem]
+        Let $I$ be a closed bounded interval and suppose that the function $f$ is continuous. Then for each positive
+        number $\epsilon$, there is a polynomial $p$ such that
+        \ms{%
+            \abs{f(x) - p(x)} < \epsilon \qquad \text{for all points } x \in I
+        }
+    \end{thm}
+
+\section{Sequences and Series of Functions}
+    \subsection{Sequences and Series of Numbers}
+
+    \begin{definition}[The Cauchy Convergence Criterion for Sequences]
+        A sequence of numbers $\cren{a_n}$ is said to be a Cauchy Sequence provided that for each positive number
+        $\epsilon$ there is an index $N$ such that
+        \ms{%
+            \abs{a_n - a_m} < \epsilon \qquad \text{if } n \ge N \text{ and } m \ge N
+        }
+        \begin{easylist}[enumerate]
+            @ Every convergent sequence if Cauchy.
+            @ Every Cauchy Sequence is bounded.
+        \end{easylist}
+    \end{definition}
+
+    \begin{thm}[The Cauchy Convergence Criterion for Sequences]
+        A sequence of numbers converges iff it is a Cauchy Sequence.
+    \end{thm}
+
+    \begin{thm}[Convergence Tests for Series]
+        The following tests help prove convergence:
+
+        \begin{easylist}[enumerate]
+            @ Suppose that the series $\sum_{n=1}^\infty a_n$ converges. Then
+            \ms{%
+                \lim_{n\to\infty} a_n = 0
+            }
+            @ For a number $f$ such that $\abs{r} < 1$,
+            \ms{%
+                \sum_{k=0}^\infty r^k = \frac{1}{1-r}
+            }
+            @ (The Comparison Test) Suppose that $\cren{a_k}$ and $\cren{b_k}$ are sequences of numbers such that for
+            index $k$,
+            \ms{ 0 \le a_k \le b_k }
+            @@ The series $\sum_{k=0}^\infty a_k$ converges if the series $\sum_{k=0}^\infty b_k$ converges.
+            @@ The series $\sum_{k=0}^\infty b_k$ diverges if the series $\sum_{k=0}^\infty a_k$ diverges.
+            @ (The Integral Test) Let $\cren{a_k}$ be a sequence of nonnegative numbers and suppose that the function
+            $f$ is continuous and monotonically decreasing and has the property that
+            \ms{%
+                f(k) = a_k \qquad \forall k
+            }
+            Then the series $\sum_{k=0}^\infty a_k$ is convergent iff the sequence of integrals
+            \ms{%
+                \cren{
+                    \int_1^n f(x) \, dx
+                }
+            }
+            is bounded.
+            @ (The $p$-Test) For a positive number $p$, the series
+            \ms{ \sum_{k=1}^\infty \frac{1}{k^p} }
+            converges iff $p > 1$.
+            @ (The Alternating Series Test) Suppose that $\cren{a_k}$ is a monotonically decreasing sequence of
+            nonnegative numbers that converges to $0$. Then the series
+            \ms{ \sum_{k=1}^\infty \pren{-1}^{k+1} a_k }
+            converges.
+            @ (The Cauchy Convergence Criterion for Series) The series $\sum_{k=1}^\infty a_k$ converges iff for each
+            positive number $\epsilon$ there is an index $N$ such that
+            \ms{ \abs{a_{n + 1} + \cdots + a_{n+k}} \le \epsilon }
+            @ (The Absolute Convergence Test) An absolutely convergent series converges, that is, the series
+            $\sum_{k=1}^\infty a_k$ converges if the series $\sum_{k=1}^\infty \abs{a_k}$ converges.
+            @ For the series $\sum_{k=1}^\infty a_k$, suppose that there is a number $r$ with $0 \le r < 1$ and an index
+            $N$ such that
+            \ms{ \abs{a_{n+1}} \le r \abs{a_n} \qquad \forall n \ge N }
+            then the series $\sum_{k=1}^\infty a_k$ is absolutely convergent.
+            @ (The Ratio Test for Series) For the series $\sum_{k=1}^\infty a_k$, suppose that
+            \ms{ \lim_{n\to\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \textarn{f} }
+            @@ If $\textarn{f} < 1$, the series converges absolutely.
+            @@ If $\textarn{f} > 1$, the series diverges.
+        \end{easylist}
+    \end{thm}
+
+    \subsection{Pointwise Convergence of Sequences of Functions}
+
+    \begin{definition}
+        Given a function $f$ and a sequence of function $\cren{f_n:D\to\mathbb{R}}$, we say that the sequence converges
+        pointwise to $f$, provided that for each point $x \in D$,
+        \ms{ \lim_{n\to\infty} f_n(x) = f(x) }
+    \end{definition}  % TODO: Insert examples
+
+    \subsection{Uniform Convergence of Sequences of Functions}
+
+    \begin{definition}
+        Given a function $f$ and a sequence of functions $\cren{f_n}$, the sequence is said to converge uniformly to $f$
+        provided that for each positive number $\epsilon$ there is an index $N$ such that,
+        \ms{ \abs{f(x) - f_n(x)} < \epsilon \qquad \forall n \ge N, x \in D }
+    \end{definition}
+
+    \begin{definition}
+        The sequence of functions is said to be uniformly Cauchy provided that for each positive number $\epsilon$,
+        there is an index $N$ such that
+        \ms{ \abs{f_{n+k}(x) - f_n(x)} < \epsilon }
+        for every index $n \ge N$, every natural number $k$, and every point $x\in D$.
+    \end{definition}
+
+    \begin{thm}[The Weierstrass Uniform Convergence Criterion]
+        The sequence of function $\cren{f_n}$ converges uniformly to a function $f$ iff the sequence is uniformly
+        Cauchy.
+    \end{thm}
+
+    \subsection{The Uniform Limit of Functions}
+
+    \begin{thm}[Uniformly Convergent Sequences of Continuous Functions]
+        Suppose that $\cren{f_n}$ is a sequence of continuous functions that converges uniformly to the function $f$.
+        Then the limit function $f$ also is continuous.
+    \end{thm}
+
+    \begin{thm}[Uniformly Convergent Sequences of Integrable Functions]
+        Suppose that $\cren{f_n}$ is a sequence of integrable functions that converges uniformly to the function $f$.
+        Then the limit function $f$ also is integrable. Moreover,
+        \ms{ \lim_{n\to\infty} \bren{\int_a^b f_n} = \int_a^b f }
+    \end{thm}
+
+    \begin{thm}[Uniformly Convergent Sequences of Differentiable Functions]
+        Let $I$ be an open interval. Suppose that $\cren{f_n}$ is a sequence of continuously differentiable functions
+        that has the following two properties:
+        \begin{easylist}[enumerate]
+            @ The sequence $\cren{f_n}$ converges pointwise on $I$ to the function $f$, and
+            @ The derived sequence $\cren{f^\prime_n}$ converges uniformly on $I$ to the function $g$.
+        \end{easylist}
+        Then the function $f$ is continuously differentiable, and
+        \ms{ f^\prime(x) = g(x) \qquad \forall x \in I }
+    \end{thm}
+
+    \begin{thm}[Uniformly Convergent Sequences of Differentiable Functions (2)]
+        Let $I$ be an open interval. Suppose that $\cren{f_n}$ is a sequence of continuously differentiable functions
+        that has the following two properties:
+        \begin{easylist}[enumerate]
+            @ The sequence converges pointwise on $I$ to the function $f$, and
+            @ The derived sequence $\cren{f^\prime_n}$ is uniformly Cauchy on $I$.
+        \end{easylist}
+        Then the function $f$ is continuously differentiable, and for each $x \in I$
+        \ms{ \lim_{n\to\infty} f^\prime_n(x) = f^\prime(x) }
+    \end{thm}

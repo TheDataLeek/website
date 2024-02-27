@@ -1,4 +1,4 @@
-\documentclass[12pt, landscape, twocolumn]{article}
+\documentclass[12pt,landscape,twocolumn]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LaTeX Includes
@@ -7,9 +7,7 @@
 \usepackage{amsthm}     % Math Theorems
 \usepackage{amsfonts}   % Math formatting
 \usepackage{amssymb}    % Math formatting
-\usepackage[margin=0.1in]{geometry}
-\usepackage{genmpage}
-\usepackage{pgfpages}
+\usepackage{geometry}
 \usepackage{setspace}   % Allow double spacing
 \usepackage{graphicx}   % Include images
 \usepackage{pdfpages}   % Include pdfs
@@ -17,7 +15,6 @@
 \usepackage{pgfplots}   % Create Pictures
 \usepackage{caption}    % Figure captioning
 \usepackage{subcaption} % Figure captioning
-\usepackage{movie15}    % include animated .gifs
 \usepackage{attachfile} % AttachFiles
 \usepackage{tocloft}    % List of Equations
 \usepackage{fancyhdr}   % Fancy Header
@@ -27,6 +24,11 @@
 \hypersetup{hidelinks}
 
 \RequirePackage[l2tabu, orthodox]{nag} % Nag about bad syntax
+
+\usepackage{genmpage}
+\usepackage{pgfpages}
+
+\geometry{margin=0.1in}
 
 \input{./tex/pgfpage9.tex}
 
@@ -140,7 +142,7 @@ An equation $F(x, x_2, x_3, \dots, x_n) = c$ is linear if it is in the form $a_1
 
 Furthermore, if $c=0$, the equation is said to be homogeneous.
 
-We can generalize the concept of a linear equation to a linear differential equation. A differential equation $F(y, y^\prime, y^\prime^\prime, \dots, y^n) = f(t)$ is linear if it is in the form:
+We can generalize the concept of a linear equation to a linear differential equation. A differential equation $F(y, y^\prime, y^{\prime\prime}, \dots, y^n) = f(t)$ is linear if it is in the form:
 $
 a_n(t) \frac{d^ny}{dt^n} + a_{n-1}(t) \frac{d^{n-1}y}{dt^{n-1} } + \dots + a_1(t) \frac{d^1y}{dt^1} + a_0(t) \frac{d^0y}{dt^0} = f(t)
 $
@@ -778,7 +780,7 @@ which is called closure under linear combinations.
         \subsubsection{Examples}
         \begin{itemize}
         \item The set of all even functions.
-        \item The set of all solutions to $y^\prime^\prime^\prime - y^\prime^\prime t + y = 0$.
+        \item The set of all solutions to $y^{\prime\prime\prime} - y^{\prime\prime} t + y = 0$.
         \item $\{P \in \mathbb{P}; P(2) = P(3)\}$
         \end{itemize}
 
@@ -1100,7 +1102,7 @@ which is called closure under linear combinations.
     For the linear homogeneous, second-order differential equation
 
         $
-            y^\prime^\prime + p(t) y^\prime + q(t)y = 0
+            y^{\prime\prime} + p(t) y^\prime + q(t)y = 0
         $
 
     with $p$ and $q$ being continuous functions of $t$, there exists a two-dimensional vector space of solutions.
@@ -1108,7 +1110,7 @@ which is called closure under linear combinations.
     Rewriting the above equation gives us
 
         $
-            y^\prime^\prime(t) \equiv f(t, y, y^\prime) = -p(t) y^\prime - q(t) y = 0
+            y^{\prime\prime}(t) \equiv f(t, y, y^\prime) = -p(t) y^\prime - q(t) y = 0
         $
 
     which gives us the existence and uniqueness theorem for the second order equation.
@@ -1116,7 +1118,7 @@ which is called closure under linear combinations.
         \begin{thm}[Existence and Uniqueness]\label{thm:2eau}
             Let $p(t)$ and $q(t)$ be continuous on $a, b$ containing $t_0$. For any $A$ and $B$ in $\mathbb{R}$, there exists a unique solution $y(t)$ defined on $(a, b)$ to the IVP
             $
-            y^\prime^\prime + p(t) y^\prime + q(t)y = 0, y(t_0) = A, y^\prime(t_0) = B
+            y^{\prime\prime} + p(t) y^\prime + q(t)y = 0, y(t_0) = A, y^\prime(t_0) = B
             $
         \end{thm}
 
@@ -1129,7 +1131,7 @@ which is called closure under linear combinations.
     For any linear second order homogeneous differential equation on $(a, b)$,
 
         $
-            y^\prime^\prime + p(t) y^\prime + q(t)y = 0
+            y^{\prime\prime} + p(t) y^\prime + q(t)y = 0
         $
 
     for which $p$ and $q$ are continuous on $(a, b)$, any two linearly independent solutions $\{y_1, y_2\}$ form a basis of the solutions space $S$, and every solution $y$ on $(a, b)$ can be written as
@@ -1144,7 +1146,7 @@ which is called closure under linear combinations.
         Let $p_1(t), p_2(t), \dots, p_n(t)$ be continuous functions on $(a, b)$ containing $t_0$. For any initial values $A_0, A_1, \dots, A_{n-1} \in \mathbb{R}$, there exists a unique solution $y(t)$ to the IVP
         $
         \begin{aligned}
-            y^\prime^\prime(tp_1(t)y^{n - 1}(t)) + p_1(t)y^{n - 1}(t) + p_2(t)y^{n - 2}(t) + \cdots + p_n(t)y(t) = 0\\
+            y^{\prime\prime}(tp_1(t)y^{n - 1}(t)) + p_1(t)y^{n - 1}(t) + p_2(t)y^{n - 2}(t) + \cdots + p_n(t)y(t) = 0\\
             y(t_0) = A_0, y^\prime(t_0) = A_1, \dots, y^{n - 1}(t_0) = A_{n-1}
         \end{aligned}
         $
@@ -1263,13 +1265,13 @@ which is called closure under linear combinations.
     \subsection{Variation of Parameters}
     We've already used variation of parameters to find the solutions of $y^\prime + p(t) y = f(t)$. This same strategy can be applied to second order equations in the form:
 
-        $ y^\prime^\prime + p(t)y^\prime + q(t)y = f(t) $
+        $ y^{\prime\prime} + p(t)y^\prime + q(t)y = f(t) $
 
     To apply this method, follow these steps.
 
         \begin{enumerate}
             \item Find two linearly independent solutions of the second order differential equation
-                    $ y^\prime^\prime + p(t)y^\prime + q(t)y = f(t) $
+                    $ y^{\prime\prime} + p(t)y^\prime + q(t)y = f(t) $
                 this having the general solution
                 $ y_h(t) = c_1 y_1(t) + c_2y_2(t) $
             \item To find the particular solution, take
@@ -1279,14 +1281,14 @@ which is called closure under linear combinations.
                 where $v_1$ and $v_2$ are unknown functions.
             \item We find $v_1$ and $v_2$ by substituting our new equation into our first. Differentiating by the product rule we get
                 $ y_p^\prime(t) = v_1 y_1^\prime + v_2y_2^\prime + v_1^\prime y_1 + v_2^\prime y_2 $
-            \item Before we calculate $y_p^\prime^\prime$ we choose an auxiliary condition, that $v_1$ and $v_2$ satisfy
+            \item Before we calculate $y_p^{\prime\prime}$ we choose an auxiliary condition, that $v_1$ and $v_2$ satisfy
                 $ v_1^\prime y_1 + v_2^\prime y_2 = 0 $
                 where we get
                 $ y_p ^\prime = v_1 y_1^\prime + y_2^\prime v_2 $
             \item Differentiating again we get
-                $ y_p^\prime^\prime(t) = v_1 y_1^\prime^\prime + v_2 y_2^\prime^\prime + v_1^\prime y_1^\prime + v_2^\prime y_2^\prime $
+                $ y_p^{\prime\prime}(t) = v_1 y_1^{\prime\prime} + v_2 y_2^{\prime\prime} + v_1^\prime y_1^\prime + v_2^\prime y_2^\prime $
             \item We wish to get
-                $ L(y) = y^\prime^\prime + py^\prime + qy = f $
+                $ L(y) = y^{\prime\prime} + py^\prime + qy = f $
                 Substituting for what we have solved for gives
                 $ v1 y_1^\prime + v_2^\prime y_2^\prime = 0 $
             \item We now have two equations for our two unknowns.
@@ -1389,7 +1391,7 @@ As you'd imagine, once the size of a matrix becomes larger than 2 or 3, these st
 
      Given the linear second order differential equation:
 
-        $ y^\prime^\prime - y ^\prime - 2y = 0 $
+        $ y^{\prime\prime} - y ^\prime - 2y = 0 $
 
     we know that it has a characteristic equation of
 

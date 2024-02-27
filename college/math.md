@@ -6,6 +6,14 @@ image: assets/images/mathtile.jpeg
 description: Notes & Homework
 ---
 
+* [Fractals](fractals)
+* [Interpolation & Splines](interpolation)
+* [Numerical Analysis of Vector Fields](nonlinear-dynamics-homework4)
+* [Chaotic Dynamics](chaotic-dynamics)
+* [one dimensional maps](one-dimensional-maps)
+* [ODE Solving with RK4](ode-solving)
+* [Rootfinding](rootfinding)
+
 # Class Notes
 
 * [Numerical Computation](numerical-computation-notes)
@@ -19,8 +27,3 @@ description: Notes & Homework
 * [Probability](notes/Probability)
 * [Statistical Methods](notes/StatisticalMethods)
 
-
-# Projects
-
-* [Chaotic Dynamics](chaotic-dynamics)
-* [one dimensional maps](one-dimensional-maps)

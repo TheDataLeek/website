@@ -4,7 +4,7 @@ TEXDIR = ./tex/
 OUTPUT = DiscreteMathNotes.pdf
 REVPUT = FinalReview.pdf
 
-all: attachments.tar.gz
+all: FinalReview.pdf
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
 	xelatex --shell-escape $(TEXDIR)$(TEXFILE)
@@ -14,7 +14,7 @@ all: attachments.tar.gz
 clean:
 	for FILE in `find . -type f | grep -e "\.pyg\|\.aux\|\.log\|\.toc\|\.out\|\.equ\|\.lof\|\.tar\.gz"`; do rm $$FILE; done
 
-attachments.tar.gz:
+attachments.tar.gz: FinalReview.pdf
 	tar -zcf attachments.tar.gz $(TEXDIR)*.tex
 	mv attachments.tar.gz $(TEXDIR)
 

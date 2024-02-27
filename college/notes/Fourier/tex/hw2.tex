@@ -1,0 +1,608 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Two}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ Functions and their Fourier Series
+
+    Use the functions $f(x)=\cos(x)$ and $g(x)=\sin(x)$, each defined on $0 \le x \le \pi$.
+
+    @@ Extend $f(x)$ and $g(x)$ as even functions of $x$, now defined on $-\pi \le x \le \pi$. Find the Fourier cosine
+    series of $f(x)$ and of $g(x)$, defined as even functions of $x$ on $-\pi < x \le \pi$.\\
+
+    We can extend these functions to be defined over $-\pi \le x \le \pi$ by defining their even extension as the
+    following.
+
+    \[
+        f(x) = \begin{cases}
+            f(x) \qquad &x \ge 0\\
+            f(-x) \qquad &x < 0
+        \end{cases}
+    \]
+
+    These look like the following.
+
+\weave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure2_1.pdf}
+
+\noweave
+
+    We then first we calculate the coefficients.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2\pi} \int_{-\pi}^\pi f(x) \, dx\\
+            \left(\begin{array}{c}a_n\\b_n\end{array}\right) &= \frac{1}{\pi} \int_{-\pi}^\pi f(x)
+            \left(\begin{array}{c}\cos(nx)\\\sin(nx)\end{array}\right) \, dx
+    \end{align*}
+
+    And then we get the full equation.
+
+    \[
+        FS[f](x) = a_0 + \sum_{n=1}^\infty \left[ a_n \cos(nx) + b_n \sin(nx) \right]
+    \]
+
+    @@@ $f(x) = \cos(x)$
+
+    We note that the even extension is the same as just $\cos(x)$, so we will examine on the bounds $0 \le x \le \pi$
+    and reflect.
+
+    First the coefficients.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2\pi} \int_{0}^\pi f(x) \, dx\\
+            &= \frac{1}{2\pi} \int_{0}^\pi \cos(x) \, dx \\
+            &= 0
+    \end{align*}
+
+    \begin{align*}
+        a_n &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos(nx) \, dx\\
+            &= \frac{1}{\pi} \int_0^\pi \cos(x) \cos(nx) \, dx \\
+            &= \frac{-n \sin(n \pi)}{\pi (n^2 - 1)}
+    \end{align*}
+
+    \begin{align*}
+        b_n &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx\\
+            &= \frac{1}{\pi} \int_0^\pi \cos(x) \sin(nx) \, dx \\
+            &= \frac{1}{\pi} \left( \frac{n(1 + \cos(n \pi))}{n^2 - 1} \right)\\
+            &= \frac{n(1 + \cos(n \pi))}{\pi(n^2 - 1)}\\
+    \end{align*}
+
+    Now we plug these into our equation.
+
+    \begin{align*}
+        FS[f](x) &= a_0 + \sum_{n=1}^\infty \left[ a_n \cos(nx) + b_n \sin(nx) \right]\\
+                &= \sum_{n=1}^\infty \left[ \frac{-n \sin(n \pi)}{\pi (n^2 - 1)} \cos(nx) +
+                    \frac{n(1 + \cos(n \pi))}{\pi(n^2 - 1)} \sin(nx) \right]\\
+                &= \sum_{n=1}^\infty \left[ \frac{n(1 + \cos(n \pi))}{\pi(n^2 - 1)} \sin(nx) \right]\\
+    \end{align*}
+
+    This Fourier Series Expansion is defined on $0 \le x \le \pi$, so we can simply reflect to see the other side.
+
+    \[
+        FS[f](x) = \begin{cases}
+            \sum_{n=1}^\infty \left[ \frac{n(1 + \cos(n \pi))}{\pi(n^2 - 1)} \sin(nx) \right]
+                \quad 0 \le x \le \pi\\
+            -\sum_{n=1}^\infty \left[ \frac{n(1 + \cos(n \pi))}{\pi(n^2 - 1)} \sin(nx) \right]
+                \quad -\pi \le x \le 0
+        \end{cases}
+    \]
+
+    This is our Fourier Cosine Series of $f(x)$, which we can plot and compare. (Warning, not very good\ldots.)
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def ff(x, N):
+    return np.array([sum([((n * (1 + np.cos(n * np.pi))) /
+                        (np.pi * (n**2 - 1))) *
+                    np.sin(n * x0) for n in range(2, N + 1)])
+                if x0 >= 0 else
+                    -sum([((n * (1 + np.cos(n * np.pi))) /
+                            (np.pi * (n**2 - 1))) *
+                        np.sin(n * x0) for n in range(2, N + 1)])
+            for x0 in x])
+xl = np.arange(-np.pi, 0, 0.01)
+xr = np.arange(0, np.pi, 0.01)
+x = np.arange(-np.pi, np.pi, 0.01)
+plt.figure()
+plt.plot(xl, np.cos(-xl), 'r-', label=r'$f(x)=\cos(x)$')
+plt.plot(xr, np.cos(xr), 'r-')
+plt.plot(x, ff(x, 20))
+plt.legend()
+plt.ylim(-1, 1.5)
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure3_1.pdf}
+
+\noweave
+
+    @@@ $g(x) = \sin(x)$
+
+    Same process as before.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2\pi} \int_{-\pi}^\pi g(x) \, dx\\
+            &= \frac{1}{2\pi} \left[ \int_{-\pi}^0 \sin(-x) \, dx + \int_{0}^\pi \sin(x) \, dx \right]\\
+            &= \frac{2}{\pi}
+    \end{align*}
+
+    \begin{align*}
+        a_n &= \frac{1}{\pi} \int_{-\pi}^\pi g(x) \cos(nx) \, dx\\
+            &= \frac{1}{\pi} \left[ \int_{-\pi}^0 \sin(-x) \cos(nx) \, dx + \int_{0}^\pi \sin(x) \cos(nx) \, dx \right]\\
+            &= \frac{1}{\pi} \left[ 2 \cdot \frac{1 + \cos(n\pi)}{1-n^2} \right]\\
+            &= \frac{2(1 + \cos(n\pi))}{\pi(1-n^2)}\\
+    \end{align*}
+
+    \begin{align*}
+        b_n &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) \, dx\\
+            &= \frac{1}{\pi} \left[ \int_{-\pi}^0 \sin(-x) \sin(nx) \, dx + \int_{0}^\pi \cos(x) \sin(nx) \, dx \right]\\
+            &= 0
+    \end{align*}
+
+    Now we plug these into our equation.
+
+    \begin{align*}
+        FS[g](x) &= \frac{2}{\pi} + \sum_{n=1}^\infty \left[ \frac{2(1 + \cos(n\pi))}{\pi(1-n^2)} \cdot \cos(nx) \right]\\
+    \end{align*}
+
+    Which we can plot and compare.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def fg(x, N):
+    a0 = 2 / np.pi
+    return np.array([a0 +
+            sum([((2 * (1 + np.cos(n * np.pi))) /
+                        (np.pi * (1 - n**2))) *
+                    np.cos(n * x0) for n in range(2, N + 1)])
+            for x0 in x])
+xl = np.arange(-np.pi, 0, 0.01)
+xr = np.arange(0, np.pi, 0.01)
+x = np.arange(-np.pi, np.pi, 0.01)
+plt.figure()
+plt.plot(xl, np.sin(-xl), 'r-', label=r'$g(x)=\sin(x)$')
+plt.plot(xr, np.sin(xr), 'r-')
+plt.plot(x, fg(x, 2), label=r'Fourier Expansion, $N=2$')
+plt.plot(x, fg(x, 5), label=r'Fourier Expansion, $N=5$')
+plt.plot(x, fg(x, 10), label=r'Fourier Expansion, $N=10$')
+plt.legend()
+plt.ylim(0, 1.5)
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure4_1.pdf}
+
+\noweave
+
+    @@ Evaluate the Fourier cosine series of the even extension of $g(x)$ at $x=0$, and find one more exactly summable
+    series. What is the series and what is its sum?\\
+
+    \begin{align*}
+        FS[g](0) &= \frac{2}{\pi} + \sum_{n=1}^\infty \left[ \frac{2(1 + \cos(n\pi))}{\pi(1-n^2)} \cdot \cos(n(0)) \right]\\
+        &= \frac{2}{\pi} + \left(\frac{2}{\pi}\right) \sum_{n=1}^\infty \left[ \frac{1 + \cos(n\pi)}{1-n^2} \right]\\
+        &= \frac{2}{\pi} + \left(\frac{-2}{\pi}\right)\\
+        &= 0\\
+    \end{align*}
+
+    @@ Let $f_e(x)$ and $f_o(x)$ denote the even and odd extensions of $f(x)$, now defined on $-\pi < x \le \pi$, and
+    let $g_e(x)$ and $g_o(x)$ denote the even and odd extensions of $g(x)$, now also defined on $-\pi < x \le \pi$.
+    Sketch the periodic extensions of each of these four functions over at least three periods of each. Label each
+    function, so that it is clear which is which.\\
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def fg(x, N):
+    a0 = 2 / np.pi
+    return np.array([a0 +
+            sum([((2 * (1 + np.cos(n * np.pi))) /
+                        (np.pi * (1 - n**2))) *
+                    np.cos(n * x0) for n in range(2, N + 1)])
+            for x0 in x])
+def ff(x, N):
+    return np.array([sum([((n * (1 + np.cos(n * np.pi))) /
+                        (np.pi * (n**2 - 1))) *
+                    np.sin(n * x0) for n in range(2, N + 1)])
+                if x0 >= 0 else
+                    -sum([((n * (1 + np.cos(n * np.pi))) /
+                            (np.pi * (n**2 - 1))) *
+                        np.sin(n * x0) for n in range(2, N + 1)])
+            for x0 in x])
+xl = np.arange(-np.pi, 0, 0.01)
+xr = np.arange(0, np.pi, 0.01)
+x = np.arange(-np.pi, 4 * np.pi, 0.01)
+plt.figure()
+plt.plot(x, fg(x, 10), label=r'Fourier Expansion, $N=10$')
+plt.plot(x, ff(x, 10), label=r'Fourier Expansion, $N=10$')
+plt.legend()
+plt.ylim(-1, 1.5)
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure5_1.pdf}
+
+\noweave
+
+    \newpage
+    @ Properties of Fourier Series\\
+
+    Each of the three functions listed below is defined on $-L < y \le L$.
+
+    \begin{align*}
+        g_e \left( \frac{\pi y}{L} \right) &=
+            \begin{cases}
+                \sin \left( \frac{\pi y}{L} \right) \qquad & 0 \le y \le L\\
+                \sin \left( -\frac{\pi y}{L} \right) \qquad & -L < y < 0\\
+            \end{cases}\\
+        h \left( \frac{\pi y}{L} \right) &=
+            \begin{cases}
+                \sin \left( \frac{\pi y}{L} \right) \qquad & 0 \le y \le L\\
+                0 \qquad & -L < y < 0\\
+            \end{cases}\\
+        j(y) &= \sin^3 \left( \frac{\pi y}{L} \right)
+    \end{align*}
+
+    For each function:
+
+    @@ Find the Fourier series of the function.
+
+    @@@ \[
+        g_e (y) =
+            \begin{cases}
+                \sin \left( \frac{\pi y}{L} \right) \qquad & 0 \le y \le L\\
+                \sin \left( -\frac{\pi y}{L} \right) \qquad & -L < y < 0\\
+            \end{cases}
+    \]
+
+    We first find the coefficients.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2L} \left[ \int_{-L}^0 \sin\left(-\frac{\pi y}{L}\right) \, dy +
+                    \int_0^L \sin\left(\frac{\pi y}{L}\right) \, dy \right]\\
+        &= \frac{1}{2L} \left( \frac{L \cos\left(\frac{\pi y}{L}\right)}{\pi}\bigg|_{-L}^0 + \frac{-\pi \cos\left(
+        \frac{\pi y}{L} \right)}{L} \bigg|_0^L \right)\\
+        &= \frac{1}{2L} \left( \frac{2L}{\pi} + \frac{2L}{\pi}  \right)\\
+        &= \frac{2}{\pi}
+    \end{align*}
+
+    \begin{align*}
+        a_n &= \frac{1}{L} \left[ \int_{-L}^0 \sin\left(-\frac{\pi y}{L}\right) \cos\left( \frac{n \pi y}{L} \right) \, dy + \int_0^L \sin\left(\frac{\pi y}{L}\right) \cos\left( \frac{n \pi y}{L} \right) \, dy \right]\\
+        &= \frac{1}{L} \frac{-L\left(\frac{\cos((n-1)\pi y / L)}{n-1} - \frac{\cos((n+1)\pi
+                        y)}{n+1}\right)}{2\pi}\bigg|_{-L}^0 +\\&\frac{1}{L} \frac{L\left(\frac{\cos((n-1)\pi y / L)}{n-1} - \frac{\cos((n+1)\pi
+        y)}{n+1}\right)}{2\pi}\bigg|_0^L\\
+        &= \frac{1 + \cos(n \pi)}{\pi(1 - n^2)} + \frac{1 + \cos(n \pi)}{\pi(n^2 - 1)}\\
+        &= \frac{2(1 + \cos(n \pi))}{\pi(1 - n^2)}
+    \end{align*}
+
+    \begin{align*}
+        b_n &= \frac{1}{L}
+            \left[ \int_{-L}^0 \sin\left(-\frac{\pi y}{L}\right) \cdot \sin\left( \frac{n \pi y}{L} \right) \, dy + \int_0^L \sin\left(\frac{\pi y}{L}\right) \cdot \sin\left( \frac{n \pi y}{L} \right) \, dy \right]\\
+        &= \frac{1}{L} \left[ \frac{y}{2} - \frac{L \sin\left( \frac{2 \pi y}{L} \right)}{4 \pi} \right] \bigg|_0^L\\
+        &= \frac{1}{L} \cdot \frac{L}{2}\\
+        &= \frac{1}{2}
+    \end{align*}
+
+    We can plot this, with $L = 10$.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def fourier2a(x, N):
+    a0 = 2 / np.pi
+    return np.array([sum([a0 +
+                    (((2 * (1 + np.cos(n * np.pi))) /
+                        (np.pi - (np.pi * n**2))) *
+                        np.cos(n * x0)) +
+                    (0 * np.sin(n * x0))
+                for n in range(2, N + 1)])
+            for x0 in x])
+L = 10
+ge = lambda y: np.sin(np.pi * y / L)
+x = np.arange(-L, L, 0.01)
+h = int(len(x) / 2)
+plt.figure()
+plt.plot(x[:h], ge(-x[:h]), 'r-', label=r'$g_e(y)$')
+plt.plot(x[h:], ge(x[h:]), 'r-')
+plt.plot(x, fourier2a(x, 2), label=r'Fourier Expansion, $N=2$')
+plt.legend()
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure6_1.pdf}
+
+\noweave
+
+    @@@
+
+    \[
+        h (y)=
+            \begin{cases}
+                \sin \left( \frac{\pi y}{L} \right) \qquad & 0 \le y \le L\\
+                0 \qquad & -L < y < 0\\
+            \end{cases}
+    \]
+
+    @@@
+
+    \[
+        j(y) = \sin^3 \left( \frac{\pi y}{L} \right)
+    \]
+
+    \begin{align*}
+        a_0 &= \frac{1}{2\pi} \int_{-\pi}^\pi \sin^3 \left( \frac{\pi y}{L} \right) \, dy\\
+        &= \frac{1}{2\pi} \left( - \frac{3 L \cos\left(\frac{y\pi}{L}\right)}{4\pi} + \frac{L \cos\left(\frac{3y\pi}{L}\right)}{12\pi} \right) \bigg|_{-\pi}^\pi\\
+        &= \frac{1}{2\pi} \left( \frac{L \left( -9 \cos\left(\frac{y\pi}{L}\right) + \cos\left(\frac{3y\pi}{L}\right)\right)}{12 \pi} \right) \bigg|_{-\pi}^\pi\\
+        &= \frac{1}{2\pi} \left( \frac{L \left( -9 \cos\left(\frac{y\pi}{L}\right) + \cos\left(\frac{3y\pi}{L}\right)\right)}{12 \pi} \right) \bigg|_{-\pi}^\pi\\
+        &= \frac{L \left( -9 \cos\left(\frac{y\pi}{L}\right) + \cos\left(\frac{3y\pi}{L}\right)\right)}{24 \pi^2} \bigg|_{-\pi}^\pi\\
+        &= 0
+    \end{align*}
+
+    \begin{align*}
+        a_n &= \frac{1}{\pi} \int_{-\pi}^\pi \sin^3\left(\frac{y\pi}{L}\right) \cos(ny) \, dy\\
+        &= 0\\
+    \end{align*}
+
+    \begin{align*}
+        b_n &= \frac{1}{\pi} \int_{-\pi}^\pi \sin^3\left(\frac{y\pi}{L}\right) \sin(ny) \, dy\\
+        &= \frac{L \left(\frac{\sin \left(\pi  \left(n-\frac{3 \pi }{L}\right)\right)}{3 \pi -L n}-\frac{3 \sin \left(\pi \left(n-\frac{\pi }{L}\right)\right)}{\pi -L n}-\frac{3 \sin \left(\pi \left(\frac{\pi }{L}+n\right)\right)}{L n+\pi }+\frac{\sin \left(\pi  \left(\frac{3 \pi }{L}+n\right)\right)}{L n+3 \pi }\right)}{4 \pi }
+    \end{align*}
+
+    We can plot this one.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+def fourier2c(x, N):
+    return np.array([sum([0 +
+                    (0 * np.cos(n * x0)) +
+                    (((L*((np.sin(np.pi*(n - ((3*np.pi)/L)))/
+                       ((-L)*n + 3*np.pi)) -
+                     ((3*np.sin(np.pi*(n - np.pi/L)))/
+                       ((-L)*n + np.pi)) -
+                     ((3*np.sin(np.pi*(n + np.pi/L)))/
+                       (L*n + np.pi)) +
+                     (np.sin(np.pi*(n + (3*np.pi)/L))/
+                       (L*n + 3*np.pi))))/(4*np.pi)) *
+                     np.sin(n * x0))
+                for n in range(1, N + 1)])
+            for x0 in x])
+j = lambda y: np.sin(np.pi * y / L)**3
+x = np.arange(-L, L, 0.01)
+plt.figure()
+plt.plot(x, j(x), label=r'$j(y)$')
+plt.plot(x, fourier2c(x, 2), label=r'$N=2$')
+plt.plot(x, fourier2c(x, 5), label=r'$N=5$')
+plt.plot(x, fourier2c(x, 10), label=r'$N=10$')
+plt.ylim(-1, 2.5)
+plt.legend()
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure7_1.pdf}
+
+\noweave
+
+    @@ Sketch the periodic extension of the function, on $-2L \le y \le 2L$, if one exists. If no periodic extension
+    exists, explain why.
+
+    @@@
+    
+    @@@
+
+    @@@
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+j = lambda y: np.sin(np.pi * y / L)**3
+x = np.arange(-L, L, 0.01)
+x2 = np.arange(-2 * L, 2 * L, 0.01)
+plt.figure()
+plt.plot(x, j(x), label=r'$j(y)$')
+plt.plot(x2, fourier2c(x2, 10), label=r'$N=10$')
+plt.ylim(-1, 1.5)
+plt.legend()
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure8_1.pdf}
+
+\noweave
+
+    @@ Is the periodic extension continuous for all real $y$? If not, where on $-L \le y \le L$ is the periodic
+    extension discontinuous?
+
+    For all functions, the periodic extension is continuous for all real $y$.
+
+    @@ Does the Fourier series converge at every $y$ in $-L \le y \le L$? Why or why not?
+
+    @@@ No it does not.
+    @@@ No it does not.
+    @@@ No it does not.
+
+    @@ Does the Fourier series converge absolutely for all real $y$?
+
+    @@@ No it does not.
+    @@@ No it does not.
+    @@@ No it does not.
+
+    @@ Does the Fourier series converge uniformly in $y$ for all real $y$?
+
+    @@@ No it does not.
+    @@@ No it does not.
+    @@@ No it does not.
+
+    \newpage
+    @ Dirichlet's Kernel is defined to be
+
+    \[
+        D_N \left( \frac{\pi u}{L} \right) = \left\{ \frac{1}{2} + \sum_{n=1}^N \cos \left( \frac{n \pi u}{L} \right) \right\} \quad \forall u \in \mathbb{R}
+    \]
+
+    @@ Show that
+
+    \[
+        \frac{1}{L} \int_{-L}^L D_N {\left( \frac{\pi u}{L} \right)} \, du = 1 \quad \forall N \ge 1
+    \]
+
+    First, some simplification.
+
+    \begin{align*}
+        \frac{1}{L} \int_{-L}^L D_N \left( \frac{\pi u}{L} \right) \, du\\
+        \frac{1}{L} \int_{-L}^L \left[ \frac{1}{2} + \sum_{n=1}^N \cos\left( \frac{n\pi u}{L} \right)\right] \, du\\
+        \frac{1}{L} \left[ \int_{-L}^L \frac{1}{2} + \int_{-L}^L \sum_{n=1}^N \cos\left( \frac{n\pi u}{L} \right)\right] \, du\\
+        \frac{1}{L} \left[ L + \int_{-L}^L \sum_{n=1}^N \cos\left( \frac{n\pi u}{L} \right)\right] \, du\\
+    \end{align*}
+
+    Now since we know that this expression must equal zero, we can prove the following statement by induction.
+
+    \[
+        \int_{-L}^L \sum_{n=1}^N \cos\left( \frac{n\pi u}{L} \right)\, du = 0
+    \]
+
+    First, we show $P(1)$.
+
+    \begin{align*}
+        \int_{-L}^L \sum_{n=1}^1 \cos\left( \frac{n\pi u}{L} \right)\, du = 0\\
+        \frac{L}{\pi} \sin\left( \frac{n\pi u}{L} \right) \bigg|_{-L}^L = 0\\
+        \frac{L}{\pi} \left( \sin(\pi) - \sin(-\pi) \right) = 0\\
+    \end{align*}
+
+    Now we show that $P(k) \Rightarrow P(k+1)$.
+
+    \[
+        P(k) \equiv \int_{-L}^L \sum_{n=1}^k \cos\left( \frac{n\pi u}{L} \right)\, du = 0
+    \]
+
+    \begin{align*}
+        P(k + 1) &\equiv \int_{-L}^L \sum_{n=1}^{k+1} \cos\left( \frac{n\pi u}{L} \right)\, du = 0\\
+        &\equiv \int_{-L}^L \left[ \cos\left( \frac{(k+1)\pi u}{L} \right) + \cancel{\sum_{n=1}^{k} \cos\left( \frac{n\pi u}{L} \right)} \right]\, du = 0\\
+        &\equiv \int_{-L}^L \cos\left( \frac{(k+1)\pi u}{L} \right) \, du = 0\\
+        &\equiv \frac{L}{(k+1)\pi} \sin\left( \frac{(k+1)\pi u}{L} \right) \bigg|_{-L}^L = 0\\
+        &\equiv \frac{L}{(k+1)\pi} \left( \sin\left( \frac{(k+1)\pi L}{L} \right) - \sin\left( \frac{-(k+1)\pi L}{L} \right) \right) = 0\\
+        &\equiv 0 = 0\\
+    \end{align*}
+
+    Therefore, our final expression is the following.
+
+    \[
+        \frac{1}{L} \cdot L = 1
+    \]
+
+    And thusly the statement is proved.
+
+    @@ Show that
+
+    \[
+        D_N \left( \frac{\pi u}{L} \right) = \frac{\sin\left( \left( N + \frac{1}{2} \right) \left( \frac{\pi u}{L} \right)\right)}{2 \sin \left( \frac{\pi u}{2L} \right)}
+    \]
+
+    With the same process used below, we can use the exponential form of $\cos$ and solve the resulting geometric
+    series, yielding the following equations.
+
+    \begin{align*}
+        D_N \left( \frac{\pi u}{L} \right) &= \frac{1}{2} + \frac{1}{2}
+            \left( -1 + \csc\left(\frac{u\pi}{2L}\right)\sin\left(\frac{\pi(u+2Nu)}{2L}\right)\right)\\
+        &= \frac{1}{2}\left[1+\left(-1+\csc\left(\frac{u\pi}{2L}\right)\sin\left(\frac{u\pi(1+2N)}{2L}\right)\right)\right]\\
+        &= \frac{1}{2}\left(\csc\left(\frac{u\pi}{2L}\right)\sin\left(\frac{u\pi(1+2N)}{2L}\right)\right)\\
+        &= \frac{1}{2}\left(\frac{\sin\left(\frac{u\pi(1+2N)}{2L}\right)}{\sin\left(\frac{u\pi}{2L}\right)}\right)\\
+        &= \frac{\sin\left(\frac{u\pi(1+2N)}{2L}\right)}{2\sin\left(\frac{u\pi}{2L}\right)}\\
+        &= \frac{\sin\left(\left(N+\frac{1}{2}\right)\left(\frac{u\pi}{L}\right)\right)}{2\sin\left(\frac{u\pi}{2L}\right)}\\
+    \end{align*}
+
+    @@ Evaluate $D_N(0)$.
+
+    \begin{align*}
+        D_N (0) &= \left\{ \frac{1}{2} + \sum_{n=1}^N \cos (0) \right\}\\
+            &= \left\{ \frac{1}{2} + N \right\}\\
+    \end{align*}
+
+    @@ For $-L \le u \le L$, where is $D_N \left( \frac{ \pi i }{L} \right) = 0$?
+
+    This is equal when $\sum_{n=1}^N \cos \left( \frac{n \pi u}{L} \right)$ is equal to $-\frac{1}{2}$. This means we
+    can just examine the sum. By using the exponent form of cosine, defined as the following relation, we can simplify
+    the summation as a geometric series.
+
+    \[
+        \cos(\theta) = \frac{1}{2} \left( e^{i \theta} + e^{-i \theta} \right)
+    \]
+
+    Yielding the following equivalency.
+
+    \[
+        \sum_{n=1}^N \cos \left( \frac{n \pi u}{L} \right) = \frac{1}{2}
+        \left( -1 + \csc\left( \frac{\pi u}{2L} \right) \sin\left( \frac{\pi (u + 2Nu)}{2L}\right)\right)
+    \]
+
+    By the definition of $\csc$ and $\sin$, we can see that this will equal $-1/2$ whenever
+
+    \[
+        \csc\left( \frac{\pi u}{2L} \right) \sin\left( \frac{\pi (u + 2Nu)}{2L}\right) = 0.
+    \]
+
+    $\csc$ is never equal to 0, so that means we can reduce this further and say that the expression holds whenever
+
+    \[
+        \sin\left( \frac{\pi (u + 2Nu)}{2L}\right) = 0.
+    \]
+
+    By the definition of sine, we can reduce this even further and say that the expression holds whenever
+
+    \[
+        \frac{\pi (u + 2Nu)}{2L} = n \pi
+    \]
+
+    where $n \in \mathbb{Z}$. Which is the equivalent of saying that the expression holds, whenever
+
+    \[
+        \frac{u(1 + 2N)}{2L} = n, \quad n \in \mathbb{Z}.
+    \]
+
+    @@ Sketch $D_2\left( \frac{ \pi i }{L} \right)$ for $-L \le u \le L$.
+
+    \weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def dirichlet_kernel(L, N, u):
+    return np.array([(1/2) +
+                sum([np.cos((n * np.pi * u0) / L)
+            for n in range(1, N + 1)])
+        for u0 in u])
+L = 10
+N = 2
+u = np.arange(-L, L, 0.01)
+plt.figure()
+for i in range(1, 11):
+    plt.plot(u, dirichlet_kernel(L, i, u),
+        alpha=(1.075 - (0.075 * i)),
+        label=r'$N={}$'.format(i))
+plt.legend()
+plt.show()
+\end{minted}
+\includegraphics[width= 4.5in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw2_figure9_1.pdf}
+
+    \noweave
+
+\end{easylist}
+
+
+
+\end{document}

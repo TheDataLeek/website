@@ -28,10 +28,6 @@
 You are inspecting computer printers for damage, and the manufacturer has told you that 10\% of their printers are
 damaged.\newline
 
-Sidenote, all {\ttfamily R} code is included inline, using KnitR and \LaTeX. If you have any question about the contents
-of this report, or the methods used to create it, please reference \url{www.will-farmer.com} for my email address and
-other information.
-
 \section{Questions and Answers}
     \begin{easylist}[enumerate]
         @ \textit{You are planning to inspect $n$ printers from the manufacturer's warehouse. If the actual percentage

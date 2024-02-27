@@ -1,0 +1,297 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Seven}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\maketitle
+
+\section{The Motion of a Piano String}
+In class, we analyzed the motion of a guitar string, after it was plucked at a point ($x=d$) on a string of length $L$
+with $0 < d < L$. We assumed that the initial displacement of the string was nonzero, but the initial velocity was zero.
+
+A piano wire is activated when a hammer of width $w$ strikes the wire sharply. We may approximate the result by assuming
+that the hammer gives the wire an initial velocity, but no initial displacement.
+
+Let $u(x, t)$ denote the transverse displacement of a stretched piano wire. Assume that $u(x, t)$ satisfies
+
+\ms{%
+    u_{tt}    &= c^2 u_{xx} \qquad & 0 < x < L \qquad & t > 0 \quad & c^2 > 0\\
+    u(0, t)   &= u(L, t) = 0       &           \qquad & t > 0       & \\
+    u(x, 0)   &= 0                 & 0 < x < L \qquad & t = 0       & \\
+    u_t(x, 0) &= V(x)              & 0 < x < L \qquad & t = 0       &
+}
+
+Where
+
+\ms{%
+    V(x) = \begin{cases}
+        0 \qquad & 0 < x < \frac{L}{2} - \frac{w}{2}\\
+        1 & \frac{L}{2} - \frac{w}{2} < x < \frac{L}{2} + \frac{w}{2}\\
+        0 & \frac{L}{2} + \frac{w}{2} < x < L
+    \end{cases}
+}
+
+The center of the hammer is assumed to be at $\frac{L}{2}$ to simplify.
+
+\begin{easylist}[enumerate]
+    @ Find $u(x, t)$ in the form of a Fourier Series.
+
+    From the book, we can write the solution in the form
+
+    \[
+        u(x, t) = \sum_{n=1}^\infty
+            \pren{%
+                A_n \sin\bren{\frac{n\pi x}{L}} \cos\bren{\frac{n\pi ct}{L}}
+                    + B_n \sin\bren{\frac{n\pi x}{L}} \sin\bren{\frac{n\pi ct}{L}}
+                }
+    \]
+
+    Where
+
+    \ms{%
+        A_n &= \frac{2}{L} \int_0^L f(x) \sin\pren{\frac{n\pi x}{L}} \, dx\\
+        &= 0\\
+        B_n \frac{n\pi c}{L} &= \frac{2}{L} \int_0^L g(x) \sin\pren{\frac{n\pi x}{L}} \, dx\\
+        &= \frac{2}{L} \int_{\frac{L}{2} - \frac{w}{2}}^{\frac{L}{2} + \frac{w}{2}} \sin\pren{\frac{n\pi x}{L}} \, dx\\
+        &= \frac{4}{n\pi}\sin\pren{\frac{n\pi}{2}} \sin\pren{\frac{n\pi w}{2L}}
+    }
+
+    Yielding final solution
+
+    \[
+        u(x, t) = \sum_{n=1}^\infty
+            \pren{%
+                    \frac{4}{n\pi}\sin\pren{\frac{n\pi}{2}} \sin\pren{\frac{n\pi w}{2L}}
+                    \sin\pren{\frac{n\pi x}{L}} \sin\pren{\frac{n\pi ct}{L}}
+                }
+    \]
+    
+    Which we can plot:
+
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw7_figure1_1.pdf}
+
+\nosimpleweave
+
+    @ In your solution, what happens if $L$ is an integer multiple of $w$?
+
+    Let $m$ be some non-zero integer. Using the substitution $L = mw$ we get the following:
+
+    \ms{%
+        u(x, t) &= \sum_{n=1}^\infty
+            \pren{%
+                    \frac{4}{n\pi}\sin\pren{\frac{n\pi}{2}} \sin\pren{\frac{n\pi w}{2mw}}
+                    \sin\pren{\frac{n\pi x}{mw}} \sin\pren{\frac{n\pi ct}{mw}}
+                }\\
+        &= \sum_{n=1}^\infty
+            \pren{%
+                    \frac{4}{n\pi}\sin\pren{\frac{n\pi}{2}} \sin\pren{\frac{n\pi}{2m}}
+                    \sin\pren{\frac{n\pi x}{mw}} \sin\pren{\frac{n\pi ct}{mw}}
+                }
+    }
+
+    Plotting, we see that the behavior is chaotic.
+
+    % Add picture! It's the chaotic one.
+\simpleweave
+
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw7_figure2_1.pdf}
+
+\nosimpleweave
+    % Note, not 100% on these answers
+    @ Is $u(x, t)$ continuous in $x$ for $0 < x < L$, $t > 0$? Why or Why Not?
+
+    Yes, as it is simply a sum of continuous functions.
+
+    @ Is $u(x, t)$ continuous in $t$ for $0 < x < L$, $t > 0$? Why or Why Not?
+
+    Yes for the same reasons.
+
+    @ Is $u_t(x, t)$ continuous in $x$ for $0 < x < L$, $t > 0$? Why or Why Not?
+
+    Yes, for the same reasons.
+
+    @ Is $u_t(x, t)$ continuous in $t$ for $0 < x < L$, $t > 0$? Why or Why Not?
+
+    Yes for the same reasons.
+
+    @ Suppose that a piano string and a guitar string are both tuned to play $A$ ($100 \, Hz$). In addition to the
+    fundamental tone (at $110 \, c/s$), each string also generates higher harmonics. Do the two strings generate the
+    same set of frequencies in their higher harmonics, or is there a difference?
+
+    The two strings \textit{should} produce the same harmonics, as they are identical save the method in which they are
+    played. The only difference between the strings is positioning, and play style. As the prompt notes, this will
+    impact the amplitudes of the harmonics, however the frequencies should remain the same.
+\end{easylist}
+
+\newpage
+\section{A Damped Guitar String}
+
+The solution of the wave equation in 1D oscillates forever, unlike real guitar strings. A variation that approximates
+damping is
+
+\ms{%
+    u_{tt} + \beta u_t &= c^2 u_{xx} \qquad & 0 < x < L \qquad & t > 0 \quad & c^2 > 0, \beta \ge 0\\
+    u(0, t)            &= u(L, t) = 0       &           \qquad & t > 0       & \\
+    u_t(x, 0)          &= 0                 & 0 < x < L \qquad & t = 0       & \\
+    u(x, 0)            &= U(x)              & 0 < x < L \qquad & t = 0       &
+}
+
+Where
+
+\ms{%
+    U(x) = \begin{cases}
+        a\pren{\frac{x}{d}} \qquad & 0 \le x \le d\\\\
+        a \pren{\frac{L - x}{L - d}} & d < x < L
+    \end{cases}
+}
+
+And where $u(x, t)$ represents the transverse displacement of the stretched string. The added constant is usually small,
+
+\[
+    0 \le \beta << \frac{c\pi}{L}
+\]
+
+\begin{easylist}[enumerate]
+    @ Solve this problem, finding $u(x, t)$ in terms of a Fourier series, with explicit Fourier coefficients. Check by
+    setting $\beta = 0$. Show that for $\beta > 0$, $u(x, t) \to 0$ as $t \to \infty$, at every $x \in (0, L)$.
+
+    % https://www.math.hmc.edu/~ajb/PCMI/lecture7.pdf
+    @@ We know that whatever solution we come to will have the form
+
+    \ms{%
+        u(x, t) = \sum_{n=1}^\infty f_n(t) \sin\pren{\frac{n\pi x}{L}}
+    }
+
+    @@ Using our equation, we get the following equation for $f_n$.
+
+    \ms{%
+        f^{\prime\prime}_n + \beta f^\prime_n + \pren{\alpha_n}^2 f_n = 0
+    }
+
+    Where $\alpha_n = \frac{cn\pi}{L}$, and
+
+    \ms{%
+        \lambda_n = \frac{\beta}{2} \pm \sqrt{\pren{\frac{\beta}{2}}^2 - \pren{\alpha_n}^2}
+    }
+
+    @@ Since $\beta$ is usually very small,
+
+    \ms{%
+        f_n(t) = e^{-\frac{\beta}{2} t}\pren{%
+            a_n \cos\pren{\omega_n t} +
+            b_n \sin\pren{\omega_n t}
+        }
+    }
+
+    Where
+
+    \ms{%
+        \omega_n = \sqrt{\pren{\alpha_n^2 - \frac{\beta}{2}}^2}
+    }
+
+    @@ This yields our ``final'' solution in the form
+
+    \ms{%
+        u(x, t) = \sum_{n=1}^\infty
+        \bren{%
+            \pren{%
+                a_n \cos\pren{\omega_n t} +
+                b_n \sin\pren{\omega_n t}
+            } \sin\pren{\frac{n\pi x}{L}}
+        }
+    }
+
+    @@ With initial conditions we can determine $a_n$ and $b_n$.
+
+    \ms{%
+        u(x, 0) = U(x) &= \sum_{n=1}^\infty a_n \sin\pren{\frac{n\pi x}{L}}\\
+        u_t(x, 0) = 0 &= \sum_{n=1}^\infty \pren{\omega_n b_n - \frac{\beta}{2} a_n}\sin\pren{\frac{n \pi x}{L}}
+    }
+
+    @@ Given that this is just a Fourier Series, we find the values for $a_n$ and $b_n$.
+
+    \ms{%
+        a_n &= \frac{2}{L} \int_0^L U(x) \sin\pren{\frac{n\pi x}{L}} \, dx\\
+        &= \frac{2}{L} \bren{%
+            \int_0^d a \frac{x}{d} \sin\pren{\frac{n\pi x}{L}} \, dx +
+            \int_d^L a \pren{\frac{L - x}{L - d}} \sin\pren{\frac{n\pi x}{L}} \, dx
+        }\\
+        &= \frac{2 L a}{d n^{2} \pi^{2} \pren{L - d}}
+        \pren{L \sin{\pren{\frac{d n}{L} \pi }} - d \sin{\pren{n \pi }}}\\
+        b_n &= \frac{2}{\omega L} \int_0^L \frac{\beta}{2} U(x) \sin\pren{\frac{n\pi x}{L}} \, dx\\
+        &= \frac{\beta}{\omega L} \bren{%
+            \int_0^d a \frac{x}{d} \sin\pren{\frac{n\pi x}{L}} \, dx +
+            \int_d^L a \pren{\frac{L - x}{L - d}} \sin\pren{\frac{n\pi x}{L}} \, dx
+        }\\
+        &= \frac{2 L a\beta}{d \omega n^{2} \pi^{2} \pren{L - d}}
+        \pren{L \sin{\pren{\frac{d n}{L} \pi }} - d \sin{\pren{n \pi }}}\\
+    }
+
+    @ The lowest Fourier mode in the Fourier series should have the form
+    \[
+        \cren{\text{Decaying Amplitude in $t$}} \cdot
+        \cren{\text{Oscillatory Function of $t$}} \cdot
+        \cren{\text{Oscillatory Function of $x$}}
+    \]
+
+    Recall that the sound from a plucked guitar string lasts 5 to 10 seconds. For a guitar string tuned so that its
+    fundamental tone is $A$ again, if the damping is such that the amplitude decays to half of its initial value in two
+    seconds, find the correct value of $\beta$. Include units. How many full cycles does the string complete during
+    those two seconds?
+
+    $\beta = 0.0005$.
+
+    @ For $\beta > 0$, is the frequency of the $n = 1$ mode higher, lower, or the same as it would have been with
+    $\beta=0$. What effect does $\beta > 0$ have on the pitch of higher harmonics? Could you hear this effect? What
+    would you hear?
+
+    With $\beta = 0$ the tone becomes higher and we would hear a difference.
+\end{easylist}
+
+\newpage
+\section{D'Alembert's Solution of the Wave Equation in 1D}
+
+Edward Engineer conducts an experiment in the ITLL on a process that can be approximated well by the wave equation in
+1-D. The experiment takes place in a long tube, long enough that if the initial disturbance is localized (so nonzero
+only in $0<x<L$ for a reasonably small $L$), then the entire process being measured will have finished before a nonzero
+signal could reach each either end of the tube and return. Therefore Edward (legitimately) assumes that the boundaries
+are infinitely far away.
+
+Before the experiment begins, he carefully records $U(x)$, the initial distribution of $u(x, 0)$.  However, he gets
+distracted and forgets to record $V(x)$, the initial distribution of $u_t(x, 0)$.
+
+Then he gets back on track, and records all of the appropriate data during the experiment itself. While carrying out the
+experiment, he notices that during the entire experiment, the signal propagates only to the right, with no signal moving
+to the left. (Additional information: The experiment was conducted on Wednesday morning, during 8 -- 10 AM.  Edward was
+wearing a blue shirt.)
+
+Can you help Edward out? What must $V(x)$ have been in order for the experiment to proceed as it did? Justify your
+answer -- Edward's grade hangs in the balance.\\
+
+In order to make this work, $f(x-ct)$ needs to be cancelled out. Therefore,
+
+\ms{%
+    -\frac{1}{2c} \int_{x-ct}^{x+ct} g(y) \, dy &= \frac{1}{2} f(x - ct)\\
+    -\frac{1}{c} \int_{x-ct}^{x+ct} g(y) \, dy &= f(x - ct)\\
+    \int_{x-ct}^{x+ct} g(y) \, dy &= -c f(x - ct)\\
+    g(y) &= -c f^\prime(x - ct)\\
+}
+\end{document}

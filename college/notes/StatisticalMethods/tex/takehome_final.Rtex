@@ -902,7 +902,7 @@ variables.
 \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight} }{Takehome_Final_files/Takehome_Final_61_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Takehome_Final_files/Takehome_Final_61_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -937,7 +937,7 @@ We will examine \texttt{Residuals\textasciitilde{}Time} and
 \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight} }{Takehome_Final_files/Takehome_Final_63_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Takehome_Final_files/Takehome_Final_63_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     

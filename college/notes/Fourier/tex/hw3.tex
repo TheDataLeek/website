@@ -1,0 +1,394 @@
+\documentclass[10pt]{article}
+
+\input{./tex/header.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                                                       %  Establishes that the headers will be defined
+\fancyhead[LE,LO]{Fourier Series}                                  %  Adds header to left
+\fancyhead[RE,RO]{Zoe Farmer}                                       %  Adds header to right
+\cfoot{\thepage}
+\lfoot{APPM 4350}
+\rfoot{Mark Hoefer}
+\title{Fourier Series Homework Three}
+\author{Zoe Farmer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beginning of document items - headers, title, toc, etc...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+
+\maketitle
+
+\begin{easylist}[enumerate]
+    @ Consider the following functions, defined for all real $x$, $-\infty < x < \infty$,
+
+    \begin{align*}
+        f(x) = \begin{cases}
+            \cos(\sqrt{x}), \quad &x > 0\\
+            \cos(\sqrt{-x}), \quad &x < 0\\
+        \end{cases}\\
+        f(0) = 1\\
+        g(x) = \begin{cases}
+            \sin(\sqrt{x}), \quad &x > 0\\
+            \sin(\sqrt{-x}), \quad &x < 0\\
+        \end{cases}\\
+        g(0) = 1\\
+        h(x) = \exp(\cos(x))\\
+        j(x) = \cos\left(\frac{\pi}{2}e^x\right)\\
+    \end{align*}
+
+    @@ For each function, sketch the graph of the function over an open interval that includes $x=0$ and at least two
+    zeros of the function on each side of $x=0$. If this is impossible explain why.\\
+
+    We cannot include any zeros of $h(x)$, as it never is less than zero.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+def f(x):
+    return np.array([np.cos(np.sqrt(x0))
+        if x0 != 0 else 1 for x0 in np.abs(x)])
+def g(x):
+    return np.array([np.sin(np.sqrt(x0))
+        if x0 != 0 else 1 for x0 in np.abs(x)])
+h = lambda x: np.exp(np.cos(x))
+j = lambda x: np.cos( (np.pi * np.exp(x)) / 2 )
+
+w = np.arange(-60, 60, 0.01)
+x = np.arange(-100, 100, 0.01)
+y = np.arange(-10, 10, 0.01)
+z = np.arange(-5, 5, 0.01)
+
+fig, axarr = plt.subplots(2, 2, figsize=(8,8))
+axarr[0, 0].plot(w, f(w))
+axarr[0, 0].set_title(r'$f(x)$')
+axarr[0, 1].plot(x, g(x))
+axarr[0, 1].set_title(r'$g(x)$')
+axarr[1, 0].plot(y, h(y))
+axarr[1, 0].set_title(r'$h(x)$')
+axarr[1, 1].plot(z, j(z))
+axarr[1, 1].set_title(r'$j(x)$')
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw3_figure2_1.pdf}
+
+\noweave
+
+    @@ Is the function odd, even, or neither? Justify.
+
+    @@@ $f(x)$ is Even, as it is symmetrical about the $y$ axis.
+
+    @@@ $g(x)$ is also Even, because again it is symmetrical about the $y$ axis.
+
+    @@@ $h(x)$ is Even, for the same reason.
+
+    @@@ $j(x)$ is neither, as it has no symmetry, either about the $y$ axis or reflected across the origin.
+
+    @@ Is the function periodic in $x$? What is its period?
+
+    @@@ $f(x)$ is not periodic.
+
+    @@@ $g(x)$ is not periodic.
+
+    @@@ $h(x)$ is periodic, with period $2 \pi$.
+
+    @@@ $j(x)$ is not periodic.
+
+    @@ Is the function continuous in $x$? If not, where are the discontinuities?
+
+    @@@ $f(x)$ is continuous.
+
+    @@@ $g(x)$ is not continuous, as there exists a discontinuity at $x=0$.
+
+    @@@ $h(x)$ is continuous.
+
+    @@@ $j(x)$ is continuous.
+
+    @@ Is the function piecewise continuous for all real $x$? Justify.
+
+    @@@ $f(x)$ is POC as it is also continuous.
+
+    @@@ $g(x)$ is POC, since it only has 1 discontinuity.
+
+    @@@ $h(x)$ is POC as it is also continuous.
+
+    @@@ $j(x)$ is POC as it is also continuous.
+
+    @@ Is the function piecewise smooth for all real $x$? Justify.
+
+    @@@ $f(x)$ is POS as it is also continuous.
+
+    @@@ $g(x)$ is POS smooth, as you can differentiate the left and right hand sides separately and obtain the
+    derivatives.
+
+    @@@ $h(x)$ is POS as it is also continuous.
+
+    @@@ $j(x)$ is POS as it is also continuous.
+
+    \newpage
+    @ Consider $f(x)$, given above, but defined only on $-\pi^2 \le x \le \pi^2$.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+x = np.arange(-np.pi**2, np.pi**2, 0.01)
+fig = plt.figure()
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+ax.plot(x, f(x))
+plt.grid()
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw3_figure3_1.pdf}
+
+\noweave
+
+    @@ Write down the formulae that define each of its Fourier coefficients in terms of an integral.
+
+    \begin{align*}
+        a_0 &= \frac{1}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \, dx\\
+        a_n &= \frac{2}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \cos\left(\frac{nx}{\pi}\right) \, dx\\
+        b_n &= \frac{2}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \sin\left(\frac{nx}{\pi}\right) \, dx\\
+    \end{align*}
+
+    @@ It's not hard to find upper bounds on these coefficients. Based on (a), find an upper bound for $\abs{a_0}$ and a
+    single bound that is valid for all $a_n$ and $b_n$.\\
+
+    We know that $\abs{\cos(y)} \le 1$ and $\abs{\sin(y)} \le 1$ for any value of $y$, therefore we can rewrite our
+    equations as such.
+
+    \begin{align*}
+        a_0 &= \frac{1}{\pi^2} \int_0^{\pi^2} 1 \, dx\\
+        a_n &= \frac{2}{\pi^2} \int_0^{\pi^2} 1 \, dx\\
+        b_n &= \frac{2}{\pi^2} \int_0^{\pi^2} 1 \, dx\\
+    \end{align*}
+
+    We can now solve for each upper bound.
+
+    \begin{align*}
+        \abs{a_0} &\le \frac{1}{\pi^2} \int_0^{\pi^2} 1 \, dx\\
+                    &\le 1\\
+    \end{align*}
+
+    We want to add the two to get the maximum.
+
+    \begin{align*}
+        \abs{a_n, b_n} &\le \frac{2}{\pi^2} \int_0^{\pi^2} 1 \, dx\\
+        & \le 2
+    \end{align*}
+
+    We can cheat a little and test our bounds numerically.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+a0 = np.abs((1 / (np.pi**2)) * si.quad(
+        lambda x: np.cos(np.sqrt(x)), 0, np.pi**2)[0])
+print('{} <= 1 -- {}'.format(a0, a0 <= 1))
+for n in range(1, 6):
+    an = np.abs((2 / (np.pi**2)) * si.quad(
+            lambda x: np.cos(np.sqrt(x)) *
+            np.cos(n * x / np.pi), 0, np.pi**2)[0])
+    bn = np.abs((2 / (np.pi**2)) * si.quad(
+            lambda x: np.cos(np.sqrt(x)) *
+            np.sin(n * x / np.pi), 0, np.pi**2)[0])
+    upper = (2 / (np.pi**2)) * si.quad(
+            lambda x: 1, 0, np.pi**2)[0]
+    print('{}, {} <= {} -- {}'.format(an, bn, upper,
+            an <= upper and bn <= upper))
+\end{minted}
+\begin{minted}[fontsize=\small, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+0.4052847345693511 <= 1 -- True
+0.7698141397489887, 0.6266813971790594 <= 2.0 -- True
+0.24450593198589418, 0.591569145824067 <= 2.0 -- True
+0.10815652587394427, 0.025050862270111277 <= 2.0 -- True
+0.06215487191116709, 0.31263128215295743 <= 2.0 -- True
+0.039615895819941696, 0.005443619048802969 <= 2.0 -- True
+
+\end{minted}
+
+\noweave
+
+    @@ Following the procedure used to prove the Riemann-Lebesgue Lemma, show that $a_n \to 0$ and $b_n \to 0$, as
+    $n\to\infty.$\\
+
+    Let us examine the integrals.
+
+    \begin{align*}
+        a_n &= \frac{2}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \cos\left(\frac{nx}{\pi}\right) \, dx\\
+        b_n &= \frac{2}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \sin\left(\frac{nx}{\pi}\right) \, dx\\
+    \end{align*}
+
+    As with the Riemann-Lebesgue Lemma, these two integrals are nearly identical so we will merely examine $a_n$.
+
+    \begin{align*}
+        a_n &= \frac{2}{\pi^2} \int_0^{\pi^2} \cos(\sqrt{x}) \cos\left(\frac{nx}{\pi}\right) \, dx\\
+        &= \frac{2}{\pi^2} \left[ \frac{\pi}{n} \cos(\sqrt{x}) \sin\left(\frac{nx}{\pi}\right) + \frac{\pi}{2n} \int_0^{\pi^2} \sin\left(\frac{nx}{\pi}\right) \sin(\sqrt{x}) \, dx \right]\\
+    \end{align*}
+
+    We know that the integral is bounded and is less than or equal to $\pi^2$.
+
+    \begin{align*}
+        a_n &\le \frac{2}{n\pi} \left[ \cos(\sqrt{x}) \sin\left(\frac{nx}{\pi}\right) + \frac{\pi^2}{2} \right]\\
+    \end{align*}
+
+    Now since everything is being multiplied by $\frac{2}{n\pi}$, as $n \to \infty$, it is clear that $a_n \to 0$.
+
+    @@ With this limited amount of information about the Fourier coefficients for $f(x)$, is it possible to say whether
+    the Fourier series for $f(x)$ converges on $-\pi^2 \le x \le \pi^2$, and to what it converges? If so, where and to
+    what does it converge? If not, why not?\\
+
+    Yes there is enough information here to determine that the Fourier Series converges to the function, $f(x)$. We also
+    know based on our previous bounds that it has pointwise convergence.
+
+    \newpage
+    @ Let
+
+    \[
+        k(x) = \begin{cases}
+            \cos\left(\frac{\pi x}{L}\right) \quad &0 < x < L\\
+            0 \quad & -L \le x \le 0
+        \end{cases}
+    \]
+
+    @@ Sketch $k(x)$ on $-L \le x < L$. Is $k(x)$ continuous on $-L \le x < L$? Is it piecewise smooth on $-L \le x <
+    L$? For each question, answer why or why not.\\
+
+    We will graph this with $L=10$.
+
+\weave
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
+L = 10
+def k(x):
+    def k_point(x):
+        if x <= 0:
+            return 0
+        else:
+            return np.cos(np.pi * x / L)
+    if type(x) in [int, float]:
+        return k_point(x)
+    else:
+        return np.array([k_point(x0) for x0 in x])
+def bn_gen(n):
+    bn = n * (1 + np.cos(n * np.pi)) / (np.pi * (n**2 - 1))
+    return bn
+def fourier(x, N):
+    f = np.zeros(len(x))
+    for i in range(len(x)):
+        f[i] +=  np.cos((np.pi * x[i]) / L) / 2
+        for n in range(2, N + 1):
+            f[i] += bn_gen(n) * np.sin(n * np.pi * x[i] / L)
+    return f
+x = np.arange(-L, L, 0.01)
+plt.figure(figsize=(8,8))
+plt.plot(x, k(x))
+plt.plot(x, fourier(x, 2))
+plt.plot(x, fourier(x, 5))
+plt.plot(x, fourier(x, 10))
+plt.plot(x, fourier(x, 200))
+plt.show()
+\end{minted}
+\includegraphics[width= 4in]{/home/zoe/classwork/2015b/appm4350/homeworks/figures/hw3_figure5_1.pdf}
+
+\noweave
+
+    $k(x)$ is not continuous on the interval as it contains one jump discontinuity.
+
+    On the other hand, it is piecewise continuous as it contains a finite number of jump discontinuities (1).
+
+    @@ Find its Fourier Coefficients.
+
+    \begin{align*}
+        a_0 &= \frac{1}{2L} \left[ \int_{-L}^0 0 \, dx + \int_0^L \cos\left(\frac{\pi x}{L}\right) \, dx \right]\\
+            &= \frac{1}{2L} \int_0^L \cos\left(\frac{\pi x}{L}\right) \, dx\\
+            &= \frac{1}{2L} \frac{L}{\pi} \sin\left(\frac{\pi x}{L}\right) \bigg|_0^L\\
+            &= \frac{1}{2\pi} \sin\left(\frac{\pi x}{L}\right) \bigg|_0^L\\
+            &= \frac{1}{2\pi} \left[ \sin(\pi) - \sin(0) \right]\\
+            &= 0
+    \end{align*}
+
+    \begin{align*}
+        a_n &= \frac{1}{L} \left[ \int_{-L}^0 0 \cos\left(\frac{nx\pi}{L}\right) \, dx + \int_0^L \cos\left(\frac{\pi x}{L}\right) \cos\left(\frac{nx\pi}{L}\right) \, dx \right]\\
+            &= \frac{1}{L} \int_0^L \cos\left(\frac{\pi x}{L}\right) \cos\left(\frac{nx\pi}{L}\right) \, dx\\
+            &= \frac{1}{2L} \left[\int_0^L \cos\left(\frac{\pi x}{L}(1 - n)\right) \, dx + \int_0^L \cos\left(\frac{\pi x}{L} (1 + n)\right) \, dx \right]\\
+            &= \frac{1}{2L} \left[\frac{L}{\pi(1-n)}\sin\left(\frac{\pi x}{L}(1 - n)\right)\bigg|_0^L + \frac{L}{\pi(1+n)}\sin\left(\frac{\pi x}{L} (1 + n)\right)\bigg|_0^L \right]\\
+            &= 0
+    \end{align*}
+
+    \begin{align*}
+        b_n &= \frac{1}{L} \left[ \int_{-L}^0 0 \sin\left(\frac{nx\pi}{L}\right) \, dx + \int_0^L \cos\left(\frac{\pi x}{L}\right) \sin\left(\frac{nx\pi}{L}\right) \, dx \right]\\
+            &= \frac{1}{2L} \left[ \int_0^L \sin\left(\frac{\pi x}{L}(1+n)\right) \, dx - \int_0^L \sin\left(\frac{\pi x}{L}(1-n)\right) \, dx \right]\\
+            &= \frac{1}{2L} \left[ -\frac{L}{\pi(1+n)} \cos\left(\frac{\pi x}{L}(1+n)\right)\bigg|_0^L + \frac{L}{\pi(1-n)} \cos\left(\frac{\pi x}{L}(1-n)\right)\bigg|_0^L \right]\\
+            &= \frac{1}{2\pi} \left[ -\frac{1}{1+n} (\cos(\pi(1+n)) - 1) + \frac{1}{1-n} ( \cos(\pi(1-n)) - 1) \right]\\
+            &= \frac{1}{2\pi} \left[ \frac{\cos(\pi(1+n)) + 1}{1+n} - \frac{\cos(\pi(1-n)) + 1}{1-n}  \right]\\
+            &= -\frac{4 n \cos^2\left(\frac{\pi n}{2}\right)}{\pi -\pi n^2}
+    \end{align*}
+
+    These coefficients are only valid from $n > 1$, so we manually determine the $n = 1$ case to be
+
+    \begin{align*}
+        a_n &= \frac{1}{2}\\
+        b_n &= 0\\
+    \end{align*}
+
+    @@ Does the Fourier series converge on $-L \le x < L$? Why or why not? If it converges, does it converge uniformly?
+    Why or why not?
+
+    It does not converge on $-L \le x < L$, as $k(x)$ is not piecewise smooth.
+
+    \newpage
+    @ Convergence
+
+    @@ Consider a Fourier Series:
+
+    \[
+        FS(x) = a_0 + \sum_{n=1}^\infty \left[ a_n \cos\left(\frac{nx\pi}{L}\right) + b_n \sin\left(\frac{nx\pi}{L}\right) \right]
+    \]
+
+    State the definitions of pointwise convergence, uniform convergence, and absolute convergence for such a series on
+    $-L < x < L$. Be precise.\\
+
+    \begin{definition}[Pointwise Convergence]
+        If the Fourier series converges to its target function, $T(x)$ for every $x$ in some open interval, $X_1<x<X_2$,
+        then the Fourier series converges pointwise to $T(x)$ in $X_1<x<X_2$.
+    \end{definition}
+
+    \begin{definition}[Uniform Convergence]
+        A Fourier series converges uniformly to $T(x)$ in an interval if for every tolerance $\epsilon > 0$, there is a
+        finite, positive integer, $N(\epsilon) < \infty$ such that for every $N > N(\epsilon)$
+
+        \[
+            \abs{S_N(x_0) - T(x_0)} < \epsilon
+        \]
+    \end{definition}
+
+    \begin{definition}[Absolute Convergence]
+        A Fourier series converges absolutely if for every $\epsilon > 0$, there is a finite, positive integer
+        $M(\epsilon) < \infty$ such that
+
+        \[
+            \sum_{n=M+1}^\infty \abs{a_n} + \sum_{n=M+1}^\infty \abs{b_n} < \epsilon
+        \]
+    \end{definition}
+
+    @@ Among these three kinds of convergence, which ones imply which others?\\
+
+    Absolute implies Uniform implies Pointwise.
+
+    @@ Are there conditions, either on the series itself or on the function $f(x)$ that generated the series, that
+    guarantee that a Fourier series converges pointwise?\\
+
+    The function $f(x)$ must be piecewise smooth in order for the series to converge pointwise.
+
+    @@ Suppose we have a fixed Fourier series, but we know nothing about the function that generates the series. If the
+    Fourier series converges absolutely, for all real $x$, what information does that tell us about the function to
+    which the series converges, even without plotting partial sums of the Fourier series?\\
+
+    This tells us two things. First, the series converges uniformly. Second, the function is continuous for all real $x$.
+\end{easylist}
+
+
+\end{document}

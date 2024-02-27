@@ -7,6 +7,7 @@ import subprocess
 
 
 def main():
+    return
     root = pathlib.Path()
     paths = []
     built_files = False
@@ -77,9 +78,7 @@ show_tile: false
     notes.sort(key=lambda x: x.name)
     for note in notes:
         name = split_camel_case(note.stem)
-        template += f"""
-* [{name}]({note.name})
-"""
+        template += f"* [{name}]({note.name})\n"
     (root / 'index.md').write_text(template)
 
 def split_camel_case(word):
