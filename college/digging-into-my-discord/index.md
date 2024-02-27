@@ -47,9 +47,9 @@ The following code performs the following steps:
 ```python
 num = '[0-9]'
 channel = '#[a-zA-Z\-]+'
-user = f'@.+#{num}{{4}}'
-date = f'{num}{{4}}-{num}{{2}}-{num}{{2}}'
-time = f'{num}{{2}}:{num}{{2}}:{num}{{2}}'
+user = f'@.+#{num}{ {4} }'
+date = f'{num}{ {4} }-{num}{ {2} }-{num}{ {2} }'
+time = f'{num}{ {2} }:{num}{ {2} }:{num}{ {2} }'
 message = f'({date} {time}) ({channel}) ({user}): (.*)'
 message_re = re.compile(message)
 

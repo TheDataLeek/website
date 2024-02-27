@@ -255,7 +255,7 @@ $$x = g(x) = 2x^3 - 1$$
 diverges very quickly, while the form
 
 $$
-x= g(x) = \sqrt[\leftroot{-2}\uproot{2}3]{\frac{x + 1}{2}}
+x= g(x) = \sqrt[\leftroot{-2}\uproot{2}3]{\frac{x + 1}{2} }
 $$
 
 converges quickly to zero.

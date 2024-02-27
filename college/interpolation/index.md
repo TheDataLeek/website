@@ -76,7 +76,7 @@ print(point)
 
 ### b) The true value in 2005 was 379.80. What was the absoluate error in your interpolated value? What about the relative error?
 
-Absolute error is defined as $|v - v_{approx}|$ while relative error is defined as $\lvert 1 - \frac{v_{approx}}{v} \rvert$.
+Absolute error is defined as $|v - v_{approx}|$ while relative error is defined as $\lvert 1 - \frac{v_{approx} }{v} \rvert$.
 
 
 ```

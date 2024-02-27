@@ -16,14 +16,19 @@ description: Notes & Homework
 
 # Class Notes
 
-* [Numerical Computation](numerical-computation-notes)
 * [Algorithms](notes/Algorithms)
+* [Applied Analysis](notes/AppliedAnalysis)
 * [Calculus 2](notes/Calculus2)
 * [Calculus 3](notes/Calculus3)
+* [Complex Analysis](notes/ComplexAnalysis)
 * [Computer Systems](notes/ComputerSystems)
 * [Differential Equations](notes/DifferentialEquations)
 * [Discrete Math](notes/DiscreteMath)
+* [Fourier](notes/Fourier)
+* [Intro To AI](notes/IntroToAI)
+* [Markov Processes](notes/MarkovProcesses)
+* [Mathematical Statistics](notes/MathematicalStatistics)
 * [Matrix Methods](notes/MatrixMethods)
-* [Probability](notes/Probability)
+* [Numerical Analysis](notes/NumericalAnalysis)
+* [Numerical Computation](notes/NumericalComputation)
 * [Statistical Methods](notes/StatisticalMethods)
-
