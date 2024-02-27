@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Math
-nav-menu: false
-image: assets/images/mathtile.jpeg
+nav-menu: true
+image: assets/images/blogtile.png
 description: Notes & Homework
 ---
 

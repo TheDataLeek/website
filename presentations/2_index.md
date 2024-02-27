@@ -2,7 +2,7 @@
 layout: post
 title: Presentations
 description: Talks I've Given
-image: assets/images/headshot.jpg
+image: assets/images/slidetile.png
 nav-menu: true
 ---
 

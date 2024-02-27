@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Code
-nav-menu: false
+nav-menu: true
 image: assets/images/codetile.png
 description: Libraries, Style, and Projects
 ---
