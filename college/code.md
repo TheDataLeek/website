@@ -6,6 +6,8 @@ image: assets/images/codetile.png
 description: Libraries, Style, and Projects
 ---
 
+One of my specialities is writing effective Python - 
+
 * [a quick guide to os fork in python](/college/a-quick-guide-to-os-fork-in-python)
 * [an introduction to plotting in python](/college/an-introduction-to-plotting-in-python)
 * [an introduction to pythons types](/college/an-introduction-to-pythons-types)
