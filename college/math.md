@@ -6,15 +6,21 @@ image: assets/images/blogtile.png
 description: Notes & Homework
 ---
 
-* [Fractals](fractals)
-* [Interpolation & Splines](interpolation)
-* [Numerical Analysis of Vector Fields](nonlinear-dynamics-homework4)
-* [Chaotic Dynamics](chaotic-dynamics)
-* [one dimensional maps](one-dimensional-maps)
-* [ODE Solving with RK4](ode-solving)
-* [Rootfinding](rootfinding)
+Many or most of the articles here are from class notes, projects, or homeworks that I touched up -
+
+# Projects Inspired by Classwork
+
+* [building fractals by hand](fractals)
+* [the algorithms behind interpolation & splines](interpolation)
+* [numerical analysis of vector fields](nonlinear-dynamics-homework4)
+* [chaotic dynamics and strange attractors](chaotic-dynamics)
+* [numerical analysis of one dimensional maps](one-dimensional-maps)
+* [ordinary differential equation solving with 4th-order Runge-Kutta](ode-solving)
+* [the algorithms behind numerical ootfinding](rootfinding)
 
 # Class Notes
+
+During college I found it especially effective to write my notes by hand and then transcribe to LaTeX as a study method. Later, I sped up enough in my transcriptions to do it live during class and then only writing down the more complex equations to fully convert later.
 
 * [Algorithms](notes/Algorithms)
 * [Applied Analysis](notes/AppliedAnalysis)
