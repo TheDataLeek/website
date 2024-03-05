@@ -6,11 +6,24 @@ title: Interpolating Data
 description: Adapted from Numerical Computation Homeworks 
 ---
 
+This is adapted from separate Jupyter Notebook formatted homeworks. I've updated a few statements for clarity but otherwise the content has remained the same as it was written originally.
+
 * [Interpolation](#interpolating-1d)
+    * [Basic Linear Interpolation](#basic-linear-interpolation)
+    * [Linear Interpolation Applied](#linear-interpolation-applied)
+    * [Basic Linear Extrapolation](#basic-linear-extrapolation)
+    * [Plotting](#plotting)
+    * [Lagrangian Interpolation](#lagrangian-interpolation)
+    * [Newton's Divided Differences](#newtons-divided-differences)
+    * [Cubic Natural Spline](#cubic-natural-spline)
 * [Splines](#splines)
+    * [External Tools](#external-tools)
+    * [Bezier Implementation](#bezier-implementation)
 
 # Interpolating 1D
-```
+
+Imports
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 import numpy.linalg as npl
@@ -19,10 +32,12 @@ import scipy.interpolate as scit
 %pylab inline
 ```
 
-## 1. Implement a program that takes two input points,  $$ x^* $$ , and returns the interpolated line calculated at  $$ x^* $$ .
+## Basic Linear Interpolation
+
+> 1. Implement a program that takes two input points, $$ x^* $$, and returns the interpolated line calculated at $$ x^* $$.
 
 
-```
+```python
 def linear_interpolation(point1, point2):
     """
     Interpolates a line between two given points.
@@ -41,10 +56,12 @@ def linearpoint(point1, point2, x):
     return linear_interpolation(point1, point2)(x)
 ```
 
-### a) The following data show the mean annual  $$ CO_2 $$  levels measured at the top of Mauna Loa at 10 year intervals. User your program to estimate the mean annual  $$ CO_2 $$  level at the top of Mauna Loa in 2005.
+### Linear Interpolation Applied
+
+> a) The following data show the mean annual $$ CO_2 $$ levels measured at the top of Mauna Loa at 10 year intervals. User your program to estimate the mean annual $$ CO_2 $$ level at the top of Mauna Loa in 2005.
 
 
-```
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -64,37 +81,35 @@ plt.show()
 
 print(point)
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_4_0.png)
-    
-
-
-    379.685
-
-
-### b) The true value in 2005 was 379.80. What was the absoluate error in your interpolated value? What about the relative error?
-
-Absolute error is defined as  $$ |v - v_{approx}| $$  while relative error is defined as  $$ \lvert 1 - \frac{v_{approx} }{v} \rvert $$ .
-
 
 ```
+379.685
+```
+
+> b) The true value in 2005 was 379.80. What was the absoluate error in your interpolated value? What about the relative error?
+
+Absolute error is defined as $$ | v - v_{approx} | $$ while relative error is defined as $$ \lvert 1 - \frac{v_{approx} }{v} \rvert $$.
+
+```python
 v = 379.8
-print('Absolute error is {}\nRelative error is {}'.format(
-        np.abs(v - point), np.abs(1 - (point / v))))
+print(f'Absolute error is {np.abs(v - point)}'
+print(f'Relative error is {np.abs(1 - (point / v)`)}')
 ```
 
-    Absolute error is 0.1150000000000091
-    Relative error is 0.0003027909426014386
+```
+Absolute error is 0.1150000000000091
+Relative error is 0.0003027909426014386
+```
 
+## Basic Linear Extrapolation
 
-## 2. The same idea can be applied in order to extrapolate. Using the same data and code in problem 1 estimate the mean level in 2014.
+> 2. The same idea can be applied in order to extrapolate. Using the same data and code in problem 1 estimate the mean level in 2014.
 
 Since we are given the actual answer we can extrapolate and determine the best fitting line for the future by comparing every line versus every line.
 
-
-```
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -120,20 +135,19 @@ plt.show()
 
 print(best)
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_8_0.png)
-    
-
-
-    397.982
-
-
-## 3. Plot every line so far.
-
 
 ```
+397.982
+```
+
+## Plotting
+
+> 3. Plot every line so far.
+
+
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -155,17 +169,15 @@ plt.xlabel('Year')
 plt.legend(loc=4)
 plt.show()
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_10_0.png)
-    
+
+## Lagrangian Interopolation
+
+> 4. Use the Lagrangian interpolating polynomial approach to fit a parabola to the last three points in the data. Use that polynomial to estimate the $$ CO_2 $$ level in 2005. Compare that to the value obtained in problem 1, as well as the true value. Which is better? Does that make sense?
 
 
-## 4. Use the Lagrangian interpolating polynomial approach to fit a parabola to the last three points in the data. Use that polynomial to estimate the  $$ CO_2 $$  level in 2005. Compare that to the value obtained in problem 1, as well as the true value. Which is better? Does that make sense?
-
-
-```
+```python
 def lagrangian_polynomial(points, xarr):
     """
     Lagrangian Polynomial at a set of points
@@ -198,8 +210,7 @@ def lagrangian_point(points, x):
 
 Using test data found on the wiki link above we establish that our algorithm is correct.
 
-
-```
+```python
 data = np.array([[-1.5, -14.1014],
                  [-0.75, -0.931596],
                  [0, 0],
@@ -211,17 +222,12 @@ plt.plot(np.arange(-2, 2, 0.1),
          lagrangian_polynomial(data, np.arange(-2, 2, 0.1)))
 plt.show()
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_14_0.png)
-    
 
+Now we use the $$ CO_2 $$ data.
 
-Now we use the  $$ CO_2 $$  data.
-
-
-```
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -239,21 +245,19 @@ plt.show()
 print(lagrangian_polynomial(data[-3:], 2005))
 ```
 
-
-    
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_16_0.png)
     
-
-
-    379.04
-
-
-We'll note that this new value of  $$ \approx 379.04 $$  is actually worse than our estimated value using linear interpolation of  $$ \approx 379.6 $$  given the true value in 2005 to be  $$ 379.8 $$ . This shouldn't be the case, and in fact almost presents a case against using lagrangian interpolation, however the advantage lagrangian interpolation gives us is that it should be more accurate in general than generic linear interpolation.
-
-## 5. Use Newton's divided differences to fit a parabola to the last three points in the data table above. Do you get the same polynomial as in the previous problem? Should you?
-
-
 ```
+379.04
+```
+
+We'll note that this new value of $$ \approx 379.04 $$ is actually worse than our estimated value using linear interpolation of $$ \approx 379.6 $$ given the true value in 2005 to be $$ 379.8 $$. This shouldn't be the case, and in fact almost presents a case against using lagrangian interpolation, however the advantage lagrangian interpolation gives us is that it should be more accurate in general than generic linear interpolation.
+
+## Newton's Divided Differences
+
+> 5. Use Newton's divided differences to fit a parabola to the last three points in the data table above. Do you get the same polynomial as in the previous problem? Should you?
+
+```python
 def divided_differences(data):
     """ http://mathworld.wolfram.com/DividedDifference.html """
     if len(data) == 1:
@@ -288,8 +292,7 @@ def newtons_differences_point(data, x):
     return Nx
 ```
 
-
-```
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -304,19 +307,16 @@ plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_20_0.png)
-    
-
 
 We appear to get the same polynomial, which makes sense. These two polynomials should be of the same form.
 
-## 6. Fit a cubic natural spline to the last three points in the data table above. Using some sort of computer plotting tool, please plot this spline, along with the data from the table above, the true value at 2005, and your parabola from problem 5. Comment on similarities and differences between the spline and the parabola: their shapes, the accuracy of the interpolated value that each one produces, etc.
+## Cubic Natural Spline
 
+6. Fit a cubic natural spline to the last three points in the data table above. Using some sort of computer plotting tool, please plot this spline, along with the data from the table above, the true value at 2005, and your parabola from problem 5. Comment on similarities and differences between the spline and the parabola: their shapes, the accuracy of the interpolated value that each one produces, etc.
 
-```
+```python
 def cubic_natural_spline(data):
     """
     Fits a cubic spline to the points
@@ -355,8 +355,7 @@ def cubic_natural_spline(data):
     return splines
 ```
 
-
-```
+```python
 data = np.array([[1960, 316.91],
                  [1970, 325.68],
                  [1980, 338.68],
@@ -385,112 +384,80 @@ print("True Value:\t{}\nNewton's:\t{}\nCubic Spline:\t{}".format(
         splines[1](2005)[0]))
 ```
 
-
-    
 ![png](ZoeFarmer%20-%20Homework%205_files/ZoeFarmer%20-%20Homework%205_24_0.png)
     
-
-
-    True Value:	379.8
-    Newton's:	379.03999999999996
-    Cubic Spline:	379.20125
-
+```
+True Value:	379.8
+Newton's:	379.03999999999996
+Cubic Spline:	379.20125
+```
 
 Examining our natural cubic spline compared to our fitted interpolating polynomial we see that the two lines are very close to one another, however the cubic spline is closest to the true value.
 
 If more points were used (i.e. the entire dataset, or even a much larger dataset) we would be able to estimate these points with much higher accuracy, because as it is 3 points is just too little.
 
-The shapes of the generated curves are very similar. Both curve toward the true points, ending on the polynomial as  $$ x \to 2010 $$ , however this can again be attributed to the fact that our dataset is so small. A larger dataset would produce a polynomial that would actually stick to the data.
+The shapes of the generated curves are very similar. Both curve toward the true points, ending on the polynomial as $$ x \to 2010 $$, however this can again be attributed to the fact that our dataset is so small. A larger dataset would produce a polynomial that would actually stick to the data.
 
 *The implementations of the Lagrangian Polynomial and the Newton polynomial are not very efficient. They will not scale, and should only be used for a limited set of points.*
 
 # Splines
 
-```
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 
 %pylab inline
 ```
 
-## 1. Play with `xfig`. Play with the four-spline and curve-drawing tools. Use your knowledge about different kinds of splines, do some experiments, and form some conjectures about which ones `xfig` uses for the tool who's icon looks like a smooth figure eight and the one that looks like a figure eight with superimposed dots. With each answer, turn in a few sentences that describe your rationale for making that diagnosis.
+## External Tools
+
+> 1. Play with `xfig`. Play with the four-spline and curve-drawing tools. Use your knowledge about different kinds of splines, do some experiments, and form some conjectures about which ones `xfig` uses for the tool who's icon looks like a smooth figure eight and the one that looks like a figure eight with superimposed dots. With each answer, turn in a few sentences that describe your rationale for making that diagnosis.
 
 The curve-drawing tool draw's bezier curves. We can see this by examining a couple examples from class using different sets of lines.
 
-
-```
+```python
 from IPython.display import Image
 Image(filename='bezier.png')
 ```
-
-
-
-
     
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_3_0.png)
-    
 
-
-
-
-```
+```python
 from IPython.display import Image
 Image(filename='bezierclosed.png')
 ```
-
-
-
-
     
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_4_0.png)
-    
-
-
 
 Not only does this seem to look like a bezier curve, but we can also imagine the "magnetic force" pulling the lines in the directions. In this case it's really the point placement that informs us that these are bezier curves.
 
 Examining the spline tools we can take the exact same set of points and look at the differences
 
-
-```
+```python
 from IPython.display import Image
 Image(filename='spline.png')
 ```
-
-
-
-
     
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_6_0.png)
     
-
-
-
-
-```
+```python
 from IPython.display import Image
 Image(filename='splineclosed.png')
 ```
 
-
-
-
-    
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_7_0.png)
     
-
-
-
 Using what we know about spline interpolation we can safely assume that this tool using splines since the line passes thgouh each point.
 
 The only difference in the "figure-eight" and the "s" shaped tools is that the closed loop tool ("figure-eight") simply connects the first and last point when it has drawn all previous points.
 
-## 2. Implement a Cubic Bezier Polynomial generator. This should take a specific multiple of input points and then return the curves.
+## Bezier Implementation
+
+> 2. Implement a Cubic Bezier Polynomial generator. This should take a specific multiple of input points and then return the curves.
 
 First we create our function.
 
-
-```
+```python
 def bezier(points):
     """
     Draw's bezier polynomials.
@@ -519,8 +486,7 @@ def bezier(points):
 
 Now we can run a bunch of points through our curve-generator and see what we get.
 
-
-```
+```python
 plt.figure(figsize=(10, 10))
 
 points = np.array([[0, -2],
@@ -548,16 +514,11 @@ for i in range(int(len(points) / 4) + 1):
 plt.show()
 ```
 
-
-    
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_12_0.png)
     
-
-
 Now we can try to replicate some of the examples.
 
-
-```
+```python
 plt.figure(figsize=(10, 10))
 
 points = np.array([[0, 0],
@@ -581,11 +542,7 @@ for i in range(int(len(points) / 4) + 1):
 
 plt.show()
 ```
-
-
     
 ![png](ZoeFarmer%20-%20Homework%206_files/ZoeFarmer%20-%20Homework%206_14_0.png)
-    
-
 
 Neat.
