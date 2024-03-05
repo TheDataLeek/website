@@ -19,7 +19,7 @@ import scipy.interpolate as scit
 %pylab inline
 ```
 
-## 1. Implement a program that takes two input points, $$x^*$$, and returns the interpolated line calculated at $$x^*$$.
+## 1. Implement a program that takes two input points,  $$ x^* $$ , and returns the interpolated line calculated at  $$ x^* $$ .
 
 
 ```
@@ -41,7 +41,7 @@ def linearpoint(point1, point2, x):
     return linear_interpolation(point1, point2)(x)
 ```
 
-### a) The following data show the mean annual $$CO_2$$ levels measured at the top of Mauna Loa at 10 year intervals. User your program to estimate the mean annual $$CO_2$$ level at the top of Mauna Loa in 2005.
+### a) The following data show the mean annual  $$ CO_2 $$  levels measured at the top of Mauna Loa at 10 year intervals. User your program to estimate the mean annual  $$ CO_2 $$  level at the top of Mauna Loa in 2005.
 
 
 ```
@@ -58,7 +58,7 @@ plt.figure()
 plt.plot(data[:, 0], data[:, 1])
 plt.plot(domain, line(domain))
 plt.scatter(2005, point)
-plt.ylabel(r'$CO_2$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 
@@ -76,7 +76,7 @@ print(point)
 
 ### b) The true value in 2005 was 379.80. What was the absoluate error in your interpolated value? What about the relative error?
 
-Absolute error is defined as $$|v - v_{approx}|$$ while relative error is defined as $$\lvert 1 - \frac{v_{approx} }{v} \rvert$$.
+Absolute error is defined as  $$ |v - v_{approx}| $$  while relative error is defined as  $$ \lvert 1 - \frac{v_{approx} }{v} \rvert $$ .
 
 
 ```
@@ -114,7 +114,7 @@ for i in range(len(data)):
             plt.plot(domain, line(domain), '--')
 plt.plot(data[:, 0], data[:, 1], 'k-', linewidth=3)
 plt.scatter(2014, 398.55)
-plt.ylabel(r'$CO_2$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 
@@ -150,7 +150,7 @@ ax.plot(domain, line(domain), label='Interpolated Line')
 ax.plot(data[:, 0], data[:, 1], label='Data')
 ax.scatter(2014, 398.55, label='2014 Point')
 ax.scatter(2005, linearpoint(data[-2], data[-1], 2005), label='2014 Point')
-plt.ylabel(r'$CO_2$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.legend(loc=4)
 plt.show()
@@ -162,7 +162,7 @@ plt.show()
     
 
 
-## 4. Use the Lagrangian interpolating polynomial approach to fit a parabola to the last three points in the data. Use that polynomial to estimate the $$CO_2$$ level in 2005. Compare that to the value obtained in problem 1, as well as the true value. Which is better? Does that make sense?
+## 4. Use the Lagrangian interpolating polynomial approach to fit a parabola to the last three points in the data. Use that polynomial to estimate the  $$ CO_2 $$  level in 2005. Compare that to the value obtained in problem 1, as well as the true value. Which is better? Does that make sense?
 
 
 ```
@@ -218,7 +218,7 @@ plt.show()
     
 
 
-Now we use the $$CO_2$$ data.
+Now we use the  $$ CO_2 $$  data.
 
 
 ```
@@ -232,7 +232,7 @@ plt.figure()
 plt.scatter(data[:, 0], data[:, 1])
 plt.plot(np.arange(1960, 2015, 1),
          lagrangian_polynomial(data[-3:], np.arange(1960, 2015, 1)))
-plt.ylabel(r'$$CO_2$$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 
@@ -248,7 +248,7 @@ print(lagrangian_polynomial(data[-3:], 2005))
     379.04
 
 
-We'll note that this new value of $$\approx 379.04$$ is actually worse than our estimated value using linear interpolation of $$\approx 379.6$$ given the true value in 2005 to be $$379.8$$. This shouldn't be the case, and in fact almost presents a case against using lagrangian interpolation, however the advantage lagrangian interpolation gives us is that it should be more accurate in general than generic linear interpolation.
+We'll note that this new value of  $$ \approx 379.04 $$  is actually worse than our estimated value using linear interpolation of  $$ \approx 379.6 $$  given the true value in 2005 to be  $$ 379.8 $$ . This shouldn't be the case, and in fact almost presents a case against using lagrangian interpolation, however the advantage lagrangian interpolation gives us is that it should be more accurate in general than generic linear interpolation.
 
 ## 5. Use Newton's divided differences to fit a parabola to the last three points in the data table above. Do you get the same polynomial as in the previous problem? Should you?
 
@@ -300,7 +300,7 @@ plt.figure()
 plt.scatter(data[:, 0], data[:, 1])
 plt.plot(np.arange(1960, 2015, 1),
          newtons_differences(data[-3:], np.arange(1960, 2015, 1)))
-plt.ylabel(r'$CO_2$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 ```
@@ -376,7 +376,7 @@ for i in range(len(splines)):
     plt.plot(np.arange(data[i - 3, 0], data[i - 2, 0], 0.1),
              splines[i](np.arange(data[i - 3, 0], data[i - 2, 0], 0.1)),
              'r-')
-plt.ylabel(r'$$CO_2$$ Level')
+plt.ylabel(r' $$ CO_2 $$  Level')
 plt.xlabel('Year')
 plt.show()
 
@@ -400,7 +400,7 @@ Examining our natural cubic spline compared to our fitted interpolating polynomi
 
 If more points were used (i.e. the entire dataset, or even a much larger dataset) we would be able to estimate these points with much higher accuracy, because as it is 3 points is just too little.
 
-The shapes of the generated curves are very similar. Both curve toward the true points, ending on the polynomial as $$x \to 2010$$, however this can again be attributed to the fact that our dataset is so small. A larger dataset would produce a polynomial that would actually stick to the data.
+The shapes of the generated curves are very similar. Both curve toward the true points, ending on the polynomial as  $$ x \to 2010 $$ , however this can again be attributed to the fact that our dataset is so small. A larger dataset would produce a polynomial that would actually stick to the data.
 
 *The implementations of the Lagrangian Polynomial and the Newton polynomial are not very efficient. They will not scale, and should only be used for a limited set of points.*
 
