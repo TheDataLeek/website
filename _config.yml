@@ -1,6 +1,6 @@
-title: Zoe
+title: Zoë
 subtitle: Farmer
-description: Data Scientist / Machine Learning Engineer
+description: Machine Learning, Modeling, & AI Engineer
 email: zoe@dataleek.io
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
