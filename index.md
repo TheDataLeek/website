@@ -1,7 +1,7 @@
 ---
 layout: home
-title: Zoe Farmer
-landing-title: 'Zoe Farmer'
+title: Zoë Farmer
+landing-title: 'Zoë Farmer'
 description: null
 image: null
 author: null
@@ -19,7 +19,7 @@ show_tile: false
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2aawHb7I4lkFTF500FAsgvPnuExgw7Qdo0kqL2vaTbE-hGBscWO4332TK5WSaut9qlkfuQtxqh?gv=true',
       color: '#039BE5',
-      label: 'Chat with Zoe!',
+      label: 'Chat with Zoë!',
       target,
     });
   });
