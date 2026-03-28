@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Exclude course notes (thin content)
+Disallow: /college/notes/
+
+Sitemap: https://dataleek.io/sitemap.xml

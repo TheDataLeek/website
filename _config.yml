@@ -2,8 +2,10 @@ title: Zoë
 subtitle: Farmer
 description: Machine Learning, Modeling, & AI Engineer
 email: zoe@dataleek.io
+url: "https://dataleek.io"
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+- jekyll-remote-theme
+- jekyll-sitemap
 remote_theme: andrewbanchich/forty-jekyll-theme
 author: thedataleek
 tiles-source: pages
@@ -11,6 +13,12 @@ tiles-count: 5
 socials:
   GitHub: https://github.com/thedataleek
   LinkedIn: https://www.linkedin.com/in/zoefarmer
+defaults:
+  - scope:
+      path: "college/notes"
+    values:
+      sitemap: false
+
 kramdown:
   math_engine: katex
   syntax_highlighter_opts:
