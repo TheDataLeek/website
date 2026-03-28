@@ -1,52 +1,57 @@
-<!DOCTYPE html>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+---
+layout: default
+---
 
-{% include head.html %}
+<div class="home-wrapper">
 
-<body>
-
-    {% include header.html %}
-
-    <!-- Banner -->
-    <section id="banner" class="major">
-        <div class="inner">
-            <header class="major">
-                <h1>{{ page.landing-title }}</h1>
-            </header>
-            <div class="content">
-                <p style="text-transform: uppercase;">{{ site.description }}</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main -->
-    <div id="main">
-
-        <!-- One -->
-        {% include tiles.html %}
-
-        <!-- Two -->
-        <section id="two">
-            <div class="inner">
-                <!-- <header class="major"> -->
-                    <!-- <h2>Massa libero</h2> -->
-                <!-- </header> -->
-                <p>{{ content }}</p>
-                <!-- <ul class="actions"> -->
-                    <!-- <li><a href="landing.html" class="button next">Get Started</a></li> -->
-                <!-- </ul> -->
-            </div>
-        </section>
-
+  <!-- Hero cell: identity -->
+  <section class="home-hero">
+    <div class="home-hero__photo">
+      <img src="{{ '/assets/images/headshot.jpg' | relative_url }}"
+           alt="Zoë Farmer"
+           class="home-hero__headshot" />
     </div>
+    <div class="home-hero__bio">
+      <h1 class="home-hero__name"><strong>{{ site.title }}</strong> {{ site.subtitle }}</h1>
+      <p class="home-hero__tagline">{{ site.description }}</p>
+    </div>
+  </section>
 
-    {% include footer.html %}
+  <!-- Image tile section: section showcase -->
+  <section class="home-tiles" aria-label="Content sections">
+    <a href="{{ '/college/code' | relative_url }}" class="home-tile">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/codetile.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Code</span>
+        <span class="home-tile__sub">Programming & tutorials</span>
+      </div>
+    </a>
+    <a href="{{ '/college/data' | relative_url }}" class="home-tile">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/datatile.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Data</span>
+        <span class="home-tile__sub">ML & visualization</span>
+      </div>
+    </a>
+    <a href="{{ '/college/math' | relative_url }}" class="home-tile">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/mathtile.jpeg' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Math</span>
+        <span class="home-tile__sub">Numerical analysis</span>
+      </div>
+    </a>
+    <a href="{{ '/presentations' | relative_url }}" class="home-tile">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/slidetile.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Speaking</span>
+        <span class="home-tile__sub">Talks & presentations</span>
+      </div>
+    </a>
+  </section>
 
-</body>
+  <!-- Prose / selected projects -->
+  <div class="nb-notebook home-content">
+    {{ content }}
+  </div>
 
-</html>
+</div>

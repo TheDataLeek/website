@@ -1,0 +1,46 @@
+// Inline code
+:not(pre) > code {
+  font-family: $font-mono;
+  font-size: 0.875em;
+  background: $surface-code;
+  color: $tab-cyan;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+// Block code
+pre {
+  font-family: $font-mono;
+  font-size: $text-sm;
+  line-height: $leading-code;
+  margin: $space-6 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  code {
+    display: block;
+    padding: $space-4 $space-6;
+    background: transparent;
+    color: var(--ink-code);
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    // Reset any inline highlight.js background
+    border: none;
+  }
+}
+
+// highlight.js wrapper div
+.highlight {
+  margin: $space-6 0;
+
+  pre {
+    margin: 0;
+  }
+}
+
+// hljs overrides — keep porple theme colors but fix background
+.hljs {
+  background: transparent !important;
+  padding: $space-4 $space-6 !important;
+}

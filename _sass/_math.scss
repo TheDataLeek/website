@@ -1,0 +1,22 @@
+// KaTeX display math — purple cell
+.katex-display {
+  margin: $space-6 0 !important;
+  padding: $space-6 $space-4;
+  border-left: 4px solid var(--accent-math);
+  background: rgba($tab-purple, 0.06);
+  border-radius: 0 4px 4px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// KaTeX inline — don't scale up in headings
+.katex {
+  font-size: 1em !important;
+}
+
+// Inside nb-notebook, display math gets max-width constraint
+.nb-notebook .katex-display {
+  max-width: $content-max;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

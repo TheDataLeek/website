@@ -1,47 +1,28 @@
-<!-- Wrapper -->
-<div id="wrapper">
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <a href="{{ '' | absolute_url }}/" class="site-header__logo" aria-label="Home">
+      <span class="site-header__name">{{ site.title }}</span>
+      <span class="site-header__sub">{{ site.subtitle }}</span>
+    </a>
 
-    <!-- Header -->
-    <header id="header"{% if page.layout == "landing" %} class="alt style2"{% endif %}{% if page.layout == "home" %} class="alt"{% endif %}>
-        <a href="{{ "" | absolute_url }}/" class="logo"><strong>{{ site.title }}</strong> <span>{{ site.subtitle }}</span></a>
-        <nav>
-            <a href="#menu">Menu</a>
-        </nav>
-    </header>
-    
-    <!-- Menu -->
-    <nav id="menu">
-        <ul class="links">
-            {% for page in site.pages %}
-                {% if page.layout == "home" %}
-                    <li><a href="{{ "" | absolute_url }}/">{{ page.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-            {% for page in site.html_pages %}
-                {% if page.layout != "home" and page.nav-menu == true %}
-                    <li><a href="{{ page.url | absolute_url }}">{{ page.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-            <!-- Google Calendar Appointment Scheduling begin -->
-            <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-            <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-            <script>
-                (function() {
-                    var target = document.currentScript;
-                    window.addEventListener('load', function() {
-                        calendar.schedulingButton.load({
-                            url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2aawHb7I4lkFTF500FAsgvPnuExgw7Qdo0kqL2vaTbE-hGBscWO4332TK5WSaut9qlkfuQtxqh?gv=true',
-                            color: '#039BE5',
-                            label: 'Chat with Zoë!',
-                            target,
-                        });
-                    });
-                })();
-            </script>
-            <!-- end Google Calendar Appointment Scheduling -->
-        </ul>
-        <!-- <ul class="actions vertical">
-            <li><a href="#" class="button special fit">Get Started</a></li>
-            <li><a href="#" class="button fit">Log In</a></li>
-        </ul> -->
+    <nav class="site-nav" id="site-nav" role="navigation" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a href="{{ '/about' | relative_url }}" class="site-nav__link{% if page.url contains 'about' %} site-nav__link--active{% endif %}">About</a></li>
+        <li><a href="{{ '/1_resume' | relative_url }}" class="site-nav__link{% if page.url contains 'resume' %} site-nav__link--active{% endif %}">Resume</a></li>
+        <li><a href="{{ '/contact' | relative_url }}" class="site-nav__link{% if page.url contains 'contact' %} site-nav__link--active{% endif %}">Contact</a></li>
+        <li class="site-nav__sep" aria-hidden="true">|</li>
+        <li><a href="{{ '/college/code' | relative_url }}" class="site-nav__link{% if page.url contains '/code' %} site-nav__link--active{% endif %}">Code</a></li>
+        <li><a href="{{ '/college/data' | relative_url }}" class="site-nav__link{% if page.url contains '/data' %} site-nav__link--active{% endif %}">Data</a></li>
+        <li><a href="{{ '/college/math' | relative_url }}" class="site-nav__link{% if page.url contains '/math' %} site-nav__link--active{% endif %}">Math</a></li>
+        <li><a href="{{ '/presentations' | relative_url }}" class="site-nav__link{% if page.url contains 'presentations' %} site-nav__link--active{% endif %}">Speaking</a></li>
+      </ul>
     </nav>
+
+    <button class="site-nav__toggle"
+            aria-controls="site-nav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,59 @@
+// General image defaults
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Figures with captions
+figure {
+  margin: $space-6 0;
+
+  figcaption {
+    margin-top: $space-2;
+    font-size: $text-sm;
+    color: var(--ink-muted);
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+// Feature image (e.g. resume headshot, post hero)
+.image-feature {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: $space-8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+// Photography gallery grid
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-3;
+  margin: $space-6 0;
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 3px;
+    cursor: zoom-in;
+    transition: transform $duration-mid $ease-out,
+                box-shadow $duration-mid $ease-out;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+// Notebook figure cell images
+.nb-notebook > p > img:only-child,
+.nb-cell--figure img {
+  max-width: 100%;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,143 @@
+.home-wrapper {
+  max-width: $content-max;
+  margin: 0 auto;
+  padding: $space-12 $space-6 $space-16;
+}
+
+// Hero cell
+.home-hero {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+  padding: $space-8;
+  margin-bottom: $space-8;
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 0 6px 6px 0;
+  background: var(--surface-cell);
+}
+
+.home-hero__photo {
+  flex-shrink: 0;
+}
+
+.home-hero__headshot {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--surface-border);
+  display: block;
+}
+
+.home-hero__name {
+  font-size: $text-3xl;
+  font-weight: 300;
+  color: var(--ink-heading);
+  margin: 0 0 $space-2 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.home-hero__tagline {
+  font-size: $text-base;
+  color: var(--ink-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+// Home content section (uses .nb-notebook for cell treatment)
+.home-content {
+  // inherits nb-notebook styles
+}
+
+// ── Image tile section ────────────────────────────────────────────────────────
+.home-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-3;
+  margin-bottom: $space-8;
+}
+
+.home-tile {
+  display: block;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  aspect-ratio: 3 / 2;
+  background: $surface-code;
+
+  // Colored left-border accent (notebook nod), cycles through tab10
+  &:nth-child(1) { border-left: 3px solid $tab-blue; }
+  &:nth-child(2) { border-left: 3px solid $tab-orange; }
+  &:nth-child(3) { border-left: 3px solid $tab-green; }
+  &:nth-child(4) { border-left: 3px solid $tab-purple; }
+}
+
+.home-tile__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform $duration-mid $ease-out,
+              filter $duration-mid $ease-out;
+  filter: brightness(0.55) saturate(0.8);
+}
+
+.home-tile:hover .home-tile__img {
+  transform: scale(1.04);
+  filter: brightness(0.4) saturate(0.7);
+}
+
+.home-tile__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $space-4;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-tile__title {
+  font-size: $text-lg;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+
+.home-tile__sub {
+  font-size: $text-xs;
+  color: rgba(255,255,255,0.7);
+  font-family: $font-mono;
+}
+
+@media (max-width: 720px) {
+  .home-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .home-hero {
+    flex-direction: column;
+    text-align: center;
+    gap: $space-4;
+    padding: $space-6;
+  }
+
+  .home-hero__name {
+    font-size: $text-2xl;
+  }
+
+  .home-tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-2;
+  }
+}

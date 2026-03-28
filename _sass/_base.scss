@@ -1,0 +1,51 @@
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--surface-page);
+  color: var(--ink-body);
+  font-family: $font-sans;
+  font-size: $text-base;
+  line-height: $leading-body;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba($tab-blue, 0.35);
+  color: $ink-heading;
+}
+
+// Custom scrollbar (webkit)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $surface-page;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $surface-border;
+  border-radius: 4px;
+
+  &:hover {
+    background: $ink-faint;
+  }
+}
+
+// Focus visible
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--surface-border);
+  margin: $space-8 0;
+}

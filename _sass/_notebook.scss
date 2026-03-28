@@ -1,0 +1,153 @@
+// ── Notebook cell base ────────────────────────────────────────────────────────
+// Can be used as explicit classes in hand-crafted markdown HTML
+.nb-cell {
+  position: relative;
+  margin: $space-4 0;
+  padding: $space-4 $space-6;
+  border-left: 4px solid transparent;
+  border-radius: 0 4px 4px 0;
+  background: var(--surface-cell);
+}
+
+.nb-cell--markdown {
+  border-left-color: var(--accent-primary);
+  background: var(--surface-cell);
+}
+
+.nb-cell--code {
+  border-left-color: var(--accent-code);
+  background: var(--surface-code);
+}
+
+.nb-cell--math {
+  border-left-color: var(--accent-math);
+  background: rgba($tab-purple, 0.06);
+  text-align: center;
+  padding: $space-6;
+}
+
+.nb-cell--figure {
+  border-left-color: var(--accent-figure);
+  background: var(--surface-cell);
+  text-align: center;
+
+  figcaption {
+    margin-top: $space-2;
+    font-size: $text-sm;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+}
+
+.nb-cell--callout {
+  border-left-color: var(--accent-callout);
+  background: rgba($tab-orange, 0.06);
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+// ── Auto-cell: applied to .nb-notebook content ───────────────────────────────
+// All content in a .nb-notebook container gets notebook cell treatment
+// automatically without requiring authors to add wrapper divs.
+
+.nb-notebook {
+  // Constrain prose width
+  > p,
+  > ul,
+  > ol,
+  > dl,
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Code blocks → code cell
+  > pre,
+  > div.highlight {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: $space-4;
+    margin-bottom: $space-4;
+    border-left: 4px solid var(--accent-code);
+    border-radius: 0 4px 4px 0;
+    background: var(--surface-code);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // Blockquotes → callout cell
+  > blockquote {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Headings: section dividers with a faint left rule
+  > h2 {
+    max-width: $content-max;
+    padding-left: $space-4;
+    border-left: 4px solid var(--surface-border);
+    margin-top: $space-12;
+  }
+
+  > h3 {
+    max-width: $content-max;
+    padding-left: $space-4;
+    border-left: 2px solid var(--surface-border);
+    margin-top: $space-8;
+  }
+
+  // Images in paragraphs → figure treatment
+  > p > img:only-child {
+    display: block;
+    margin: 0 auto;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  // Standalone figure elements
+  > figure {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-left: 4px solid var(--accent-figure);
+    padding: $space-4 $space-6;
+    background: var(--surface-cell);
+    border-radius: 0 4px 4px 0;
+
+    img {
+      margin: 0 auto;
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    figcaption {
+      margin-top: $space-2;
+      font-size: $text-sm;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+  }
+
+  // Tables
+  > table {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Horizontal rules: clear separation
+  > hr {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

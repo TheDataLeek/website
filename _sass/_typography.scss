@@ -1,0 +1,86 @@
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-sans;
+  font-weight: 600;
+  color: var(--ink-heading);
+  line-height: $leading-tight;
+  margin-top: $space-8;
+  margin-bottom: $space-4;
+}
+
+h1 { font-size: $text-4xl; font-weight: 300; letter-spacing: -0.02em; }
+h2 { font-size: $text-2xl; }
+h3 { font-size: $text-xl; }
+h4 { font-size: $text-lg; }
+h5 { font-size: $text-base; }
+h6 { font-size: $text-sm; color: var(--ink-muted); }
+
+// Paragraphs
+p {
+  margin-top: 0;
+  margin-bottom: $space-4;
+  line-height: $leading-body;
+}
+
+// Links
+a {
+  color: var(--ink-link);
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+
+  &:hover {
+    color: var(--ink-link-hover);
+  }
+}
+
+// Lists
+ul, ol {
+  padding-left: $space-6;
+  margin-top: 0;
+  margin-bottom: $space-4;
+
+  li {
+    margin-bottom: $space-1;
+    line-height: $leading-body;
+  }
+}
+
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+
+// Nested lists
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: $space-1;
+  margin-bottom: 0;
+}
+
+// Blockquote
+blockquote {
+  margin: $space-6 0;
+  padding: $space-4 $space-6;
+  border-left: 4px solid var(--accent-callout);
+  background: rgba($tab-orange, 0.06);
+  border-radius: 0 4px 4px 0;
+  color: var(--ink-muted);
+  font-style: italic;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Strong / em
+strong { font-weight: 600; color: var(--ink-heading); }
+em { font-style: italic; }
+
+// Small / abbr
+small { font-size: $text-sm; color: var(--ink-muted); }
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+// Definition lists
+dl { margin: $space-4 0; }
+dt { font-weight: 600; color: var(--ink-heading); }
+dd { margin-left: $space-6; margin-bottom: $space-2; color: var(--ink-muted); }

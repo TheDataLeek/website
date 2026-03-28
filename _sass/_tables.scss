@@ -1,0 +1,35 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: $space-6 0;
+  font-size: $text-sm;
+  line-height: $leading-body;
+}
+
+thead {
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+th {
+  text-align: left;
+  padding: $space-2 $space-4;
+  font-weight: 600;
+  color: var(--ink-heading);
+  font-size: $text-sm;
+  letter-spacing: 0.02em;
+}
+
+td {
+  padding: $space-2 $space-4;
+  border-bottom: 1px solid var(--surface-border);
+  color: var(--ink-body);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover td {
+  background: var(--surface-hover);
+}

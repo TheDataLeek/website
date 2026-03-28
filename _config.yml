@@ -4,12 +4,8 @@ description: Machine Learning, Modeling, & AI Engineer
 email: zoe@dataleek.io
 url: "https://dataleek.io"
 plugins:
-- jekyll-remote-theme
 - jekyll-sitemap
-remote_theme: andrewbanchich/forty-jekyll-theme
 author: thedataleek
-tiles-source: pages
-tiles-count: 5
 socials:
   GitHub: https://github.com/thedataleek
   LinkedIn: https://www.linkedin.com/in/zoefarmer
