@@ -28,3 +28,15 @@ I build production-grade ML systems across a broad range of problem types — cl
 })();
 </script>
 <!-- end Google Calendar Appointment Scheduling -->
+
+---
+
+## Selected Projects
+
+**[Virus Propagation & Markov Chains](/college/khan-academy-interview-project)** &mdash; Graph-based network infection model exploring total and limited infection algorithms across teacher&ndash;student networks, with Markov chain analysis for steady-state propagation. `Python`
+
+**[Redistricting via Simulated Annealing](/college/solving-political-boundaries-through-simulation)** &mdash; Optimizing political district boundaries using simulated annealing and genetic algorithms. Later adapted into a talk for the [Boulder Python Meetup](/presentations). `Python`
+
+---
+
+I also occasionally [speak at conferences and meetups](/presentations) &mdash; SIAM (2016, 2017), Boulder Python, the Boulder D3 Meetup.

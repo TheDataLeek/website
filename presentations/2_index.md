@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Presentations
-description: Talks I've Given
+title: Speaking
+description: Talks & Presentations
 image: assets/images/slidetile.png
 nav-menu: true
 ---
 
-Here's the collection of talks I've given over the years! All are embedded in `iframe`s, so feel free to click through to see fullscreen!
+I've spoken at academic conferences, local meetups, and professional events over the years. Talks are embedded below — click through for fullscreen.
 
 ## [SIAM 2016](siam2016)
 
