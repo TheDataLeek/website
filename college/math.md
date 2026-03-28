@@ -11,12 +11,19 @@ Many or most of the articles here are from class notes, projects, or homeworks t
 # Projects Inspired by Classwork
 
 * [building fractals by hand](fractals)
+  Generates the Mandelbrot set by iterating complex numbers and visualizing convergence boundaries — a clean Python implementation with matplotlib.
 * [the algorithms behind interpolation & splines](interpolation)
+  Implements and compares 1D interpolation methods from scratch: linear, Lagrangian, Newton's divided differences, and cubic splines.
 * [numerical analysis of vector fields](nonlinear-dynamics-homework4)
+  Phase portraits, nullclines, and stability analysis for nonlinear systems — numerical exploration of how vector fields behave near fixed points.
 * [chaotic dynamics and strange attractors](chaotic-dynamics)
+  Homework assignments from a chaotic dynamics course covering strange attractors, bifurcation diagrams, and sensitivity to initial conditions.
 * [numerical analysis of one dimensional maps](one-dimensional-maps)
+  Studies the logistic map and other iterative 1D systems to explore period-doubling and chaos; uses Cython to speed up the orbital calculations.
 * [ordinary differential equation solving with 4th-order Runge-Kutta](ode-solving)
+  Implements 4th-order Runge-Kutta from scratch and applies it to several differential equations — method derivation alongside the code.
 * [the algorithms behind numerical ootfinding](rootfinding)
+  Implements and compares bisection, secant, fixed-point iteration, and Newton's method for finding function roots numerically.
 
 # Class Notes
 
