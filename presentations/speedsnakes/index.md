@@ -5,6 +5,4 @@ nav-menu: false
 show_tile: false
 ---
 
-
-<iframe src="/presentations/speedsnakes/snakes.html" style="width: 100%; height: 35em;"></iframe>
-
+{% include pdf-gallery.html dir="/presentations/speedsnakes/snakes" pages=24 id="speedsnakes" landscape=true %}

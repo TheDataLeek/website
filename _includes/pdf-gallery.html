@@ -10,9 +10,11 @@
 
 <div class="pdf-gallery" id="pdf-gallery-{{ include.id }}">
 
+  {% if include.pdf %}
   <a class="pdf-download-btn" href="{{ include.pdf }}" download>
     ↓ Download PDF
   </a>
+  {% endif %}
 
   <div class="pdf-grid{% if include.landscape %} pdf-grid--landscape{% endif %}">
     {% for i in (1..include.pages) %}

@@ -5,6 +5,4 @@ nav-menu: false
 show_tile: false
 ---
 
-
-<iframe src="/presentations/politicalboundaries/politicalboundaries.slides.html" style="width: 100%; height: 35em;"></iframe>
-
+{% include pdf-gallery.html dir="/presentations/politicalboundaries/politicalboundaries" pages=40 id="politicalboundaries" landscape=true %}

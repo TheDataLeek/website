@@ -5,6 +5,4 @@ nav-menu: false
 show_tile: false
 ---
 
-
-<iframe src="/presentations/evolve/evolve_interview.slides.html" style="width: 100%; height: 35em;"></iframe>
-
+{% include pdf-gallery.html dir="/presentations/evolve/evolve_interview" pages=55 id="evolve" landscape=true %}
