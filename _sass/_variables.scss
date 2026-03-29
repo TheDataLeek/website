@@ -1,4 +1,4 @@
-// ── Matplotlib tab10 palette ─────────────────────────────────────────────────
+// ── Matplotlib tab10 palette (retained for reference) ────────────────────────
 $tab-blue:   #1f77b4;
 $tab-orange: #ff7f0e;
 $tab-green:  #2ca02c;
@@ -10,33 +10,41 @@ $tab-gray:   #7f7f7f;
 $tab-olive:  #bcbd22;
 $tab-cyan:   #17becf;
 
-// ── Semantic accent roles ─────────────────────────────────────────────────────
-$accent-primary:   $tab-blue;
-$accent-secondary: $tab-orange;
-$accent-code:      $tab-green;
-$accent-math:      $tab-purple;
-$accent-figure:    $tab-cyan;
-$accent-callout:   $tab-orange;
+// ── Feminine accent palette ───────────────────────────────────────────────────
+$fem-rose:    #c06fa3;
+$fem-lavender: #9c7ec7;
+$fem-teal:    #5fada8;
+$fem-purple:  #a67cc0;
+$fem-sky:     #7ab8d4;
 
-// ── Dark surface palette (JupyterLab dark) ───────────────────────────────────
-$surface-page:     #1a1a1a;
-$surface-cell:     #1e1e1e;
-$surface-code:     #242424;
-$surface-border:   #333333;
-$surface-hover:    #2a2a2a;
+// ── Semantic accent roles ─────────────────────────────────────────────────────
+$accent-primary:   $fem-rose;
+$accent-secondary: $fem-lavender;
+$accent-code:      $fem-teal;
+$accent-math:      $fem-purple;
+$accent-figure:    $fem-sky;
+$accent-callout:   $fem-lavender;
+
+// ── Dark surface palette (warm-purple tinted) ────────────────────────────────
+$surface-page:     #252030;
+$surface-cell:     #2c2840;
+$surface-code:     #32304a;
+$surface-border:   #4a4460;
+$surface-hover:    #302c3e;
 
 // ── Ink palette ───────────────────────────────────────────────────────────────
-$ink-body:     #e8e8e8;
-$ink-muted:    #9a9a9a;
+$ink-body:     #ece8f0;
+$ink-muted:    #9990a8;
 $ink-faint:    #5a5a5a;
 $ink-heading:  #ffffff;
-$ink-link:     $tab-blue;
-$ink-link-hover: $tab-orange;
-$ink-code:     #e8e8e8;
+$ink-link:     $accent-primary;
+$ink-link-hover: $accent-secondary;
+$ink-code:     #ece8f0;
 
 // ── Typography ────────────────────────────────────────────────────────────────
-$font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+$font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+$font-display: 'Comfortaa', system-ui, sans-serif;
+$font-mono:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
 $text-xs:   0.75rem;
 $text-sm:   0.875rem;
