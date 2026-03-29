@@ -11,5 +11,5 @@ dependencies = [
 
 [tool.uv.workspace]
 members = [
-    "presentations/evolve",
+    "presentations",
 ]

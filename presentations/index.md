@@ -20,10 +20,6 @@ A massively parallel simulation of soliton gas dynamics in 1D systems — the co
 
 An exploration of the Collatz Conjecture through the lens of chaos theory — built for a college course, but an excuse to think about how simple iterative rules produce complex behavior.
 
-## [Python Optimization](speedsnakes)
-
-Python performance optimization for Boulder Python — profiling, Cython, and where to actually look for speedups.
-
 ## [Simulated Annealing](politicalboundaries)
 
 The redistricting-via-simulated-annealing project adapted into a Boulder Python talk — computational geometry for a general audience.
