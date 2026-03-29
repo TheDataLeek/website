@@ -7,6 +7,4 @@ image: halp.png
 ---
 
 
-<iframe src="/college/notes/Fourier/FourierSeries.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Fourier/FourierSeries.pdf" dir="/college/notes/Fourier/FourierSeries" pages=4 id="fourier" %}

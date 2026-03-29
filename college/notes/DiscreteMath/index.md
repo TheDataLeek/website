@@ -9,13 +9,8 @@ show_tile: false
 # Discrete Math Notes
 
 
-<iframe src="/college/notes/DiscreteMath/DiscreteMathNotes.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/DiscreteMath/DiscreteMathNotes.pdf" dir="/college/notes/DiscreteMath/DiscreteMathNotes" pages=17 id="discrete-math" %}
 
 # Final Review
 
-
-<iframe src="/college/notes/DiscreteMath/FinalReview.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/DiscreteMath/FinalReview.pdf" dir="/college/notes/DiscreteMath/FinalReview" pages=1 id="discrete-final" %}

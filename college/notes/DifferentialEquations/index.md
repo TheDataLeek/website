@@ -7,12 +7,8 @@ show_tile: false
 
 # Differential Equations Notes
 
-<iframe src="/college/notes/DifferentialEquations/DifferentialEquationsNotes.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/DifferentialEquations/DifferentialEquationsNotes.pdf" dir="/college/notes/DifferentialEquations/DifferentialEquationsNotes" pages=47 id="diffeq-notes" %}
 
 # Final Review
 
-<iframe src="/college/notes/DifferentialEquations/FinalReview.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/DifferentialEquations/FinalReview.pdf" dir="/college/notes/DifferentialEquations/FinalReview" pages=2 id="diffeq-final" %}

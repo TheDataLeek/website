@@ -8,70 +8,40 @@ show_tile: false
 
 # Algorithm Notes
 
-
-<iframe src="/college/notes/Algorithms/AlgorithmNotes.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/AlgorithmNotes.pdf" dir="/college/notes/Algorithms/AlgorithmNotes" pages=7 id="algo-notes" %}
 
 # homework 1
 
-
-<iframe src="/college/notes/Algorithms/homework1.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework1.pdf" dir="/college/notes/Algorithms/homework1" pages=5 id="algo-hw1" %}
 
 # homework 2
 
-
-<iframe src="/college/notes/Algorithms/homework2.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework2.pdf" dir="/college/notes/Algorithms/homework2" pages=7 id="algo-hw2" %}
 
 # homework 3
 
-
-<iframe src="/college/notes/Algorithms/homework3.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework3.pdf" dir="/college/notes/Algorithms/homework3" pages=8 id="algo-hw3" %}
 
 # homework 4
 
-
-<iframe src="/college/notes/Algorithms/homework4.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework4.pdf" dir="/college/notes/Algorithms/homework4" pages=6 id="algo-hw4" %}
 
 # homework 5
 
-
-<iframe src="/college/notes/Algorithms/homework5.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework5.pdf" dir="/college/notes/Algorithms/homework5" pages=8 id="algo-hw5" %}
 
 # homework 6
 
-
-<iframe src="/college/notes/Algorithms/homework6.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework6.pdf" dir="/college/notes/Algorithms/homework6" pages=5 id="algo-hw6" %}
 
 # homework 7
 
-
-<iframe src="/college/notes/Algorithms/homework7.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework7.pdf" dir="/college/notes/Algorithms/homework7" pages=6 id="algo-hw7" %}
 
 # homework 8
 
-
-<iframe src="/college/notes/Algorithms/homework8.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework8.pdf" dir="/college/notes/Algorithms/homework8" pages=11 id="algo-hw8" %}
 
 # homework 9
 
-
-<iframe src="/college/notes/Algorithms/homework9.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Algorithms/homework9.pdf" dir="/college/notes/Algorithms/homework9" pages=6 id="algo-hw9" %}

@@ -6,6 +6,4 @@ show_tile: false
 ---
 
 
-<iframe src="/college/notes/AppliedAnalysis/AppliedAnalysis1.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/AppliedAnalysis/AppliedAnalysis1.pdf" dir="/college/notes/AppliedAnalysis/AppliedAnalysis1" pages=21 id="applied-analysis" %}

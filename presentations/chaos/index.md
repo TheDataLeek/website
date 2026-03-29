@@ -6,5 +6,5 @@ show_tile: false
 ---
 
 
-<iframe src="/presentations/chaos/chaos-and-collatz.pdf" style="width: 100%; height: 35em;"></iframe>
+{% include pdf-gallery.html pdf="/presentations/chaos/chaos-and-collatz.pdf" dir="/presentations/chaos/chaos-and-collatz" pages=31 id="chaos" landscape=true %}
 

@@ -6,6 +6,4 @@ show_tile: false
 ---
 
 
-<iframe src="/college/notes/NumericalAnalysis/NumericalAnalysis.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/NumericalAnalysis/NumericalAnalysis.pdf" dir="/college/notes/NumericalAnalysis/NumericalAnalysis" pages=8 id="numerical-analysis" %}

@@ -15,16 +15,16 @@ The core calculation is extracted into its own module so it can be compiled with
 
 ```python
 import math as np
-def calculate_iterations(px, py, x0, y0, max_iterations):
+
+def calculate_iterations(x0, y0, max_iterations):
     x = y = iteration = 0
-    while (x**2 + y**2 < 4 and iteration < max_iterations):
+    while ((x**2 + y**2 < 4) and (iteration < max_iterations)):
         xtmp = x**2 - y**2 + x0
         y = 2 * x * y + y0
         x = xtmp
         iteration += 1
     if iteration < max_iterations:
-        iteration += 1 - np.log(np.log(np.sqrt(x**2 + y**2)) /
-                                        np.log(2) ) / np.log(2)
+        iteration += 1 - np.log(np.log(np.sqrt(x**2 + y**2)) / np.log(2) ) / np.log(2)
     return iteration
 ```
 
@@ -79,4 +79,41 @@ The pixel-to-complex-plane mapping covers the standard Mandelbrot viewing window
 
 Each pixel's iteration count is normalized to [0, 255] and stored in the `colors` array, which matplotlib renders as a heatmap.
 
-![The Mandelbrot set rendered at 1000×571, max_iterations=50. Bright regions escape quickly; dark regions near the boundary take the full 50 iterations before being classified as bounded.](Mandelbrot_files/Mandelbrot_1_10.png)
+<figure>
+  <img id="mandelbrot-thumb" src="Mandelbrot.png"
+       alt="The Mandelbrot set rendered at 1000×571, max_iterations=50. Bright regions escape quickly; dark regions near the boundary take the full 50 iterations before being classified as bounded."
+       style="cursor:zoom-in;">
+  <figcaption>Click to view full resolution</figcaption>
+</figure>
+
+<div class="pdf-lightbox" id="mandelbrot-lb" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="pdf-lightbox__close" aria-label="Close">×</button>
+  <div class="pdf-lightbox__content">
+    <img class="pdf-lightbox__img" src="" alt="Mandelbrot set — full resolution">
+  </div>
+</div>
+
+<script>
+(function () {
+  var lb   = document.getElementById('mandelbrot-lb');
+  var img  = lb.querySelector('.pdf-lightbox__img');
+
+  function open() {
+    img.src = '{{ "/college/fractals/MandelbrotBig.png" | relative_url }}';
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('mandelbrot-thumb').addEventListener('click', open);
+  lb.querySelector('.pdf-lightbox__close').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape') close();
+  });
+}());
+</script>
