@@ -8,6 +8,39 @@
   border-radius: 4px;
 }
 
+// Line numbers
+pre.line-numbers {
+  position: relative;
+}
+
+pre.line-numbers code {
+  padding-left: 3.5em !important; // specificity (0,1,2) beats .hljs (0,1,0)
+}
+
+.line-numbers-rows {
+  position: absolute;
+  top: $space-4; // matches code padding-top from .hljs
+  left: 0;
+  width: 3em;
+  counter-reset: linenumber;
+  user-select: none;
+  pointer-events: none;
+
+  > span {
+    display: block;
+    counter-increment: linenumber;
+
+    &::before {
+      content: counter(linenumber);
+      display: block;
+      text-align: right;
+      padding-right: 0.5em;
+      color: $ink-muted;
+      opacity: 0.5;
+    }
+  }
+}
+
 // Block code
 pre {
   font-family: $font-mono;
