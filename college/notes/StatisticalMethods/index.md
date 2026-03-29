@@ -7,15 +7,11 @@ show_tile: false
 
 # Statistical Methods Notes
 
-<iframe src="/college/notes/StatisticalMethods/StatisticalMethods.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/StatisticalMethods/StatisticalMethods.pdf" dir="/college/notes/StatisticalMethods/StatisticalMethods" pages=19 id="stat-methods" %}
 
 # Takehome Midterm
 
-<iframe src="/college/notes/StatisticalMethods/m2.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/StatisticalMethods/m2.pdf" dir="/college/notes/StatisticalMethods/m2" pages=13 id="stat-midterm" %}
 
 # APPM4570 Takehome Final
 

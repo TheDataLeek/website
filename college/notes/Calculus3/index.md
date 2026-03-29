@@ -6,6 +6,4 @@ show_tile: false
 ---
 
 
-<iframe src="/college/notes/Calculus3/CalcIIINotes.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/Calculus3/CalcIIINotes.pdf" dir="/college/notes/Calculus3/CalcIIINotes" pages=29 id="calc3" %}

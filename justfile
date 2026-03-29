@@ -16,8 +16,8 @@ install:
 
 # Convert Jupyter notebooks to markdown posts
 notebooks:
-    python build_notebooks.py
+    uv run python build_notebooks.py
 
 # Convert PDF resume to PNG images (requires Ghostscript)
-assets:
-    python assets/build_assets.py
+assets *args='':
+    uv run python assets/build_assets.py {{ args }}

@@ -6,6 +6,4 @@ show_tile: false
 ---
 
 
-<iframe src="/college/notes/MathematicalStatistics/MathematicalStatistics.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/MathematicalStatistics/MathematicalStatistics.pdf" dir="/college/notes/MathematicalStatistics/MathematicalStatistics" pages=4 id="math-stats" %}

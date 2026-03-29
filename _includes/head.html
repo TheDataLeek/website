@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="assets/images/favicon.svg" sizes="any" type="image/svg+xml">
+  <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" sizes="any" type="image/svg+xml">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }} {{ site.subtitle }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }} {{ site.subtitle }}">
@@ -13,7 +13,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Comfortaa:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Theme CSS -->
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}" />
@@ -28,6 +28,25 @@
   <script src="{{ '/assets/js/highlight.min.js' | relative_url }}"></script>
   <link rel="stylesheet" href="{{ '/assets/css/porple.min.css' | relative_url }}">
   <script>hljs.initHighlightingOnLoad();</script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('pre code').forEach(function(block) {
+      var lines = (block.textContent || '').split('\n');
+      if (lines.length && lines[lines.length - 1] === '') lines.pop();
+
+      var rows = document.createElement('span');
+      rows.className = 'line-numbers-rows';
+      rows.setAttribute('aria-hidden', 'true');
+      for (var i = 0; i < lines.length; i++) {
+        rows.appendChild(document.createElement('span'));
+      }
+
+      var pre = block.parentElement;
+      pre.classList.add('line-numbers');
+      pre.appendChild(rows);
+    });
+  });
+  </script>
 
   <!-- SVG.js (used by projects/magic) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.0/svg.min.js" integrity="sha512-EmfT33UCuNEdtd9zuhgQClh7gidfPpkp93WO8GEfAP3cLD++UM1AG9jsTUitCI9DH5nF72XaFePME92r767dHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

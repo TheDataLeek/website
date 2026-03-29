@@ -11,23 +11,15 @@ show_tile: false
 
 ## Lab 1
 
-<iframe src="/college/notes/MarkovProcesses/lab1/lab1.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
-
+{% include pdf-gallery.html pdf="/college/notes/MarkovProcesses/lab1/lab1.pdf" dir="/college/notes/MarkovProcesses/lab1/lab1" pages=9 id="markov-lab1" %}
 
 ## Lab 2
 
-<iframe src="/college/notes/MarkovProcesses/lab2/lab2.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
-
+{% include pdf-gallery.html pdf="/college/notes/MarkovProcesses/lab2/lab2.pdf" dir="/college/notes/MarkovProcesses/lab2/lab2" pages=9 id="markov-lab2" %}
 
 ## Lab 3
 
-<iframe src="/college/notes/MarkovProcesses/lab3/lab3.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/MarkovProcesses/lab3/lab3.pdf" dir="/college/notes/MarkovProcesses/lab3/lab3" pages=7 id="markov-lab3" %}
 
 # Table of Contents
 1. [Table of Contents](#Table-of-Contents)

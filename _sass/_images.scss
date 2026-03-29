@@ -50,6 +50,133 @@ figure {
   }
 }
 
+// ── PDF Gallery ───────────────────────────────────────────────────────────────
+
+.pdf-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  margin-bottom: $space-6;
+  border: 1px solid $accent-primary;
+  border-radius: 4px;
+  color: $accent-primary;
+  font-size: $text-sm;
+  font-family: $font-mono;
+  text-decoration: none;
+  transition: background-color $duration-fast $ease-out,
+              color $duration-fast $ease-out;
+
+  &:hover {
+    background-color: $accent-primary;
+    color: $surface-page;
+  }
+}
+
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $space-3;
+  margin: $space-6 0;
+
+  &--landscape {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+    .pdf-grid__page img {
+      aspect-ratio: 4 / 3;
+    }
+  }
+}
+
+.pdf-grid__page {
+  margin: 0;
+  cursor: zoom-in;
+
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+    background: white;
+    border-radius: 3px;
+    border: 1px solid $surface-border;
+    transition: transform $duration-mid $ease-out,
+                box-shadow $duration-mid $ease-out;
+  }
+
+  figcaption {
+    text-align: center;
+    font-size: $text-xs;
+    color: var(--ink-muted);
+    margin-top: $space-1;
+    font-style: normal;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.pdf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-4;
+
+  &[aria-hidden="true"] { display: none; }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+    max-height: 90vh;
+  }
+
+  &__img {
+    max-height: 85vh;
+    max-width: calc(100vw - 120px);
+    object-fit: contain;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  &__counter {
+    font-size: $text-sm;
+    font-family: $font-mono;
+    color: var(--ink-muted);
+  }
+
+  &__close,
+  &__prev,
+  &__next {
+    background: none;
+    border: none;
+    color: $ink-body;
+    cursor: pointer;
+    font-size: $text-2xl;
+    padding: $space-3;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity $duration-fast $ease-out;
+
+    &:hover { opacity: 1; }
+  }
+
+  &__close {
+    position: absolute;
+    top: $space-4;
+    right: $space-4;
+    font-size: $text-3xl;
+  }
+}
+
 // Notebook figure cell images
 .nb-notebook > p > img:only-child,
 .nb-cell--figure img {

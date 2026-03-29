@@ -1,0 +1,88 @@
+{% comment %}
+  PDF gallery include — replaces an iframe with a download button + image grid + lightbox.
+
+  Parameters:
+    include.pdf    — site-relative path to the PDF  (e.g. /presentations/chaos/chaos-and-collatz.pdf)
+    include.dir    — site-relative path to page images dir  (e.g. /presentations/chaos/chaos-and-collatz)
+    include.pages  — integer page count
+    include.id     — unique slug, used to scope lightbox JS  (e.g. "chaos")
+{% endcomment %}
+
+<div class="pdf-gallery" id="pdf-gallery-{{ include.id }}">
+
+  {% if include.pdf %}
+  <a class="pdf-download-btn" href="{{ include.pdf }}" download>
+    ↓ Download PDF
+  </a>
+  {% endif %}
+
+  <div class="pdf-grid{% if include.landscape %} pdf-grid--landscape{% endif %}">
+    {% for i in (1..include.pages) %}
+    <figure class="pdf-grid__page" data-index="{{ i }}">
+      <img src="{{ include.dir }}/page-{{ i }}.png"
+           alt="Page {{ i }}"
+           loading="lazy">
+      <figcaption>{{ i }}</figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+
+  <div class="pdf-lightbox" id="pdf-lb-{{ include.id }}" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="pdf-lightbox__close" aria-label="Close">×</button>
+    <button class="pdf-lightbox__prev" aria-label="Previous page">‹</button>
+    <div class="pdf-lightbox__content">
+      <img class="pdf-lightbox__img" src="" alt="">
+      <span class="pdf-lightbox__counter"></span>
+    </div>
+    <button class="pdf-lightbox__next" aria-label="Next page">›</button>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var gallery  = document.getElementById('pdf-gallery-{{ include.id }}');
+  var lightbox = document.getElementById('pdf-lb-{{ include.id }}');
+  var lbImg    = lightbox.querySelector('.pdf-lightbox__img');
+  var lbCount  = lightbox.querySelector('.pdf-lightbox__counter');
+  var pages    = {{ include.pages }};
+  var current  = 1;
+
+  function open(idx) {
+    current = idx;
+    var thumb = gallery.querySelector('[data-index="' + idx + '"] img');
+    lbImg.src = thumb.src;
+    lbCount.textContent = idx + ' / ' + pages;
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lightbox.focus();
+  }
+
+  function close() {
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function prev() { open(current > 1 ? current - 1 : pages); }
+  function next() { open(current < pages ? current + 1 : 1); }
+
+  gallery.querySelectorAll('.pdf-grid__page').forEach(function (fig) {
+    fig.addEventListener('click', function () { open(+this.dataset.index); });
+  });
+
+  lightbox.querySelector('.pdf-lightbox__close').addEventListener('click', close);
+  lightbox.querySelector('.pdf-lightbox__prev').addEventListener('click', prev);
+  lightbox.querySelector('.pdf-lightbox__next').addEventListener('click', next);
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (lightbox.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+  });
+}());
+</script>

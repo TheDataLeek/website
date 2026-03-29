@@ -71,11 +71,11 @@
   aspect-ratio: 3 / 2;
   background: $surface-code;
 
-  // Colored left-border accent (notebook nod), cycles through tab10
-  &:nth-child(1) { border-left: 3px solid $tab-blue; }
-  &:nth-child(2) { border-left: 3px solid $tab-orange; }
-  &:nth-child(3) { border-left: 3px solid $tab-green; }
-  &:nth-child(4) { border-left: 3px solid $tab-purple; }
+  // Colored left-border accent (notebook nod), cycles through feminine palette
+  &:nth-child(1) { border-left: 3px solid $fem-rose; }
+  &:nth-child(2) { border-left: 3px solid $fem-lavender; }
+  &:nth-child(3) { border-left: 3px solid $fem-teal; }
+  &:nth-child(4) { border-left: 3px solid $fem-purple; }
 }
 
 .home-tile__img {

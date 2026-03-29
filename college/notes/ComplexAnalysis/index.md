@@ -7,12 +7,8 @@ show_tile: false
 
 # Complex Variables
 
-<iframe src="/college/notes/ComplexAnalysis/ComplexVariables.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/ComplexAnalysis/ComplexVariables.pdf" dir="/college/notes/ComplexAnalysis/ComplexVariables" pages=32 id="complex-vars" %}
 
 # Complex Analysis Review
 
-<iframe src="/college/notes/ComplexAnalysis/ComplexAnalysisReview.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/ComplexAnalysis/ComplexAnalysisReview.pdf" dir="/college/notes/ComplexAnalysis/ComplexAnalysisReview" pages=2 id="complex-review" %}

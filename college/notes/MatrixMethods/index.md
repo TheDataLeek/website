@@ -6,6 +6,4 @@ show_tile: false
 ---
 
 
-<iframe src="/college/notes/MatrixMethods/MatrixMethodsNotes.pdf"
-        style="width: 100%; height: 40em;">
-</iframe>
+{% include pdf-gallery.html pdf="/college/notes/MatrixMethods/MatrixMethodsNotes.pdf" dir="/college/notes/MatrixMethods/MatrixMethodsNotes" pages=34 id="matrix-methods" %}

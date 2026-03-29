@@ -1,0 +1,17 @@
+[project]
+name = "fractals"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cython>=3.2.4",
+    "jupyter>=1.1.1",
+    "jupyterlab>=4.5.6",
+    "matplotlib>=3.10.8",
+    "tqdm>=4.67.3",
+]
+
+[build-system]
+requires = ["setuptools>=61", "cython"]
+build-backend = "setuptools.build_meta"
