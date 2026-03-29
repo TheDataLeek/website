@@ -6,7 +6,7 @@ image: assets/images/blogtile.png
 description: Notes & Homework
 ---
 
-Many or most of the articles here are from class notes, projects, or homeworks that I touched up -
+Most of these started as class notes, projects, or homework that I cleaned up into something more readable.
 
 # Projects Inspired by Classwork
 
@@ -22,7 +22,7 @@ Many or most of the articles here are from class notes, projects, or homeworks t
   Studies the logistic map and other iterative 1D systems to explore period-doubling and chaos; uses Cython to speed up the orbital calculations.
 * [ordinary differential equation solving with 4th-order Runge-Kutta](ode-solving)
   Implements 4th-order Runge-Kutta from scratch and applies it to several differential equations — method derivation alongside the code.
-* [the algorithms behind numerical ootfinding](rootfinding)
+* [the algorithms behind numerical rootfinding](rootfinding)
   Implements and compares bisection, secant, fixed-point iteration, and Newton's method for finding function roots numerically.
 
 # Class Notes

@@ -10,35 +10,35 @@ I've spoken at academic conferences, local meetups, and professional events over
 
 ## [SIAM 2016](siam2016)
 
-A talk on data quality in lab environments! Presented at SIAM 2016 on using machine learning models to identify poor quality photograph data at scale.
+Using ML to flag poor-quality lab photographs at scale — research from my undergrad position, presented at SIAM 2016.
 
 ## [SIAM 2017](siam2017)
 
-Another SIAM presentation on running a massively parallel simulation on soliton gasses. 
+A massively parallel simulation of soliton gas dynamics in 1D systems — the computational methods work from my applied math research assistant role, presented at SIAM 2017.
 
 ## [Chaos and Collatz](chaos)
 
-A college presentation on the Collatz Conjecture and Chaos Theory.
+An exploration of the Collatz Conjecture through the lens of chaos theory — built for a college course, but an excuse to think about how simple iterative rules produce complex behavior.
 
 ## [Python Optimization](speedsnakes)
 
-A brief talk on optimizing python given to Boulder Python.
+Python performance optimization for Boulder Python — profiling, Cython, and where to actually look for speedups.
 
 ## [Simulated Annealing](politicalboundaries)
 
-A college project turned into presentation for Boulder Python.
+The redistricting-via-simulated-annealing project adapted into a Boulder Python talk — computational geometry for a general audience.
 
 ## [Reusable D3 Charting](d3reuse)
 
-A presentation given to the Boulder D3 Meetup on a simple but effective reusable D3 framework.
+The Boulder D3 Meetup talk behind the reusable charting writeup — building configurable chart components with ES6 classes.
 
 ## [AirB&B Data Analysis](evolve)
 
-An interview project turned presentation.
+Expanded the Boston AirBnB interview project into a full talk — analysis pipeline, key findings, and visualization approach.
 
 ## [AirB&B Data Visualization](airbnb)
 
-A D3 dashboard visualizing the above data.
+The interactive D3 map that went with the talk above — Boston AirBnB listings rendered geospatially.
 
 
 

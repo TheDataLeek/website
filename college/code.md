@@ -6,7 +6,7 @@ image: assets/images/codetile.png
 description: Libraries, Style, and Projects
 ---
 
-One of my specialities is writing effective Python, Javascript, or other languages as needed and I've written about some of that work here.
+Writeups from tutorials, meetup talks, and projects I wanted to document — mostly Python, some D3.
 
 * [a quick guide to os fork in python](/college/a-quick-guide-to-os-fork-in-python)
   A tutorial on process-level parallelism using `os.fork()` directly — useful for understanding what higher-level libraries like `multiprocessing` are abstracting.
