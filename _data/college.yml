@@ -1,0 +1,152 @@
+sections:
+  - id: code
+    title: Code
+    description: Libraries, Style, and Projects
+    image: /assets/images/codetile.png
+    accent: code
+    intro: Writeups from tutorials, meetup talks, and projects I wanted to document — mostly Python, some D3.
+    projects:
+      - title: a quick guide to os fork in python
+        url: /college/a-quick-guide-to-os-fork-in-python
+        description: "A tutorial on process-level parallelism using os.fork() directly — useful for understanding what higher-level libraries like multiprocessing are abstracting."
+      - title: an introduction to plotting in python
+        url: /college/an-introduction-to-plotting-in-python
+        description: "An introduction to matplotlib using NumPy arrays; covers line plots, histograms, and scatter plots with a MATLAB-familiar syntax."
+      - title: an introduction to pythons types
+        url: /college/an-introduction-to-pythons-types
+        description: "Part 1 of a typing series — a tour of Python's built-in type system: primitives, collections, and iterables — as a foundation for the type hinting articles that follow."
+      - title: integrating sms with twilio
+        url: /college/integrating-sms-with-twilio
+        description: "A 2017 walkthrough of sending SMS via the Twilio Python SDK; the API surface has since changed but the integration pattern (credentials, client setup, message dispatch) is still representative."
+      - title: python type hinting
+        url: /college/python-type-hinting
+        description: "Covers Python 3.5+ optional type hints and static analysis with mypy — the mechanics of adding hints without enforcing them at runtime."
+      - title: reusable charting with d3
+        url: /college/reusable-charting-with-d3
+        description: "A pattern for building reusable, configurable chart components in D3 using ES6 classes, written around a 2018 Boulder D3 Meetup talk."
+      - title: the good the bad and the ugly of tuple unpacking
+        url: /college/the-good-the-bad-and-the-ugly-of-tuple-unpacking
+        description: "Best practices for handling multiple return values in Python — where tuple unpacking helps readability and where it becomes a liability."
+      - title: the python typing module
+        url: /college/the-python-typing-module
+        description: "Deeper into Python's typing module — Union, Callable, TypeVar, and type aliases for annotating more complex function signatures."
+
+  - id: data
+    title: Data
+    description: Analytics, Science, and Modeling
+    image: /assets/images/datatile.png
+    accent: primary
+    intro: Most of my data work is closed-source. These are the projects that were either open-source from the start or that I was able to share later.
+    projects:
+      - title: airbnb visualization in D3
+        url: /college/airbnb-visualization
+        description: "An interactive D3.js map of Boston AirBnB listings using GeoJSON; the interesting part is the Python pipeline that converts raw listing data to geospatial format."
+      - title: digging into my discord using data analysis
+        url: /college/digging-into-my-discord
+        description: "Regex-based analysis of 200,000+ messages from a Discord server — frequency patterns, activity windows, and communication graphs."
+      - title: "viral networks — khan academy interview project"
+        url: /college/khan-academy-interview-project
+        description: "Implements graph-based infection spreading (total and limited strategies) plus a Markov chain analysis of the network, from a 2017 interview project."
+      - title: interpolating 3d
+        url: /college/interpolating-3d
+        description: "Uses scipy's griddata and kriging to interpolate 3D glacier coordinate datasets — a practical comparison of interpolation methods in three dimensions."
+      - title: fuzzy document retrieval using high performance latent semantic analysis
+        url: /college/PythonLSA
+        description: "High-performance latent semantic analysis for fuzzy document retrieval — SVD on term-document matrices with a Python interface for querying by semantic similarity."
+      - title: twitter civil unrest analysis with apache spark
+        url: /college/twitter-civil-unrest-analysis-with-apache-spark
+        description: "A 2015 prototype using Apache Spark's streaming API to analyze civil unrest signals in real-time Twitter data; the functional pipeline patterns hold up better than the specific APIs."
+      - title: solving political boundaries through simulation
+        url: /college/solving-political-boundaries-through-simulation
+        description: "Applies simulated annealing and genetic algorithms to redistricting — framing fair district boundary selection as a computational geometry optimization problem."
+
+  - id: math
+    title: Math
+    description: Notes & Homework
+    image: /assets/images/mathtile.jpeg
+    accent: math
+    intro: Most of these started as class notes, projects, or homework that I cleaned up into something more readable.
+    projects:
+      - title: building fractals by hand
+        url: /college/fractals
+        description: "Generates the Mandelbrot set by iterating complex numbers and visualizing convergence boundaries — a clean Python implementation with matplotlib."
+      - title: the algorithms behind interpolation & splines
+        url: /college/interpolation
+        description: "Implements and compares 1D interpolation methods from scratch — linear, Lagrangian, Newton's divided differences, and cubic splines."
+      - title: numerical analysis of vector fields
+        url: /college/nonlinear-dynamics-homework4
+        description: "Phase portraits, nullclines, and stability analysis for nonlinear systems — numerical exploration of how vector fields behave near fixed points."
+      - title: chaotic dynamics and strange attractors
+        url: /college/chaotic-dynamics
+        description: "Homework assignments from a chaotic dynamics course covering strange attractors, bifurcation diagrams, and sensitivity to initial conditions."
+      - title: numerical analysis of one dimensional maps
+        url: /college/one-dimensional-maps
+        description: "Studies the logistic map and other iterative 1D systems to explore period-doubling and chaos; uses Cython to speed up the orbital calculations."
+      - title: ordinary differential equation solving with 4th-order Runge-Kutta
+        url: /college/ode-solving
+        description: "Implements 4th-order Runge-Kutta from scratch and applies it to several differential equations — method derivation alongside the code."
+      - title: the algorithms behind numerical rootfinding
+        url: /college/rootfinding
+        description: "Implements and compares bisection, secant, fixed-point iteration, and Newton's method for finding function roots numerically."
+    notes:
+      - title: Algorithms
+        url: /college/notes/Algorithms
+      - title: Applied Analysis
+        url: /college/notes/AppliedAnalysis
+      - title: Calculus 2
+        url: /college/notes/Calculus2
+      - title: Calculus 3
+        url: /college/notes/Calculus3
+      - title: Complex Analysis
+        url: /college/notes/ComplexAnalysis
+      - title: Computer Systems
+        url: /college/notes/ComputerSystems
+      - title: Differential Equations
+        url: /college/notes/DifferentialEquations
+      - title: Discrete Math
+        url: /college/notes/DiscreteMath
+      - title: Fourier
+        url: /college/notes/Fourier
+      - title: Intro To AI
+        url: /college/notes/IntroToAI
+      - title: Markov Processes
+        url: /college/notes/MarkovProcesses
+      - title: Mathematical Statistics
+        url: /college/notes/MathematicalStatistics
+      - title: Matrix Methods
+        url: /college/notes/MatrixMethods
+      - title: Numerical Analysis
+        url: /college/notes/NumericalAnalysis
+      - title: Numerical Computation
+        url: /college/notes/NumericalComputation
+      - title: Statistical Methods
+        url: /college/notes/StatisticalMethods
+
+  - id: presentations
+    title: Speaking
+    description: Talks & Presentations
+    image: /assets/images/slidetile.png
+    accent: secondary
+    intro: I've spoken at academic conferences, local meetups, and professional events over the years.
+    projects:
+      - title: SIAM 2016
+        url: /college/presentations/siam2016
+        description: "Using ML to flag poor-quality lab photographs at scale — research from my undergrad position, presented at SIAM 2016."
+      - title: SIAM 2017
+        url: /college/presentations/siam2017
+        description: "A massively parallel simulation of soliton gas dynamics in 1D systems — the computational methods work from my applied math research assistant role, presented at SIAM 2017."
+      - title: Chaos and Collatz
+        url: /college/presentations/chaos
+        description: "An exploration of the Collatz Conjecture through the lens of chaos theory — built for a college course, but an excuse to think about how simple iterative rules produce complex behavior."
+      - title: Simulated Annealing
+        url: /college/presentations/politicalboundaries
+        description: "The redistricting-via-simulated-annealing project adapted into a Boulder Python talk — computational geometry for a general audience."
+      - title: Reusable D3 Charting
+        url: /college/presentations/d3reuse
+        description: "The Boulder D3 Meetup talk behind the reusable charting writeup — building configurable chart components with ES6 classes."
+      - title: "AirB&B Data Analysis"
+        url: /college/presentations/evolve
+        description: "Expanded the Boston AirBnB interview project into a full talk — analysis pipeline, key findings, and visualization approach."
+      - title: "AirB&B Data Visualization"
+        url: /college/presentations/airbnb
+        description: "The interactive D3 map that went with the talk above — Boston AirBnB listings rendered geospatially."

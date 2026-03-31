@@ -7,14 +7,10 @@
 
     <nav class="site-nav" id="site-nav" role="navigation" aria-label="Primary">
       <ul class="site-nav__list">
-        <li><a href="{{ '/about' | relative_url }}" class="site-nav__link{% if page.url contains 'about' %} site-nav__link--active{% endif %}">About</a></li>
         <li><a href="{{ '/1_resume' | relative_url }}" class="site-nav__link{% if page.url contains 'resume' %} site-nav__link--active{% endif %}">Resume</a></li>
         <li><a href="{{ '/contact' | relative_url }}" class="site-nav__link{% if page.url contains 'contact' %} site-nav__link--active{% endif %}">Contact</a></li>
         <li class="site-nav__sep" aria-hidden="true">|</li>
-        <li><a href="{{ '/college/code' | relative_url }}" class="site-nav__link{% if page.url contains '/code' %} site-nav__link--active{% endif %}">Code</a></li>
-        <li><a href="{{ '/college/data' | relative_url }}" class="site-nav__link{% if page.url contains '/data' %} site-nav__link--active{% endif %}">Data</a></li>
-        <li><a href="{{ '/college/math' | relative_url }}" class="site-nav__link{% if page.url contains '/math' %} site-nav__link--active{% endif %}">Math</a></li>
-        <li><a href="{{ '/presentations' | relative_url }}" class="site-nav__link{% if page.url contains 'presentations' %} site-nav__link--active{% endif %}">Speaking</a></li>
+        <li><a href="{{ '/college' | relative_url }}" class="site-nav__link{% if page.url contains '/college' %} site-nav__link--active{% endif %}">College</a></li>
       </ul>
     </nav>
 

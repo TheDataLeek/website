@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<div class="college-wrapper">
+  <header class="college-header">
+    <h1 class="college-header__title">{{ page.title }}</h1>
+    {% if page.description %}<p class="college-header__desc">{{ page.description }}</p>{% endif %}
+  </header>
+
+  {% for section in site.data.college.sections %}
+  <section class="college-section" style="--college-accent: var(--accent-{{ section.accent }})">
+    <div class="college-section__header">
+      <h2 class="college-section__title">{{ section.title }}</h2>
+      {% if section.description %}<span class="college-section__desc">{{ section.description }}</span>{% endif %}
+    </div>
+
+    {% if section.intro %}<p class="college-section__intro">{{ section.intro }}</p>{% endif %}
+
+    <div class="college-section__cells">
+      {% for project in section.projects %}
+      {% assign cell_img = project.image | default: section.image %}
+      <article class="college-cell">
+        <a href="{{ project.url | relative_url }}" class="college-cell__inner">
+          <h3 class="college-cell__title">{{ project.title }}</h3>
+          {% if project.description %}<p class="college-cell__desc">{{ project.description }}</p>{% endif %}
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+
+    {% if section.notes %}
+    <div class="college-section__notes">
+      <h3 class="college-section__notes-title">Class Notes</h3>
+      <p class="college-section__notes-intro">During college I found it especially effective to write my notes by hand and then transcribe to LaTeX as a study method.</p>
+      <ul class="college-section__notes-list">
+        {% for note in section.notes %}
+        <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  {% if content != "" %}
+  <div class="nb-notebook college-content">
+    {{ content }}
+  </div>
+  {% endif %}
+</div>

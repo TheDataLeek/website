@@ -52,6 +52,18 @@
 // Home content section (uses .nb-notebook for cell treatment)
 .home-content {
   // inherits nb-notebook styles
+
+  // First paragraph treated as a summary/abstract
+  > p:not(:first-of-type) {
+    font-style: italic;
+    color: $ink-muted;
+    border: 1px solid $surface-border;
+    border-radius: 6px;
+    padding: $space-4 $space-6;
+    background: rgba($surface-code, 0.5);
+    margin-bottom: $space-6;
+    line-height: 1.75;
+  }
 }
 
 // ── Image tile section ────────────────────────────────────────────────────────

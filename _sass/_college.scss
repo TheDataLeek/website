@@ -1,0 +1,153 @@
+.college-wrapper {
+  max-width: $wide-max;
+  margin: 0 auto;
+  padding: $space-8 $space-6 $space-16;
+}
+
+.college-header {
+  margin-bottom: $space-12;
+  padding-bottom: $space-6;
+  border-bottom: 1px solid $surface-border;
+
+  &__title {
+    font-size: $text-4xl;
+    font-family: $font-display;
+    font-weight: 300;
+    color: $ink-heading;
+    margin: 0 0 $space-2;
+  }
+
+  &__desc {
+    color: $ink-muted;
+    font-size: $text-lg;
+    margin: 0;
+  }
+}
+
+.college-section {
+  margin-bottom: $space-12;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    padding-bottom: $space-3;
+    border-bottom: 2px solid var(--college-accent, var(--accent-primary));
+  }
+
+  &__title {
+    font-size: $text-2xl;
+    font-family: $font-display;
+    font-weight: 600;
+    color: $ink-heading;
+    margin: 0;
+  }
+
+  &__desc {
+    font-size: $text-sm;
+    color: $ink-muted;
+  }
+
+  &__intro {
+    font-size: $text-sm;
+    color: $ink-muted;
+    margin: 0 0 $space-4;
+  }
+
+  &__cells {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__notes {
+    margin-top: $space-8;
+  }
+
+  &__notes-title {
+    font-size: $text-lg;
+    font-family: $font-display;
+    color: $ink-heading;
+    margin: 0 0 $space-2;
+  }
+
+  &__notes-intro {
+    font-size: $text-sm;
+    color: $ink-muted;
+    margin: 0 0 $space-4;
+  }
+
+  &__notes-list {
+    columns: 2;
+    column-gap: $space-8;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: $space-1 0;
+      break-inside: avoid;
+    }
+
+    a {
+      font-size: $text-sm;
+      color: $ink-muted;
+      text-decoration: none;
+      transition: color $duration-fast $ease-out;
+
+      &:hover {
+        color: var(--college-accent, var(--ink-link));
+      }
+    }
+
+    @media (max-width: 540px) {
+      columns: 1;
+    }
+  }
+}
+
+.college-cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 4px 4px 0;
+  border-left: 4px solid var(--college-accent, var(--accent-primary));
+  background-color: $surface-cell;
+
+  &__bg {
+    position: absolute;
+    inset: -20px; // extends past edges to prevent blur fringe
+    background-size: cover;
+    background-position: center;
+    filter: blur(16px) brightness(0.25) saturate(0.5);
+    z-index: 0;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: block;
+    padding: $space-4 $space-6;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color $duration-fast $ease-out;
+
+    &:hover {
+      background-color: rgba($surface-hover, 0.5);
+    }
+  }
+
+  &__title {
+    font-size: $text-lg;
+    font-weight: 600;
+    color: $ink-heading;
+    margin: 0 0 $space-1;
+  }
+
+  &__desc {
+    font-size: $text-sm;
+    color: $ink-muted;
+    margin: 0;
+    line-height: $leading-body;
+  }
+}
