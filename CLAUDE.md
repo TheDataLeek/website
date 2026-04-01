@@ -25,7 +25,7 @@ Python dependencies are managed with `uv`. The root `pyproject.toml` declares a 
 
 - `_config.yml` — Jekyll config: KaTeX math engine, social links, site metadata (title/subtitle drive the header)
 - `index.md` / `1_resume.md` — Main content pages (home and resume)
-- `_layouts/` — Layout hierarchy: `default.html` wraps everything; `home.html`, `page.html`, `post.html` extend it
+- `_layouts/` — Layout hierarchy: `default.html` wraps everything; `home.html`, `page.html`, `post.html`, `college.html`, `resume.html` extend it
 - `_includes/` — `header.html` (sticky nav with pipe separator), `footer.html` (mobile nav toggle JS inline), `head.html` (OG/SEO meta), `pdf-gallery.html` (lightbox thumbnail grid — see below)
 - `_sass/` — Custom SCSS design system (see below)
 - `assets/css/main.scss` — SCSS entry point that imports all partials
@@ -37,16 +37,20 @@ Python dependencies are managed with `uv`. The root `pyproject.toml` declares a 
 ## SCSS Design System
 
 All design tokens live in `_sass/_variables.scss`:
-- **Color palette**: Matplotlib tab10 colors (`$tab-blue`, `$tab-orange`, etc.) as semantic accents (`$accent-primary`, `$accent-code`, `$accent-math`, etc.)
-- **Surfaces**: Dark JupyterLab palette (`$surface-page: #1a1a1a`, `$surface-cell`, `$surface-code`)
+- **Color palette**: Feminine accent palette (`$fem-rose`, `$fem-lavender`, `$fem-teal`, `$fem-purple`, `$fem-sky`) mapped to semantic roles (`$accent-primary`, `$accent-code`, `$accent-math`, etc.)
+- **Surfaces**: Dark warm-purple palette (`$surface-page: #252030`, `$surface-cell: #2c2840`, `$surface-code: #32304a`)
 - **Spacing**: `$space-1` through `$space-16` (rem-based scale, note: `$space-5` does not exist — use `$space-4` or `$space-6`)
-- **Typography**: Inter (sans) + JetBrains Mono (mono); `$text-xs` through `$text-4xl`
+- **Typography**: Inter (sans) + Comfortaa (display/headings) + JetBrains Mono (mono); `$text-xs` through `$text-4xl`
+- All SCSS variables are also exported as CSS custom properties on `:root` (e.g. `--accent-primary`, `--surface-page`)
 
 Key SCSS partials:
 - `_notebook.scss` — `.nb-notebook` wrapper gives content the notebook-cell aesthetic; applied automatically in layouts
 - `_nav.scss` — Sticky header with pipe separator (`.site-nav__sep`) hidden in mobile drawer
 - `_home.scss` — Hero section and image tile grid for the homepage
 - `_images.scss` — PDF gallery thumbnails, hover effects, aspect-ratio handling for the pdf-gallery include
+- `_resume.scss` — Resume page layout
+- `_college.scss` — College section styles
+- `_silly.scss` — Silly mode styles
 
 ## PDF Gallery Include
 
