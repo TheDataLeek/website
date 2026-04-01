@@ -8,21 +8,15 @@ Personal portfolio and blog site for Zoë Farmer (ML/AI Engineer) at dataleek.io
 
 ## Development Commands
 
+Use `just` (see `justfile` in repo root) for all common tasks:
+
 ```bash
-# Serve locally with live reload
-bundle exec jekyll serve
-
-# Build static site
-bundle exec jekyll build
-
-# Convert Jupyter notebooks (.ipynb) to markdown posts
-uv run build_notebooks.py
-
-# Convert PDF resume to PNG page images (uses Ghostscript)
-uv run assets/build_assets.py resume
-
-# Convert all PDFs in presentations/ and college/notes/ to page-image grids
-uv run assets/build_assets.py pdfs
+just serve       # Install deps and serve with live reload
+just build       # Install deps and build static site
+just install     # Install Ruby gem dependencies only
+just notebooks   # Convert Jupyter notebooks (.ipynb) to markdown posts
+just assets      # Convert all PDFs to page-image grids (Ghostscript)
+just assets resume  # Convert PDF resume to PNG page images only
 ```
 
 Python dependencies are managed with `uv`. The root `pyproject.toml` declares a workspace with `presentations/` as a member. Use `uv run` / `uv add` — never `pip`.

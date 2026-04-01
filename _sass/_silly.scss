@@ -1,0 +1,218 @@
+// ═══════════════════════════════════════════════════════════════════
+//  _silly.scss — Geocities girlypop easter egg
+//  Everything scoped to body.silly-mode — zero impact on normal mode
+// ═══════════════════════════════════════════════════════════════════
+
+// ── 1. CSS custom property overrides ──────────────────────────────
+body.silly-mode {
+  --surface-page:   #ffe0f0;
+  --surface-cell:   #fff0fb;
+  --surface-code:   #fce4ff;
+  --surface-border: #ff80c8;
+  --surface-hover:  #ffd6f0;
+  --ink-body:       #3a004a;
+  --ink-muted:      #a0006a;
+  --ink-heading:    #cc0066;
+  --ink-faint:      #cc44aa;
+  --ink-link:       #ff00aa;
+  --ink-link-hover: #00ccff;
+  --ink-code:       #3a004a;
+  --accent-primary:   #ff00cc;
+  --accent-secondary: #00eeff;
+}
+
+// ── 2. Font override (Comfortaa already loaded, no extra request) ──
+body.silly-mode,
+body.silly-mode p,
+body.silly-mode li,
+body.silly-mode a,
+body.silly-mode button {
+  font-family: 'Comfortaa', system-ui, sans-serif;
+}
+
+// ── 3. Rainbow animated headings ──────────────────────────────────
+@keyframes silly-rainbow {
+  0%   { color: #ff00cc; }
+  16%  { color: #ff6600; }
+  33%  { color: #ddcc00; }
+  50%  { color: #00bb66; }
+  66%  { color: #00ccff; }
+  83%  { color: #cc00ff; }
+  100% { color: #ff00cc; }
+}
+
+body.silly-mode h1,
+body.silly-mode h2,
+body.silly-mode h3 {
+  animation: silly-rainbow 3s linear infinite;
+  text-shadow: 0 0 10px currentColor;
+}
+
+// ── 4. Marching-ants neon nav border ──────────────────────────────
+@keyframes silly-march {
+  to { background-position: 100% 0, 200% 0; }
+}
+
+body.silly-mode .site-header {
+  background-color: #fff0fb;
+  border-bottom: 3px solid transparent;
+  background-image:
+    linear-gradient(#fff0fb, #fff0fb),
+    repeating-linear-gradient(
+      90deg,
+      #ff00cc 0%,  #ff00cc 25%,
+      #00eeff 25%, #00eeff 50%,
+      #ffff00 50%, #ffff00 75%,
+      #cc00ff 75%, #cc00ff 100%
+    );
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  background-size: auto, 200% 100%;
+  animation: silly-march 2s linear infinite;
+}
+
+body.silly-mode .site-header__logo,
+body.silly-mode .site-header__name,
+body.silly-mode .site-header__sub {
+  color: #cc0066;
+}
+
+body.silly-mode .site-nav__link {
+  color: #a0006a;
+  &:hover { color: #00ccff; }
+  &.active { color: #ff00cc; }
+}
+
+body.silly-mode .site-nav__sep {
+  color: #ff80c8;
+}
+
+// ── 5. Home hero glow + gradient background ────────────────────────
+body.silly-mode .home-hero {
+  background: linear-gradient(135deg, #fff0fb 0%, #f0e0ff 50%, #e0f8ff 100%);
+  border-left-color: #ff00cc;
+  box-shadow:
+    0 0 0 3px #ff80c8,
+    0 0 0 6px #00ccff,
+    0 4px 24px rgba(255, 0, 204, 0.2);
+}
+
+body.silly-mode .home-hero__name {
+  animation: silly-rainbow 3s linear infinite;
+  text-shadow: 0 0 10px currentColor;
+}
+
+body.silly-mode .home-hero__tagline {
+  color: #a0006a;
+}
+
+body.silly-mode .home-hero__pill {
+  background: #fce4ff;
+  border-color: #ff80c8;
+  color: #660066;
+}
+
+// ── 6. Photo container must be relative for eye overlay ───────────
+body.silly-mode .home-hero__photo {
+  position: relative;
+}
+
+// ── 7. Tile borders ───────────────────────────────────────────────
+body.silly-mode .home-tile:nth-child(1) { border-left-color: #ff00cc; }
+body.silly-mode .home-tile:nth-child(2) { border-left-color: #00eeff; }
+body.silly-mode .home-tile:nth-child(3) { border-left-color: #cc00ff; }
+
+// ── 8. Sparkle floating elements ──────────────────────────────────
+@keyframes silly-sparkle-float {
+  0%   { transform: translateY(0)     rotate(0deg)   scale(1);   opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(-120px) rotate(360deg) scale(0.3); opacity: 0; }
+}
+
+.silly-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  user-select: none;
+  will-change: transform, opacity;
+  animation: silly-sparkle-float var(--sparkle-dur, 3s) ease-in-out
+             var(--sparkle-delay, 0s) infinite;
+}
+
+// ── 9. Googly eye elements ────────────────────────────────────────
+.silly-eye-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.silly-eye {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #222;
+  overflow: hidden;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.silly-pupil {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #444, #000);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 60ms linear;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    top: 2px;
+    left: 3px;
+  }
+}
+
+// ── 10. Hidden trigger button ──────────────────────────────────────
+.site-footer__silly-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 0.25em;
+  width: 14px;
+  height: 14px;
+  cursor: default;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  &::after {
+    content: '✨';
+    font-size: 10px;
+    line-height: 1;
+    filter: grayscale(0.6) opacity(0.3);
+  }
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}

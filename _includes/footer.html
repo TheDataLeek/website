@@ -11,7 +11,7 @@
       {% endfor %}
     </nav>
     <p class="site-footer__copy">
-      &copy; {{ site.title }} {{ site.subtitle }}
+      <button class="site-footer__silly-trigger" aria-label="Toggle silly mode" title="✨"></button>&copy; {{ site.title }} {{ site.subtitle }}
       &middot;
       <a href="https://github.com/thedataleek/website" target="_blank" rel="noopener">Source</a>
     </p>
@@ -35,5 +35,116 @@
         }
       });
     }
+  })();
+</script>
+
+<script>
+  (function() {
+    var STORE_KEY = 'sillyMode';
+    var eyes = null;
+    var sparkles = [];
+    var sparkleChars = ['\u2728', '\u2b50', '\ud83d\udcab', '\ud83c\udf1f', '\u2605', '\u2736', '\u2737'];
+    // ── Sparkle system ────────────────────────────────────────────────────────
+    function createSparkles() {
+      if (sparkles.length) return;
+      for (var i = 0; i < 50; i++) {
+        var el = document.createElement('span');
+        el.className = 'silly-sparkle';
+        el.textContent = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+        el.style.left  = (Math.random() * 100) + 'vw';
+        el.style.top   = (15 + Math.random() * 78) + 'vh';
+        el.style.fontSize = (0.7 + Math.random() * 1.4) + 'rem';
+        el.style.setProperty('--sparkle-dur',   (2.5 + Math.random() * 4) + 's');
+        el.style.setProperty('--sparkle-delay', (-Math.random() * 5) + 's');
+        document.body.appendChild(el);
+        sparkles.push(el);
+      }
+    }
+
+    function destroySparkles() {
+      for (var i = 0; i < sparkles.length; i++) {
+        if (sparkles[i].parentNode) sparkles[i].parentNode.removeChild(sparkles[i]);
+      }
+      sparkles = [];
+    }
+
+    // ── Googly eye system ─────────────────────────────────────────────────────
+    function makeEye(cx, cy, container) {
+      var eye = document.createElement('div');
+      eye.className = 'silly-eye';
+      eye.style.left = (cx - 14) + 'px';
+      eye.style.top  = (cy - 14) + 'px';
+      var pupil = document.createElement('div');
+      pupil.className = 'silly-pupil';
+      eye.appendChild(pupil);
+      container.appendChild(eye);
+      return { el: eye, pupil: pupil };
+    }
+
+    function createGooglyEyes() {
+      var photo = document.querySelector('.home-hero__photo');
+      if (!photo) return null;
+      if (document.querySelector('.silly-eye-container')) return null;
+
+      var container = document.createElement('div');
+      container.className = 'silly-eye-container';
+      photo.appendChild(container);
+
+      let ypos = 55;
+
+      return [makeEye(65, ypos, container), makeEye(95, ypos, container)];
+    }
+
+    function destroyGooglyEyes() {
+      var container = document.querySelector('.silly-eye-container');
+      if (container && container.parentNode) container.parentNode.removeChild(container);
+      eyes = null;
+    }
+
+    // ── Cursor tracking ───────────────────────────────────────────────────────
+    document.addEventListener('mousemove', function(e) {
+      if (!eyes) return;
+      for (var i = 0; i < eyes.length; i++) {
+        var rect = eyes[i].el.getBoundingClientRect();
+        var eyeCX = rect.left + 14;
+        var eyeCY = rect.top  + 14;
+        var dx = e.clientX - eyeCX;
+        var dy = e.clientY - eyeCY;
+        var dist  = Math.sqrt(dx * dx + dy * dy);
+        var angle = Math.atan2(dy, dx);
+        var r     = Math.min(dist / 180, 1) * 6;
+        var px = Math.cos(angle) * r;
+        var py = Math.sin(angle) * r;
+        eyes[i].pupil.style.transform =
+          'translate(calc(-50% + ' + px + 'px), calc(-50% + ' + py + 'px))';
+      }
+    });
+
+    // ── Toggle ────────────────────────────────────────────────────────────────
+    function setSilly(on) {
+      document.body.classList.toggle('silly-mode', on);
+      if (on) {
+        createSparkles();
+        eyes = createGooglyEyes();
+      } else {
+        destroySparkles();
+        destroyGooglyEyes();
+      }
+      try { localStorage.setItem(STORE_KEY, on ? '1' : '0'); } catch(e) {}
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        if (localStorage.getItem(STORE_KEY) === '1') setSilly(true);
+      } catch(e) {}
+
+      var btn = document.querySelector('.site-footer__silly-trigger');
+      if (btn) {
+        btn.addEventListener('click', function() {
+          setSilly(!document.body.classList.contains('silly-mode'));
+        });
+      }
+    });
   })();
 </script>
