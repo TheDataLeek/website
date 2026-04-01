@@ -1,0 +1,11 @@
+// ── Breakpoints ───────────────────────────────────────────────────────────────
+$bp-wide:   1100px;  // college/wide wrapper
+$bp-tablet: 720px;   // tile grid collapses to 2-col
+$bp-mobile: 640px;   // nav drawer, general mobile
+$bp-narrow: 540px;   // hero stacks, small tiles
+
+@mixin respond-to($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}

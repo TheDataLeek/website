@@ -1,0 +1,22 @@
+// ── Mixins ────────────────────────────────────────────────────────────────────
+
+// Notebook-style accent panel: colored left border, rounded right corners, cell bg
+@mixin accent-panel($color: var(--accent-primary)) {
+  border-left: 4px solid #{$color};
+  border-radius: 0 6px 6px 0;
+  background: var(--surface-cell);
+}
+
+// Standard page content wrapper
+@mixin content-wrapper($max: $content-max, $pad-top: $space-12, $pad-bottom: $space-16) {
+  max-width: $max;
+  margin: 0 auto;
+  padding: $pad-top $space-6 $pad-bottom;
+}
+
+// Smooth property transition using site defaults
+@mixin transition($props...) {
+  transition-property: $props;
+  transition-duration: $duration-mid;
+  transition-timing-function: $ease-out;
+}

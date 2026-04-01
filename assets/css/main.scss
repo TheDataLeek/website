@@ -2,6 +2,8 @@
 ---
 
 @import 'variables';
+@import 'breakpoints';
+@import 'mixins';
 @import 'reset';
 @import 'base';
 @import 'typography';
@@ -13,5 +15,6 @@
 @import 'images';
 @import 'tables';
 @import 'home';
+@import 'resume';
 @import 'college';
 @import 'utilities';

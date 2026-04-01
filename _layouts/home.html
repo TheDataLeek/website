@@ -14,11 +14,41 @@ layout: default
     <div class="home-hero__bio">
       <h1 class="home-hero__name"><strong>{{ site.title }}</strong> {{ site.subtitle }}</h1>
       <p class="home-hero__tagline">{{ site.description }}</p>
+      <ul class="home-hero__meta">
+        <li class="home-hero__pill">Square · Staff ML Engineer</li>
+        <li class="home-hero__pill">Toronto, Canada</li>
+        <li class="home-hero__pill">Applied Math · CU Boulder</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Prose / selected projects -->
-  <div class="nb-notebook home-content">
+  <!-- Navigation tiles -->
+  <nav class="home-tiles" aria-label="Site sections">
+    <a class="home-tile" href="{{ '/1_resume' | relative_url }}">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/zoefarmer_resume_1.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Resume</span>
+        <span class="home-tile__sub">Experience &amp; Skills</span>
+      </div>
+    </a>
+    <a class="home-tile" href="{{ '/college/' | relative_url }}">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/codetile.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">College</span>
+        <span class="home-tile__sub">Projects &amp; Research</span>
+      </div>
+    </a>
+    <a class="home-tile" href="{{ '/contact' | relative_url }}">
+      <div class="home-tile__img" style="background-image: url('{{ '/assets/images/datatile.png' | relative_url }}')"></div>
+      <div class="home-tile__label">
+        <span class="home-tile__title">Contact</span>
+        <span class="home-tile__sub">Get in Touch</span>
+      </div>
+    </a>
+  </nav>
+
+  <!-- Bio prose -->
+  <div class="home-content">
     {{ content }}
   </div>
 

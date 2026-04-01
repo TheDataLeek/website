@@ -1,7 +1,5 @@
 .college-wrapper {
-  max-width: $wide-max;
-  margin: 0 auto;
-  padding: $space-8 $space-6 $space-16;
+  @include content-wrapper($max: $wide-max, $pad-top: $space-8);
 }
 
 .college-header {
@@ -101,7 +99,7 @@
       }
     }
 
-    @media (max-width: 540px) {
+    @include respond-to($bp-narrow) {
       columns: 1;
     }
   }

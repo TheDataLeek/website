@@ -132,7 +132,7 @@
 }
 
 // Mobile
-@media (max-width: 640px) {
+@include respond-to($bp-mobile) {
   .site-nav__toggle {
     display: block;
   }

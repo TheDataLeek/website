@@ -1,10 +1,8 @@
 .home-wrapper {
-  max-width: $content-max;
-  margin: 0 auto;
-  padding: $space-12 $space-6 $space-16;
+  @include content-wrapper;
 }
 
-// Hero cell
+// ── Hero cell ─────────────────────────────────────────────────────────────────
 .home-hero {
   display: flex;
   align-items: center;
@@ -21,19 +19,27 @@
 }
 
 .home-hero__headshot {
-  width: 110px;
-  height: 110px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--surface-border);
   display: block;
+  // Gradient ring: rose → lavender
+  padding: 3px;
+  background: linear-gradient(135deg, #{$fem-rose}, #{$fem-lavender});
+}
+
+.home-hero__bio {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
 }
 
 .home-hero__name {
   font-size: $text-3xl;
   font-weight: 300;
   color: var(--ink-heading);
-  margin: 0 0 $space-2 0;
+  margin: 0;
   line-height: 1.1;
   letter-spacing: -0.02em;
 
@@ -49,27 +55,30 @@
   line-height: 1.5;
 }
 
-// Home content section (uses .nb-notebook for cell treatment)
-.home-content {
-  // inherits nb-notebook styles
-
-  // First paragraph treated as a summary/abstract
-  > p:not(:first-of-type) {
-    font-style: italic;
-    color: $ink-muted;
-    border: 1px solid $surface-border;
-    border-radius: 6px;
-    padding: $space-4 $space-6;
-    background: rgba($surface-code, 0.5);
-    margin-bottom: $space-6;
-    line-height: 1.75;
-  }
+// Monospace "stat pills" row
+.home-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-// ── Image tile section ────────────────────────────────────────────────────────
+.home-hero__pill {
+  font-family: $font-mono;
+  font-size: $text-xs;
+  color: var(--ink-faint);
+  background: var(--surface-code);
+  border: 1px solid var(--surface-border);
+  border-radius: 3px;
+  padding: 2px $space-2;
+}
+
+// ── Navigation tile row ───────────────────────────────────────────────────────
 .home-tiles {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: $space-3;
   margin-bottom: $space-8;
 }
@@ -83,11 +92,9 @@
   aspect-ratio: 3 / 2;
   background: $surface-code;
 
-  // Colored left-border accent (notebook nod), cycles through feminine palette
   &:nth-child(1) { border-left: 3px solid $fem-rose; }
-  &:nth-child(2) { border-left: 3px solid $fem-lavender; }
-  &:nth-child(3) { border-left: 3px solid $fem-teal; }
-  &:nth-child(4) { border-left: 3px solid $fem-purple; }
+  &:nth-child(2) { border-left: 3px solid $fem-teal; }
+  &:nth-child(3) { border-left: 3px solid $fem-lavender; }
 }
 
 .home-tile__img {
@@ -95,14 +102,13 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: transform $duration-mid $ease-out,
-              filter $duration-mid $ease-out;
-  filter: brightness(0.55) saturate(0.8);
+  @include transition(transform, filter);
+  filter: brightness(0.45) saturate(0.7);
 }
 
 .home-tile:hover .home-tile__img {
   transform: scale(1.04);
-  filter: brightness(0.4) saturate(0.7);
+  filter: brightness(0.3) saturate(0.6);
 }
 
 .home-tile__label {
@@ -111,32 +117,58 @@
   left: 0;
   right: 0;
   padding: $space-4;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .home-tile__title {
-  font-size: $text-lg;
+  font-size: $text-base;
   font-weight: 600;
   color: #fff;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .home-tile__sub {
   font-size: $text-xs;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.65);
   font-family: $font-mono;
 }
 
-@media (max-width: 720px) {
+// ── Bio / prose section ───────────────────────────────────────────────────────
+.home-content {
+  // First paragraph: styled as a highlighted lede/abstract
+  > p:first-of-type {
+    font-style: italic;
+    color: var(--ink-muted);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: 0 6px 6px 0;
+    padding: $space-4 $space-6;
+    background: var(--surface-cell);
+    margin-bottom: $space-6;
+    line-height: $leading-body;
+  }
+
+  // Remaining paragraphs: clean prose, no cell chrome
+  > p:not(:first-of-type) {
+    max-width: $content-max;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: $leading-body;
+    margin-bottom: $space-4;
+    color: var(--ink-body);
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@include respond-to($bp-tablet) {
   .home-tiles {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 540px) {
+@include respond-to($bp-narrow) {
   .home-hero {
     flex-direction: column;
     text-align: center;
@@ -146,6 +178,10 @@
 
   .home-hero__name {
     font-size: $text-2xl;
+  }
+
+  .home-hero__meta {
+    justify-content: center;
   }
 
   .home-tiles {

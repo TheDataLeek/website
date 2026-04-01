@@ -4,15 +4,11 @@
 }
 
 .page-wrapper {
-  max-width: $content-max;
-  margin: 0 auto;
-  padding: $space-12 $space-6;
+  @include content-wrapper($pad-bottom: $space-12);
 }
 
 .post-wrapper {
-  max-width: $content-max;
-  margin: 0 auto;
-  padding: $space-8 $space-6 $space-16;
+  @include content-wrapper($pad-top: $space-8);
 }
 
 .post-header {
@@ -36,6 +32,68 @@
     color: var(--ink-faint);
     font-family: $font-mono;
   }
+}
+
+// ── Contact page ─────────────────────────────────────────────────────────────
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-3;
+  margin: $space-6 0;
+
+  @include respond-to($bp-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: $space-4 $space-6;
+  background: var(--surface-cell);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 0 6px 6px 0;
+  text-decoration: none;
+  @include transition(background-color, border-left-color);
+
+  &:hover {
+    background: var(--surface-hover);
+  }
+
+  &--github { border-left-color: var(--accent-code); }
+  &--linkedin { border-left-color: var(--accent-secondary); }
+}
+
+.contact-card__label {
+  font-size: $text-xs;
+  font-family: $font-mono;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.contact-card__value {
+  font-size: $text-base;
+  font-weight: 500;
+  color: var(--ink-heading);
+}
+
+.contact-calendar {
+  margin-top: $space-8;
+  padding-top: $space-6;
+  border-top: 1px solid var(--surface-border);
+}
+
+.contact-calendar__heading {
+  font-size: $text-lg;
+  font-family: $font-display;
+  color: var(--ink-muted);
+  margin-top: 0;
+  margin-bottom: $space-4;
+  border-left: none;
+  padding-left: 0;
 }
 
 // Site footer

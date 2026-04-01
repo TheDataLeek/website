@@ -1,18 +1,15 @@
 ---
-layout: post
+layout: resume
 title: Resume
 description: Interested in working with me?
-image: assets/images/headshot.jpg
 nav-menu: true
 ---
 
 I'm a Machine Learning Engineer with deep experience across the full modeling lifecycle — from exploratory data analysis and visualization through training, tuning, and deploying production systems. My work spans classification, regression, forecasting, anomaly detection, and neural network inference, with a focus on models that are accurate, resilient, and built to scale.
 
 <a href="/assets/docs/zoefarmer_resume.pdf" target="_blank" rel="noopener noreferrer">
-  <img src="/assets/images/zoefarmer_resume_1.png" style="background-color: #ffffff;" />
+  <img src="/assets/images/zoefarmer_resume_1.png" alt="Resume preview" />
 </a>
-
-<a href="/assets/docs/zoefarmer_resume.pdf" target="_blank" rel="noopener noreferrer">Download here</a>
 
 ---
 
@@ -62,6 +59,8 @@ I'm a Machine Learning Engineer with deep experience across the full modeling li
 
 ## Skills
 
+<div class="resume-skills" markdown="1">
+
 **Programming:** Python, SQL, Javascript / HTML / CSS, Bash / Shell Scripting
 
 **Modeling:** Machine Learning, Classification, Regression, Forecasting, Anomaly Detection
@@ -73,6 +72,8 @@ I'm a Machine Learning Engineer with deep experience across the full modeling li
 **Libraries & Frameworks:** Polars, Scikit-Learn, Keras, PyTorch, TensorFlow, Pandas, NumPy, SciPy, NLTK, Flask, Matplotlib, Holoviews, D3, Jupyter, Git
 
 **Software Engineering:** CI/CD, Docker, Unix, Agile Development, Unit Testing
+
+</div>
 
 ---
 

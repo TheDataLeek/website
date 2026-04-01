@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<article class="resume-wrapper">
+  <header class="resume-header">
+    <div class="resume-header__text">
+      <h1 class="resume-header__title">{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="resume-header__desc">{{ page.description }}</p>
+      {% endif %}
+    </div>
+    <a class="resume-download" href="/assets/docs/zoefarmer_resume.pdf" target="_blank" rel="noopener noreferrer">
+      Download PDF
+    </a>
+  </header>
+
+  <div class="resume-content">
+    {{ content }}
+  </div>
+</article>
