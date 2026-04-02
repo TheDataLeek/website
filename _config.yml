@@ -14,6 +14,26 @@ defaults:
       path: "college/notes"
     values:
       sitemap: false
+  - scope:
+      path: "college/presentations/d3reuse/reveal.js"
+    values:
+      sitemap: false
+  - scope:
+      path: "college/presentations/politicalboundaries/reveal.js-3.5.0"
+    values:
+      sitemap: false
+  - scope:
+      path: "college/presentations/airbnb/airbnbdashboard.html"
+    values:
+      sitemap: false
+  - scope:
+      path: "college/interpolating-3d/interpolating-3d.html"
+    values:
+      sitemap: false
+  - scope:
+      path: "assets"
+    values:
+      sitemap: false
 
 kramdown:
   math_engine: katex
