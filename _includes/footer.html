@@ -20,6 +20,28 @@
 
 <script>
   (function() {
+    // Projects dropdown toggle
+    var dropdownToggle = document.querySelector('.site-nav__dropdown-toggle');
+    var dropdown = dropdownToggle && dropdownToggle.closest('.site-nav__dropdown');
+    var nav = document.getElementById('site-nav');
+    if (dropdownToggle && dropdown) {
+      dropdownToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = dropdown.classList.toggle('site-nav__dropdown--open');
+        dropdownToggle.setAttribute('aria-expanded', String(open));
+      });
+      // On desktop, close when clicking outside; on mobile (drawer open) leave it alone
+      document.addEventListener('click', function(e) {
+        var mobileOpen = nav && nav.classList.contains('site-nav--open');
+        if (!mobileOpen && !dropdown.contains(e.target)) {
+          dropdown.classList.remove('site-nav__dropdown--open');
+          dropdownToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+
+  (function() {
     var toggle = document.querySelector('.site-nav__toggle');
     var nav = document.getElementById('site-nav');
     if (toggle && nav) {

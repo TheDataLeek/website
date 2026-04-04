@@ -5,20 +5,35 @@
       <span class="site-header__sub">{{ site.subtitle }}</span>
     </a>
 
-    <nav class="site-nav" id="site-nav" role="navigation" aria-label="Primary">
-      <ul class="site-nav__list">
-        <li><a href="{{ '/1_resume' | relative_url }}" class="site-nav__link{% if page.url contains 'resume' %} site-nav__link--active{% endif %}">Resume</a></li>
-        <li><a href="{{ '/contact' | relative_url }}" class="site-nav__link{% if page.url contains 'contact' %} site-nav__link--active{% endif %}">Contact</a></li>
-        <li class="site-nav__sep" aria-hidden="true">|</li>
-        <li><a href="{{ '/college' | relative_url }}" class="site-nav__link{% if page.url contains '/college' %} site-nav__link--active{% endif %}">College</a></li>
-      </ul>
-    </nav>
+    <div class="site-header__right">
+      <nav class="site-nav" id="site-nav" role="navigation" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a href="{{ '/1_resume' | relative_url }}" class="site-nav__link{% if page.url contains 'resume' %} site-nav__link--active{% endif %}">Resume</a></li>
+          <li><a href="{{ '/contact' | relative_url }}" class="site-nav__link{% if page.url contains 'contact' %} site-nav__link--active{% endif %}">Contact</a></li>
+          <li class="site-nav__dropdown">
+            <button class="site-nav__link site-nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+              Projects
+            </button>
+            <ul class="site-nav__submenu" role="menu">
+              <li role="none">
+                <a href="https://block.github.io/diffweave-ai/" class="site-nav__submenu-link" target="_blank" rel="noopener noreferrer" role="menuitem">
+                  Diffweave-ai
+                  <svg class="site-nav__ext-icon" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="external link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="site-nav__sep" aria-hidden="true">|</li>
+          <li><a href="{{ '/college' | relative_url }}" class="site-nav__link{% if page.url contains '/college' %} site-nav__link--active{% endif %}">College</a></li>
+        </ul>
+      </nav>
 
-    <button class="site-nav__toggle"
-            aria-controls="site-nav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="hamburger" aria-hidden="true"></span>
-    </button>
+      <button class="site-nav__toggle"
+              aria-controls="site-nav"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
