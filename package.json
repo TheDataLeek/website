@@ -1,0 +1,12 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/js/main.js src/js/ex.js --bundle=false --minify --outdir=assets/js",
+    "watch": "esbuild src/js/main.js src/js/ex.js --bundle=false --minify --outdir=assets/js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

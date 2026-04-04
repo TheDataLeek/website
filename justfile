@@ -2,12 +2,24 @@
 default:
     @just --list
 
+# Install Node.js dependencies
+npm-install:
+    npm ci
+
+# Build and minify JS source files
+js: npm-install
+    npm run build
+
+# Watch JS source files and rebuild on change (run in a second terminal during dev)
+js-watch: npm-install
+    npm run watch &
+
 # Install dependencies and serve with live reload
-serve: install
+serve: install js
     bundle exec jekyll serve
 
 # Build the static site
-build: install
+build: install js
     bundle exec jekyll build
 
 # Install Ruby gem dependencies

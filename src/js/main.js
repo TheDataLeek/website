@@ -1,0 +1,154 @@
+// ── Projects dropdown toggle ───────────────────────────────────────────────
+(function() {
+  var dropdownToggle = document.querySelector('.site-nav__dropdown-toggle');
+  var dropdown = dropdownToggle && dropdownToggle.closest('.site-nav__dropdown');
+  var nav = document.getElementById('site-nav');
+  if (dropdownToggle && dropdown) {
+    dropdownToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = dropdown.classList.toggle('site-nav__dropdown--open');
+      dropdownToggle.setAttribute('aria-expanded', String(open));
+    });
+    // On desktop, close when clicking outside; on mobile (drawer open) leave it alone
+    document.addEventListener('click', function(e) {
+      var mobileOpen = nav && nav.classList.contains('site-nav--open');
+      if (!mobileOpen && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('site-nav__dropdown--open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+})();
+
+// ── Mobile nav toggle ──────────────────────────────────────────────────────
+(function() {
+  var toggle = document.querySelector('.site-nav__toggle');
+  var nav = document.getElementById('site-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function() {
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('site-nav--open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('site-nav--open');
+      }
+    });
+  }
+})();
+
+// ── Silly mode ─────────────────────────────────────────────────────────────
+(function() {
+  var STORE_KEY = 'sillyMode';
+  var eyes = null;
+  var sparkles = [];
+  var sparkleChars = [
+      '\u2728',
+      '\u2b50',
+      // '\ud83d\udcab',  // dizzy emoji
+      '\ud83c\udf1f',
+      '\u2605',
+      '\u2736',
+      '\u2737'
+  ];
+
+  function createSparkles() {
+    if (sparkles.length) return;
+    for (var i = 0; i < 50; i++) {
+      var el = document.createElement('span');
+      el.className = 'silly-sparkle';
+      el.textContent = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+      el.style.left  = (Math.random() * 100) + 'vw';
+      el.style.top   = (15 + Math.random() * 78) + 'vh';
+      el.style.fontSize = (0.7 + Math.random() * 1.4) + 'rem';
+      el.style.setProperty('--sparkle-dur',   (2.5 + Math.random() * 4) + 's');
+      el.style.setProperty('--sparkle-delay', (-Math.random() * 5) + 's');
+      document.body.appendChild(el);
+      sparkles.push(el);
+    }
+  }
+
+  function destroySparkles() {
+    for (var i = 0; i < sparkles.length; i++) {
+      if (sparkles[i].parentNode) sparkles[i].parentNode.removeChild(sparkles[i]);
+    }
+    sparkles = [];
+  }
+
+  function makeEye(cx, cy, container) {
+    var eye = document.createElement('div');
+    eye.className = 'silly-eye';
+    eye.style.left = (cx - 14) + 'px';
+    eye.style.top  = (cy - 14) + 'px';
+    var pupil = document.createElement('div');
+    pupil.className = 'silly-pupil';
+    eye.appendChild(pupil);
+    container.appendChild(eye);
+    return { el: eye, pupil: pupil };
+  }
+
+  function createGooglyEyes() {
+    var photo = document.querySelector('.home-hero__photo');
+    if (!photo) return null;
+    if (document.querySelector('.silly-eye-container')) return null;
+
+    var container = document.createElement('div');
+    container.className = 'silly-eye-container';
+    photo.appendChild(container);
+
+    let ypos = 55;
+
+    return [makeEye(65, ypos, container), makeEye(95, ypos, container)];
+  }
+
+  function destroyGooglyEyes() {
+    var container = document.querySelector('.silly-eye-container');
+    if (container && container.parentNode) container.parentNode.removeChild(container);
+    eyes = null;
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    if (!eyes) return;
+    for (var i = 0; i < eyes.length; i++) {
+      var rect = eyes[i].el.getBoundingClientRect();
+      var eyeCX = rect.left + 14;
+      var eyeCY = rect.top  + 14;
+      var dx = e.clientX - eyeCX;
+      var dy = e.clientY - eyeCY;
+      var dist  = Math.sqrt(dx * dx + dy * dy);
+      var angle = Math.atan2(dy, dx);
+      var r     = Math.min(dist / 180, 1) * 6;
+      var px = Math.cos(angle) * r;
+      var py = Math.sin(angle) * r;
+      eyes[i].pupil.style.transform =
+        'translate(calc(-50% + ' + px + 'px), calc(-50% + ' + py + 'px))';
+    }
+  });
+
+  function setSilly(on) {
+    document.body.classList.toggle('silly-mode', on);
+    if (on) {
+      createSparkles();
+      eyes = createGooglyEyes();
+    } else {
+      destroySparkles();
+      destroyGooglyEyes();
+    }
+    try { localStorage.setItem(STORE_KEY, on ? '1' : '0'); } catch(e) {}
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      if (localStorage.getItem(STORE_KEY) === '1') setSilly(true);
+    } catch(e) {}
+
+    var btn = document.querySelector('.site-footer__silly-trigger');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        setSilly(!document.body.classList.contains('silly-mode'));
+      });
+    }
+  });
+})();
