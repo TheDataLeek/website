@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Digging into my Discord"
+description: "Regex-based analysis of 200,000+ messages from a Discord server — frequency patterns, activity windows, and communication graphs."
 date: "2017-12-12"
 categories: 
   - "data-science"

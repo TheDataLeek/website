@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Numerical Rootfinding
+description: "Implements and compares bisection, secant, fixed-point iteration, and Newton's method for finding function roots numerically."
 nav-menu: false
 show_tile: false
 ---

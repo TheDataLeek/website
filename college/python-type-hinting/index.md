@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Python Type Hinting"
+description: "Covers Python 3.5+ optional type hints and static analysis with mypy — the mechanics of adding hints without enforcing them at runtime."
 date: "2017-10-30"
 categories: 
   - "python"

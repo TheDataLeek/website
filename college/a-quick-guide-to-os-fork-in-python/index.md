@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "A quick guide to os.fork in Python"
+description: "A tutorial on process-level parallelism using os.fork() directly — useful for understanding what higher-level libraries like multiprocessing are abstracting."
 date: "2017-10-24"
 ---
 

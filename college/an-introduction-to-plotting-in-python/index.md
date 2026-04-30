@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "An Introduction to Plotting in Python"
+description: "An introduction to matplotlib using NumPy arrays; covers line plots, histograms, and scatter plots with a MATLAB-familiar syntax."
 date: "2017-11-01"
 categories: 
   - "data-science"

@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "The Python Typing Module"
+description: "Deeper into Python's typing module — Union, Callable, TypeVar, and type aliases for annotating more complex function signatures."
 date: "2017-10-31"
 categories: 
   - "python"

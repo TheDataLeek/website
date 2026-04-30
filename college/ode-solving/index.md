@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: Ordinary Different Equation Solving via Runge-Kutta 4
+description: "Implements 4th-order Runge-Kutta from scratch and applies it to several differential equations — method derivation alongside the code."
 ---
 
 ```python

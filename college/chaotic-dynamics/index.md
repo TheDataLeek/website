@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: CSCI 4446 - Chaotic Dynamics
+description: "Homework assignments from a chaotic dynamics course covering strange attractors, bifurcation diagrams, and sensitivity to initial conditions."
 ---
 
 * [Homework #2](2.md)

@@ -1,5 +1,6 @@
 ---
 title: "The Good, the Bad, and the Ugly of Tuple Unpacking"
+description: "Best practices for handling multiple return values in Python — where tuple unpacking helps readability and where it becomes a liability."
 layout: post
 show_tile: false
 nav-menu: false

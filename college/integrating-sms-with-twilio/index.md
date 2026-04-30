@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Integrating SMS with Twilio"
+description: "A 2017 walkthrough of sending SMS via the Twilio Python SDK; the API surface has since changed but the integration pattern (credentials, client setup, message dispatch) is still representative."
 date: "2017-11-27"
 categories: 
   - "python"

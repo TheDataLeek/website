@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Solving Political Boundaries Through Simulation"
+description: "Applies simulated annealing and genetic algorithms to redistricting — framing fair district boundary selection as a computational geometry optimization problem."
 date: "2017-10-11"
 ---
 

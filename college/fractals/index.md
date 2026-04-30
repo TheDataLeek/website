@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: Generating the Mandelbrot Set with Python
+description: "Generates the Mandelbrot set by iterating complex numbers and visualizing convergence boundaries — a clean Python implementation with matplotlib."
 ---
 
 The Mandelbrot set is the set of all complex numbers *c* for which the recurrence *z* → *z*² + *c*, starting from *z* = 0, stays bounded forever. In practice, we test for escape: if \|*z*\| ever exceeds 2, the orbit will diverge. The interesting structure lives at the boundary between points that escape and points that don't.

@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Reusable Charting with D3"
+description: "A pattern for building reusable, configurable chart components in D3 using ES6 classes, written around a 2018 Boulder D3 Meetup talk."
 date: "2018-04-29"
 categories: 
   - "d3"

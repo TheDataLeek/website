@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: Numerical Analysis of Vector Fields
+description: "Phase portraits, nullclines, and stability analysis for nonlinear systems — numerical exploration of how vector fields behave near fixed points."
 ---
 
 * [Plotting Vector Fields](#plotting-vector-fields)

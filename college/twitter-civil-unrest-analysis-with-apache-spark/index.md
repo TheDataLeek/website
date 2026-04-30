@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Twitter Civil Unrest Analysis with Apache Spark"
+description: "A 2015 prototype using Apache Spark's streaming API to analyze civil unrest signals in real-time Twitter data; the functional pipeline patterns hold up better than the specific APIs."
 date: "2015-04-29"
 categories: 
   - "data-science"

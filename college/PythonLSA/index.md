@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Latent Semantic Analysis with Python
+description: "High-performance latent semantic analysis for fuzzy document retrieval — SVD on term-document matrices with a Python interface for querying by semantic similarity."
 nav-menu: false
 show_tile: false
 ---

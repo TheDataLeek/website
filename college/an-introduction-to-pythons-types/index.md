@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "An Introduction to Python's Types"
+description: "Part 1 of a typing series — a tour of Python's built-in type system: primitives, collections, and iterables — as a foundation for the type hinting articles that follow."
 date: "2017-10-25"
 categories: 
   - "python"

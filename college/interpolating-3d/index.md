@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: Interpolating 3D
+description: "Uses scipy's griddata and kriging to interpolate 3D glacier coordinate datasets — a practical comparison of interpolation methods in three dimensions."
 ---
 
 Problems taken from Numerical Computation taught by Elizabeth Bradley.

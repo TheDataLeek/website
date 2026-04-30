@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Virus Propagation and Markov"
+description: "Implements graph-based infection spreading (total and limited strategies) plus a Markov chain analysis of the network, from a 2017 interview project."
 date: "2017-11-28"
 categories: 
   - "data-science"

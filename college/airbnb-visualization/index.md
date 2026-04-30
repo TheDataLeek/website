@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "AirBnB Visualization"
+description: "An interactive D3.js map of Boston AirBnB listings using GeoJSON; the interesting part is the Python pipeline that converts raw listing data to geospatial format."
 date: "2018-01-17"
 categories: 
   - "data-science"

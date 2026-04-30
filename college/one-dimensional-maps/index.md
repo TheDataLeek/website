@@ -3,6 +3,7 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "One Dimensional Maps"
+description: "Studies the logistic map and other iterative 1D systems to explore period-doubling and chaos; uses Cython to speed up the orbital calculations."
 date: "2017-11-05"
 image: "/college/one-dimensional-maps/images/logistic_N_cobweb.png"
 katex: true
