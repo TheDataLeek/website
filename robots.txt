@@ -8,8 +8,4 @@ Disallow: /college/notes/
 Disallow: /college/presentations/d3reuse/reveal.js/
 Disallow: /college/presentations/politicalboundaries/reveal.js-3.5.0/
 
-# Exclude static assets (PDFs, scripts — not content pages)
-Disallow: /assets/docs/
-Disallow: /assets/js/
-
 Sitemap: https://dataleek.io/sitemap.xml
