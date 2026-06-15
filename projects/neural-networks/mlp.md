@@ -22,7 +22,7 @@ import torch.nn as nn
 
 A **Multi-Layer Perceptron** (MLP) is a feedforward neural network: a stack of linear
 transformations interleaved with nonlinear activations. This notebook trains one to approximate
-$f(x) = x^2$ and visualises the full convergence trajectory across training.
+$$f(x) = x^2$$ and visualises the full convergence trajectory across training.
 
 ```python
 domain = np.linspace(-10, 10, 1000)
@@ -33,8 +33,8 @@ target = torch.Tensor(func(domain).reshape(-1, 1))
 
 ## Target Function
 
-We want to learn $f : \mathbb{R} \to \mathbb{R}$, specifically $f(x) = x^2$, sampled at
-1000 points over $[-10, 10]$. It is smooth, symmetric, and requires a nonlinear model to fit —
+We want to learn $$f : \mathbb{R} \to \mathbb{R}$$, specifically $$f(x) = x^2$$, sampled at
+1000 points over $$[-10, 10]$$. It is smooth, symmetric, and requires a nonlinear model to fit —
 a single linear layer can only represent it as a constant.
 
 ```python
@@ -73,8 +73,8 @@ for epochs in [0, 10, 20, 30, 40, 50, 100, 200, 500]:
 
 ## Architecture
 
-The network maps a scalar $x$ through four linear layers with GELU activations,
-with layer widths $1 \to d \to 4d \to d \to 1$ and $d = 64$:
+The network maps a scalar $$x$$ through four linear layers with GELU activations,
+with layer widths $$1 \to d \to 4d \to d \to 1$$ and $$d = 64$$:
 
 $$x \;\xrightarrow{\,W_1\,}\; \text{GELU} \;\xrightarrow{\,W_2\,}\; \text{GELU} \;\xrightarrow{\,W_3\,}\; \text{GELU} \;\xrightarrow{\,W_4\,}\; \hat{y}$$
 
@@ -84,7 +84,7 @@ it would survive a Gaussian noise mask:
 
 $$\text{GELU}(x) = x \cdot \Phi(x)$$
 
-where $\Phi$ is the standard-normal CDF. Unlike ReLU, GELU is smooth everywhere and has
+where $$\Phi$$ is the standard-normal CDF. Unlike ReLU, GELU is smooth everywhere and has
 nonzero gradient for negative inputs, which empirically benefits deep networks.
 
 ## Training
@@ -100,7 +100,7 @@ $$m_t = \beta_1 m_{t-1} + (1-\beta_1)\,g_t \qquad v_t = \beta_2 v_{t-1} + (1-\be
 
 $$\theta_t \leftarrow \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t}+\varepsilon}\,\hat{m}_t$$
 
-Ten independent models are trained for $\{0,\,10,\,20,\,30,\,40,\,50,\,100,\,200,\,500\}$
+Ten independent models are trained for $$\{0,\,10,\,20,\,30,\,40,\,50,\,100,\,200,\,500\}$$
 epochs to capture the full convergence trajectory from random init to convergence.
 <!---->
 ## Convergence Visualisation
@@ -111,7 +111,7 @@ errors span several orders of magnitude between an untrained network and a conve
 - **Bright** (yellow end of `plasma`): low MSE, well-converged
 - **Dark + faded** (purple end): high MSE, untrained or early training
 
-The white line is the ground truth $f(x) = x^2$.
+The white line is the ground truth $$f(x) = x^2$$.
 
 ```python
 fig, ax = plt.subplots(figsize=(12, 6))
