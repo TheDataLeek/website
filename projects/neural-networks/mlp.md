@@ -8,7 +8,7 @@ date: "2026-06-15"
 katex: true
 ---
 
-```python {.marimo}
+```python
 import marimo as mo
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,7 +24,7 @@ A **Multi-Layer Perceptron** (MLP) is a feedforward neural network: a stack of l
 transformations interleaved with nonlinear activations. This notebook trains one to approximate
 $f(x) = x^2$ and visualises the full convergence trajectory across training.
 
-```python {.marimo}
+```python
 domain = np.linspace(-10, 10, 1000)
 func = lambda x: x**2
 D = torch.Tensor(domain.reshape(-1, 1))
@@ -37,7 +37,7 @@ We want to learn $f : \mathbb{R} \to \mathbb{R}$, specifically $f(x) = x^2$, sam
 1000 points over $[-10, 10]$. It is smooth, symmetric, and requires a nonlinear model to fit —
 a single linear layer can only represent it as a constant.
 
-```python {.marimo}
+```python
 class Model(nn.Module):
     def __init__(self, dim: int = 64):
         super().__init__()
@@ -113,7 +113,7 @@ errors span several orders of magnitude between an untrained network and a conve
 
 The white line is the ground truth $f(x) = x^2$.
 
-```python {.marimo}
+```python
 fig, ax = plt.subplots(figsize=(12, 6))
 bg = "#0d1117"
 fig.patch.set_facecolor(bg)
