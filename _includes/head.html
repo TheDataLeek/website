@@ -25,11 +25,12 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
       onload="renderMathInElement(document.body);"></script>
 
-  <!-- Mermaid Diagrams — deferred module runs before DOMContentLoaded, sets window._mermaid -->
+  <!-- Mermaid Diagrams -->
   <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/+esm';
   mermaid.initialize({ startOnLoad: false, theme: 'dark' });
   window._mermaid = mermaid;
+  document.dispatchEvent(new CustomEvent('mermaid:ready'));
   </script>
 
   <!-- Syntax Highlighting -->
@@ -95,8 +96,12 @@
       wrapper.appendChild(pre);
     });
 
-    // Render mermaid diagrams (window._mermaid is set by the deferred module above)
-    if (window._mermaid) window._mermaid.run();
+    // Render mermaid diagrams — module may not have finished loading yet
+    if (window._mermaid) {
+      window._mermaid.run();
+    } else {
+      document.addEventListener('mermaid:ready', function() { window._mermaid.run(); }, { once: true });
+    }
   });
   </script>
 
