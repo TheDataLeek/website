@@ -303,6 +303,7 @@ def build_k_v_plots():
 
 mo.image(build_k_v_plots())
 ```
+{: .code-collapsed}
 ![png](attention_k_v_plot.png)
 
 **Attention weights (right).** Each row is a color, each column a key slot. After training,
@@ -499,6 +500,7 @@ def build_geometry_plots():
 
 mo.image(build_geometry_plots())
 ```
+{: .code-collapsed}
 
 ![png](attention_geometry.png)
 

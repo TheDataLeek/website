@@ -25,12 +25,33 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
       onload="renderMathInElement(document.body);"></script>
 
+  <!-- Mermaid Diagrams — deferred module runs before DOMContentLoaded, sets window._mermaid -->
+  <script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/+esm';
+  mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+  window._mermaid = mermaid;
+  </script>
+
   <!-- Syntax Highlighting -->
   <script src="{{ '/assets/js/highlight.min.js' | relative_url }}"></script>
   <link rel="stylesheet" href="{{ '/assets/css/porple.min.css' | relative_url }}">
-  <script>hljs.initHighlightingOnLoad();</script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Convert mermaid fenced blocks to div.mermaid before hljs touches them
+    document.querySelectorAll('pre > code.language-mermaid').forEach(function(code) {
+      var pre = code.parentElement;
+      var div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      pre.replaceWith(div);
+    });
+
+    // Syntax-highlight all remaining code blocks
+    document.querySelectorAll('pre code').forEach(function(block) {
+      hljs.highlightElement(block);
+    });
+
+    // Add line numbers
     document.querySelectorAll('pre code').forEach(function(block) {
       var lines = (block.textContent || '').split('\n');
       if (lines.length && lines[lines.length - 1] === '') lines.pop();
@@ -46,6 +67,36 @@
       pre.classList.add('line-numbers');
       pre.appendChild(rows);
     });
+
+    // Collapsible code blocks: pre.code-collapsed (set via kramdown IAL {: .code-collapsed})
+    document.querySelectorAll('pre.code-collapsed').forEach(function(pre) {
+      var code = pre.querySelector('code');
+      var lines = (code ? code.textContent : '').split('\n');
+      if (lines.length && lines[lines.length - 1] === '') lines.pop();
+      var lineCount = lines.length;
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'code-collapse-wrapper collapsed';
+
+      var btn = document.createElement('button');
+      btn.className = 'code-collapse-toggle';
+      btn.textContent = 'Show ' + lineCount + ' lines ▼';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function() {
+        var nowCollapsed = wrapper.classList.toggle('collapsed');
+        btn.textContent = nowCollapsed
+          ? 'Show ' + lineCount + ' lines ▼'
+          : 'Hide code ▲';
+        btn.setAttribute('aria-expanded', String(!nowCollapsed));
+      });
+
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(btn);
+      wrapper.appendChild(pre);
+    });
+
+    // Render mermaid diagrams (window._mermaid is set by the deferred module above)
+    if (window._mermaid) window._mermaid.run();
   });
   </script>
 
