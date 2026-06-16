@@ -159,8 +159,7 @@ class AttentionModel(nn.Module):
         return result
 ```
 
-```python
-mo.mermaid("""
+```mermaid
 flowchart LR
 X["x"] --> EMB["Embedding<br/>vocab_size × ndim"]
 EMB --> WQ["W_q"]
@@ -174,7 +173,6 @@ CTX --> OUT["out  Linear"]
 OUT --> L["logits  [batch, vocab_size]"]
 L --> LOSS["CrossEntropyLoss"]
 T["target noun idx"] --> LOSS
-""")
 ```
 
 ## Training
@@ -186,17 +184,13 @@ lr = 1e-3
 ndim = 32
 ```
 
-```python
-mo.md(rf"""
 We minimize cross-entropy between the model's output logits and the target noun index using
-Adam (lr={lr:.0e}), running {epochs:,} epochs at batch size {batch_size:,}. Each batch is sampled uniformly from
+Adam (lr=1e-3), running 10,000 epochs at batch size 512. Each batch is sampled uniformly from
 the 7 pairs.
 
 The task has a perfect solution: a permutation matrix of attention weights, with each color
 mapped to one dedicated key slot whose value decodes to the right noun. Loss should reach near
 zero. The visualizations below show what the model learns.
-""")
-```
 
 ```python
 model = AttentionModel(ndim=ndim).to("cpu")
