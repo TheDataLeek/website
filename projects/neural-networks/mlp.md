@@ -267,8 +267,7 @@ mo.image(build_activation_plot(), width=900)
 For a specific input $$x^*$$, we can decompose the output into per-neuron contributions.
 The gradient $$\partial f / \partial a_i$$ tells us how much the output would change if
 neuron $$i$$ became slightly more active — this is the neuron's **effective value** at
-that operating point. Multiplying by the activation gives the contribution: $a_i \cdot
-\partial f / \partial a_i$.
+that operating point. Multiplying by the activation gives the contribution: $$a_i \cdot \partial f / \partial a_i$$.
 
 The three panels below show this decomposition for $$x^* = 5$$ (true $$f = 25$$):
 which neurons fired (left), what value each carries at that point (centre),
