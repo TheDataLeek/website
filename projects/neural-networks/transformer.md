@@ -374,347 +374,334 @@ context is unlike any letter. Letters that only appear once in the phrase (like 
 `z`) tend to sit at the periphery, their embeddings shaped by a single context window
 rather than many overlapping ones.
 <!---->
-### Sequence Journey
+### Sliding Window
 
-The plots above show static structure. This one traces the **dynamic journey**: how one
-specific 8-character window travels through the network's residual stream — from
-token+position embeddings, through attention, through the FFN — arriving at a predicted
-next character.
+The animation below shows the model reading the phrase from left to right. An 8-character
+window slides across all 28 positions in the phrase; within each window, the traced position
+sweeps from left to right through all 8 slots.
 
-The input is the first 8 characters of the phrase: **"sphinx o"** → predict **"f"**.
-Position 7 is traced. It has access to all 7 preceding characters and must predict
-what follows "o" in this context.
+Each frame fixes one window and one traced position. The top strip shows the full phrase —
+the window is boxed in blue, the currently traced character is highlighted in orange. The
+bottom panels show what the model computes for that position.
 
 ```python
-def build_sequence_trace():
-    img_file = mo.notebook_dir() / "transformer_trace.png"
+def build_sequence_trace_gif():
+    img_file = mo.notebook_dir() / "transformer_trace.gif"
     SEQ_LEN = 8
-    T = TRACE_POS = SEQ_LEN - 1
-
-    flat = torch.tensor(
-        [token_lookup[phrase[i]] for i in range(SEQ_LEN)], dtype=torch.long
-    )
-    x = flat.unsqueeze(0)
-    seq_chars = [repr(lookup_token[int(flat[i])]) for i in range(SEQ_LEN)]
-    true_next = repr(phrase[SEQ_LEN])
-
-    with torch.no_grad():
-        tok = model.embedding(x)
-        pos = model.position_embedding(torch.arange(SEQ_LEN))
-        emb = tok + pos  # stage 0
-
-        Q = model.W_q(emb)
-        K = model.W_k(emb)
-        V = model.W_v(emb)
-
-        scores = (Q @ K.transpose(-2, -1)) / (model.ndim**0.5)
-        scores = scores.masked_fill(model.causal_mask, float("-inf"))
-        attn_w = scores.softmax(dim=-1)
-        attn_o = attn_w @ V
-
-        s1 = model.norm1(emb + model.attn_projection(attn_o))  # stage 1
-        s2 = model.norm2(s1 + model.ffn(s1))  # stage 2
-        logits_all = model.out(s2)[0]  # [T, n_letters]
-
-    e0, e1, e2 = emb[0].numpy(), s1[0].numpy(), s2[0].numpy()
-    Q_np, K_np = Q[0].numpy(), K[0].numpy()
-    attn_row = attn_w[0, T].numpy()
-    logits_t = logits_all[T].numpy()
-    j = int(np.argmax(attn_row))
-
-    # shared PCA for residual stream (all positions, all stages)
-    all_r = np.vstack([e0, e1, e2])
-    mu_r = all_r.mean(0)
-    _, _, Vt_r = np.linalg.svd(all_r - mu_r, full_matrices=False)
-
-    def rp(a):
-        return (a - mu_r) @ Vt_r[:2].T
-
-    p0, p1, p2 = rp(e0), rp(e1), rp(e2)
-
-    # PCA for Q/K alignment
-    qk = np.vstack([Q_np[T : T + 1], K_np])
-    mu_qk = qk.mean(0)
-    _, _, Vt_qk = np.linalg.svd(qk - mu_qk, full_matrices=False)
-
-    def qkp(a):
-        return (a - mu_qk) @ Vt_qk[:2].T
-
-    def unit(v):
-        return v / (np.linalg.norm(v) + 1e-8)
-
-    def unitrows(M):
-        return M / (np.linalg.norm(M, axis=1, keepdims=True) + 1e-8)
-
-    q_u = unit(qkp(Q_np[T : T + 1])[0])
-    k_u = unitrows(qkp(K_np)) * 0.85
-
+    phrase_len = len(phrase)
+    n_windows = phrase_len - SEQ_LEN  # 27 windows so target char always in bounds
     bg = "#0d1117"
-    fig = plt.figure(figsize=(18, 9))
-    fig.patch.set_facecolor(bg)
-    gs = fig.add_gridspec(2, 3, hspace=0.48, wspace=0.32)
+    frames = []
 
-    # ── residual stream trajectory ──────────────────────────────────────
-    ax = fig.add_subplot(gs[0, :2])
-    ax.set_facecolor(bg)
-    stage_cols = ["#58a6ff", "#f0883e", "#3fb950"]
-    stage_labs = ["embed", "post-attn", "post-FFN"]
+    for win_start in range(n_windows):
+        win_chars = [phrase[win_start + i] for i in range(SEQ_LEN)]
+        flat = torch.tensor(
+            [token_lookup[phrase[win_start + i]] for i in range(SEQ_LEN)],
+            dtype=torch.long,
+        )
+        x = flat.unsqueeze(0)
 
-    for t in range(SEQ_LEN):
-        if t == T:
-            continue
-        pts = np.stack([p0[t], p1[t], p2[t]])
-        ax.plot(pts[:, 0], pts[:, 1], color="#2d333b", lw=1.0, zorder=1)
-        ax.scatter(pts[:, 0], pts[:, 1], color="#2d333b", s=16, zorder=2)
-        ax.annotate(
-            seq_chars[t],
-            p0[t],
-            xytext=(4, 4),
-            textcoords="offset points",
-            fontsize=8,
-            color="#484f58",
+        with torch.no_grad():
+            tok = model.embedding(x)
+            pos_emb = model.position_embedding(torch.arange(SEQ_LEN))
+            emb = tok + pos_emb
+            Q = model.W_q(emb)
+            K = model.W_k(emb)
+            V = model.W_v(emb)
+            scores = (Q @ K.transpose(-2, -1)) / (model.ndim**0.5)
+            scores = scores.masked_fill(model.causal_mask, float("-inf"))
+            attn_w = scores.softmax(dim=-1)
+            attn_o = attn_w @ V
+            s1 = model.norm1(emb + model.attn_projection(attn_o))
+            s2 = model.norm2(s1 + model.ffn(s1))
+            logits_all = model.out(s2)[0]
+
+        attn_w_np = attn_w[0].numpy()
+        logits_np = logits_all.numpy()
+        V_np = V[0].numpy()
+        emb_np = emb[0].numpy()
+
+        # position-7 prediction is the window's actual inference output
+        target_char = phrase[win_start + SEQ_LEN]
+        target_true_idx = token_lookup[target_char]
+        pos7_pred_idx = int(np.argmax(logits_np[SEQ_LEN - 1]))
+        pos7_correct = pos7_pred_idx == target_true_idx
+        target_col = "#3fb950" if pos7_correct else "#f85149"
+        target_display = "·" if target_char == " " else target_char
+        pos7_pred_display = (
+            "·" if lookup_token[pos7_pred_idx] == " " else lookup_token[pos7_pred_idx]
         )
 
-    for (pa, pb), c in zip([(p0[T], p1[T]), (p1[T], p2[T])], stage_cols[1:]):
-        ax.annotate(
-            "",
-            xy=pb,
-            xytext=pa,
-            arrowprops=dict(arrowstyle="->", color=c, lw=1.8),
-        )
-    for pt, c, lb in zip([p0[T], p1[T], p2[T]], stage_cols, stage_labs):
-        ax.scatter(*pt, color=c, s=100, zorder=5)
-        ax.annotate(
-            lb,
-            pt,
-            xytext=(7, 5),
-            textcoords="offset points",
-            fontsize=9,
-            color=c,
-            fontweight="bold",
-        )
-    ax.annotate(
-        f"{seq_chars[T]} (pos {T})",
-        p0[T],
-        xytext=(7, -15),
-        textcoords="offset points",
-        fontsize=9,
-        color="#f0f6fc",
-    )
-
-    from matplotlib.lines import Line2D
-
-    ax.legend(
-        handles=[
-            Line2D(
-                [0],
-                [0],
-                marker="o",
-                color="w",
-                markerfacecolor=c,
-                markersize=7,
-                label=l,
+        # buildup for position 7 (full context) — computed once per window
+        buildup_full = []
+        emb_7 = torch.from_numpy(emb_np[SEQ_LEN - 1].astype(np.float32))
+        for k in range(SEQ_LEN):
+            cum_val = torch.from_numpy(
+                (attn_w_np[SEQ_LEN - 1, :k + 1, None] * V_np[:k + 1]).sum(0).astype(np.float32)
             )
-            for c, l in zip(stage_cols, stage_labs)
-        ],
-        fontsize=8,
-        facecolor="#161b22",
-        edgecolor="#30363d",
-        labelcolor="#f0f6fc",
-    )
-    title_seq = "".join(c.strip("'") for c in seq_chars)
-    ax.set_title(
-        f'Residual stream trajectory (PCA)\ninput: "{title_seq}"  →  predict: {true_next}',
-        color="#f0f6fc",
-        fontsize=10,
-    )
-    ax.set_xlabel("PC 1", color="#8b949e")
-    ax.set_ylabel("PC 2", color="#8b949e")
-    ax.tick_params(colors="#8b949e")
-    ax.grid(True, color="#21262d", lw=0.5)
-    for sp in ax.spines.values():
-        sp.set_color("#30363d")
+            with torch.no_grad():
+                s1_p = model.norm1(emb_7 + model.attn_projection(cum_val))
+                s2_p = model.norm2(s1_p + model.ffn(s1_p))
+                buildup_full.append(model.out(s2_p).numpy())
+        buildup_full = np.array(buildup_full)  # [8, n_letters]
 
-    # ── Q vs K alignment ────────────────────────────────────────────────
-    ax = fig.add_subplot(gs[0, 2])
-    ax.set_facecolor(bg)
-    qkw = dict(
-        angles="xy",
-        scale_units="xy",
-        scale=1,
-        width=0.008,
-        headwidth=4,
-        headlength=5,
-    )
-    for t in range(SEQ_LEN):
-        is_j = t == j
-        c = "#58a6ff" if is_j else "#2d333b"
-        ax.quiver(
-            0,
-            0,
-            k_u[t, 0],
-            k_u[t, 1],
-            color=c,
-            alpha=1.0 if is_j else 0.6,
-            **qkw,
+        # line specs fixed for the window: based on position-7's final prediction
+        ranked = np.argsort(buildup_full[-1])[::-1]
+        highlight = {target_true_idx, pos7_pred_idx}
+        others = [i for i in ranked if i not in highlight][:4]
+        line_specs = (
+            [(target_true_idx, "#3fb950", 2.2)]
+            + ([(pos7_pred_idx, "#f85149", 2.2)] if pos7_pred_idx != target_true_idx else [])
+            + [(i, "#2d333b", 0.9) for i in others]
         )
-        lbl = f"K[{t}]={seq_chars[t]}" if is_j else f"K[{t}]"
-        ax.annotate(
-            lbl,
-            k_u[t],
-            xytext=(4, -10),
-            textcoords="offset points",
-            fontsize=7,
-            color=c if is_j else "#484f58",
-        )
-    ax.quiver(0, 0, q_u[0], q_u[1], color="#f0883e", zorder=5, **qkw)
-    ax.annotate(
-        f"Q[{T}]={seq_chars[T]}",
-        q_u,
-        xytext=(5, 5),
-        textcoords="offset points",
-        fontsize=8,
-        color="#f0883e",
-        fontweight="bold",
-    )
-    ax.set_xlim(-1.4, 1.4)
-    ax.set_ylim(-1.4, 1.4)
-    ax.set_aspect("equal")
-    ax.axhline(0, color="#21262d", lw=0.5)
-    ax.axvline(0, color="#21262d", lw=0.5)
-    ax.set_title(
-        f"Q[{T}] vs keys\nmatches pos {j} = {seq_chars[j]}",
-        color="#f0f6fc",
-        fontsize=10,
-    )
-    ax.set_xlabel("PC 1", color="#8b949e")
-    ax.set_ylabel("PC 2", color="#8b949e")
-    ax.tick_params(colors="#8b949e")
-    for sp in ax.spines.values():
-        sp.set_color("#30363d")
 
-    # ── attention weights at traced position ─────────────────────────────
-    ax = fig.add_subplot(gs[1, 0])
-    ax.set_facecolor(bg)
-    ax.bar(
-        range(SEQ_LEN),
-        attn_row,
-        color=["#58a6ff" if t == j else "#2d333b" for t in range(SEQ_LEN)],
-        linewidth=0,
-    )
-    ax.set_xticks(range(SEQ_LEN))
-    ax.set_xticklabels(
-        [f"{t}:{seq_chars[t]}" for t in range(SEQ_LEN)],
-        fontsize=7,
-        color="#8b949e",
-        rotation=45,
-        ha="right",
-    )
-    ax.axhline(1 / SEQ_LEN, color="#484f58", linestyle="--", lw=0.8)
-    ax.set_ylim(0, 1.05)
-    ax.set_ylabel("weight α", color="#8b949e")
-    ax.set_title(
-        f"Attention weights at pos {T}\n→ attends most to pos {j} = {seq_chars[j]}",
-        color="#f0f6fc",
-        fontsize=10,
-    )
-    ax.tick_params(colors="#8b949e")
-    ax.grid(True, axis="y", color="#21262d", lw=0.5)
-    for sp in ax.spines.values():
-        sp.set_color("#30363d")
+        for T in range(SEQ_LEN):
+            true_idx = token_lookup[phrase[(win_start + T + 1) % phrase_len]]
+            pred_idx = int(np.argmax(logits_np[T]))
+            logits_t = logits_np[T]
 
-    # ── output logits at traced position ────────────────────────────────
-    ax = fig.add_subplot(gs[1, 1:])
-    ax.set_facecolor(bg)
-    pred_idx = int(np.argmax(logits_t))
-    true_idx = token_lookup[phrase[SEQ_LEN]]
-    ax.bar(
-        range(n_letters),
-        logits_t,
-        color=[
-            "#3fb950"
-            if i == true_idx
-            else "#f85149"
-            if i == pred_idx
-            else "#2d333b"
-            for i in range(n_letters)
-        ],
-        linewidth=0,
-    )
-    ax.set_xticks(range(n_letters))
-    ax.set_xticklabels(
-        [repr(lookup_token[i]) for i in range(n_letters)],
-        fontsize=8,
-        color="#8b949e",
-        rotation=45,
-        ha="right",
-    )
-    ax.axhline(0, color="#30363d", lw=0.8)
-    pred_char = repr(lookup_token[pred_idx])
-    ax.set_title(
-        f"Output logits at pos {T} — predicts {pred_char}  (true: {true_next})",
-        color="#f0f6fc",
-        fontsize=10,
-    )
-    ax.set_ylabel("logit", color="#8b949e")
-    ax.tick_params(colors="#8b949e")
-    ax.grid(True, axis="y", color="#21262d", lw=0.5)
-    for sp in ax.spines.values():
-        sp.set_color("#30363d")
-    from matplotlib.patches import Patch
+            fig = plt.figure(figsize=(17, 9))
+            fig.patch.set_facecolor(bg)
+            gs = fig.add_gridspec(
+                2, 3,
+                height_ratios=[1, 3.2],
+                hspace=0.48, wspace=0.35,
+                top=0.88, bottom=0.09, left=0.05, right=0.97,
+            )
 
-    ax.legend(
-        handles=[
-            Patch(facecolor="#3fb950", label="true next char"),
-            Patch(facecolor="#f85149", label="top prediction (if wrong)"),
-            Patch(facecolor="#2d333b", label="other"),
-        ],
-        fontsize=7,
-        facecolor="#161b22",
-        edgecolor="#30363d",
-        labelcolor="#f0f6fc",
-    )
+            # ── top strip: full phrase with sliding window ─────────
+            ax_p = fig.add_subplot(gs[0, :])
+            ax_p.set_facecolor(bg)
+            ax_p.set_xlim(-0.5, phrase_len - 0.5)
+            ax_p.set_ylim(-0.85, 0.75)
+            ax_p.axis("off")
 
-    fig.suptitle(
-        f'Sequence journey: "{title_seq}" → {true_next}',
-        color="#f0f6fc",
-        fontweight="bold",
-        fontsize=13,
+            ax_p.add_patch(Rectangle(
+                (win_start - 0.48, -0.62), SEQ_LEN - 0.04, 1.22,
+                linewidth=2.0, edgecolor="#58a6ff", facecolor="#0c1f3e", zorder=1,
+            ))
+            ax_p.add_patch(Rectangle(
+                (win_start + T - 0.46, -0.57), 0.92, 1.12,
+                linewidth=0, facecolor="#3b2000", zorder=2,
+            ))
+            ax_p.add_patch(Rectangle(
+                (win_start + SEQ_LEN - 0.48, -0.62), 0.96, 1.22,
+                linewidth=1.8, edgecolor=target_col, facecolor="none",
+                linestyle="--", zorder=4,
+            ))
+
+            for i, c in enumerate(phrase):
+                in_win = win_start <= i < win_start + SEQ_LEN
+                is_traced = i == win_start + T
+                is_target = i == win_start + SEQ_LEN
+                if is_traced:
+                    col, sz, wt = "#ffa657", 13, "bold"
+                elif is_target:
+                    col, sz, wt = target_col, 13, "bold"
+                elif in_win:
+                    col, sz, wt = "#e6edf3", 11, "normal"
+                else:
+                    col, sz, wt = "#484f58", 10, "normal"
+                ax_p.text(
+                    i, 0.05, "·" if c == " " else c,
+                    ha="center", va="center",
+                    color=col, fontsize=sz, fontweight=wt,
+                    fontfamily="monospace", zorder=3,
+                )
+
+            for k in range(SEQ_LEN):
+                ax_p.text(
+                    win_start + k, -0.72, str(k),
+                    ha="center", va="center",
+                    color="#58a6ff" if k == T else "#2d4f7c",
+                    fontsize=7.5, zorder=3,
+                )
+            ax_p.text(
+                win_start + SEQ_LEN, -0.72,
+                f"→{pos7_pred_display}{'✓' if pos7_correct else '✗'}",
+                ha="center", va="center",
+                color=target_col, fontsize=7.5, fontweight="bold", zorder=3,
+            )
+
+            win_str = "".join("·" if c == " " else c for c in win_chars)
+            traced_c = "·" if win_chars[T] == " " else win_chars[T]
+            ax_p.set_title(
+                f'window [{win_start}:{win_start + SEQ_LEN}]  "{win_str}"'
+                f'  →  predicts "{pos7_pred_display}" (true: "{target_display}") {"✓" if pos7_correct else "✗"}'
+                f'   |   tracing pos {T}: "{traced_c}"',
+                color="#f0f6fc", fontsize=11, pad=5,
+            )
+
+            # ── bottom left: full 8×8 attention heatmap ───────────
+            ax_a = fig.add_subplot(gs[1, 0])
+            ax_a.set_facecolor(bg)
+            im = ax_a.imshow(attn_w_np, cmap="plasma", vmin=0, vmax=1, aspect="auto")
+            for c in range(SEQ_LEN):
+                ax_a.add_patch(Rectangle(
+                    (c - 0.5, T - 0.5), 1, 1,
+                    fill=False, edgecolor="#ffa657", lw=1.8, zorder=5,
+                ))
+            tick_labels = [
+                f"{k}:{'·' if win_chars[k] == ' ' else win_chars[k]}"
+                for k in range(SEQ_LEN)
+            ]
+            ax_a.set_xticks(range(SEQ_LEN))
+            ax_a.set_xticklabels(tick_labels, fontsize=9, color="#8b949e", rotation=45, ha="right")
+            ax_a.set_yticks(range(SEQ_LEN))
+            ax_a.set_yticklabels(tick_labels, fontsize=9, color="#8b949e")
+            ax_a.set_xlabel("key", color="#8b949e", fontsize=9)
+            ax_a.set_ylabel("query", color="#8b949e", fontsize=9)
+            ax_a.set_title(
+                f"Attention weights  (row {T} = '{traced_c}' highlighted)",
+                color="#f0f6fc", fontsize=10,
+            )
+            ax_a.tick_params(colors="#8b949e")
+            for sp in ax_a.spines.values():
+                sp.set_color("#30363d")
+            cb = fig.colorbar(im, ax=ax_a, fraction=0.046, pad=0.04)
+            cb.ax.tick_params(colors="#8b949e", labelsize=8)
+            cb.outline.set_edgecolor("#30363d")
+
+            # ── bottom middle: context buildup (position 7, fixed axes) ──
+            ax_b = fig.add_subplot(gs[1, 1])
+            ax_b.set_facecolor(bg)
+            xs_full = np.arange(SEQ_LEN)
+            for vocab_i, lc, lw in line_specs:
+                # dashed reference — full 8-step final state
+                ax_b.plot(xs_full, buildup_full[:, vocab_i],
+                          color=lc, lw=max(lw * 0.5, 0.6), linestyle="--", alpha=0.35, zorder=2)
+                # solid line growing left to right as T increases
+                ax_b.plot(xs_full[:T + 1], buildup_full[:T + 1, vocab_i],
+                          color=lc, lw=lw, zorder=3)
+                # label at the current leading edge
+                char_lbl = "·" if lookup_token[vocab_i] == " " else lookup_token[vocab_i]
+                ax_b.annotate(
+                    char_lbl, (T, buildup_full[T, vocab_i]),
+                    xytext=(5, 0), textcoords="offset points",
+                    fontsize=8, color=lc, va="center",
+                )
+            ax_b.set_xticks(xs_full)
+            ax_b.set_xticklabels(
+                ["·" if c == " " else c for c in win_chars],
+                fontsize=9, color="#8b949e",
+            )
+            ax_b.set_xlim(-0.3, SEQ_LEN - 0.7)
+            ax_b.set_ylim(0, 15)
+            ax_b.set_xlabel("source chars added to pos-7 context", color="#8b949e", fontsize=9)
+            ax_b.set_ylabel("logit", color="#8b949e", fontsize=9)
+            ax_b.set_title(
+                "Pos-7 logit buildup  (solid = seen so far, dashed = final)",
+                color="#f0f6fc", fontsize=10,
+            )
+            ax_b.axhline(0, color="#30363d", lw=0.8)
+            ax_b.tick_params(colors="#8b949e")
+            ax_b.grid(True, color="#21262d", lw=0.5)
+            for sp in ax_b.spines.values():
+                sp.set_color("#30363d")
+            ax_b.legend(
+                handles=[
+                    Patch(facecolor="#3fb950", label="true next"),
+                    Patch(facecolor="#f85149", label="top pred (wrong)"),
+                    Patch(facecolor="#2d333b", label="other top-4"),
+                ],
+                loc="upper left",
+                fontsize=8, facecolor="#161b22", edgecolor="#30363d", labelcolor="#f0f6fc",
+            )
+
+            # ── bottom right: final output logits ─────────────────
+            ax_l = fig.add_subplot(gs[1, 2])
+            ax_l.set_facecolor(bg)
+            bar_colors = [
+                "#3fb950" if i == true_idx else
+                "#f85149" if i == pred_idx and i != true_idx else
+                "#2d333b"
+                for i in range(n_letters)
+            ]
+            ax_l.bar(range(n_letters), logits_t, color=bar_colors, linewidth=0)
+            ax_l.set_xticks(range(n_letters))
+            ax_l.set_xticklabels(
+                ["·" if lookup_token[i] == " " else lookup_token[i] for i in range(n_letters)],
+                fontsize=9, color="#8b949e",
+            )
+            ax_l.axhline(0, color="#30363d", lw=0.8)
+            pred_c = "·" if lookup_token[pred_idx] == " " else lookup_token[pred_idx]
+            true_c = "·" if lookup_token[true_idx] == " " else lookup_token[true_idx]
+            correct = pred_idx == true_idx
+            ax_l.set_title(
+                f"Output logits at pos {T}  →  '{pred_c}'  (true: '{true_c}') "
+                + ("✓" if correct else "✗"),
+                color="#3fb950" if correct else "#f85149", fontsize=10,
+            )
+            ax_l.set_ylim(-10, 10)
+            ax_l.set_ylabel("logit", color="#8b949e", fontsize=9)
+            ax_l.tick_params(colors="#8b949e")
+            ax_l.grid(True, axis="y", color="#21262d", lw=0.5)
+            for sp in ax_l.spines.values():
+                sp.set_color("#30363d")
+            ax_l.legend(
+                handles=[
+                    Patch(facecolor="#3fb950", label="true next"),
+                    Patch(facecolor="#f85149", label="top pred (wrong)"),
+                    Patch(facecolor="#2d333b", label="other"),
+                ],
+                loc="upper left",
+                fontsize=8, facecolor="#161b22", edgecolor="#30363d", labelcolor="#f0f6fc",
+            )
+
+            fig.suptitle(
+                f'Character-level transformer  —  window [{win_start}:{win_start + SEQ_LEN}]  "{win_str}"',
+                color="#f0f6fc", fontweight="bold", fontsize=12,
+            )
+
+            buf = io.BytesIO()
+            plt.savefig(buf, format="png", bbox_inches="tight", dpi=75)
+            buf.seek(0)
+            frames.append(Image.open(buf).convert("RGB"))
+            buf.close()
+            plt.close(fig)
+
+    frames[0].save(
+        img_file,
+        save_all=True,
+        append_images=frames[1:],
+        loop=0,
+        duration=300,
+        format="GIF",
     )
-    plt.savefig(img_file, dpi=150, bbox_inches="tight")
     return img_file
 
-mo.image(build_sequence_trace(), width=950)
+mo.image(build_sequence_trace_gif(), width=950)
 ```
 {: .code-collapsed}
-![png](transformer_trace.png)
+![gif](transformer_trace.gif)
 
-**Top-left — residual stream trajectory.** Each position starts as a token+position
-embedding (blue dot) and moves through representation space after attention (orange) and
-after the FFN (green). Other positions appear as grey traces. The arrows on position 7's
-trajectory show the direction and magnitude of each sublayer's contribution.
+**Top strip — phrase with sliding window.** The full 35-character phrase is shown as a
+fixed ruler. The solid blue box marks the 8-character input window; the orange highlight
+marks the currently traced character. The dashed box immediately to the right of the window
+is the inference target — the 9th character the window must predict. It is coloured green
+when position 7's argmax matches it and red when it does not; the annotation below shows
+what the model actually predicted. Position indices 0–7 below the window tell you where in
+the context each character sits.
 
-This is the **residual stream** perspective: attention and the FFN do not replace the
-representation — they add to it. The model begins with "what character am I and where in
-the sequence am I?" and each sublayer adds information on top of that. Attention adds
-"what did the past tokens say," the FFN applies a non-linear function of the combined
-context. The further the orange and green dots move from the blue dot, the larger the
-sublayer's contribution relative to the original embedding.
+**Bottom-left — causal attention heatmap.** The full 8×8 attention weight matrix for the
+current window. Row $$i$$ is the softmax distribution that position $$i$$ uses to blend past
+value vectors; column $$j$$ is how much weight that position places on position $$j$$. The
+upper triangle is always zero — the causal mask prevents any position from seeing tokens
+that come after it. The orange box follows the traced position row-by-row as the inner
+sweep advances. The matrix itself is static within a window and only changes when the
+window slides.
 
-**Top-right — Q vs K alignment.** The query vector Q[7] (orange) is plotted alongside
-the key vectors K[0..7] (grey) in a shared 2D PCA projection, all normalized to unit
-length to show direction only. Unlike the attention notebook where K is a fixed parameter
-matrix, here every K[t] is derived from position t's own embedding — the keys change
-with every input sequence. Q[7] should point closely toward the key of whichever past
-position the model attends to most, confirming that attention is finding content
-similarity between the current position and its context, not a fixed address.
+**Bottom-middle — position-7 logit buildup.** This panel always shows position 7 — the
+last slot in the window, which makes the final next-character prediction. The x-axis is
+the 8 source characters; both axes are fixed for the entire window so nothing jumps
+between inner frames. The **dashed** lines are the complete 8-step trajectory (computed
+once per window): they show where each character's logit ends up after the full context
+has been assembled. The **solid** lines grow from left to right one step per frame,
+tracing how much of that trajectory has been "explained" so far. When the solid green line
+reaches the dashed green endpoint, position 7 has incorporated all available context and
+committed to its prediction.
 
-**Bottom-left — attention weights at position 7.** The softmax distribution over all
-reachable past positions. The tallest bar tells us which character position 7 found most
-useful. This is one row of the full causal attention heatmap shown in the geometry plot
-above — now with character labels so you can read directly which character was selected.
-
-**Bottom-right — output logits.** The predicted character distribution after the full
-forward pass through attention and FFN. The true next character is green. A large gap
-between the highest logit and the rest means the residual stream converged cleanly toward
-a single answer; a flat distribution means the model is uncertain about this transition.
+**Bottom-right — output logits.** The logit vector at the currently traced position after
+the complete forward pass. Green marks the true next character; red marks the top
+prediction when it is wrong. A tall isolated green bar means the model is confident and
+correct; a flat distribution means it is uncertain.
