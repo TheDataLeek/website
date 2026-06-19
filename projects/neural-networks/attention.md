@@ -3,11 +3,10 @@ layout: post
 nav-menu: false
 show_tile: false
 title: "Attention as a Soft Lookup Table"
-description: "Trains a single-head attention model to learn a color–noun mapping, showing how scaled dot-product attention works as a differentiable soft lookup table."
-date: "2026-06-16"
+description: "A minimal model built from scratch uses attention to learn color-to-noun mappings, showing how scaled dot-product attention implements a differentiable soft lookup table — and what the model learns geometrically after training."
+date: "2026-06-19"
 katex: true
 ---
-
 
 ```python
 import random
@@ -184,13 +183,17 @@ lr = 1e-3
 ndim = 32
 ```
 
+```python
+mo.md(rf"""
 We minimize cross-entropy between the model's output logits and the target noun index using
-Adam (lr=1e-3), running 10,000 epochs at batch size 512. Each batch is sampled uniformly from
+Adam (lr={lr:.0e}), running {epochs:,} epochs at batch size {batch_size:,}. Each batch is sampled uniformly from
 the 7 pairs.
 
 The task has a perfect solution: a permutation matrix of attention weights, with each color
 mapped to one dedicated key slot whose value decodes to the right noun. Loss should reach near
 zero. The visualizations below show what the model learns.
+""")
+```
 
 ```python
 model = AttentionModel(ndim=ndim).to("cpu")
@@ -223,6 +226,7 @@ attention_weights = np.array(attention_weights)
 
 ```python
 def build_inference_demo_plot():
+    plt.style.use("dark_background")
     image_file = mo.notebook_dir() / "attention_inference_demo.png"
     color_names = list(pairs.keys())
     vocab_labels = [lookup_token[i] for i in range(len(lookup_token))]
@@ -251,7 +255,6 @@ mo.image(build_inference_demo_plot())
 ```
 ![png](attention_inference_demo.png)
 
-
 Each row shows output logits for one color input after training. The row label shows the
 predicted noun (argmax). Colors are in the left half of the x-axis (indices 0–6), nouns in
 the right half (7–13). A trained model should have high logit values concentrated on exactly
@@ -260,6 +263,7 @@ more epochs.
 
 ```python
 def build_k_v_plots():
+    plt.style.use("dark_background")
     image_file = mo.notebook_dir() / "attention_k_v_plot.png"
     color_names = list(pairs.keys())
     noun_names = list(pairs.values())
@@ -300,7 +304,6 @@ def build_k_v_plots():
     plt.savefig(image_file)
     return image_file
 
-
 mo.image(build_k_v_plots())
 ```
 {: .code-collapsed}
@@ -317,6 +320,7 @@ values need to carry enough signal for the output layer to decode the right noun
 
 ```python
 def build_geometry_plots():
+    plt.style.use("dark_background")
     image_file = mo.notebook_dir() / "attention_geometry.png"
 
     color_names = list(pairs.keys())
@@ -497,11 +501,9 @@ def build_geometry_plots():
     plt.savefig(image_file, dpi=150)
     return image_file
 
-
 mo.image(build_geometry_plots())
 ```
 {: .code-collapsed}
-
 ![png](attention_geometry.png)
 
 Each panel traces one forward pass through the attention mechanism for the input "blue".
@@ -544,6 +546,160 @@ paired noun.
 The two bars in the plot show that the retrieved context (orange) and $$V[j]$$ (blue)
 are nearly identical — the cosine similarity in the title confirms it. The small residual
 comes from the non-zero weight on the other slots.
+<!---->
+## Putting It Together
+
+The plots above each show one part of the attention mechanism in isolation. This final plot
+traces one complete lookup — "blue" → "sky" — end to end in a single frame: which key the
+query selected, what was retrieved from that key, and where the retrieved value landed in
+output space.
+
+The three panels share axes so you can trace a specific slot across all of them. The column
+axis of the left panel is the same as the bar axis of the centre panel — both index the
+seven key slots. Find the slot that "blue" attends to in the left panel, look at the same
+column in the centre panel to see its weight, then follow that weight through to the output
+logits on the right.
+
+```python
+def build_trace_plot():
+    plt.style.use("dark_background")
+    img_file = mo.notebook_dir() / "attention_trace.png"
+
+    color_names = list(pairs.keys())
+    INPUT_COLOR = "blue"
+    input_idx = color_names.index(INPUT_COLOR)
+
+    with torch.no_grad():
+        all_tokens = torch.tensor([token_lookup[c] for c in color_names])
+        all_queries = model.W_q(model.embedding(all_tokens))       # [7, ndim]
+        weights_all = (all_queries @ model.K.T / model.ndim**0.5).softmax(dim=-1).numpy()
+
+        w_blue = weights_all[input_idx]                             # [7]
+        j = int(np.argmax(w_blue))
+        K_np = model.K.detach().numpy()
+        V_np = model.V.detach().numpy()
+        context = w_blue @ V_np                                     # [ndim]
+        v_slot  = V_np[j]
+
+        logits = model(torch.tensor(token_lookup[INPUT_COLOR])).numpy()
+
+    vocab_labels     = [lookup_token[i] for i in range(vocab_size)]
+    correct_noun_idx = token_lookup[pairs[INPUT_COLOR]]
+    cos = float(np.dot(context, v_slot) /
+                np.clip(np.linalg.norm(context) * np.linalg.norm(v_slot), 1e-8, None))
+
+    bg = "#0d1117"
+    fig = plt.figure(figsize=(18, 5))
+    fig.patch.set_facecolor(bg)
+    gs = fig.add_gridspec(1, 3, width_ratios=[2, 1, 2], wspace=0.38)
+
+    # --- panel 1: full attention weight matrix (the lookup table) ---
+    ax0 = fig.add_subplot(gs[0])
+    ax0.set_facecolor(bg)
+    im = ax0.imshow(weights_all, aspect="auto", cmap="plasma", vmin=0, vmax=1)
+    ax0.set_xticks(range(7))
+    ax0.set_xticklabels([f"K[{i}]" for i in range(7)], fontsize=8, color="#8b949e")
+    ax0.set_yticks(range(7))
+    ax0.set_yticklabels(color_names, fontsize=9, color="#8b949e")
+    for y in [input_idx - 0.5, input_idx + 0.5]:
+        ax0.axhline(y, color="#f0f6fc", linewidth=1.2, alpha=0.6)
+    for x in [j - 0.5, j + 0.5]:
+        ax0.axvline(x, color="#58a6ff", linewidth=1.2, alpha=0.6)
+    ax0.set_title('Attention weights: every color → every key slot\n(white box = "blue" row,  blue box = matched slot)',
+                  color="#f0f6fc", fontsize=10)
+    ax0.tick_params(colors="#8b949e")
+    for sp in ax0.spines.values():
+        sp.set_color("#30363d")
+    cb = fig.colorbar(im, ax=ax0, fraction=0.05, pad=0.02)
+    cb.ax.tick_params(colors="#8b949e")
+    cb.outline.set_edgecolor("#30363d")
+
+    # --- panel 2: weight bars + context vs V[j] (same slot axis as panel 1 columns) ---
+    gs2 = gs[1].subgridspec(2, 1, hspace=0.65)
+
+    ax1a = fig.add_subplot(gs2[0])
+    ax1a.set_facecolor(bg)
+    ax1a.bar(range(7), w_blue,
+             color=["#58a6ff" if i == j else "#2d333b" for i in range(7)], linewidth=0)
+    ax1a.set_xticks(range(7))
+    ax1a.set_xticklabels([f"K[{i}]" for i in range(7)],
+                          fontsize=7, color="#8b949e", rotation=45, ha="right")
+    ax1a.axhline(1 / 7, color="#484f58", linestyle="--", linewidth=0.8)
+    ax1a.set_ylim(0, 1.05)
+    ax1a.set_ylabel("α", color="#8b949e", fontsize=8)
+    ax1a.set_title(f'"blue" weights — slot {j} wins', color="#f0f6fc", fontsize=9)
+    ax1a.tick_params(colors="#8b949e", labelsize=7)
+    for sp in ax1a.spines.values():
+        sp.set_color("#30363d")
+
+    ax1b = fig.add_subplot(gs2[1])
+    ax1b.set_facecolor(bg)
+    scale = max(float(np.abs(v_slot).max()), float(np.abs(context).max()), 1e-8)
+    dims  = np.arange(model.ndim)
+    ax1b.bar(dims - 0.2, v_slot  / scale, width=0.4, color="#58a6ff", alpha=0.85, label=f"V[{j}]")
+    ax1b.bar(dims + 0.2, context / scale, width=0.4, color="#f0883e", alpha=0.85, label="context")
+    ax1b.set_title(f"context ≈ V[{j}]  (cos = {cos:.2f})", color="#f0f6fc", fontsize=9)
+    ax1b.tick_params(colors="#8b949e", labelsize=6)
+    ax1b.set_xlabel("dimension", color="#8b949e", fontsize=7)
+    ax1b.legend(fontsize=7, facecolor="#161b22", edgecolor="#30363d",
+                labelcolor="#f0f6fc", loc="upper right")
+    for sp in ax1b.spines.values():
+        sp.set_color("#30363d")
+
+    # --- panel 3: output logits for "blue" ---
+    ax2 = fig.add_subplot(gs[2])
+    ax2.set_facecolor(bg)
+    bar_out = ["#3fb950" if i == correct_noun_idx else
+               "#2d333b" if i < 7 else "#58a6ff"
+               for i in range(vocab_size)]
+    ax2.bar(range(vocab_size), logits, color=bar_out, linewidth=0)
+    ax2.set_xticks(range(vocab_size))
+    ax2.set_xticklabels(vocab_labels, rotation=45, ha="right", fontsize=8, color="#8b949e")
+    ax2.axhline(0, color="#30363d", linewidth=0.8)
+    ax2.set_title(
+        f'Output logits for "{INPUT_COLOR}" → "{lookup_token[int(np.argmax(logits))]}"',
+        color="#f0f6fc", fontsize=10,
+    )
+    ax2.set_ylabel("logit", color="#8b949e")
+    ax2.tick_params(colors="#8b949e")
+    ax2.grid(True, axis="y", color="#21262d", linewidth=0.5)
+    for sp in ax2.spines.values():
+        sp.set_color("#30363d")
+    from matplotlib.patches import Patch
+    ax2.legend(
+        handles=[Patch(facecolor="#3fb950", label="correct noun"),
+                 Patch(facecolor="#58a6ff", label="other nouns"),
+                 Patch(facecolor="#2d333b", label="color tokens")],
+        fontsize=7, facecolor="#161b22", edgecolor="#30363d", labelcolor="#f0f6fc",
+    )
+
+    fig.suptitle(f'Complete lookup trace: "{INPUT_COLOR}" → "{pairs[INPUT_COLOR]}"',
+                 color="#f0f6fc", fontweight="bold", fontsize=13)
+    plt.savefig(img_file, dpi=150, bbox_inches="tight")
+    return img_file
+
+mo.image(build_trace_plot(), width=950)
+```
+{: .code-collapsed}
+![png](attention_trace.png)
+
+**Left — the lookup table.** Every row is a trained color query; every column is a key slot.
+After training this matrix is close to a permutation: each color claims one slot with
+near-zero weight everywhere else. The white lines trace "blue"'s row; the blue lines mark
+the slot it matched. The bright cell at their intersection is the query-key pair that fired.
+
+**Centre — the retrieval.** Top: "blue"'s attention weights. Almost all weight sits on slot
+$$j$$ (highlighted bar); the dashed line marks 1/7, the uniform baseline. The column index
+here is the same as in the left panel — you can trace a specific slot from the heatmap
+directly to its weight bar. Bottom: the retrieved context (orange) overlaid on $$V[j]$$
+(blue), the value stored in that slot. They are nearly identical because the near-one-hot
+weight collapsed the weighted sum to a single term.
+
+**Right — the answer.** Output logits over the full vocabulary. Color tokens (dark) get
+low logits — the model has learned the answer is always a noun. Among the seven nouns
+(blue), the correct one (green) is highest. The logit gap reflects retrieval quality:
+a sharp attention weight produces a clean context vector, which the output layer decodes
+to a confident prediction.
 <!---->
 ## Takeaway
 
