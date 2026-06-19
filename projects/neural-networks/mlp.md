@@ -353,147 +353,154 @@ as the heatmap so you can trace directly from a bright/dark cell to its bar; and
 function curve shows where the summed contributions land.
 
 ```python
-def build_stitching_plot():
-    img_file = mo.notebook_dir() / "mlp_stitching.png"
+def build_stitching_gif():
+    img_file = mo.notebook_dir() / "mlp_stitching.gif"
     best_model = models[-1][0]
-    X_STAR = 5.0
 
     with torch.no_grad():
         acts_full = best_model.unit[:2](D).numpy()  # [1000, 64]
         preds = best_model(D).numpy().reshape(-1)
 
-    a = best_model.unit[:2](torch.tensor([[X_STAR]]))
-    a_var = a.detach().clone().requires_grad_(True)
-    out = best_model.unit[2:](a_var)
-    out_val = out.item()
-    out.backward()
-    contribs = a_var.detach().numpy()[0] * a_var.grad.numpy()[0]  # [64]
-
     bg = "#0d1117"
-    fig = plt.figure(figsize=(16, 5))
-    fig.patch.set_facecolor(bg)
-    gs = fig.add_gridspec(1, 3, width_ratios=[3, 1, 2], wspace=0.3)
-
-    # --- heatmap with probe ---
-    ax0 = fig.add_subplot(gs[0])
-    ax0.set_facecolor(bg)
-    im = ax0.imshow(
-        acts_full.T,
-        aspect="auto",
-        cmap="plasma",
-        extent=[domain[0], domain[-1], -0.5, 63.5],
-        origin="lower",
-    )
-    ax0.axvline(
-        X_STAR, color="#f0f6fc", linewidth=1.5, linestyle="--", alpha=0.85
-    )
-    ax0.text(
-        X_STAR + 0.4,
-        59,
-        f"query\nx = {X_STAR}",
-        color="#f0f6fc",
-        fontsize=8,
-        va="top",
-    )
-    ax0.set_xlabel("x  (query)", color="#8b949e")
-    ax0.set_ylabel("neuron index  (key)", color="#8b949e")
-    ax0.set_title(
-        "Full lookup table\n(bright = key fires for query)",
-        color="#f0f6fc",
-        fontsize=10,
-    )
-    ax0.tick_params(colors="#8b949e")
-    for sp in ax0.spines.values():
-        sp.set_color("#30363d")
-    cb = fig.colorbar(im, ax=ax0, fraction=0.04, pad=0.02)
-    cb.ax.tick_params(colors="#8b949e")
-    cb.outline.set_edgecolor("#30363d")
-
-    # --- contributions bar (horizontal, same y-axis = neuron index) ---
-    ax1 = fig.add_subplot(gs[1])
-    ax1.set_facecolor(bg)
     ni = np.arange(64)
-    bar_colors = ["#58a6ff" if c >= 0 else "#f85149" for c in contribs]
-    ax1.barh(ni, contribs, color=bar_colors, height=1.0, linewidth=0)
-    ax1.axvline(0, color="#484f58", linewidth=0.8)
-    ax1.set_ylim(-0.5, 63.5)
-    ax1.set_xlabel("contribution", color="#8b949e")
-    ax1.set_title(
-        f"Retrieved values\n(same neuron axis →)", color="#f0f6fc", fontsize=10
-    )
-    ax1.tick_params(colors="#8b949e")
-    ax1.set_yticklabels([])
-    ax1.grid(True, axis="x", color="#21262d", linewidth=0.5)
-    for sp in ax1.spines.values():
-        sp.set_color("#30363d")
+    frames = []
 
-    # --- function curve with output point ---
-    ax2 = fig.add_subplot(gs[2])
-    ax2.set_facecolor(bg)
-    ax2.plot(
-        domain,
-        domain**2,
-        color="white",
-        linewidth=1.5,
-        alpha=0.65,
-        label="true  x²",
-    )
-    ax2.plot(
-        domain, preds, color="#58a6ff", linewidth=1.5, label="model  f̂(x)"
-    )
-    ax2.axvline(
-        X_STAR, color="#f0f6fc", linewidth=1.0, linestyle="--", alpha=0.4
-    )
-    ax2.scatter([X_STAR], [out_val], color="#f85149", s=70, zorder=6)
-    ax2.annotate(
-        f"f̂({X_STAR}) = {out_val:.1f}\n= Σ contributions",
-        xy=(X_STAR, out_val),
-        xytext=(X_STAR - 12, out_val - 18),
-        color="#f0f6fc",
-        fontsize=8,
-        arrowprops=dict(arrowstyle="->", color="#8b949e", lw=0.8),
-    )
-    ax2.set_xlabel("x", color="#8b949e")
-    ax2.set_ylabel("f(x)", color="#8b949e")
-    ax2.set_title(
-        "Output = Σ retrieved contributions", color="#f0f6fc", fontsize=10
-    )
-    ax2.tick_params(colors="#8b949e")
-    ax2.legend(
-        facecolor="#161b22",
-        edgecolor="#30363d",
-        labelcolor="#f0f6fc",
-        fontsize=8,
-    )
-    ax2.grid(True, color="#21262d", linewidth=0.5)
-    for sp in ax2.spines.values():
-        sp.set_color("#30363d")
+    for idx in range(0, len(domain), 10):
+        x_val = float(domain[idx])
 
-    fig.suptitle(
-        "From query to output: one lookup trace through the MLP",
-        color="#f0f6fc",
-        fontweight="bold",
-        fontsize=13,
+        x_tensor = torch.tensor([[x_val]])
+        a = best_model.unit[:2](x_tensor)
+        a_var = a.detach().clone().requires_grad_(True)
+        out = best_model.unit[2:](a_var)
+        out_val = out.item()
+        out.backward()
+        contribs = a_var.detach().numpy()[0] * a_var.grad.numpy()[0]
+
+        fig = plt.figure(figsize=(16, 5))
+        fig.patch.set_facecolor(bg)
+        gs = fig.add_gridspec(1, 3, width_ratios=[3, 1, 2], wspace=0.3)
+
+        ax0 = fig.add_subplot(gs[0])
+        ax0.set_facecolor(bg)
+        im = ax0.imshow(
+            acts_full.T,
+            aspect="auto",
+            cmap="plasma",
+            extent=[domain[0], domain[-1], -0.5, 63.5],
+            origin="lower",
+        )
+        ax0.axvline(
+            x_val, color="#f0f6fc", linewidth=1.5, linestyle="--", alpha=0.85
+        )
+        ax0.set_xlabel("x  (query)", color="#8b949e")
+        ax0.set_ylabel("neuron index  (key)", color="#8b949e")
+        ax0.set_title(
+            "Full lookup table\n(bright = key fires for query)",
+            color="#f0f6fc",
+            fontsize=10,
+        )
+        ax0.tick_params(colors="#8b949e")
+        for sp in ax0.spines.values():
+            sp.set_color("#30363d")
+        cb = fig.colorbar(im, ax=ax0, fraction=0.04, pad=0.02)
+        cb.ax.tick_params(colors="#8b949e")
+        cb.outline.set_edgecolor("#30363d")
+
+        ax1 = fig.add_subplot(gs[1])
+        ax1.set_facecolor(bg)
+        bar_colors = ["#58a6ff" if c >= 0 else "#f85149" for c in contribs]
+        ax1.barh(ni, contribs, color=bar_colors, height=1.0, linewidth=0)
+        ax1.axvline(0, color="#484f58", linewidth=0.8)
+        ax1.set_ylim(-0.5, 63.5)
+        ax1.set_xlim(-10, 10)
+        ax1.set_xlabel("contribution", color="#8b949e")
+        ax1.set_title(
+            f"Retrieved values\n(x = {x_val:.1f},  f̂ = {out_val:.1f})",
+            color="#f0f6fc",
+            fontsize=10,
+        )
+        ax1.tick_params(colors="#8b949e")
+        ax1.set_yticklabels([])
+        ax1.grid(True, axis="x", color="#21262d", linewidth=0.5)
+        for sp in ax1.spines.values():
+            sp.set_color("#30363d")
+
+        ax2 = fig.add_subplot(gs[2])
+        ax2.set_facecolor(bg)
+        ax2.plot(
+            domain,
+            domain**2,
+            color="white",
+            linewidth=1.5,
+            alpha=0.65,
+            label="true  x²",
+        )
+        ax2.plot(
+            domain, preds, color="#58a6ff", linewidth=1.5, label="model  f̂(x)"
+        )
+        ax2.axvline(
+            x_val, color="#f0f6fc", linewidth=1.0, linestyle="--", alpha=0.4
+        )
+        ax2.scatter([x_val], [out_val], color="#f85149", s=70, zorder=6)
+        ax2.set_xlabel("x", color="#8b949e")
+        ax2.set_ylabel("f(x)", color="#8b949e")
+        ax2.set_title(
+            "Output = Σ retrieved contributions", color="#f0f6fc", fontsize=10
+        )
+        ax2.tick_params(colors="#8b949e")
+        ax2.legend(
+            facecolor="#161b22",
+            edgecolor="#30363d",
+            labelcolor="#f0f6fc",
+            fontsize=8,
+        )
+        ax2.grid(True, color="#21262d", linewidth=0.5)
+        for sp in ax2.spines.values():
+            sp.set_color("#30363d")
+
+        fig.suptitle(
+            "From query to output: one lookup trace through the MLP",
+            color="#f0f6fc",
+            fontweight="bold",
+            fontsize=13,
+        )
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", bbox_inches="tight", dpi=72)
+        buf.seek(0)
+        frames.append(Image.open(buf).convert("RGB"))
+        buf.close()
+        plt.close(fig)
+
+    # ping-pong: forward then backward, no duplicate endpoints
+    all_frames = frames + frames[-2:0:-1]
+    all_frames[0].save(
+        img_file,
+        save_all=True,
+        append_images=all_frames[1:],
+        loop=0,
+        duration=40,
+        format="GIF",
     )
-    plt.savefig(img_file, dpi=150, bbox_inches="tight")
     return img_file
 
-mo.image(build_stitching_plot(), width=950)
+mo.image(build_stitching_gif(), width=950)
 ```
 {: .code-collapsed}
-![png](mlp_stitching.png)
+![gif](mlp_stitching.gif)
 
 **Left — the memory.** The full activation heatmap, unchanged from above. Every row is a
-stored key (a neuron), every column is a query ($$x$$ value). The dashed probe line at
-$$x = 5$$ selects one column — the set of neurons that fire for this specific input.
+stored key (a neuron), every column is a query ($$x$$ value). The dashed probe line sweeps
+across the domain, selecting one column at a time — the set of neurons that fire for that
+specific input.
 
-**Centre — what was retrieved.** The horizontal bars show each neuron's contribution at
-$$x = 5$$, with the neuron axis shared with the heatmap so you can trace directly from a
+**Centre — what was retrieved.** The horizontal bars show each neuron's contribution at the
+current $$x$$, with the neuron axis shared with the heatmap so you can trace directly from a
 bright cell to its bar. A neuron whose row is dark at the probe line contributes nothing;
 a bright row's bar tells you how much that neuron adds (blue) or subtracts (red) from the
 final answer.
 
 **Right — the output.** The model's learned curve closely tracks $$x^2$$. The red dot is
-$$\hat{f}(5)$$ — its y-coordinate is the sum of all the bars in the centre panel. The
-network computed a function value by reading a column from memory, weighting by stored
-values, and summing.
+$$\hat{f}(x)$$ for the current query — its y-coordinate is the sum of all the bars in the
+centre panel. The network computed a function value by reading a column from memory,
+weighting by stored values, and summing.

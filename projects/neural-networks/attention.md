@@ -319,41 +319,32 @@ need to be spread far enough apart in $$\mathbb{R}^d$$ that queries can distingu
 values need to carry enough signal for the output layer to decode the right noun.
 
 ```python
-def build_geometry_plots():
-    plt.style.use("dark_background")
-    image_file = mo.notebook_dir() / "attention_geometry.png"
-
+def build_geometry_gif():
+    image_file = mo.notebook_dir() / "attention_geometry.gif"
     color_names = list(pairs.keys())
-    blue_color_idx = color_names.index("blue")
-
-    with torch.no_grad():
-        emb_blue = model.embedding(torch.tensor(token_lookup["blue"])).numpy()
-        q_blue = model.W_q(
-            model.embedding(torch.tensor(token_lookup["blue"]))
-        ).numpy()
 
     K = model.K.detach().numpy()
     V = model.V.detach().numpy()
 
-    j = int(np.argmax(attention_weights[blue_color_idx]))
+    with torch.no_grad():
+        all_embs = model.embedding(
+            torch.tensor([token_lookup[c] for c in color_names])
+        ).numpy()
+        all_queries = model.W_q(
+            model.embedding(
+                torch.tensor([token_lookup[c] for c in color_names])
+            )
+        ).numpy()
 
-    scores = q_blue @ K.T / (K.shape[1] ** 0.5)
-    exp_scores = np.exp(scores - scores.max())
-    weights = exp_scores / exp_scores.sum()
-    context = weights @ V
-
-    # shared PCA basis from embedding, query, and all keys
-    all_vecs = np.vstack([emb_blue[np.newaxis], q_blue[np.newaxis], K])
-    _, _, Vt = np.linalg.svd(all_vecs, full_matrices=False)
-    proj = all_vecs @ Vt[:2].T
+    # fixed PCA basis from all embeddings + all queries + K so compass stays stable
+    all_vecs = np.vstack([all_embs, all_queries, K])
+    _, _, Vt = np.linalg.svd(all_vecs - all_vecs.mean(0), full_matrices=False)
 
     def unit_rows(M):
         return M / np.linalg.norm(M, axis=1, keepdims=True).clip(1e-8)
 
-    units = unit_rows(proj)
-    emb_u, q_u, k_u = units[0], units[1], units[2:]
+    k_proj = unit_rows((K - all_vecs.mean(0)) @ Vt[:2].T)
 
-    fig, axes = plt.subplots(1, 4, figsize=(18, 5))
     qkw = dict(
         angles="xy",
         scale_units="xy",
@@ -362,152 +353,232 @@ def build_geometry_plots():
         headwidth=4,
         headlength=5,
     )
+    bg = "#0d1117"
+    frames = []
 
-    # Step 1: embed(blue) → W_q → Q
-    ax = axes[0]
-    ax.quiver(0, 0, emb_u[0], emb_u[1], color="royalblue", **qkw)
-    ax.quiver(0, 0, q_u[0], q_u[1], color="darkorange", **qkw)
-    ax.annotate(
-        "embed(blue)",
-        emb_u,
-        xytext=(6, 4),
-        textcoords="offset points",
-        fontsize=9,
-        color="royalblue",
-        fontweight="bold",
-    )
-    ax.annotate(
-        "Q = W_q(·)",
-        q_u,
-        xytext=(6, -12),
-        textcoords="offset points",
-        fontsize=9,
-        color="darkorange",
-        fontweight="bold",
-    )
-    ax.set_xlim(-1.4, 1.4)
-    ax.set_ylim(-1.4, 1.4)
-    ax.set_aspect("equal")
-    ax.axhline(0, color="gray", lw=0.5, alpha=0.3)
-    ax.axvline(0, color="gray", lw=0.5, alpha=0.3)
-    ax.set_title("Step 1\nembed(blue) → W_q → Q", fontsize=10)
-    ax.set_xlabel("PC 1")
-    ax.set_ylabel("PC 2")
+    for color_idx, COLOR in enumerate(color_names):
+        j = int(np.argmax(attention_weights[color_idx]))
+        emb = all_embs[color_idx]
+        q = all_queries[color_idx]
 
-    # Step 2: Q vs all key vectors
-    ax = axes[1]
-    for i in range(7):
-        is_match = i == j
-        c = "steelblue" if is_match else "#cccccc"
-        alpha = 1.0 if is_match else 0.5
-        scale = 0.88 if is_match else 0.75
-        ax.quiver(
-            0,
-            0,
-            k_u[i, 0] * scale,
-            k_u[i, 1] * scale,
-            color=c,
-            alpha=alpha,
-            **qkw,
+        scores = q @ K.T / (K.shape[1] ** 0.5)
+        exp_scores = np.exp(scores - scores.max())
+        weights = exp_scores / exp_scores.sum()
+        context = weights @ V
+        v_slot = V[j]
+        cos = float(
+            np.dot(context, v_slot)
+            / np.clip(
+                np.linalg.norm(context) * np.linalg.norm(v_slot), 1e-8, None
+            )
         )
-        label = "K[j]" if is_match else f"K[{i}]"
+
+        mu = all_vecs.mean(0)
+        emb_u = unit_rows(((emb - mu) @ Vt[:2].T)[np.newaxis])[0]
+        q_u = unit_rows(((q - mu) @ Vt[:2].T)[np.newaxis])[0]
+
+        fig, axes = plt.subplots(1, 4, figsize=(18, 5))
+        fig.patch.set_facecolor(bg)
+        for ax in axes:
+            ax.set_facecolor(bg)
+
+        # Step 1: embed → W_q → Q
+        ax = axes[0]
+        ax.quiver(0, 0, emb_u[0], emb_u[1], color="royalblue", **qkw)
+        ax.quiver(0, 0, q_u[0], q_u[1], color="darkorange", **qkw)
         ax.annotate(
-            label,
-            k_u[i] * scale,
-            xytext=(4, -10),
+            f"embed({COLOR})",
+            emb_u,
+            xytext=(6, 4),
             textcoords="offset points",
-            fontsize=8,
-            color=c if is_match else "gray",
-            alpha=alpha,
+            fontsize=9,
+            color="royalblue",
+            fontweight="bold",
         )
-    ax.quiver(0, 0, q_u[0], q_u[1], color="darkorange", zorder=5, **qkw)
-    ax.annotate(
-        "Q:blue",
-        q_u,
-        xytext=(5, 4),
-        textcoords="offset points",
-        fontsize=9,
-        color="darkorange",
-        fontweight="bold",
-    )
-    ax.set_xlim(-1.4, 1.4)
-    ax.set_ylim(-1.4, 1.4)
-    ax.set_aspect("equal")
-    ax.axhline(0, color="gray", lw=0.5, alpha=0.3)
-    ax.axvline(0, color="gray", lw=0.5, alpha=0.3)
-    ax.set_title("Step 2\nQ aligns with matched key K[j]", fontsize=10)
-    ax.set_xlabel("PC 1")
-    ax.set_ylabel("PC 2")
+        ax.annotate(
+            "Q = W_q(·)",
+            q_u,
+            xytext=(6, -12),
+            textcoords="offset points",
+            fontsize=9,
+            color="darkorange",
+            fontweight="bold",
+        )
+        ax.set_xlim(-1.4, 1.4)
+        ax.set_ylim(-1.4, 1.4)
+        ax.set_aspect("equal")
+        ax.axhline(0, color="#30363d", lw=0.5)
+        ax.axvline(0, color="#30363d", lw=0.5)
+        ax.set_title(
+            f"Step 1\nembed({COLOR}) → W_q → Q", fontsize=10, color="#f0f6fc"
+        )
+        ax.set_xlabel("PC 1", color="#8b949e")
+        ax.set_ylabel("PC 2", color="#8b949e")
+        ax.tick_params(colors="#8b949e")
+        for sp in ax.spines.values():
+            sp.set_color("#30363d")
 
-    # Step 3: softmax attention weights
-    ax = axes[2]
-    slot_labels = ["K[j]" if i == j else f"K[{i}]" for i in range(7)]
-    bar_colors = ["steelblue" if i == j else "#cccccc" for i in range(7)]
-    ax.bar(
-        range(7), weights, color=bar_colors, edgecolor="white", linewidth=0.5
-    )
-    ax.set_xticks(range(7))
-    ax.set_xticklabels(slot_labels, fontsize=9)
-    ax.set_ylabel("weight")
-    ax.set_ylim(0, 1.05)
-    ax.axhline(1 / 7, color="gray", linestyle="--", alpha=0.5, linewidth=1)
-    ax.annotate(
-        "1/7 (uniform)",
-        xy=(6.4, 1 / 7 + 0.025),
-        fontsize=8,
-        color="gray",
-        ha="right",
-    )
-    ax.set_title("Step 3\nsoftmax(scores) → weights", fontsize=10)
+        # Step 2: Q vs all key vectors
+        ax = axes[1]
+        for i in range(7):
+            is_match = i == j
+            c = "steelblue" if is_match else "#484f58"
+            alpha = 1.0 if is_match else 0.5
+            scale = 0.88 if is_match else 0.75
+            ax.quiver(
+                0,
+                0,
+                k_proj[i, 0] * scale,
+                k_proj[i, 1] * scale,
+                color=c,
+                alpha=alpha,
+                **qkw,
+            )
+            label = "K[j]" if is_match else f"K[{i}]"
+            ax.annotate(
+                label,
+                k_proj[i] * scale,
+                xytext=(4, -10),
+                textcoords="offset points",
+                fontsize=8,
+                color=c if is_match else "#484f58",
+                alpha=alpha,
+            )
+        ax.quiver(0, 0, q_u[0], q_u[1], color="darkorange", zorder=5, **qkw)
+        ax.annotate(
+            f"Q:{COLOR}",
+            q_u,
+            xytext=(5, 4),
+            textcoords="offset points",
+            fontsize=9,
+            color="darkorange",
+            fontweight="bold",
+        )
+        ax.set_xlim(-1.4, 1.4)
+        ax.set_ylim(-1.4, 1.4)
+        ax.set_aspect("equal")
+        ax.axhline(0, color="#30363d", lw=0.5)
+        ax.axvline(0, color="#30363d", lw=0.5)
+        ax.set_title(
+            "Step 2\nQ aligns with matched key K[j]",
+            fontsize=10,
+            color="#f0f6fc",
+        )
+        ax.set_xlabel("PC 1", color="#8b949e")
+        ax.set_ylabel("PC 2", color="#8b949e")
+        ax.tick_params(colors="#8b949e")
+        for sp in ax.spines.values():
+            sp.set_color("#30363d")
 
-    # Step 4: context ≈ V[j]
-    ax = axes[3]
-    v_slot = V[j]
-    v_max = max(
-        float(np.abs(v_slot).max()), float(np.abs(context).max()), 1e-8
-    )
-    v_norm = v_slot / v_max
-    ctx_norm = context / v_max
-    cos = float(
-        np.dot(context, v_slot)
-        / np.clip(np.linalg.norm(context) * np.linalg.norm(v_slot), 1e-8, None)
-    )
-    x = np.arange(len(v_slot))
-    ax.bar(
-        x - 0.2,
-        v_norm,
-        width=0.4,
-        color="steelblue",
-        alpha=0.85,
-        label="V[j]",
-    )
-    ax.bar(
-        x + 0.2,
-        ctx_norm,
-        width=0.4,
-        color="darkorange",
-        alpha=0.85,
-        label="context",
-    )
-    ax.set_xlabel("dimension")
-    ax.set_ylabel("value (normalized)")
-    ax.set_title(f"Step 4\ncontext ≈ V[j]  (cosine = {cos:.2f})", fontsize=10)
-    ax.legend(fontsize=8)
+        # Step 3: softmax weights
+        ax = axes[2]
+        slot_labels = ["K[j]" if i == j else f"K[{i}]" for i in range(7)]
+        bar_colors = ["steelblue" if i == j else "#2d333b" for i in range(7)]
+        ax.bar(
+            range(7),
+            weights,
+            color=bar_colors,
+            edgecolor="#484f58",
+            linewidth=0.5,
+        )
+        ax.set_xticks(range(7))
+        ax.set_xticklabels(slot_labels, fontsize=9, color="#8b949e")
+        ax.set_ylabel("weight", color="#8b949e")
+        ax.set_ylim(0, 1.05)
+        ax.axhline(
+            1 / 7, color="#484f58", linestyle="--", alpha=0.7, linewidth=1
+        )
+        ax.annotate(
+            "1/7 (uniform)",
+            xy=(6.4, 1 / 7 + 0.025),
+            fontsize=8,
+            color="#484f58",
+            ha="right",
+        )
+        ax.set_title(
+            "Step 3\nsoftmax(scores) → weights", fontsize=10, color="#f0f6fc"
+        )
+        ax.tick_params(colors="#8b949e")
+        ax.grid(True, axis="y", color="#21262d", lw=0.5)
+        for sp in ax.spines.values():
+            sp.set_color("#30363d")
 
-    fig.suptitle(
-        'Attention walkthrough: "blue" → "sky"', fontweight="bold", fontsize=13
+        # Step 4: context ≈ V[j]
+        ax = axes[3]
+        v_max = max(
+            float(np.abs(v_slot).max()), float(np.abs(context).max()), 1e-8
+        )
+        x_dim = np.arange(len(v_slot))
+        ax.bar(
+            x_dim - 0.2,
+            v_slot / v_max,
+            width=0.4,
+            color="steelblue",
+            alpha=0.85,
+            label="V[j]",
+        )
+        ax.bar(
+            x_dim + 0.2,
+            context / v_max,
+            width=0.4,
+            color="darkorange",
+            alpha=0.85,
+            label="context",
+        )
+        ax.set_xlabel("dimension", color="#8b949e")
+        ax.set_ylabel("value (normalized)", color="#8b949e")
+        ax.set_title(
+            f"Step 4\ncontext ≈ V[j]  (cosine = {cos:.2f})",
+            fontsize=10,
+            color="#f0f6fc",
+        )
+        ax.legend(
+            fontsize=8,
+            facecolor="#161b22",
+            edgecolor="#30363d",
+            labelcolor="#f0f6fc",
+        )
+        ax.tick_params(colors="#8b949e")
+        ax.grid(True, axis="y", color="#21262d", lw=0.5)
+        for sp in ax.spines.values():
+            sp.set_color("#30363d")
+
+        fig.suptitle(
+            f'Attention walkthrough: "{COLOR}" → "{pairs[COLOR]}"',
+            fontweight="bold",
+            fontsize=13,
+            color="#f0f6fc",
+        )
+        fig.subplots_adjust(
+            left=0.05, right=0.99, top=0.85, bottom=0.18, wspace=0.38
+        )
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", bbox_inches="tight", dpi=72)
+        buf.seek(0)
+        frames.append(Image.open(buf).convert("RGB"))
+        buf.close()
+        plt.close(fig)
+
+    all_frames = frames + frames[-2:0:-1]
+    all_frames[0].save(
+        image_file,
+        save_all=True,
+        append_images=all_frames[1:],
+        loop=0,
+        duration=1000,
+        format="GIF",
     )
-    plt.tight_layout()
-    plt.savefig(image_file, dpi=150)
     return image_file
 
-mo.image(build_geometry_plots())
+mo.image(build_geometry_gif())
 ```
 {: .code-collapsed}
-![png](attention_geometry.png)
+![gif](attention_geometry.gif)
 
-Each panel traces one forward pass through the attention mechanism for the input "blue".
-All vector directions are shown in a shared 2D PCA projection.
+Each panel traces one forward pass through the attention mechanism, cycling through each
+input color in turn. All vector directions are shown in a shared 2D PCA projection with a
+fixed basis so the key compass stays stable across frames.
 
 **Step 1** — The embedding lookup gives a $$d$$-dimensional vector for "blue" (blue arrow).
 $$W_q$$ projects it to the query $$Q$$ (orange arrow). The direction changes: $$W_q$$ is a learned
@@ -550,150 +621,228 @@ comes from the non-zero weight on the other slots.
 ## Putting It Together
 
 The plots above each show one part of the attention mechanism in isolation. This final plot
-traces one complete lookup — "blue" → "sky" — end to end in a single frame: which key the
-query selected, what was retrieved from that key, and where the retrieved value landed in
-output space.
+traces a complete lookup end to end for each input color — cycling through all seven in turn —
+showing which key the query selected, what was retrieved from that key, and where the
+retrieved value landed in output space.
 
 The three panels share axes so you can trace a specific slot across all of them. The column
 axis of the left panel is the same as the bar axis of the centre panel — both index the
-seven key slots. Find the slot that "blue" attends to in the left panel, look at the same
-column in the centre panel to see its weight, then follow that weight through to the output
-logits on the right.
+seven key slots. Find the slot that the current color attends to in the left panel, look at
+the same column in the centre panel to see its weight, then follow that weight through to
+the output logits on the right.
 
 ```python
-def build_trace_plot():
-    plt.style.use("dark_background")
-    img_file = mo.notebook_dir() / "attention_trace.png"
-
+def build_trace_gif():
+    img_file = mo.notebook_dir() / "attention_trace.gif"
     color_names = list(pairs.keys())
-    INPUT_COLOR = "blue"
-    input_idx = color_names.index(INPUT_COLOR)
 
     with torch.no_grad():
         all_tokens = torch.tensor([token_lookup[c] for c in color_names])
-        all_queries = model.W_q(model.embedding(all_tokens))       # [7, ndim]
-        weights_all = (all_queries @ model.K.T / model.ndim**0.5).softmax(dim=-1).numpy()
-
-        w_blue = weights_all[input_idx]                             # [7]
-        j = int(np.argmax(w_blue))
-        K_np = model.K.detach().numpy()
+        all_queries = model.W_q(model.embedding(all_tokens))
+        weights_all = (
+            (all_queries @ model.K.T / model.ndim**0.5).softmax(dim=-1).numpy()
+        )
         V_np = model.V.detach().numpy()
-        context = w_blue @ V_np                                     # [ndim]
-        v_slot  = V_np[j]
+        all_logits = [
+            model(torch.tensor(token_lookup[c])).numpy() for c in color_names
+        ]
 
-        logits = model(torch.tensor(token_lookup[INPUT_COLOR])).numpy()
-
-    vocab_labels     = [lookup_token[i] for i in range(vocab_size)]
-    correct_noun_idx = token_lookup[pairs[INPUT_COLOR]]
-    cos = float(np.dot(context, v_slot) /
-                np.clip(np.linalg.norm(context) * np.linalg.norm(v_slot), 1e-8, None))
-
+    vocab_labels = [lookup_token[i] for i in range(vocab_size)]
     bg = "#0d1117"
-    fig = plt.figure(figsize=(18, 5))
-    fig.patch.set_facecolor(bg)
-    gs = fig.add_gridspec(1, 3, width_ratios=[2, 1, 2], wspace=0.38)
+    frames = []
 
-    # --- panel 1: full attention weight matrix (the lookup table) ---
-    ax0 = fig.add_subplot(gs[0])
-    ax0.set_facecolor(bg)
-    im = ax0.imshow(weights_all, aspect="auto", cmap="plasma", vmin=0, vmax=1)
-    ax0.set_xticks(range(7))
-    ax0.set_xticklabels([f"K[{i}]" for i in range(7)], fontsize=8, color="#8b949e")
-    ax0.set_yticks(range(7))
-    ax0.set_yticklabels(color_names, fontsize=9, color="#8b949e")
-    for y in [input_idx - 0.5, input_idx + 0.5]:
-        ax0.axhline(y, color="#f0f6fc", linewidth=1.2, alpha=0.6)
-    for x in [j - 0.5, j + 0.5]:
-        ax0.axvline(x, color="#58a6ff", linewidth=1.2, alpha=0.6)
-    ax0.set_title('Attention weights: every color → every key slot\n(white box = "blue" row,  blue box = matched slot)',
-                  color="#f0f6fc", fontsize=10)
-    ax0.tick_params(colors="#8b949e")
-    for sp in ax0.spines.values():
-        sp.set_color("#30363d")
-    cb = fig.colorbar(im, ax=ax0, fraction=0.05, pad=0.02)
-    cb.ax.tick_params(colors="#8b949e")
-    cb.outline.set_edgecolor("#30363d")
+    for input_idx, INPUT_COLOR in enumerate(color_names):
+        w_color = weights_all[input_idx]
+        j = int(np.argmax(w_color))
+        v_slot = V_np[j]
+        context = w_color @ V_np
+        cos = float(
+            np.dot(context, v_slot)
+            / np.clip(
+                np.linalg.norm(context) * np.linalg.norm(v_slot), 1e-8, None
+            )
+        )
+        logits = all_logits[input_idx]
+        correct_noun_idx = token_lookup[pairs[INPUT_COLOR]]
 
-    # --- panel 2: weight bars + context vs V[j] (same slot axis as panel 1 columns) ---
-    gs2 = gs[1].subgridspec(2, 1, hspace=0.65)
+        fig = plt.figure(figsize=(18, 5))
+        fig.patch.set_facecolor(bg)
+        gs = fig.add_gridspec(1, 3, width_ratios=[2, 1, 2], wspace=0.38)
 
-    ax1a = fig.add_subplot(gs2[0])
-    ax1a.set_facecolor(bg)
-    ax1a.bar(range(7), w_blue,
-             color=["#58a6ff" if i == j else "#2d333b" for i in range(7)], linewidth=0)
-    ax1a.set_xticks(range(7))
-    ax1a.set_xticklabels([f"K[{i}]" for i in range(7)],
-                          fontsize=7, color="#8b949e", rotation=45, ha="right")
-    ax1a.axhline(1 / 7, color="#484f58", linestyle="--", linewidth=0.8)
-    ax1a.set_ylim(0, 1.05)
-    ax1a.set_ylabel("α", color="#8b949e", fontsize=8)
-    ax1a.set_title(f'"blue" weights — slot {j} wins', color="#f0f6fc", fontsize=9)
-    ax1a.tick_params(colors="#8b949e", labelsize=7)
-    for sp in ax1a.spines.values():
-        sp.set_color("#30363d")
+        ax0 = fig.add_subplot(gs[0])
+        ax0.set_facecolor(bg)
+        im = ax0.imshow(
+            weights_all, aspect="auto", cmap="plasma", vmin=0, vmax=1
+        )
+        ax0.set_xticks(range(7))
+        ax0.set_xticklabels(
+            [f"K[{i}]" for i in range(7)], fontsize=8, color="#8b949e"
+        )
+        ax0.set_yticks(range(7))
+        ax0.set_yticklabels(color_names, fontsize=9, color="#8b949e")
+        for y in [input_idx - 0.5, input_idx + 0.5]:
+            ax0.axhline(y, color="#f0f6fc", linewidth=1.2, alpha=0.6)
+        for x in [j - 0.5, j + 0.5]:
+            ax0.axvline(x, color="#58a6ff", linewidth=1.2, alpha=0.6)
+        ax0.set_title(
+            f'Attention weights — query: "{INPUT_COLOR}" (white),  matched slot: K[{j}] (blue)',
+            color="#f0f6fc",
+            fontsize=10,
+        )
+        ax0.tick_params(colors="#8b949e")
+        for sp in ax0.spines.values():
+            sp.set_color("#30363d")
+        cb = fig.colorbar(im, ax=ax0, fraction=0.05, pad=0.02)
+        cb.ax.tick_params(colors="#8b949e")
+        cb.outline.set_edgecolor("#30363d")
 
-    ax1b = fig.add_subplot(gs2[1])
-    ax1b.set_facecolor(bg)
-    scale = max(float(np.abs(v_slot).max()), float(np.abs(context).max()), 1e-8)
-    dims  = np.arange(model.ndim)
-    ax1b.bar(dims - 0.2, v_slot  / scale, width=0.4, color="#58a6ff", alpha=0.85, label=f"V[{j}]")
-    ax1b.bar(dims + 0.2, context / scale, width=0.4, color="#f0883e", alpha=0.85, label="context")
-    ax1b.set_title(f"context ≈ V[{j}]  (cos = {cos:.2f})", color="#f0f6fc", fontsize=9)
-    ax1b.tick_params(colors="#8b949e", labelsize=6)
-    ax1b.set_xlabel("dimension", color="#8b949e", fontsize=7)
-    ax1b.legend(fontsize=7, facecolor="#161b22", edgecolor="#30363d",
-                labelcolor="#f0f6fc", loc="upper right")
-    for sp in ax1b.spines.values():
-        sp.set_color("#30363d")
+        gs2 = gs[1].subgridspec(2, 1, hspace=0.65)
 
-    # --- panel 3: output logits for "blue" ---
-    ax2 = fig.add_subplot(gs[2])
-    ax2.set_facecolor(bg)
-    bar_out = ["#3fb950" if i == correct_noun_idx else
-               "#2d333b" if i < 7 else "#58a6ff"
-               for i in range(vocab_size)]
-    ax2.bar(range(vocab_size), logits, color=bar_out, linewidth=0)
-    ax2.set_xticks(range(vocab_size))
-    ax2.set_xticklabels(vocab_labels, rotation=45, ha="right", fontsize=8, color="#8b949e")
-    ax2.axhline(0, color="#30363d", linewidth=0.8)
-    ax2.set_title(
-        f'Output logits for "{INPUT_COLOR}" → "{lookup_token[int(np.argmax(logits))]}"',
-        color="#f0f6fc", fontsize=10,
+        ax1a = fig.add_subplot(gs2[0])
+        ax1a.set_facecolor(bg)
+        ax1a.bar(
+            range(7),
+            w_color,
+            color=["#58a6ff" if i == j else "#2d333b" for i in range(7)],
+            linewidth=0,
+        )
+        ax1a.set_xticks(range(7))
+        ax1a.set_xticklabels(
+            [f"K[{i}]" for i in range(7)],
+            fontsize=7,
+            color="#8b949e",
+            rotation=45,
+            ha="right",
+        )
+        ax1a.axhline(1 / 7, color="#484f58", linestyle="--", linewidth=0.8)
+        ax1a.set_ylim(0, 1.05)
+        ax1a.set_ylabel("α", color="#8b949e", fontsize=8)
+        ax1a.set_title(
+            f'"{INPUT_COLOR}" weights — slot {j} wins',
+            color="#f0f6fc",
+            fontsize=9,
+        )
+        ax1a.tick_params(colors="#8b949e", labelsize=7)
+        for sp in ax1a.spines.values():
+            sp.set_color("#30363d")
+
+        ax1b = fig.add_subplot(gs2[1])
+        ax1b.set_facecolor(bg)
+        scale = max(
+            float(np.abs(v_slot).max()), float(np.abs(context).max()), 1e-8
+        )
+        dims = np.arange(model.ndim)
+        ax1b.bar(
+            dims - 0.2,
+            v_slot / scale,
+            width=0.4,
+            color="#58a6ff",
+            alpha=0.85,
+            label=f"V[{j}]",
+        )
+        ax1b.bar(
+            dims + 0.2,
+            context / scale,
+            width=0.4,
+            color="#f0883e",
+            alpha=0.85,
+            label="context",
+        )
+        ax1b.set_title(
+            f"context ≈ V[{j}]  (cos = {cos:.2f})", color="#f0f6fc", fontsize=9
+        )
+        ax1b.tick_params(colors="#8b949e", labelsize=6)
+        ax1b.set_xlabel("dimension", color="#8b949e", fontsize=7)
+        ax1b.legend(
+            fontsize=7,
+            facecolor="#161b22",
+            edgecolor="#30363d",
+            labelcolor="#f0f6fc",
+            loc="upper right",
+        )
+        for sp in ax1b.spines.values():
+            sp.set_color("#30363d")
+
+        ax2 = fig.add_subplot(gs[2])
+        ax2.set_facecolor(bg)
+        bar_out = [
+            "#3fb950"
+            if i == correct_noun_idx
+            else "#2d333b"
+            if i < 7
+            else "#58a6ff"
+            for i in range(vocab_size)
+        ]
+        ax2.bar(range(vocab_size), logits, color=bar_out, linewidth=0)
+        ax2.set_xticks(range(vocab_size))
+        ax2.set_xticklabels(
+            vocab_labels, rotation=45, ha="right", fontsize=8, color="#8b949e"
+        )
+        ax2.axhline(0, color="#30363d", linewidth=0.8)
+        ax2.set_title(
+            f'Output logits: "{INPUT_COLOR}" → "{lookup_token[int(np.argmax(logits))]}"',
+            color="#f0f6fc",
+            fontsize=10,
+        )
+        ax2.set_ylabel("logit", color="#8b949e")
+        ax2.tick_params(colors="#8b949e")
+        ax2.grid(True, axis="y", color="#21262d", linewidth=0.5)
+        for sp in ax2.spines.values():
+            sp.set_color("#30363d")
+        ax2.legend(
+            handles=[
+                Patch(facecolor="#3fb950", label="correct noun"),
+                Patch(facecolor="#58a6ff", label="other nouns"),
+                Patch(facecolor="#2d333b", label="color tokens"),
+            ],
+            fontsize=7,
+            facecolor="#161b22",
+            edgecolor="#30363d",
+            labelcolor="#f0f6fc",
+        )
+
+        fig.suptitle(
+            f'Complete lookup trace: "{INPUT_COLOR}" → "{pairs[INPUT_COLOR]}"',
+            color="#f0f6fc",
+            fontweight="bold",
+            fontsize=13,
+        )
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", bbox_inches="tight", dpi=72)
+        buf.seek(0)
+        frames.append(Image.open(buf).convert("RGB"))
+        buf.close()
+        plt.close(fig)
+
+    all_frames = frames + frames[-2:0:-1]
+    all_frames[0].save(
+        img_file,
+        save_all=True,
+        append_images=all_frames[1:],
+        loop=0,
+        duration=1000,
+        format="GIF",
     )
-    ax2.set_ylabel("logit", color="#8b949e")
-    ax2.tick_params(colors="#8b949e")
-    ax2.grid(True, axis="y", color="#21262d", linewidth=0.5)
-    for sp in ax2.spines.values():
-        sp.set_color("#30363d")
-    from matplotlib.patches import Patch
-    ax2.legend(
-        handles=[Patch(facecolor="#3fb950", label="correct noun"),
-                 Patch(facecolor="#58a6ff", label="other nouns"),
-                 Patch(facecolor="#2d333b", label="color tokens")],
-        fontsize=7, facecolor="#161b22", edgecolor="#30363d", labelcolor="#f0f6fc",
-    )
-
-    fig.suptitle(f'Complete lookup trace: "{INPUT_COLOR}" → "{pairs[INPUT_COLOR]}"',
-                 color="#f0f6fc", fontweight="bold", fontsize=13)
-    plt.savefig(img_file, dpi=150, bbox_inches="tight")
     return img_file
 
-mo.image(build_trace_plot(), width=950)
+mo.image(build_trace_gif(), width=950)
 ```
 {: .code-collapsed}
-![png](attention_trace.png)
+![gif](attention_trace.gif)
 
 **Left — the lookup table.** Every row is a trained color query; every column is a key slot.
 After training this matrix is close to a permutation: each color claims one slot with
-near-zero weight everywhere else. The white lines trace "blue"'s row; the blue lines mark
-the slot it matched. The bright cell at their intersection is the query-key pair that fired.
+near-zero weight everywhere else. The white lines trace the current color's row; the blue
+lines mark the slot it matched. The bright cell at their intersection is the query-key pair
+that fired.
 
-**Centre — the retrieval.** Top: "blue"'s attention weights. Almost all weight sits on slot
-$$j$$ (highlighted bar); the dashed line marks 1/7, the uniform baseline. The column index
-here is the same as in the left panel — you can trace a specific slot from the heatmap
-directly to its weight bar. Bottom: the retrieved context (orange) overlaid on $$V[j]$$
-(blue), the value stored in that slot. They are nearly identical because the near-one-hot
-weight collapsed the weighted sum to a single term.
+**Centre — the retrieval.** Top: the current color's attention weights. Almost all weight
+sits on slot $$j$$ (highlighted bar); the dashed line marks 1/7, the uniform baseline. The
+column index here is the same as in the left panel — you can trace a specific slot from the
+heatmap directly to its weight bar. Bottom: the retrieved context (orange) overlaid on
+$$V[j]$$ (blue), the value stored in that slot. They are nearly identical because the
+near-one-hot weight collapsed the weighted sum to a single term.
 
 **Right — the answer.** Output logits over the full vocabulary. Color tokens (dark) get
 low logits — the model has learned the answer is always a noun. Among the seven nouns
