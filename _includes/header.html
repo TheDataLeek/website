@@ -10,14 +10,12 @@
         <ul class="site-nav__list">
           <li><a href="{{ '/1_resume' | relative_url }}" class="site-nav__link{% if page.url contains 'resume' %} site-nav__link--active{% endif %}">Resume</a></li>
           <li><a href="{{ '/contact' | relative_url }}" class="site-nav__link{% if page.url contains 'contact' %} site-nav__link--active{% endif %}">Contact</a></li>
+          <li><a href="{{ '/blog' | relative_url }}" class="site-nav__link{% if page.url contains '/blog' %} site-nav__link--active{% endif %}">Blog</a></li>
           <li class="site-nav__dropdown">
             <button class="site-nav__link site-nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true">
               Projects
             </button>
             <ul class="site-nav__submenu" role="menu">
-              <li role="none">
-                <a href="{{ '/blog' | relative_url }}" class="site-nav__submenu-link{% if page.url contains '/blog' %} site-nav__submenu-link--active{% endif %}" role="menuitem">Blog</a>
-              </li>
               <li role="none">
                 <a href="https://block.github.io/diffweave-ai/" class="site-nav__submenu-link" target="_blank" rel="noopener noreferrer" role="menuitem">
                   Diffweave-ai
