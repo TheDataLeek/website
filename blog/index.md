@@ -22,6 +22,12 @@ nav-menu: false
           <p class="college-cell__desc">Interactive explorations of neural network fundamentals — MLPs, attention, and transformers — built from scratch and visualized in depth.</p>
         </a>
       </article>
+      <article class="college-cell">
+        <a href="{{ '/projects/toronto-maps' | relative_url }}" class="college-cell__inner">
+          <h3 class="college-cell__title">Toronto Maps</h3>
+          <p class="college-cell__desc">Parsing and visualizing my own Google Maps Timeline data — location history reclaimed from a surveillance product and turned into maps of Toronto.</p>
+        </a>
+      </article>
     </div>
   </section>
 </div>
