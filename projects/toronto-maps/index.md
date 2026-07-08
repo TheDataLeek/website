@@ -19,6 +19,12 @@ nav-menu: false
           <p class="college-cell__desc">Parses a raw Google Maps Timeline export into visit and transit records, reconstructs a chronological movement dataframe, and visualizes ping density over time and space — including a circular downtown Toronto header rendered from GPS pings layered over the OSM road network.</p>
         </a>
       </article>
+      <article class="college-cell">
+        <a href="{{ '/projects/toronto-maps/road_network' | relative_url }}" class="college-cell__inner">
+          <h3 class="college-cell__title">Map-Matching a GPS Trail onto Toronto's Road Network</h3>
+          <p class="college-cell__desc">Builds a routable OSM road graph for Toronto and sequentially map-matches raw GPS pings onto it, scoring each candidate road by a combination of routing distance and GPS offset so ambiguous snaps near intersections and highway interchanges resolve correctly.</p>
+        </a>
+      </article>
     </div>
   </div>
 </div>

@@ -63,6 +63,49 @@ def process_blocks(text):
     return '\n'.join(out)
 
 
+def merge_adjacent_python_blocks(text):
+    """Combine consecutive ```python fences with nothing but blank lines between
+    them (no prose, no image) into a single fenced block."""
+    lines = text.split('\n')
+    out = []
+    i = 0
+    while i < len(lines):
+        if lines[i] != '```python':
+            out.append(lines[i])
+            i += 1
+            continue
+
+        # Collect this block's body
+        j = i + 1
+        body = []
+        while j < len(lines) and lines[j] != '```':
+            body.append(lines[j])
+            j += 1
+        j += 1  # past closing fence
+
+        # Keep absorbing directly-adjacent python blocks
+        while True:
+            k = j
+            while k < len(lines) and lines[k].strip() == '':
+                k += 1
+            if k < len(lines) and lines[k] == '```python':
+                body.append('')
+                k += 1
+                while k < len(lines) and lines[k] != '```':
+                    body.append(lines[k])
+                    k += 1
+                j = k + 1
+            else:
+                break
+
+        out.append('```python')
+        out.extend(body)
+        out.append('```')
+        i = j
+
+    return '\n'.join(out)
+
+
 def fix_math(text):
     # Protect existing $$ so the single-$ pass doesn't double them again
     text = text.replace('$$', '\x00')
@@ -74,6 +117,7 @@ def convert(src):
     # Strip marimo frontmatter block
     text = re.sub(r'^---\n.*?\n---\n\n?', '', src, flags=re.DOTALL)
     text = process_blocks(text)
+    text = merge_adjacent_python_blocks(text)
     text = fix_math(text)
     # Collapse runs of 3+ blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
