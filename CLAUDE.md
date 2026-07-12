@@ -37,7 +37,7 @@ Python dependencies are managed with `uv`. The root `pyproject.toml` declares a 
 ## SCSS Design System
 
 All design tokens live in `_sass/_variables.scss`:
-- **Color palette**: Feminine accent palette (`$fem-rose`, `$fem-lavender`, `$fem-teal`, `$fem-purple`, `$fem-sky`) mapped to semantic roles (`$accent-primary`, `$accent-code`, `$accent-math`, etc.)
+- **Color palette**: The 6 semantic accent roles (`$accent-primary`, `$accent-secondary`, `$accent-code`, `$accent-math`, `$accent-figure`, `$accent-callout`) are defined per-theme in `_sass/_palette-*.scss` (currently `_palette-astro.scss` and `_palette-feminine.scss`). `_variables.scss` activates one via a single `@import` — comment/uncomment to swap the whole site's accent colors. Never hardcode hex colors elsewhere; always reference the semantic `$accent-*` variables (or `var(--accent-*)` in CSS) so themes stay swappable.
 - **Surfaces**: Dark warm-purple palette (`$surface-page: #252030`, `$surface-cell: #2c2840`, `$surface-code: #32304a`)
 - **Spacing**: `$space-1` through `$space-16` (rem-based scale, note: `$space-5` does not exist — use `$space-4` or `$space-6`)
 - **Typography**: Inter (sans) + Comfortaa (display/headings) + JetBrains Mono (mono); `$text-xs` through `$text-4xl`

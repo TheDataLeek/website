@@ -26,7 +26,7 @@
   display: block;
   // Gradient ring: rose → lavender
   padding: 3px;
-  background: linear-gradient(135deg, #{$fem-rose}, #{$fem-lavender});
+  background: linear-gradient(135deg, #{$accent-primary}, #{$accent-secondary});
 }
 
 .home-hero__bio {
@@ -92,9 +92,9 @@
   aspect-ratio: 3 / 2;
   background: $surface-code;
 
-  &:nth-child(1) { border-left: 3px solid $fem-rose; }
-  &:nth-child(2) { border-left: 3px solid $fem-teal; }
-  &:nth-child(3) { border-left: 3px solid $fem-lavender; }
+  &:nth-child(1) { border-left: 3px solid $accent-primary; }
+  &:nth-child(2) { border-left: 3px solid $accent-code; }
+  &:nth-child(3) { border-left: 3px solid $accent-secondary; }
 }
 
 .home-tile__img {

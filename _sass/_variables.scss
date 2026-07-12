@@ -1,17 +1,10 @@
-// ── Feminine accent palette ───────────────────────────────────────────────────
-$fem-rose:    #c06fa3;
-$fem-lavender: #9c7ec7;
-$fem-teal:    #5fada8;
-$fem-purple:  #a67cc0;
-$fem-sky:     #7ab8d4;
-
-// ── Semantic accent roles ─────────────────────────────────────────────────────
-$accent-primary:   $fem-rose;
-$accent-secondary: $fem-lavender;
-$accent-code:      $fem-teal;
-$accent-math:      $fem-purple;
-$accent-figure:    $fem-sky;
-$accent-callout:   $fem-lavender;
+// ── Accent theme ──────────────────────────────────────────────────────────────
+// Swap the active @import below to change every accent color on the site.
+// Each theme in _palette-*.scss defines the same 6 semantic variables:
+// $accent-primary, $accent-secondary, $accent-code, $accent-math,
+// $accent-figure, $accent-callout.
+@import 'palette-astro';
+// @import 'palette-feminine';
 
 // ── Dark surface palette (warm-purple tinted) ────────────────────────────────
 $surface-page:     #252030;
